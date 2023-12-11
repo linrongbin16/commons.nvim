@@ -17,6 +17,9 @@ The commons lua library for Neovim plugin project.
 
 - [Requirements](#requirements)
 - [Install](#install)
+  - [Plugin Manager](#plugin-manager)
+  - [LuaRocks](#luarocks)
+  - [GitHub Actions](#github-actions)
 - [Modules](#modules)
 - [Development](#development)
 
@@ -28,7 +31,7 @@ The commons lua library for Neovim plugin project.
 
 There're 3 ways to install this library for Neovim plugin.
 
-### As a dependency in plugin manager
+### Plugin Manager
 
 <details><summary><b>With <a href="https://github.com/folke/lazy.nvim">lazy.nvim</a></b></summary>
 
@@ -55,13 +58,19 @@ require("pckr").add({
 
 </details>
 
-### As a LuaRocks dependency
+### LuaRocks
+
+<details><summary><b>With <a href="https://luarocks.org/">luarocks</a></b></summary>
 
 ```bash
 luarocks install commons.nvim
 ```
 
-### Embed via GitHub Actions
+</details>
+
+### GitHub Actions
+
+<details><summary><b>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></b></summary>
 
 Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder:
 
@@ -94,8 +103,10 @@ vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin'
 Then in your plugin project, load the commons library with:
 
 ```lua
-local strs = require('your.plugin.commons.strings')
+local strings = require('your.plugin.commons.strings')
 ```
+
+</details>
 
 ## Modules
 
