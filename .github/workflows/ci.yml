@@ -1,0 +1,126 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+concurrency:
+  group: ${{ github.ref }}-ci
+  cancel-in-progress: true
+jobs:
+  pr_conventional_commit:
+    name: PR Conventional Commit
+    if: ${{ github.ref != 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ytanikin/PRConventionalCommits@1.1.0
+        with:
+          task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert","break"]'
+  luacheck:
+    name: Lua check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: stevearc/nvim-typecheck-action@v1
+        with:
+          path: lua
+          level: Information
+          configpath: ".luarc.json"
+          neodev-version: stable
+      - uses: lunarmodules/luacheck@v1
+        with:
+          args: lua --config .luacheckrc
+      - uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --config-path .stylua.toml ./lua ./test
+      - name: Add json.lua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        shell: bash
+        run: |
+          echo "pwd"
+          echo $PWD
+          git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
+          cp ~/.json.lua/json.lua ./lua/actboy168_json.lua
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ github.ref != 'refs/heads/main' }}
+        with:
+          commit_message: "chore(pr): auto-commit"
+  unit_test:
+    name: Unit Test
+    strategy:
+      matrix:
+        nvim_version: [stable, nightly, v0.7.0]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+          version: ${{ matrix.nvim_version }}
+      - uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "luajit-2.1.0-beta3"
+      - uses: leafo/gh-actions-luarocks@v4
+      - name: Run test cases
+        shell: bash
+        run: |
+          luarocks install luacheck
+          luarocks install luacov
+          luarocks install cluacov
+          luarocks install vusted
+          git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+          ~/.fzf/install
+          export PATH="$HOME/.fzf/bin:$PATH"
+          vusted --coverage --shuffle ./test
+      - name: Generate coverage reports
+        shell: bash
+        run: |
+          echo "ls ."
+          ls -l .
+          echo "run luacov"
+          luacov
+          echo "ls ."
+          ls -l .
+          echo "cat ./luacov.report.out"
+          cat ./luacov.report.out
+      - uses: codecov/codecov-action@v3
+        with:
+          files: luacov.report.out
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  release:
+    name: Release
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs:
+      - luacheck
+      - unit_test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v4
+        id: release
+        with:
+          release-type: simple
+      - uses: actions/checkout@v4
+      - uses: rickstaa/action-create-tag@v1
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          tag: stable
+          message: "Current stable release: ${{ steps.release.outputs.tag_name }}"
+          tag_exists_error: false
+          force_push_tag: true
+      - uses: nvim-neorocks/luarocks-tag-release@v5
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:
+          name: linrongbin16-ci-template.nvim
+          version: ${{ steps.release.outputs.tag_name }}
+          labels: |
+            neovim
+            vim
