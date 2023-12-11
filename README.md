@@ -19,7 +19,7 @@ The commons lua library for Neovim plugin project.
 - [Install](#install)
   - [Plugin Manager](#plugin-manager)
   - [LuaRocks](#luarocks)
-  - [GitHub Actions](#github-actions)
+  - [Embed Source Code](#embed-source-code)
 - [Modules](#modules)
 - [Development](#development)
 - [Contribute](#contribute)
@@ -69,7 +69,7 @@ luarocks install commons.nvim
 
 </details>
 
-### GitHub Actions
+### Embed Source Code
 
 <details><summary><b>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></b></summary>
 
