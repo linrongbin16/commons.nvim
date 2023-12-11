@@ -1,6 +1,6 @@
 local cwd = vim.fn.getcwd()
 
-describe("ci-template", function()
+describe("commons", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
   local assert_false = assert.is_false
@@ -11,10 +11,10 @@ describe("ci-template", function()
 
   local github_actions = os.getenv("GITHUB_ACTIONS") == "true"
 
-  local ci_template = require("ci-template")
+  local commons = require("commons")
   describe("[setup]", function()
     it("test", function()
-      ci_template.setup()
+      commons.setup()
     end)
   end)
 end)

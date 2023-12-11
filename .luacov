@@ -1,8 +1,8 @@
 modules = {
-    ["ci-template"] = "lua/ci-template.lua",
-    ["ci-template.*"] = "lua",
+    ["commons"] = "lua/commons.lua",
+    ["commons.*"] = "lua",
 }
 
 exclude = {
-    "lua/actboy168_json.lua",
+    "lua/commons/actboy168_json.lua",
 }
