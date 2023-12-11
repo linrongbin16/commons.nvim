@@ -30,8 +30,6 @@ The commons lua library for Neovim plugin project.
 
 ## Install
 
-There're 3 ways to install this library for Neovim plugin.
-
 ### Plugin Manager
 
 <details><summary><b>With <a href="https://github.com/folke/lazy.nvim">lazy.nvim</a></b></summary>
