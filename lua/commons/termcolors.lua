@@ -16,6 +16,7 @@ local M = {}
 M.csi = function(code, ground)
   assert(type(code) == "string")
   assert(ground == nil or ground == "bg" or ground == "fg")
+
   local control = ground == "bg" and 48 or 38
   local r, g, b = code:match("#(..)(..)(..)")
   if r and g and b then
@@ -30,7 +31,7 @@ end
 
 -- Pre-defined CSS colors
 -- Also see: https://www.quackit.com/css/css_color_codes.cfm
-local ANSI_CODES = {
+local CSS_COLORS = {
   black = "0;30",
   grey = M.csi("#808080"),
   silver = M.csi("#c0c0c0"),
@@ -68,6 +69,9 @@ M.hlcode = function(hl, ground)
   if strings.empty(hl) then
     return nil
   end
+
+  assert(ground == "bg" or ground == "fg")
+
   local gui = vim.fn.has("termguicolors") > 0 and vim.o.termguicolors
   local family = gui and "gui" or "cterm"
   local pattern = gui and "^#[%l%d]+" or "^[%d]+$"
@@ -79,23 +83,23 @@ M.hlcode = function(hl, ground)
   return nil
 end
 
--- Render text `content` with ANSI color name (yellow, red, blue, etc) and RGB color codes (#808080, #FF00FF, etc), or vim's syntax highlighting group.
+-- Render `text` content with ANSI color name (yellow, red, blue, etc) and RGB color codes (#808080, #FF00FF, etc), or vim's syntax highlighting group.
 -- Vim's syntax highlighting group has higher priority, but only working when it's provided.
 --
 -- Returns the rendered text content in terminal colors. For example:
 -- \27[38;2;216;166;87mCTRL-U\27[0m  (CTRL-U)
 --
---- @param content string   the text content to be rendered
+--- @param text string   the text content to be rendered
 --- @param name string      the ANSI color name or RGB color codes
 --- @param hl string?       the highlighting group name
 --- @return string
-M.render = function(content, name, hl)
+M.render = function(text, name, hl)
   local fgfmt = nil
   local fgcode = M.hlcode(hl, "fg")
   if type(fgcode) == "string" then
     fgfmt = M.csi(fgcode, "fg")
-  elseif ANSI_CODES[name] then
-    fgfmt = ANSI_CODES[name]
+  elseif CSS_COLORS[name] then
+    fgfmt = CSS_COLORS[name]
   else
     fgfmt = M.csi(name)
   end
@@ -108,20 +112,20 @@ M.render = function(content, name, hl)
   else
     fmt = fgfmt
   end
-  return string.format("[%sm%s[0m", fmt, content)
+  return string.format("[%sm%s[0m", fmt, text)
 end
 
--- Erase the terminal colors from text `content`.
+-- Erase the terminal colors from `text` content.
 --
 -- Returns the raw text content.
 --
---- @param content string?
+--- @param text string?
 --- @return string?
-M.erase = function(content)
-  if type(content) ~= "string" then
-    return content
+M.erase = function(text)
+  if type(text) ~= "string" then
+    return text
   end
-  local result, pos = content
+  local result, pos = text
     :gsub("\x1b%[%d+m\x1b%[K", "")
     :gsub("\x1b%[m\x1b%[K", "")
     :gsub("\x1b%[%d+;%d+;%d+;%d+;%d+m", "")
@@ -132,8 +136,10 @@ M.erase = function(content)
   return result
 end
 
+-- Helper function for the `render` API.
+-- Render `text` content with pre-defined CSS color (see CSS_COLORS), or vim's syntax highlighting group (only if been provided).
 do
-  for name, code in pairs(ANSI_CODES) do
+  for name, code in pairs(CSS_COLORS) do
     --- @param text string
     --- @param hl string?
     --- @return string
