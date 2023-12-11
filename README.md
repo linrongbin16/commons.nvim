@@ -98,7 +98,7 @@ jobs:
 And you need to export the **module prefix** (since the default lua module prefix is `commons`) in environment variable:
 
 ```lua
-vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin'
+vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin.'
 ```
 
 Then in your plugin project, load the commons library with:
