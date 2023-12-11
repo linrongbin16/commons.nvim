@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
+
 # commons.nvim
 
 <p align="center">
@@ -55,7 +57,45 @@ require("pckr").add({
 
 ### As a LuaRocks dependency
 
+```bash
+luarocks install commons.nvim
+```
+
 ### Embed via GitHub Actions
+
+Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder:
+
+```yaml
+jobs:
+  install_commons_nvim:
+    name: Install commons.nvim
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install commons.nvim
+        if: ${{ github.ref != 'refs/heads/main' }}
+        shell: bash
+        run: |
+          echo "pwd"
+          echo $PWD
+          git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
+          cp -rf ~/.commons.nvim/lua/commons ./lua/your/plugin/commons
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ github.ref != 'refs/heads/main' }}
+        with:
+          commit_message: "chore(pr): embed commons.nvim library"
+```
+
+And in Neovim plugin project, you need to export the **_module prefix_** (since the default lua module prefix is `commons`) in environment variable:
+
+```lua
+vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin'
+```
+
+Then in your plugin project, load the commons library with:
+
+```lua
+local strs = require('your.plugin.commons.strings')
+```
 
 ## Modules
 
