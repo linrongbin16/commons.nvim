@@ -94,7 +94,7 @@ jobs:
           commit_message: "chore(pr): embed commons.nvim library"
 ```
 
-And in Neovim plugin project, you need to export the **_module prefix_** (since the default lua module prefix is `commons`) in environment variable:
+And you need to export the **_module prefix_** (since the default lua module prefix is `commons`) in environment variable:
 
 ```lua
 vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin'
