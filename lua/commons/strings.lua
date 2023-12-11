@@ -145,6 +145,20 @@ M.rtrim = function(s, t)
 end
 
 --- @param s string
+--- @param delimiter string
+--- @param opts {plain:boolean?,trimempty:boolean?}|nil  by default opts={plain=true,trimempty=true}
+--- @return string[]
+M.split = function(s, delimiter, opts)
+  opts = opts or {
+    plain = true,
+    trimempty = true,
+  }
+  opts.plain = type(opts.plain) == "boolean" and opts.plain or true
+  opts.trimempty = type(opts.trimempty) == "boolean" and opts.trimempty or true
+  return vim.split(s, delimiter, opts)
+end
+
+--- @param s string
 --- @param t string
 --- @return boolean
 M.startswith = function(s, t)
