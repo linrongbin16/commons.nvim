@@ -22,6 +22,7 @@ The commons lua library for Neovim plugin project.
   - [GitHub Actions](#github-actions)
 - [Modules](#modules)
 - [Development](#development)
+- [Contribute](#contribute)
 
 ## Requirements
 
