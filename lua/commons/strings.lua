@@ -146,7 +146,7 @@ end
 
 --- @param s string
 --- @param delimiter string
---- @param opts {plain:boolean?,trimempty:boolean?}|nil  by default opts={plain=true,trimempty=true}
+--- @param opts {plain:boolean?,trimempty:boolean?}|nil  by default opts={plain=true,trimempty=false}
 --- @return string[]
 M.split = function(s, delimiter, opts)
   opts = opts or {
@@ -154,7 +154,7 @@ M.split = function(s, delimiter, opts)
     trimempty = true,
   }
   opts.plain = type(opts.plain) == "boolean" and opts.plain or true
-  opts.trimempty = type(opts.trimempty) == "boolean" and opts.trimempty or true
+  opts.trimempty = type(opts.trimempty) == "boolean" and opts.trimempty or false
   return vim.split(s, delimiter, opts)
 end
 
