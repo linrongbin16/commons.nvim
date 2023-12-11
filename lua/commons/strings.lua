@@ -29,6 +29,9 @@ end
 --- @param start integer?  by default start=1
 --- @return integer?
 M.find = function(s, t, start)
+  assert(type(s) == "string")
+  assert(type(t) == "string")
+
   start = start or 1
   for i = start, #s do
     local match = true
@@ -56,6 +59,9 @@ end
 --- @param rstart integer?  by default rstart=#s
 --- @return integer?
 M.rfind = function(s, t, rstart)
+  assert(type(s) == "string")
+  assert(type(t) == "string")
+
   rstart = rstart or #s
   for i = rstart, 1, -1 do
     local match = true
@@ -149,6 +155,8 @@ end
 --- @param opts {plain:boolean?,trimempty:boolean?}|nil  by default opts={plain=true,trimempty=false}
 --- @return string[]
 M.split = function(s, delimiter, opts)
+  assert(type(s) == "string")
+  assert(type(delimiter) == "string")
   opts = opts or {
     plain = true,
     trimempty = true,
