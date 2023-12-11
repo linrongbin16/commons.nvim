@@ -119,7 +119,6 @@ jobs:
         env:
           LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
         with:
-          name: linrongbin16-ci-template.nvim
           version: ${{ steps.release.outputs.tag_name }}
           labels: |
             neovim

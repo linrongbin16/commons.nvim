@@ -1,4 +1,4 @@
-# ci-template.nvim
+# commons.nvim
 
 <p align="center">
 <a href="https://github.com/neovim/neovim/releases/v0.7.0"><img alt="Neovim" src="https://img.shields.io/badge/Neovim-v0.7+-57A143?logo=neovim&logoColor=57A143" /></a>
@@ -57,20 +57,19 @@ It provides 4 badges for README.md:
 ### Initialize
 
 1. Click the **_Use this template_** button (in the top right) to create new Neovim plugin project.
-2. Remove the [CHANGELOG.md](https://github.com/linrongbin16/ci-template.nvim/blob/8ba994d7a64c52bb3a4a046068a510f54219aacd/CHANGELOG.md?plain=1#L1) (it's only for **_this_** project, you don't want it).
-3. Replace the word `linrongbin16`:
+2. Replace the word `linrongbin16`:
    - `README.md`: [badges](https://github.com/linrongbin16/ci-template.nvim/blob/9313f7927b133abe342ee4fa1758fb438c6a9c57/README.md?plain=1#L4-L7).
    - `LICENSE`: [user name](https://github.com/linrongbin16/ci-template.nvim/blob/9313f7927b133abe342ee4fa1758fb438c6a9c57/LICENSE?plain=1#L3).
    - `ci.yml`: [luarocks package](https://github.com/linrongbin16/ci-template.nvim/blob/d4a39cecc5384884d2c1d9d205d3503ab266ec21/.github/workflows/ci.yml?plain=1#L122).
-4. Replace the word `ci-template`:
+3. Replace the word `ci-template`:
    - `ci.yml`: [luarocks package](https://github.com/linrongbin16/ci-template.nvim/blob/d4a39cecc5384884d2c1d9d205d3503ab266ec21/.github/workflows/ci.yml?plain=1#L122).
    - `.luacov`: [lua modules](https://github.com/linrongbin16/ci-template.nvim/blob/792fcc25184f0ac3f20c2037ed6a4ae48f4c28d3/.luacov?plain=1#L2-L3).
-5. Rename the file name:
+4. Rename the file name:
    - [ci-template.lua](https://github.com/linrongbin16/ci-template.nvim/blob/203b21999ccd1e43a7e3d5d26e690ff75aeee403/lua/ci-template.lua).
    - [ci_template_spec.lua](https://github.com/linrongbin16/ci-template.nvim/blob/203b21999ccd1e43a7e3d5d26e690ff75aeee403/test/ci_template_spec.lua).
-6. Reset the version:
+5. Reset the version:
    - `version.txt`: [version number](https://github.com/linrongbin16/ci-template.nvim/blob/792fcc25184f0ac3f20c2037ed6a4ae48f4c28d3/version.txt?plain=1#L1).
-7. Reset the indent size (by default 2):
+6. Reset the indent size (by default 2):
    - `.editorconfig`: [indent_size](https://github.com/linrongbin16/ci-template.nvim/blob/7de9e40f84d53d9d07d3206e4979347a942cbd30/.editorconfig?plain=1#L7).
    - `.stylua.toml`: [indent_size](https://github.com/linrongbin16/ci-template.nvim/blob/792fcc25184f0ac3f20c2037ed6a4ae48f4c28d3/.stylua.toml?plain=1#L4).
    - `.nvim.lua` (optional if you enabled `exrc`): [shiftwidth](https://github.com/linrongbin16/ci-template.nvim/blob/b752ecd228a2a3307123315f22bee97bf8760544/.nvim.lua?plain=1#L1-L3).
