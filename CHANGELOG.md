@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.3](https://github.com/linrongbin16/commons.nvim/compare/v1.4.2...v1.4.3) (2023-12-12)
+
+
+### Bug Fixes
+
+* **annotations:** fix typecheck for _system.lua ([#28](https://github.com/linrongbin16/commons.nvim/issues/28)) ([3aeff32](https://github.com/linrongbin16/commons.nvim/commit/3aeff32b89428a8cef0b0a772de3c9a09a681bc4))
+
 ## [1.4.2](https://github.com/linrongbin16/commons.nvim/compare/v1.4.1...v1.4.2) (2023-12-12)
 
 
