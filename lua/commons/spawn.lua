@@ -7,9 +7,10 @@ local M = {}
 --- @alias commons.SpawnOnStderr commons.SpawnLineProcessor
 --- @alias commons.SpawnOnExit fun(exitcode:integer?,signal:integer?):any
 --- @param cmd string[]
---- @param opts {on_stdout:commons.SpawnOnStdout, on_stderr:commons.SpawnOnStderr, on_exit:commons.SpawnOnExit, cwd:string?, env:table?, clear_env:boolean?, stdin:boolean|function|nil, stdout:boolean|function|nil, stderr:boolean|function|nil, text:boolean?, timeout:integer?, detach:boolean?}?
+--- @param opts {on_stdout:commons.SpawnOnStdout, on_stderr:commons.SpawnOnStderr, cwd:string?, env:table?, clear_env:boolean?, stdin:boolean|function|nil, stdout:boolean|function|nil, stderr:boolean|function|nil, text:boolean?, timeout:integer?, detach:boolean?}?
 --         by default {text = true}
-M.run = function(cmd, opts)
+--- @param on_exit commons.SpawnOnExit?
+M.run = function(cmd, opts, on_exit)
   opts = opts or {}
   opts.text = type(opts.text) == "boolean" and opts.text or true
 
@@ -110,7 +111,7 @@ M.run = function(cmd, opts)
   end
 
   local _handle_exit = nil
-  if type(opts.on_exit) == "function" then
+  if type(on_exit) == "function" then
     _handle_exit = function(system_completed)
       local code = nil
       local signal = nil
@@ -118,7 +119,7 @@ M.run = function(cmd, opts)
         code = system_completed.code
         signal = system_completed.signal
       end
-      opts.on_exit(code, signal)
+      on_exit(code, signal)
     end
   end
 

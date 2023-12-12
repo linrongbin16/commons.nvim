@@ -8,3 +8,4 @@ coverage:
         threshold: 90%
 ignore:
   - "lua/commons/actboy168_json.lua"
+  - "lua/commons/_system.lua"

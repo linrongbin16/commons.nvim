@@ -5,4 +5,5 @@ modules = {
 
 exclude = {
     "lua/commons/actboy168_json.lua",
+    "lua/commons/_system.lua",
 }
