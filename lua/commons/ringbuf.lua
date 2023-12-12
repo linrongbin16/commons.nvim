@@ -130,6 +130,15 @@ function _RingBufferIterator:next()
   if self.ringbuf.size == 0 then
     return nil
   end
+  if self.index <= 0 or self.index > self.ringbuf.size then
+    return nil
+  end
+  if
+    self.index ~= self.initial_index
+    and self.ringbuf:_dec(self.index) == self.initial_index
+  then
+    return nil
+  end
 
   assert(self.index >= 1 and self.index <= self.ringbuf.maxsize)
   local item = self.ringbuf.queue[self.index]
@@ -144,6 +153,7 @@ end
 --- @class commons._RingBufferRIterator
 --- @field ringbuf commons.RingBuffer
 --- @field index integer
+--- @field initial_index integer
 local _RingBufferRIterator = {}
 
 --- @param ringbuf commons.RingBuffer
@@ -155,6 +165,7 @@ function _RingBufferRIterator:new(ringbuf, index)
   local o = {
     ringbuf = ringbuf,
     index = index,
+    initial_index = index,
   }
   setmetatable(o, self)
   self.__index = self
@@ -164,6 +175,15 @@ end
 --- @return any?
 function _RingBufferRIterator:next()
   if self.ringbuf.size == 0 then
+    return nil
+  end
+  if self.index <= 0 or self.index > self.ringbuf.size then
+    return nil
+  end
+  if
+    self.index ~= self.initial_index
+    and self.ringbuf:_dec(self.index) == self.initial_index
+  then
     return nil
   end
 

@@ -160,6 +160,8 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 
 ### [commons.numbers](/lua/commons/numbers.lua)
 
+Numbers utilities.
+
 - `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
 - `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
 - `lt(a:number?, b:number?):boolean`/`le(a:number?, b:number?):boolean`: Whether `a` is less than (or less equal to) `b` or not.
@@ -219,7 +221,7 @@ Drop-in replacement **Ring Buffer** data structure with iterator support.
 
 ### [commons.strings](/lua/commons/strings.lua)
 
-String manipulation utilities.
+String utilities.
 
 - `empty(s:string?):boolean`/`not_empty(s:string?):boolean`: Whether string `s` is empty or not.
 - `blank(s:string?):boolean`/`not_blank(s:string?):boolean`: Whether (trimed) string `s` is blank or not.
