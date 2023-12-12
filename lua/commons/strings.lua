@@ -184,11 +184,11 @@ M.endswith = function(s, t)
   return string.len(s) >= string.len(t) and s:sub(#s - #t + 1) == t
 end
 
---- @param s string
+--- @param c string
 --- @return boolean
-M.isspace = function(s)
-  assert(string.len(s) == 1)
-  return s:match("%s") ~= nil
+M.isspace = function(c)
+  assert(string.len(c) == 1)
+  return c:match("%s") ~= nil
 end
 
 --- @param s string
@@ -207,7 +207,7 @@ end
 
 --- @param s string
 --- @return boolean
-M.ishex = function(s)
+M.isxdigit = function(s)
   assert(string.len(s) == 1)
   return s:match("%x") ~= nil
 end
