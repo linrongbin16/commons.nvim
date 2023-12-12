@@ -108,6 +108,7 @@ end
 --- @class commons._RingBufferIterator
 --- @field ringbuf commons.RingBuffer
 --- @field index integer
+--- @field initial_index integer
 local _RingBufferIterator = {}
 
 --- @param ringbuf commons.RingBuffer
@@ -119,27 +120,34 @@ function _RingBufferIterator:new(ringbuf, index)
   local o = {
     ringbuf = ringbuf,
     index = index,
+    initial_index = index,
   }
   setmetatable(o, self)
   self.__index = self
   return o
 end
 
---- @return any?
-function _RingBufferIterator:next()
+--- @return boolean
+function _RingBufferIterator:has_next()
   if self.ringbuf.size == 0 then
-    return nil
+    return false
   end
   if self.index <= 0 or self.index > self.ringbuf.size then
-    return nil
+    return false
   end
   if
     self.index ~= self.initial_index
-    and self.ringbuf:_dec(self.index) == self.initial_index
+    and self.ringbuf:_inc(self.index) == self.initial_index
   then
-    return nil
+    return false
   end
 
+  return true
+end
+
+--- @return any?
+function _RingBufferIterator:next()
+  assert(self:has_next())
   assert(self.index >= 1 and self.index <= self.ringbuf.maxsize)
   local item = self.ringbuf.queue[self.index]
   self.index = self.ringbuf:_inc(self.index)
@@ -172,22 +180,29 @@ function _RingBufferRIterator:new(ringbuf, index)
   return o
 end
 
---- @return any?
-function _RingBufferRIterator:next()
+--- @return boolean
+function _RingBufferRIterator:has_next()
   if self.ringbuf.size == 0 then
-    return nil
+    return false
   end
   if self.index <= 0 or self.index > self.ringbuf.size then
-    return nil
+    return false
   end
   if
     self.index ~= self.initial_index
     and self.ringbuf:_dec(self.index) == self.initial_index
   then
-    return nil
+    return false
   end
 
+  return true
+end
+
+--- @return any?
+function _RingBufferRIterator:next()
+  assert(self:has_next())
   assert(self.index >= 1 and self.index <= self.ringbuf.maxsize)
+
   local item = self.ringbuf.queue[self.index]
   self.index = self.ringbuf:_dec(self.index)
   return item
