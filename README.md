@@ -182,7 +182,7 @@ Numbers utilities.
 - `reduce2home(p:string?):string`: Reduce path `p` to start with home `~`, By default `p` is current working directory.
 - `reduce(p:string?):string`: Reduce path `p` to start with home `~` or current working directory `.`, By default `p` is current working directory.
 - `shorten(p:string?):string`: Shorten path `p` to the `~/p/l/commons.nvim` style, start with home `~` or current working directory `.`, By default `p` is current working directory.
-- `pipename():string`: Make named pipe path, for UNIX/Linux it's a tmp file, for Windows it's `\\.\pipe\nvim-pipe-12873-182710`.
+- `pipename():string`: Make named pipe path, for UNIX/Linux it's a tmp file, for Windows it looks like `\\.\pipe\nvim-pipe-12873-182710`.
 
 ### [commons.ringbuf](/lua/commons/ringbuf.lua)
 
