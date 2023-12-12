@@ -22,6 +22,7 @@ The commons lua library for Neovim plugin project.
   - [Embed Source Code](#embed-source-code)
 - [Usage](#usage)
 - [Modules](#modules)
+  - [commons.buf_options](#commonsbuf_options)
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.numbers](#commonsnumbers)
@@ -29,6 +30,7 @@ The commons lua library for Neovim plugin project.
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
+  - [commons.win_options](#commonswin_options)
 - [Development](#development)
 - [Contribute](#contribute)
 
@@ -134,6 +136,13 @@ local jsons = require("your.plugin.commons.jsons")
 ```
 
 ## Modules
+
+### [commons.buf_options](/lua/commons/buf_options.lua)
+
+Compatible Neovim buffer relate APIs.
+
+- `get_buf_option(bufnr:integer, name:string):any`: get `bufnr` buffer option.
+- `set_buf_option(bufnr:integer, name:string, value:any):any`: set `bufnr` buffer option value.
 
 ### [commons.fileios](/lua/commons/fileios.lua)
 
@@ -275,6 +284,13 @@ And some other APIs:
 ### [commons.uv](/lua/commons/uv.lua)
 
 Use [vim.loop](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/deprecated.txt?plain=1#L166) for Neovim &lt; 0.10, [vim.uv](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/news.txt?plain=1#L345) for Neovim &ge; 0.10.
+
+### [commons.win_options](/lua/commons/win_options.lua)
+
+Compatible Neovim window relate APIs.
+
+- `get_win_option(winnr:integer, name:string):any`: get `winnr` window option.
+- `set_win_option(winnr:integer, name:string, value:any):any`: set `winnr` window option value.
 
 ## Development
 
