@@ -20,9 +20,11 @@ The commons lua library for Neovim plugin project.
   - [Plugin Manager](#plugin-manager)
   - [LuaRocks](#luarocks)
   - [Embed Source Code](#embed-source-code)
+- [Usage](#usage)
 - [Modules](#modules)
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
+  - [commons.numbers](#commonsnumbers)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
@@ -106,9 +108,29 @@ jobs:
 
 Here're some real-world examples:
 
-- [gentags.nvim](https://github.com/linrongbin16/gentags.nvim/blob/4dccab6b03f72f9903e497795283cce263293ab6/lua/gentags.lua?plain=1#L1): [action runs](https://github.com/linrongbin16/gentags.nvim/actions/runs/7176179406/job/19540665077).
+- [gentags.nvim's ci.yml](https://github.com/linrongbin16/gentags.nvim/blob/5f5bd825951fb8bc8c5dea7919c46a86063c6e5e/.github/workflows/ci.yml?plain=1#L47-L51) and its [action runs](https://github.com/linrongbin16/gentags.nvim/actions/runs/7176179406/job/19540665077).
 
 </details>
+
+## Usage
+
+When installed with plugin manager or luarocks, please use:
+
+```lua
+local strings = require("commons.strings")
+local fileios = require("commons.fileios")
+local jsons = require("commons.jsons")
+...
+```
+
+When installed with embed source code, please use:
+
+```lua
+local strings = require("your.plugin.commons.strings")
+local fileios = require("your.plugin.commons.fileios")
+local jsons = require("your.plugin.commons.jsons")
+...
+```
 
 ## Modules
 
@@ -134,6 +156,15 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 
 - `encode(t:table):string`: encode lua table to json object/list string.
 - `decode(j:string):table`: decode json object/list string to lua table.
+
+### [commons.numbers](/lua/commons/numbers.lua)
+
+- `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
+- `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
+- `lt(a:number?, b:number?):boolean`/`le(a:number?, b:number?):boolean`: Whether `a` is less than (or less equal to) `b` or not.
+- `gt(a:number?, b:number?):boolean`/`ge(a:number?, b:number?):boolean`: Whether `a` is greater than (or greater equal to) `b` or not.
+- `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`, e.g. when `value < left` returns `left`, when `value > right` returns `right`.
+- `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
 
 ### [commons.strings](/lua/commons/strings.lua)
 
