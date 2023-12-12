@@ -22,12 +22,15 @@ The commons lua library for Neovim plugin project.
   - [Embed Source Code](#embed-source-code)
 - [Usage](#usage)
 - [Modules](#modules)
+  - [commons.buf_options](#commonsbuf_options)
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.numbers](#commonsnumbers)
+  - [commons.ringbuf](#commonsringbuf)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
+  - [commons.win_options](#commonswin_options)
 - [Development](#development)
 - [Contribute](#contribute)
 
@@ -134,6 +137,13 @@ local jsons = require("your.plugin.commons.jsons")
 
 ## Modules
 
+### [commons.buf_options](/lua/commons/buf_options.lua)
+
+Compatible Neovim buffer relate APIs.
+
+- `get_buf_option(bufnr:integer, name:string):any`: get `bufnr` buffer option.
+- `set_buf_option(bufnr:integer, name:string, value:any):any`: set `bufnr` buffer option value.
+
 ### [commons.fileios](/lua/commons/fileios.lua)
 
 File (sync/async) IO operations.
@@ -159,6 +169,8 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 
 ### [commons.numbers](/lua/commons/numbers.lua)
 
+Numbers utilities.
+
 - `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
 - `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
 - `lt(a:number?, b:number?):boolean`/`le(a:number?, b:number?):boolean`: Whether `a` is less than (or less equal to) `b` or not.
@@ -166,9 +178,51 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 - `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`, e.g. when `value < left` returns `left`, when `value > right` returns `right`.
 - `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
 
+### [commons.ringbuf](/lua/commons/ringbuf.lua)
+
+Drop-in replacement **Ring Buffer** data structure with iterator support.
+
+- `RingBuffer`:
+
+  - `new(maxsize:integer):RingBuffer`: Create new ring buffer data structure with fixed list size.
+  - `push(item:any):integer`: Push new `item` into ring buffer. Returns new added item index.
+  - `pop():any`: Pop out latest added `item` from ring buffer. Returns the latest added item.
+  - `peek():any`: Get latest added `item` without remove it from ring buffer. Returns the latest added item.
+  - `clear():any`: Clear whole ring buffer. Returns the previous items count.
+  - `iterator():_RingBufferIterator`: Returns iterator (from oldest to latest).
+  - `riterator():_RingBufferRIterator`: Returns reverse iterator (from latest to oldest).
+
+- `_RingBufferIterator`:
+
+  - `has_next():boolean`: Whether has next item in ring buffer.
+  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
+
+  ```lua
+  local ringbuf = require("commons.ringbuf").RingBuffer:new()
+  local iter = ringbuf:iterator()
+  while iter:has_next() do
+    local item = iter:next()
+    -- consume item
+  end
+  ```
+
+- `_RingBufferRIterator`:
+
+  - `has_next():boolean`: Whether has next item in ring buffer.
+  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
+
+  ```lua
+  local ringbuf = require("commons.ringbuf").RingBuffer:new()
+  local riter = ringbuf:riterator()
+  while iter:has_next() do
+    local item = iter:next()
+    -- consume item
+  end
+  ```
+
 ### [commons.strings](/lua/commons/strings.lua)
 
-String manipulation utilities.
+String utilities.
 
 - `empty(s:string?):boolean`/`not_empty(s:string?):boolean`: Whether string `s` is empty or not.
 - `blank(s:string?):boolean`/`not_blank(s:string?):boolean`: Whether (trimed) string `s` is blank or not.
@@ -230,6 +284,13 @@ And some other APIs:
 ### [commons.uv](/lua/commons/uv.lua)
 
 Use [vim.loop](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/deprecated.txt?plain=1#L166) for Neovim &lt; 0.10, [vim.uv](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/news.txt?plain=1#L345) for Neovim &ge; 0.10.
+
+### [commons.win_options](/lua/commons/win_options.lua)
+
+Compatible Neovim window relate APIs.
+
+- `get_win_option(winnr:integer, name:string):any`: get `winnr` window option.
+- `set_win_option(winnr:integer, name:string, value:any):any`: set `winnr` window option value.
 
 ## Development
 
