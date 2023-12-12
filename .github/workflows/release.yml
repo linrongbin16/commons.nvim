@@ -1,1 +1,12 @@
-
+name: Release
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+concurrency:
+  group: ${{ github.ref }}-ci
+  cancel-in-progress: true
+jobs:
