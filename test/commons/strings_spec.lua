@@ -4,6 +4,8 @@ describe("commons.strings", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
   local assert_false = assert.is_false
+  local assert_truthy = assert.is.truthy
+  local assert_falsy = assert.is.falsy
 
   before_each(function()
     vim.api.nvim_command("cd " .. cwd)
@@ -125,6 +127,7 @@ describe("commons.strings", function()
       assert_eq(strings.ltrim(" asdf  "), "asdf  ")
       assert_eq(strings.ltrim(" \nasdf\n"), "asdf\n")
       assert_eq(strings.ltrim("\tasdf\t"), "asdf\t")
+      assert_eq(strings.ltrim("\tasdf\t", "\ta"), "sdf\t")
     end)
     it("trim right", function()
       assert_eq(strings.rtrim("asdf"), "asdf")
@@ -132,6 +135,7 @@ describe("commons.strings", function()
       assert_eq(strings.rtrim(" \nasdf"), " \nasdf")
       assert_eq(strings.rtrim(" \nasdf\n"), " \nasdf")
       assert_eq(strings.rtrim("\tasdf\t"), "\tasdf")
+      assert_eq(strings.rtrim("\tasdf\t", "df\t"), "\tas")
     end)
   end)
   describe("[split]", function()
