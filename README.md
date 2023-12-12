@@ -120,7 +120,7 @@ When installed with plugin manager or luarocks, please use:
 local strings = require("commons.strings")
 local fileios = require("commons.fileios")
 local jsons = require("commons.jsons")
--- ...
+...
 ```
 
 When installed with embed source code, please use:
@@ -129,7 +129,7 @@ When installed with embed source code, please use:
 local strings = require("your.plugin.commons.strings")
 local fileios = require("your.plugin.commons.fileios")
 local jsons = require("your.plugin.commons.jsons")
--- ...
+...
 ```
 
 ## Modules
