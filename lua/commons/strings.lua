@@ -1,3 +1,5 @@
+-- String manipulate utilities.
+
 local M = {}
 
 --- @param s any
