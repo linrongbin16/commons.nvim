@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0](https://github.com/linrongbin16/commons.nvim/compare/v1.2.1...v1.3.0) (2023-12-12)
+
+
+### Features
+
+* **lib:** add 'buf_options' ([#18](https://github.com/linrongbin16/commons.nvim/issues/18)) ([2124d6e](https://github.com/linrongbin16/commons.nvim/commit/2124d6e659cce4171d8d994cf047c26164e86627))
+* **lib:** add 'ringbuf' ([#18](https://github.com/linrongbin16/commons.nvim/issues/18)) ([2124d6e](https://github.com/linrongbin16/commons.nvim/commit/2124d6e659cce4171d8d994cf047c26164e86627))
+* **lib:** add 'win_options' ([#18](https://github.com/linrongbin16/commons.nvim/issues/18)) ([2124d6e](https://github.com/linrongbin16/commons.nvim/commit/2124d6e659cce4171d8d994cf047c26164e86627))
+
+
+### Bug Fixes
+
+* **lib:** rename 'buf_options' to 'buffers' ([#20](https://github.com/linrongbin16/commons.nvim/issues/20)) ([11d0d4d](https://github.com/linrongbin16/commons.nvim/commit/11d0d4d1b525457f761aef775ef1249d4e4b6186))
+* **lib:** rename 'win_options' to 'windows' ([#20](https://github.com/linrongbin16/commons.nvim/issues/20)) ([11d0d4d](https://github.com/linrongbin16/commons.nvim/commit/11d0d4d1b525457f761aef775ef1249d4e4b6186))
+
 ## [1.2.1](https://github.com/linrongbin16/commons.nvim/compare/v1.2.0...v1.2.1) (2023-12-12)
 
 
