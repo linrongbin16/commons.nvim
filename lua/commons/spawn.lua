@@ -8,9 +8,10 @@ local M = {}
 --- @alias commons.SpawnOnExit fun(exitcode:integer,signal:integer):any
 --- @param cmd string[]
 --- @param opts {on_stdout:commons.SpawnOnStdout, on_stderr:commons.SpawnOnStderr, on_exit:commons.SpawnOnExit, cwd:string?, env:table?, clear_env:boolean?, stdin:boolean|function|nil, stdout:boolean|function|nil, stderr:boolean|function|nil, text:boolean?, timeout:integer?, detach:boolean?}?
---         by default {clear_env = false, text = true}
+--         by default {text = true}
 M.run = function(cmd, opts)
   opts = opts or {}
+  opts.text = type(opts.text) == "boolean" and opts.text or true
 
   local stdout_buffer = nil
 
@@ -34,12 +35,12 @@ M.run = function(cmd, opts)
     return _system(cmd, {
       cwd = opts.cwd,
       env = opts.env,
-      clear_env = type(opts.clear_env) == "boolean" and opts.clear_env or false,
+      clear_env = opts.clear_env,
       ---@diagnostic disable-next-line: assign-type-mismatch
       stdin = opts.stdin,
       stdout = _handle_stdout,
       stderr = _handle_stderr,
-      text = type(opts.text) == "boolean" and opts.text or true,
+      text = opts.text,
       timeout = opts.timeout,
       detach = opts.detach,
     }, function(exitcode, signal)
@@ -49,12 +50,12 @@ M.run = function(cmd, opts)
     return _system(cmd, {
       cwd = opts.cwd,
       env = opts.env,
-      clear_env = type(opts.clear_env) == "boolean" and opts.clear_env or false,
+      clear_env = opts.clear_env,
       ---@diagnostic disable-next-line: assign-type-mismatch
       stdin = opts.stdin,
       stdout = _handle_stdout,
       stderr = _handle_stderr,
-      text = type(opts.text) == "boolean" and opts.text or true,
+      text = opts.text,
       timeout = opts.timeout,
       detach = opts.detach,
     })
