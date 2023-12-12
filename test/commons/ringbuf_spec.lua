@@ -47,14 +47,14 @@ describe("lib.nvim", function()
       end
       for i = 1, 10 do
         local actual = rb:pop()
-        print(
-          string.format(
-            "|ringbuf| pop-2 i:%s, actual:%s, rb:%s\n",
-            vim.inspect(i),
-            vim.inspect(actual),
-            vim.inspect(rb)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "|ringbuf| pop-2 i:%s, actual:%s, rb:%s\n",
+        --     vim.inspect(i),
+        --     vim.inspect(actual),
+        --     vim.inspect(rb)
+        --   )
+        -- )
         assert_eq(actual, 17 - i + 1)
       end
       assert_eq(rb:pop(), nil)
@@ -67,15 +67,15 @@ describe("lib.nvim", function()
       for i = 1, 10 do
         local actual1 = rb:peek()
         local actual2 = rb:pop()
-        print(
-          string.format(
-            "|ringbuf| peek i:%s, actual1:%s, actual2:%s, rb:%s\n",
-            vim.inspect(i),
-            vim.inspect(actual1),
-            vim.inspect(actual2),
-            vim.inspect(rb)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "|ringbuf| peek i:%s, actual1:%s, actual2:%s, rb:%s\n",
+        --     vim.inspect(i),
+        --     vim.inspect(actual1),
+        --     vim.inspect(actual2),
+        --     vim.inspect(rb)
+        --   )
+        -- )
         assert_eq(actual1, actual2)
         assert_eq(actual1, 10 - i + 1)
       end
@@ -97,16 +97,16 @@ describe("lib.nvim", function()
       end
       local expect = 1
       local it = rb:iterator()
-      print(string.format("|ringbuf| iterator-1, it:%s\n", vim.inspect(it)))
+      -- print(string.format("|ringbuf| iterator-1, it:%s\n", vim.inspect(it)))
       while it:has_next() do
         local actual = it:next()
-        print(
-          string.format(
-            "|ringbuf| iterate:next-1, it:%s, actual:%s\n",
-            vim.inspect(it),
-            vim.inspect(actual)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "|ringbuf| iterate:next-1, it:%s, actual:%s\n",
+        --     vim.inspect(it),
+        --     vim.inspect(actual)
+        --   )
+        -- )
         assert_eq(actual, expect)
         expect = expect + 1
       end
@@ -116,17 +116,17 @@ describe("lib.nvim", function()
       end
       expect = 6
       it = rb:iterator()
-      print(string.format("|ringbuf| iterator-2, it:%s\n", vim.inspect(it)))
+      -- print(string.format("|ringbuf| iterator-2, it:%s\n", vim.inspect(it)))
       while it:has_next() do
         local actual = it:next()
-        print(
-          string.format(
-            "|ringbuf| iterate:next-2, it:%s, expect:%s, actual:%s\n",
-            vim.inspect(it),
-            vim.inspect(expect),
-            vim.inspect(actual)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "|ringbuf| iterate:next-2, it:%s, expect:%s, actual:%s\n",
+        --     vim.inspect(it),
+        --     vim.inspect(expect),
+        --     vim.inspect(actual)
+        --   )
+        -- )
         if expect <= 5 then
           assert_eq(actual, expect + 10)
         else
@@ -155,16 +155,16 @@ describe("lib.nvim", function()
       end
       local expect = 10
       local it = rb:riterator()
-      print(string.format("|ringbuf| riterator-1, it:%s\n", vim.inspect(it)))
+      -- print(string.format("|ringbuf| riterator-1, it:%s\n", vim.inspect(it)))
       while it:has_next() do
         local actual = it:next()
-        print(
-          string.format(
-            "|ringbuf| riterator:next-1, it:%s, actual:%s\n",
-            vim.inspect(it),
-            vim.inspect(actual)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "|ringbuf| riterator:next-1, it:%s, actual:%s\n",
+        --     vim.inspect(it),
+        --     vim.inspect(actual)
+        --   )
+        -- )
         assert_eq(actual, expect)
         expect = expect - 1
       end
@@ -176,16 +176,16 @@ describe("lib.nvim", function()
       end
       expect = 17
       it = rb:riterator()
-      print(string.format("|ringbuf| riterator-2, it:%s\n", vim.inspect(it)))
+      -- print(string.format("|ringbuf| riterator-2, it:%s\n", vim.inspect(it)))
       while it:has_next() do
         local actual = it:next()
-        print(
-          string.format(
-            "|ringbuf| riterator:next-2, it:%s, actual:%s\n",
-            vim.inspect(it),
-            vim.inspect(actual)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "|ringbuf| riterator:next-2, it:%s, actual:%s\n",
+        --     vim.inspect(it),
+        --     vim.inspect(actual)
+        --   )
+        -- )
         assert_eq(actual, expect)
         expect = expect - 1
       end
@@ -197,16 +197,16 @@ describe("lib.nvim", function()
       end
       expect = 30
       it = rb:riterator()
-      print(string.format("|ringbuf| riterator-3, it:%s\n", vim.inspect(it)))
+      -- print(string.format("|ringbuf| riterator-3, it:%s\n", vim.inspect(it)))
       while it:has_next() do
         local actual = it:next()
-        print(
-          string.format(
-            "|ringbuf| riterator:next-3, it:%s, actual:%s\n",
-            vim.inspect(it),
-            vim.inspect(actual)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "|ringbuf| riterator:next-3, it:%s, actual:%s\n",
+        --     vim.inspect(it),
+        --     vim.inspect(actual)
+        --   )
+        -- )
         assert_eq(actual, expect)
         expect = expect - 1
       end
