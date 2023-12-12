@@ -140,13 +140,13 @@ String manipulation utilities.
 - `split(s:string, sep:string, opts:{plain:boolean?,trimempty:boolean?}?):string`: Split string `s` by `sep`, by default the `opts` is `{plain = true, trimempty = false}`. This is just a wrapper for [vim.split(s, sep, {plain=true})](<https://neovim.io/doc/user/lua.html#vim.split()>).
 - `startswith(s:string, t:string):boolean`: Whether string `s` starts with target `t`.
 - `endswith(s:string, t:string):boolean`: Whether string `s` ends with target `t`.
-- `isspace(c:string):boolean`: Whether character `c` is whitespace, string length of `c` must be `1`. Also see C/C++ [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
-- `isalnum(c:string):boolean`: Whether character `c` is alphanumeric (0-9 A-Z a-z), string length of `c` must be `1`. Also see C/C++ [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
-- `isdigit(c:string):boolean`: Whether character `c` is digit (0-9), string length of `c` must be `1`. Also see C/C++ [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
-- `isxdigit(c:string):boolean`: Whether character `c` is hex digit (0-9 a-f A-F), string length of `c` must be `1`. Also see C/C++ [isxdigit](https://en.cppreference.com/w/cpp/string/byte/isxdigit).
-- `isalpha(c:string):boolean`: Whether character `c` is alphabetic character (a-z A-Z), string length of `c` must be `1`. Also see C/C++ [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
-- `islower(c:string):boolean`: Whether character `c` is lower case alphabetic character (a-z), string length of `c` must be `1`. Also see C/C++ [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
-- `isupper(c:string):boolean`: Whether character `c` is upper case alphabetic character (A-Z), string length of `c` must be `1`. Also see C/C++ [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
+- `isspace(c:string):boolean`: Whether character `c` is whitespace, string length of `c` must be `1`. Also see C++ Reference [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
+- `isalnum(c:string):boolean`: Whether character `c` is alphanumeric (0-9 A-Z a-z), string length of `c` must be `1`. Also see C++ Reference [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
+- `isdigit(c:string):boolean`: Whether character `c` is digit (0-9), string length of `c` must be `1`. Also see C++ Reference [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
+- `isxdigit(c:string):boolean`: Whether character `c` is hex digit (0-9 a-f A-F), string length of `c` must be `1`. Also see C++ Reference [isxdigit](https://en.cppreference.com/w/cpp/string/byte/isxdigit).
+- `isalpha(c:string):boolean`: Whether character `c` is alphabetic character (a-z A-Z), string length of `c` must be `1`. Also see C++ Reference [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
+- `islower(c:string):boolean`: Whether character `c` is lower case alphabetic character (a-z), string length of `c` must be `1`. Also see C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
+- `isupper(c:string):boolean`: Whether character `c` is upper case alphabetic character (A-Z), string length of `c` must be `1`. Also see C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
 
 ## Usage
 
