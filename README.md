@@ -22,7 +22,7 @@ The commons lua library for Neovim plugin project.
   - [Embed Source Code](#embed-source-code)
 - [Usage](#usage)
 - [Modules](#modules)
-  - [commons.bufopts](#commonsbufopts)
+  - [commons.buffers](#commonsbuffers)
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.numbers](#commonsnumbers)
@@ -30,7 +30,7 @@ The commons lua library for Neovim plugin project.
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
-  - [commons.winopts](#commonswinopts)
+  - [commons.windows](#commonswindows)
 - [Development](#development)
 - [Contribute](#contribute)
 
@@ -131,7 +131,7 @@ local strings = require("your.plugin.commons.strings")
 
 ## Modules
 
-### [commons.bufopts](/lua/commons/bufopts.lua)
+### [commons.buffers](/lua/commons/buffers.lua)
 
 Compatible Neovim buffer relate APIs.
 
@@ -279,7 +279,7 @@ And some other APIs:
 
 Use [vim.loop](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/deprecated.txt?plain=1#L166) for Neovim &lt; 0.10, [vim.uv](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/news.txt?plain=1#L345) for Neovim &ge; 0.10.
 
-### [commons.winopts](/lua/commons/winopts.lua)
+### [commons.windows](/lua/commons/windows.lua)
 
 Compatible Neovim window relate APIs.
 
