@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/linrongbin16/commons.nvim/compare/v1.2.0...v1.2.1) (2023-12-12)
+
+
+### Performance Improvements
+
+* **test:** improve assert utils for unit test ([#16](https://github.com/linrongbin16/commons.nvim/issues/16)) ([766e4c6](https://github.com/linrongbin16/commons.nvim/commit/766e4c62431527dfc2b297c85add20e952a58e16))
+* **test:** improve test cases for 'strings' lib ([#16](https://github.com/linrongbin16/commons.nvim/issues/16)) ([766e4c6](https://github.com/linrongbin16/commons.nvim/commit/766e4c62431527dfc2b297c85add20e952a58e16))
+
 ## [1.2.0](https://github.com/linrongbin16/commons.nvim/compare/v1.1.0...v1.2.0) (2023-12-12)
 
 
