@@ -109,19 +109,9 @@ M.run = function(cmd, opts)
     _system = vim.system
   end
 
+  local _handle_exit = nil
   if type(opts.on_exit) == "function" then
-    return _system(cmd, {
-      cwd = opts.cwd,
-      env = opts.env,
-      clear_env = opts.clear_env,
-      ---@diagnostic disable-next-line: assign-type-mismatch
-      stdin = opts.stdin,
-      stdout = _handle_stdout,
-      stderr = _handle_stderr,
-      text = opts.text,
-      timeout = opts.timeout,
-      detach = opts.detach,
-    }, function(system_completed)
+    _handle_exit = function(system_completed)
       local code = nil
       local signal = nil
       if type(system_completed) == "table" then
@@ -129,21 +119,21 @@ M.run = function(cmd, opts)
         signal = system_completed.signal
       end
       opts.on_exit(code, signal)
-    end)
-  else
-    return _system(cmd, {
-      cwd = opts.cwd,
-      env = opts.env,
-      clear_env = opts.clear_env,
-      ---@diagnostic disable-next-line: assign-type-mismatch
-      stdin = opts.stdin,
-      stdout = _handle_stdout,
-      stderr = _handle_stderr,
-      text = opts.text,
-      timeout = opts.timeout,
-      detach = opts.detach,
-    })
+    end
   end
+
+  return _system(cmd, {
+    cwd = opts.cwd,
+    env = opts.env,
+    clear_env = opts.clear_env,
+    ---@diagnostic disable-next-line: assign-type-mismatch
+    stdin = opts.stdin,
+    stdout = _handle_stdout,
+    stderr = _handle_stderr,
+    text = opts.text,
+    timeout = opts.timeout,
+    detach = opts.detach,
+  }, _handle_exit)
 end
 
 return M
