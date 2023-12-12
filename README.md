@@ -25,6 +25,7 @@ The commons lua library for Neovim plugin project.
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.numbers](#commonsnumbers)
+  - [commons.ringbuf](#commonsringbuf)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
@@ -165,6 +166,27 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 - `gt(a:number?, b:number?):boolean`/`ge(a:number?, b:number?):boolean`: Whether `a` is greater than (or greater equal to) `b` or not.
 - `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`, e.g. when `value < left` returns `left`, when `value > right` returns `right`.
 - `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
+
+### [commons.ringbuf](/lua/commons/ringbuf.lua)
+
+Drop-in replacement **Ring Buffer** data structure with iterator support.
+
+- `RingBuffer`:
+
+  - `new(maxsize:integer):RingBuffer`: Create new ring buffer data structure with fixed list size.
+  - `push(item:any):integer`: Push new `item` into ring buffer. Returns new added item index.
+  - `pop():any`: Pop out latest added `item` from ring buffer. Returns the latest added item.
+  - `peek():any`: Get latest added `item` without remove it from ring buffer. Returns the latest added item.
+  - `clear():any`: Clear whole ring buffer. Returns the previous items count.
+  - `iterator():_RingBufferIterator`: Returns iterator (from oldest to latest).
+  - `riterator():_RingBufferRIterator`: Returns reverse iterator (from latest to oldest).
+
+- `_RingBufferIterator`:
+
+  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items.
+
+- `_RingBufferRIterator`:
+  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items.
 
 ### [commons.strings](/lua/commons/strings.lua)
 

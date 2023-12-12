@@ -24,19 +24,23 @@ function RingBuffer:new(maxsize)
   return o
 end
 
-function RingBuffer:_inc_pos()
-  if self.pos == self.maxsize then
-    self.pos = 1
+--- @param idx integer
+--- @return integer
+function RingBuffer:_inc(idx)
+  if idx == self.maxsize then
+    return 1
   else
-    self.pos = self.pos + 1
+    return idx + 1
   end
 end
 
-function RingBuffer:_dec_pos()
-  if self.pos == 1 then
-    self.pos = self.maxsize
+--- @param idx integer
+--- @return integer
+function RingBuffer:_dec(idx)
+  if idx == 1 then
+    return self.maxsize
   else
-    self.pos = self.pos - 1
+    return idx - 1
   end
 end
 
@@ -47,10 +51,10 @@ function RingBuffer:push(item)
 
   if self.size < self.maxsize then
     table.insert(self.queue, item)
-    self:_inc_pos()
+    self.pos = self:_inc(self.pos)
     self.size = self.size + 1
   else
-    self:_inc_pos()
+    self.pos = self:_inc(self.pos)
     self.queue[self.pos] = item
   end
   return self.pos
@@ -65,7 +69,7 @@ function RingBuffer:pop()
   local old = self.queue[self.pos]
   self.queue[self.pos] = nil
   self.size = self.size - 1
-  self:_dec_pos()
+  self.pos = self:_dec(self.pos)
   return old
 end
 
@@ -85,6 +89,91 @@ function RingBuffer:clear()
   self.size = 0
   return old
 end
+
+-- RingBufferIterator {
+
+-- usage:
+--
+-- ```lua
+-- local it = ringbuf:iterator()
+-- local item = nil
+-- repeat
+--   item = it:next()
+--   if item then
+--     -- consume item data
+--   end
+-- until item
+-- ```
+--
+--- @class commons._RingBufferIterator
+--- @field ringbuf commons.RingBuffer
+--- @field index integer
+local _RingBufferIterator = {}
+
+--- @param ringbuf commons.RingBuffer
+--- @param index integer
+--- @return commons._RingBufferIterator
+function _RingBufferIterator:new(ringbuf, index)
+  assert(type(ringbuf) == "table")
+
+  local o = {
+    ringbuf = ringbuf,
+    index = index,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+--- @return any?
+function _RingBufferIterator:next()
+  if self.ringbuf.size == 0 then
+    return nil
+  end
+
+  assert(self.index >= 1 and self.index <= self.ringbuf.maxsize)
+  local item = self.ringbuf.queue[self.index]
+  self.index = self.ringbuf:_inc(self.index)
+  return item
+end
+
+-- RingBufferIterator }
+
+-- RingBufferRIterator {
+
+--- @class commons._RingBufferRIterator
+--- @field ringbuf commons.RingBuffer
+--- @field index integer
+local _RingBufferRIterator = {}
+
+--- @param ringbuf commons.RingBuffer
+--- @param index integer
+--- @return commons._RingBufferRIterator
+function _RingBufferRIterator:new(ringbuf, index)
+  assert(type(ringbuf) == "table")
+
+  local o = {
+    ringbuf = ringbuf,
+    index = index,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+--- @return any?
+function _RingBufferRIterator:next()
+  if self.ringbuf.size == 0 then
+    return nil
+  end
+
+  assert(self.index >= 1 and self.index <= self.ringbuf.maxsize)
+  local item = self.ringbuf.queue[self.index]
+  self.index = self.ringbuf:_dec(self.index)
+  return item
+end
+
+-- RingBufferRIterator }
 
 -- get the item on pos, or the last pushed item
 --
@@ -110,7 +199,7 @@ end
 -- ```
 --
 --- @return integer?
-function RingBuffer:begin()
+function RingBuffer:iterator()
   if #self.queue == 0 or self.pos == 0 then
     return nil
   end
