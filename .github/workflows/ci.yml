@@ -27,9 +27,10 @@ jobs:
       - uses: stevearc/nvim-typecheck-action@v1
         with:
           path: lua
-          level: Error
+          level: Information
           configpath: ".luarc.json"
           neodev-version: stable
+          workdir: lua/commons/_system.lua
       - uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc
