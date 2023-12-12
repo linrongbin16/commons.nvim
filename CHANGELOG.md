@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/linrongbin16/commons.nvim/compare/v1.1.0...v1.2.0) (2023-12-12)
+
+
+### Features
+
+* **lib:** add `commons.numbers` ([#14](https://github.com/linrongbin16/commons.nvim/issues/14)) ([fbee2ac](https://github.com/linrongbin16/commons.nvim/commit/fbee2ac45adab72b3cbc1ffaec0b28e6d3ce5dc7))
+* **lib:** add `commons.uv` ([#11](https://github.com/linrongbin16/commons.nvim/issues/11)) ([fbee2ac](https://github.com/linrongbin16/commons.nvim/commit/fbee2ac45adab72b3cbc1ffaec0b28e6d3ce5dc7))
+
 ## [1.1.0](https://github.com/linrongbin16/commons.nvim/compare/v1.0.1...v1.1.0) (2023-12-12)
 
 
