@@ -46,6 +46,15 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
           cp ~/.json.lua/json.lua ./lua/commons/actboy168_json.lua
+      - name: Add _system.lua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        shell: bash
+        run: |
+          echo "pwd"
+          echo $PWD
+          git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
+          cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
+          sed -i 's/vim.uv/vim.loop/g' ./lua/commons/_sysetm.lua
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
