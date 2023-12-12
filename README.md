@@ -99,7 +99,7 @@ jobs:
           mkdir -p ./lua/gentags/commons
           cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/gentags/commons
           cd ./lua/your/plugin/commons
-          find . -type f -name '*.lua' -exec sed -i 's/require("commons")/require("your.plugin.commons")/g' {} \;
+          find . -type f -name '*.lua' -exec sed -i 's/require("commons/require("your.plugin.commons/g' {} \;
           cd $HOME
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
