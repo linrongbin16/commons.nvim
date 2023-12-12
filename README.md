@@ -120,6 +120,22 @@ Here's some real-world examples:
 
 ## Modules
 
+### [commons.jsons](/lua/commons/jsons.lua)
+
+Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://neovim.io/doc/user/lua.html#vim.json) for Neovim &ge; 0.10.
+
+- `encode(t:table):string`: encode lua table to json object/list string.
+- `decode(j:string):table`: decode json object/list string to lua table.
+
+### [commons.strings](/lua/commons/strings.lua)
+
+String manipulation utilities.
+
+- `empty(s:string?):boolean`/`not_empty(s:string?):boolean`: Whether string `s` is empty or not.
+- `blank(s:string?):boolean`/`not_blank(s:string?):boolean`: Whether (trimed) string `s` is blank or not.
+- `find(s:string, t:string, start:integer?):boolean`: Search the first index position of target `t` in string `s`, start from optional `start`, by default `start` is `1`. Returns `nil` if not found, lua string index if been found.
+- `rfind(s:string, t:string, rstart:integer?):boolean`: Reverse search the last index position of target `t` in string `s`, start from optional `rstart`, by default `rstart` is `#s` (length of `s`). Returns `nil` if not found, lua string index if been found.
+
 ## Usage
 
 ## Development
