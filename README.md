@@ -23,6 +23,7 @@ The commons lua library for Neovim plugin project.
 - [Modules](#modules)
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
+  - [commons.numbers](#commonsnumbers)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
