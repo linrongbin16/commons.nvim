@@ -41,7 +41,7 @@ end
 local IncrementalId = 0
 
 --- @return integer
-M.incremental_id = function()
+M.auto_incremental_id = function()
   if IncrementalId >= M.INT32_MAX then
     IncrementalId = 1
   else

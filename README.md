@@ -136,6 +136,15 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 - `encode(t:table):string`: encode lua table to json object/list string.
 - `decode(j:string):table`: decode json object/list string to lua table.
 
+### [commons.numbers](/lua/commons/numbers.lua)
+
+- `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
+- `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
+- `lt(a:number?, b:number?):boolean`/`le(a:number?, b:number?):boolean`: Whether `a` is less than (or less equal to) `b` or not.
+- `gt(a:number?, b:number?):boolean`/`ge(a:number?, b:number?):boolean`: Whether `a` is greater than (or greater equal to) `b` or not.
+- `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`, e.g. when `value < left` returns `left`, when `value > right` returns `right`.
+- `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
+
 ### [commons.strings](/lua/commons/strings.lua)
 
 String manipulation utilities.
