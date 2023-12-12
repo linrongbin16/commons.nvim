@@ -97,25 +97,16 @@ jobs:
           echo $HOME
           git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
           cp -rf ~/.commons.nvim/lua/commons ./lua/your/plugin/commons
+          cd ./lua/your/plugin/commons
+          find . -type f -name '*.lua' -exec sed -i 's/require("commons")/require("your.plugin.commons")/g' {} \;
+          cd $HOME
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
           commit_message: "chore(pr): auto-commit commons.nvim"
 ```
 
-And expose the `_COMMONS_NVIM_MODULE_PREFIX` environment variable at the first line to override the default `commons`:
-
-```lua
-vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin.'
-```
-
-Then load the library with your prefix:
-
-```lua
-local strings = require('your.plugin.commons.strings')
-```
-
-Here's some real-world examples:
+Here're some real-world examples:
 
 - [gentags.nvim](https://github.com/linrongbin16/gentags.nvim/blob/4dccab6b03f72f9903e497795283cce263293ab6/lua/gentags.lua?plain=1#L1)
 
