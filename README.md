@@ -245,8 +245,8 @@ String utilities.
 - `ltrim(s:string, t:string?):string`: Trim optional target `t` from left side of string `s`, by default all whitespaces are been trimed if `t` is not provided. To trim both sides please use [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
 - `rtrim(s:string, t:string?):string`: Trim optional target `t` from right side of string `s`, by default all whitespaces are been trimed if `t` is not provided. To trim both sides please use [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
 - `split(s:string, sep:string, opts:{plain:boolean?,trimempty:boolean?}?):string`: Split string `s` by `sep`, by default the `opts` is `{plain = true, trimempty = false}`. This is just a wrapper for [vim.split(s, sep, {plain=true})](<https://neovim.io/doc/user/lua.html#vim.split()>).
-- `startswith(s:string, t:string):boolean`: Whether string `s` starts with target `t`.
-- `endswith(s:string, t:string):boolean`: Whether string `s` ends with target `t`.
+- `startswith(s:string, t:string, opts:{ignorecase:boolean?}?):boolean`: Whether string `s` starts with target `t`. Set `ignorecase = true` to compare string ignore lower/upper case, by default `ignorecase = false`.
+- `endswith(s:string, t:string, opts:{ignorecase:boolean?}?):boolean`: Whether string `s` ends with target `t`. Set `ignorecase = true` to compare string ignore lower/upper case, by default `ignorecase = false`.
 - `isspace(c:string):boolean`: Whether character `c` is whitespace, string length of `c` must be `1`. Also see C++ Reference [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
 - `isalnum(c:string):boolean`: Whether character `c` is alphanumeric (0-9 A-Z a-z), string length of `c` must be `1`. Also see C++ Reference [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
 - `isdigit(c:string):boolean`: Whether character `c` is digit (0-9), string length of `c` must be `1`. Also see C++ Reference [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
