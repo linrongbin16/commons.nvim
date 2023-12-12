@@ -1,4 +1,4 @@
--- File IO
+-- File IOs
 
 local M = {}
 
