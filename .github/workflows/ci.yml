@@ -54,7 +54,7 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
-          sed -i 's/vim.uv/vim.loop/g' ./lua/commons/_sysetm.lua
+          sed -i 's/vim.uv/vim.loop/g' ./lua/commons/_system.lua
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
