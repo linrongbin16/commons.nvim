@@ -187,50 +187,57 @@ end
 --- @param c string
 --- @return boolean
 M.isspace = function(c)
+  assert(type(c) == "string")
   assert(string.len(c) == 1)
   return c:match("%s") ~= nil
 end
 
---- @param s string
+--- @param c string
 --- @return boolean
-M.isalnum = function(s)
-  assert(string.len(s) == 1)
-  return s:match("%w") ~= nil
+M.isalnum = function(c)
+  assert(type(c) == "string")
+  assert(string.len(c) == 1)
+  return c:match("%w") ~= nil
 end
 
---- @param s string
+--- @param c string
 --- @return boolean
-M.isdigit = function(s)
-  assert(string.len(s) == 1)
-  return s:match("%d") ~= nil
+M.isdigit = function(c)
+  assert(type(c) == "string")
+  assert(string.len(c) == 1)
+  return c:match("%d") ~= nil
 end
 
---- @param s string
+--- @param c string
 --- @return boolean
-M.isxdigit = function(s)
-  assert(string.len(s) == 1)
-  return s:match("%x") ~= nil
+M.isxdigit = function(c)
+  assert(type(c) == "string")
+  assert(string.len(c) == 1)
+  return c:match("%x") ~= nil
 end
 
---- @param s string
+--- @param c string
 --- @return boolean
-M.isalpha = function(s)
-  assert(string.len(s) == 1)
-  return s:match("%a") ~= nil
+M.isalpha = function(c)
+  assert(type(c) == "string")
+  assert(string.len(c) == 1)
+  return c:match("%a") ~= nil
 end
 
---- @param s string
+--- @param c string
 --- @return boolean
-M.islower = function(s)
-  assert(string.len(s) == 1)
-  return s:match("%l") ~= nil
+M.islower = function(c)
+  assert(type(c) == "string")
+  assert(string.len(c) == 1)
+  return c:match("%l") ~= nil
 end
 
---- @param s string
+--- @param c string
 --- @return boolean
-M.isupper = function(s)
-  assert(string.len(s) == 1)
-  return s:match("%u") ~= nil
+M.isupper = function(c)
+  assert(type(c) == "string")
+  assert(string.len(c) == 1)
+  return c:match("%u") ~= nil
 end
 
 return M
