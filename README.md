@@ -188,17 +188,17 @@ Numbers utilities.
 
 Drop-in replacement **Ring Buffer** data structure with iterator support.
 
-- `RingBuffer`:
+- `commons.RingBuffer`:
 
-  - `new(maxsize:integer):RingBuffer`: Create new ring buffer data structure with fixed list size.
+  - `new(maxsize:integer):commons.RingBuffer`: Create new ring buffer data structure with fixed list size.
   - `push(item:any):integer`: Push new `item` into ring buffer. Returns new added item index.
   - `pop():any`: Pop out latest added `item` from ring buffer. Returns the latest added item.
   - `peek():any`: Get latest added `item` without remove it from ring buffer. Returns the latest added item.
   - `clear():any`: Clear whole ring buffer. Returns the previous items count.
-  - `iterator():_RingBufferIterator`: Returns iterator (from oldest to latest).
-  - `riterator():_RingBufferRIterator`: Returns reverse iterator (from latest to oldest).
+  - `iterator():commons._RingBufferIterator`: Returns iterator (from oldest to latest).
+  - `riterator():commons._RingBufferRIterator`: Returns reverse iterator (from latest to oldest).
 
-- `_RingBufferIterator`:
+- `commons._RingBufferIterator`:
 
   - `has_next():boolean`: Whether has next item in ring buffer.
   - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
@@ -212,7 +212,7 @@ Drop-in replacement **Ring Buffer** data structure with iterator support.
   end
   ```
 
-- `_RingBufferRIterator`:
+- `commons._RingBufferRIterator`:
 
   - `has_next():boolean`: Whether has next item in ring buffer.
   - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
@@ -230,9 +230,8 @@ Drop-in replacement **Ring Buffer** data structure with iterator support.
 
 Sync/async run child-process via `uv.spawn` API, and handle stdout/stderr IO by lines.
 
-- `run(cmd:string[], opts:{on_stdout:SpawnOnStdout, on_stderr:SpawnOnStderr, ...}, on_exit:SpawnOnExit?):SystemObject`: run command line, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only difference is `opts` provide more friendly line-based `on_stdout` and `on_stderr` callbacks.
-  - `SpawnOnStdout`/`SpawnOnStderr`: both use the function signature `fun(line:string):any`, been invoked when receiving a line from stdout or stderr.
-  - `SpawnOnExit`: use the function signature `fun(code:integer?, signal:integer?):any`, been invoked when command line exit.
+- `run(cmd:string[], opts:{stdout:fun(line:string):nil, stderr:fun(line:string):nil, [string]:any}, on_exit:fun(completed:vim.SystemCompleted):nil|nil):vim.SystemObject`: run command line, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only difference is `opts` provide more friendly line-based `stdout` and `stderr` callbacks.
+  - `stdout`/`stderr`: both use the function signature `fun(line:string):any`, been invoked when receiving a line from stdout/stderr.
 
 ### [commons.strings](/lua/commons/strings.lua)
 
