@@ -1,12 +1,35 @@
 name: Release
 on:
-  pull_request:
-    branches:
-      - main
   push:
     branches:
       - main
 concurrency:
-  group: ${{ github.ref }}-ci
+  group: ${{ github.ref }}-release
   cancel-in-progress: true
 jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: simple
+          package-name: commons.nvim
+      - uses: actions/checkout@v4
+      - uses: rickstaa/action-create-tag@v1
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          tag: stable
+          message: "Current stable release: ${{ steps.release.outputs.tag_name }}"
+          tag_exists_error: false
+          force_push_tag: true
+      - uses: nvim-neorocks/luarocks-tag-release@v5
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:
+          version: ${{ steps.release.outputs.tag_name }}
+          labels: |
+            neovim
+            vim
