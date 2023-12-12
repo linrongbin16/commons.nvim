@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/linrongbin16/commons.nvim/compare/v1.4.0...v1.4.1) (2023-12-12)
+
+
+### Performance Improvements
+
+* **lib:** add ignorecase opts to 'startswith'/'endswith' in strings ([#23](https://github.com/linrongbin16/commons.nvim/issues/23)) ([de9af2e](https://github.com/linrongbin16/commons.nvim/commit/de9af2e07646554bcb49f9f2d868e789a6ce0070))
+
 ## [1.4.0](https://github.com/linrongbin16/commons.nvim/compare/v1.3.0...v1.4.0) (2023-12-12)
 
 
