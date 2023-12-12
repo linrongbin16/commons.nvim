@@ -41,7 +41,7 @@ The commons lua library for Neovim plugin project.
 
 ```lua
 require("lazy").setup({
-  { "linrongbin16/commons.nvim", opts = {} },
+  "linrongbin16/commons.nvim",
 })
 ```
 
@@ -51,12 +51,7 @@ require("lazy").setup({
 
 ```lua
 require("pckr").add({
-  {
-    "linrongbin16/commons.nvim",
-    config = function()
-      require("commons").setup()
-    end,
-  },
+  "linrongbin16/commons.nvim",
 })
 ```
 
