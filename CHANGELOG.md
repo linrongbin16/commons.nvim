@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/linrongbin16/commons.nvim/compare/v1.3.0...v1.4.0) (2023-12-12)
+
+
+### Features
+
+* **lib:** add 'paths' ([#21](https://github.com/linrongbin16/commons.nvim/issues/21)) ([b1c0a46](https://github.com/linrongbin16/commons.nvim/commit/b1c0a46dc9787f61c6700a26c535ef74e4a9f7e2))
+* **lib:** add 'spawn' ([#21](https://github.com/linrongbin16/commons.nvim/issues/21)) ([b1c0a46](https://github.com/linrongbin16/commons.nvim/commit/b1c0a46dc9787f61c6700a26c535ef74e4a9f7e2))
+
 ## [1.3.0](https://github.com/linrongbin16/commons.nvim/compare/v1.2.1...v1.3.0) (2023-12-12)
 
 
