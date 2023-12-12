@@ -12,3 +12,7 @@ jobs:
       - uses: nvim-neorocks/luarocks-tag-release@v5
         env:
           LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:  
+          labels: |
+            neovim
+            vim
