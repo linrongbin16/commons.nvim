@@ -4,6 +4,8 @@ describe("commons.jsons", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
   local assert_false = assert.is_false
+  local assert_truthy = assert.is.truthy
+  local assert_falsy = assert.is.falsy
 
   before_each(function()
     vim.api.nvim_command("cd " .. cwd)
