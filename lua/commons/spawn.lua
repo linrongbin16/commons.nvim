@@ -4,7 +4,7 @@ local M = {}
 
 --- @alias commons.SpawnLineProcessor fun(line:string):any
 --- @param cmd string[]
---- @param opts {stdout:commons.SpawnLineProcesor stderr:commons.SpawnLineProcessor}?
+--- @param opts {stdout:commons.SpawnLineProcessor, stderr:commons.SpawnLineProcessor, [string]:any}?
 --         by default {text = true}
 --- @param on_exit fun(completed:vim.SystemCompleted):nil|nil
 M.run = function(cmd, opts, on_exit)
