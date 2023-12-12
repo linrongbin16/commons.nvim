@@ -20,6 +20,7 @@ The commons lua library for Neovim plugin project.
   - [Plugin Manager](#plugin-manager)
   - [LuaRocks](#luarocks)
   - [Embed Source Code](#embed-source-code)
+- [Usage](#usage)
 - [Modules](#modules)
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
@@ -110,6 +111,26 @@ Here're some real-world examples:
 - [gentags.nvim](https://github.com/linrongbin16/gentags.nvim/blob/4dccab6b03f72f9903e497795283cce263293ab6/lua/gentags.lua?plain=1#L1): [action runs](https://github.com/linrongbin16/gentags.nvim/actions/runs/7176179406/job/19540665077).
 
 </details>
+
+## Usage
+
+When installed with plugin manager or luarocks, please use:
+
+```lua
+local strings = require("commons.strings")
+local fileios = require("commons.fileios")
+local jsons = require("commons.jsons")
+-- ...
+```
+
+When installed with embed source code, please use:
+
+```lua
+local strings = require("your.plugin.commons.strings")
+local fileios = require("your.plugin.commons.fileios")
+local jsons = require("your.plugin.commons.jsons")
+-- ...
+```
 
 ## Modules
 
