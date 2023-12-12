@@ -21,6 +21,9 @@ The commons lua library for Neovim plugin project.
   - [LuaRocks](#luarocks)
   - [Embed Source Code](#embed-source-code)
 - [Modules](#modules)
+  - [commons.jsons](#commonsjsons)
+  - [commons.strings](#commonsstrings)
+  - [commons.termcolors](#commonstermcolors)
 - [Development](#development)
 - [Contribute](#contribute)
 
