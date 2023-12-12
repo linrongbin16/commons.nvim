@@ -14,7 +14,7 @@ describe("commons.fileios", function()
 
   describe("[readfile/readlines]", function()
     it("readfile and FileLineReader", function()
-      local content = fileios.readfile("README.md")
+      local content = fileios.readfile("README.md", { trim = true })
       local reader = fileios.FileLineReader:open("README.md") --[[@as commons.FileLineReader]]
       local buffer = nil
       assert_eq(type(reader), "table")
@@ -28,7 +28,7 @@ describe("commons.fileios", function()
       assert_eq(strings.rtrim(buffer --[[@as string]]), content)
     end)
     it("readfile and readlines", function()
-      local content = fileios.readfile("README.md")
+      local content = fileios.readfile("README.md", { trim = true })
       local lines = fileios.readlines("README.md")
       local buffer = nil
       for _, line in
@@ -51,7 +51,7 @@ describe("commons.fileios", function()
       fileios.writefile(t1, content)
       fileios.writelines(t2, lines)
 
-      content = fileios.readfile(t1) --[[@as string]]
+      content = fileios.readfile(t1, { trim = true }) --[[@as string]]
       lines = fileios.readlines(t2) --[[@as table]]
 
       local buffer = nil
