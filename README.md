@@ -25,6 +25,7 @@ The commons lua library for Neovim plugin project.
   - [commons.jsons](#commonsjsons)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
+  - [commons.uv](#commonsuv)
 - [Development](#development)
 - [Contribute](#contribute)
 
@@ -134,7 +135,7 @@ Write operations:
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
-Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://neovim.io/doc/user/lua.html#vim.json) for Neovim &ge; 0.10.
+Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/lua.txt?plain=1#L772) for Neovim &ge; 0.10.
 
 - `encode(t:table):string`: encode lua table to json object/list string.
 - `decode(j:string):table`: decode json object/list string to lua table.
@@ -199,6 +200,10 @@ And some other APIs:
 - `retrieve(attr:"fg"|"bg", hl:string):string`: Retrieve ANSI/RGB color codes from vim's syntax highlighting group name. Returns ANSI color codes (30, 35, etc) or RGB color codes (#808080, #FF00FF, etc).
 - `escape(attr:"fg"|"bg", code:string):string`: Format/escape ANSI/RGB color code to terminal escaped (printable) style. Returns the rendered text content in terminal colors. For example: `38;2;216;166;87`.
 - `erase(text:string):string`: Erase ANSI/RGB colors from `text` content. Returns the raw text content.
+
+### [commons.uv](/lua/commons/uv.lua)
+
+Use [vim.loop](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/deprecated.txt?plain=1#L166) for Neovim &lt; 0.10, [vim.uv](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/news.txt?plain=1#L345) for Neovim &ge; 0.10.
 
 ## Development
 
