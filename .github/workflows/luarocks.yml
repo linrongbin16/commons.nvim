@@ -1,1 +1,14 @@
-
+name: LuaRocks
+on:
+  push:
+    tags:
+      - "*"
+jobs:
+  luarocks-release:
+    runs-on: ubuntu-latest
+    name: Upload LuaRocks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nvim-neorocks/luarocks-tag-release@v5
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
