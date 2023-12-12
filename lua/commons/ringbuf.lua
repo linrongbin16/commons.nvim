@@ -175,93 +175,18 @@ end
 
 -- RingBufferRIterator }
 
--- get the item on pos, or the last pushed item
---
---- @param pos integer?
---- @return any?
-function RingBuffer:get(pos)
-  pos = pos or self.pos
-  if #self.queue == 0 or pos == 0 then
-    return nil
-  else
-    return self.queue[pos]
-  end
-end
-
--- iterate from oldest to newest, usage:
---
--- ```lua
---  local p = ring_buffer:begin()
---  while p ~= nil then
---    local item = ring_buffer:get(p)
---    p = ring_buffer:next(p)
---  end
--- ```
---
---- @return integer?
+--- @return commons._RingBufferIterator
 function RingBuffer:iterator()
-  if #self.queue == 0 or self.pos == 0 then
-    return nil
-  end
-  if self.pos == #self.queue then
-    return 1
+  if self.size < self.maxsize then
+    return _RingBufferIterator:new(self, 0)
   else
-    return self.pos + 1
+    return _RingBufferIterator:new(self, self:_inc(self.pos))
   end
 end
 
--- iterate from oldest to newest
---- @param pos integer
---- @return integer?
-function RingBuffer:next(pos)
-  if #self.queue == 0 or pos == 0 then
-    return nil
-  end
-  if pos == self.pos then
-    return nil
-  end
-  if pos == #self.queue then
-    return 1
-  else
-    return pos + 1
-  end
-end
-
--- iterate from newest to oldest, usage:
---
--- ```lua
---  local p = ring_buffer:rbegin()
---  while p ~= nil then
---    local item = ring_buffer:get(p)
---    p = ring_buffer:rnext()
---  end
--- ```
---
---- @return integer?
-function RingBuffer:rbegin()
-  if #self.queue == 0 or self.pos == 0 then
-    return nil
-  end
-  return self.pos
-end
-
--- iterate from newest to oldest
---- @param pos integer
---- @return integer?
-function RingBuffer:rnext(pos)
-  if #self.queue == 0 or pos == 0 then
-    return nil
-  end
-  if self.pos == 1 and pos == #self.queue then
-    return nil
-  elseif pos == self.pos then
-    return nil
-  end
-  if pos == 1 then
-    return #self.queue
-  else
-    return pos - 1
-  end
+--- @return commons._RingBufferRIterator
+function RingBuffer:riterator()
+  return _RingBufferRIterator:new(self, self.pos)
 end
 
 M.RingBuffer = RingBuffer

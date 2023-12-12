@@ -183,10 +183,39 @@ Drop-in replacement **Ring Buffer** data structure with iterator support.
 
 - `_RingBufferIterator`:
 
-  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items.
+  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
+
+  ```lua
+  local ringbuf = require("commons.ringbuf").RingBuffer:new()
+  local iter = ringbuf:iterator()
+  local item = nil
+  repeat
+    item = iter:next()
+    if item then
+      -- consume item
+    else
+      break
+    end
+  until item
+  ```
 
 - `_RingBufferRIterator`:
-  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items.
+
+  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
+
+  ```lua
+  local ringbuf = require("commons.ringbuf").RingBuffer:new()
+  local riter = ringbuf:riterator()
+  local item = nil
+  repeat
+    item = riter:next()
+    if item then
+      -- consume item
+    else
+      break
+    end
+  until item
+  ```
 
 ### [commons.strings](/lua/commons/strings.lua)
 
