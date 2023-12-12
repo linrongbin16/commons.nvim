@@ -28,6 +28,7 @@ The commons lua library for Neovim plugin project.
   - [commons.numbers](#commonsnumbers)
   - [commons.paths](#commonspaths)
   - [commons.ringbuf](#commonsringbuf)
+  - [commons.spawn](#commonsspawn)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
@@ -224,6 +225,14 @@ Drop-in replacement **Ring Buffer** data structure with iterator support.
     -- consume item
   end
   ```
+
+### [commons.spawn](/lua/commons/spawn.lua)
+
+Sync/async run child-process and handle stdout/stderr IO by lines via `uv.spawn` API.
+
+- `run(cmd:string[], opts:{on_stdout:SpawnOnStdout, on_stderr:SpawnOnStderr, ...}, on_exit:SpawnOnExit?):SystemObject`: run command line, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only difference is `opts` provide more friendly line-based `on_stdout` and `on_stderr` callbacks.
+  - `SpawnOnStdout`/`SpawnOnStderr`: both use the function signature `fun(line:string):any`, been invoked when receiving a line from stdout or stderr.
+  - `SpawnOnExit`: use the function signature `fun(code:integer?, signal:integer?):any`, been invoked when command line exit.
 
 ### [commons.strings](/lua/commons/strings.lua)
 
