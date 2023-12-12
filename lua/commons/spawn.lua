@@ -5,7 +5,7 @@ local M = {}
 --- @alias commons.SpawnLineProcessor fun(line:string):any
 --- @alias commons.SpawnOnStdout commons.SpawnLineProcessor
 --- @alias commons.SpawnOnStderr commons.SpawnLineProcessor
---- @alias commons.SpawnOnExit fun(exitcode:integer,signal:integer):any
+--- @alias commons.SpawnOnExit fun(exitcode:integer?,signal:integer?):any
 --- @param cmd string[]
 --- @param opts {on_stdout:commons.SpawnOnStdout, on_stderr:commons.SpawnOnStderr, on_exit:commons.SpawnOnExit, cwd:string?, env:table?, clear_env:boolean?, stdin:boolean|function|nil, stdout:boolean|function|nil, stderr:boolean|function|nil, text:boolean?, timeout:integer?, detach:boolean?}?
 --         by default {text = true}
