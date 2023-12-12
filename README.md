@@ -97,7 +97,7 @@ jobs:
           echo $HOME
           git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
           mkdir -p ./lua/gentags/commons
-          cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/gentags/commons
+          cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/your/plugin/commons
           cd ./lua/your/plugin/commons
           find . -type f -name '*.lua' -exec sed -i 's/require("commons/require("your.plugin.commons/g' {} \;
           cd $HOME
