@@ -45,7 +45,7 @@ jobs:
           echo "pwd"
           echo $PWD
           git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
-          cp ~/.json.lua/json.lua ./lua/actboy168_json.lua
+          cp ~/.json.lua/json.lua ./lua/commons/actboy168_json.lua
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
@@ -54,7 +54,7 @@ jobs:
     name: Unit Test
     strategy:
       matrix:
-        nvim_version: [stable, nightly, v0.7.0]
+        nvim_version: [stable, nightly, v0.6.0]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -119,7 +119,6 @@ jobs:
         env:
           LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
         with:
-          name: linrongbin16-ci-template.nvim
           version: ${{ steps.release.outputs.tag_name }}
           labels: |
             neovim
