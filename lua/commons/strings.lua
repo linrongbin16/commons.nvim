@@ -151,19 +151,19 @@ M.rtrim = function(s, t)
 end
 
 --- @param s string
---- @param delimiter string
---- @param opts {plain:boolean?,trimempty:boolean?}|nil  by default opts={plain=true,trimempty=false}
+--- @param sep string
+--- @param opts {plain:boolean?,trimempty:boolean?}?  by default opts={plain=true,trimempty=false}
 --- @return string[]
-M.split = function(s, delimiter, opts)
+M.split = function(s, sep, opts)
   assert(type(s) == "string")
-  assert(type(delimiter) == "string")
+  assert(type(sep) == "string")
   opts = opts or {
     plain = true,
     trimempty = true,
   }
   opts.plain = type(opts.plain) == "boolean" and opts.plain or true
   opts.trimempty = type(opts.trimempty) == "boolean" and opts.trimempty or false
-  return vim.split(s, delimiter, opts)
+  return vim.split(s, sep, opts)
 end
 
 --- @param s string
