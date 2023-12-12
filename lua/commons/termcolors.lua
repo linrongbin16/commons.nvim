@@ -5,10 +5,6 @@ local strings =
 
 local M = {}
 
--- Format ANSI/RGB color code to terminal escaped print style
---
--- Returns the rendered text content in terminal colors. For example:
--- \27[38;2;216;166;87mCTRL-U\27[0m  (CTRL-U)
 --
 --- @param attr "fg"|"bg"
 --- @param code string
@@ -58,10 +54,6 @@ local CSS_COLORS = {
   steelblue = M.escape("fg", "#4682B4"),
 }
 
--- Retrieve ANSI/RGB color codes from vim's syntax highlighting group name.
---
--- Returns ANSI color codes (30, 35, etc) or RGB color codes (#808080, #FF00FF, etc).
---
 --- @param attr "fg"|"bg"
 --- @param hl string
 --- @return string?
@@ -80,12 +72,6 @@ M.retrieve = function(attr, hl)
   return nil
 end
 
--- Render `text` content with ANSI color name (yellow, red, blue, etc) and RGB color codes (#808080, #FF00FF, etc), or vim's syntax highlighting group.
--- Vim's syntax highlighting group has higher priority, but only working when it's been provided.
---
--- Returns the rendered text content in terminal colors. For example:
--- \27[38;2;216;166;87mCTRL-U\27[0m  (CTRL-U)
---
 --- @param text string   the text content to be rendered
 --- @param name string      the ANSI color name or RGB color codes
 --- @param hl string?       the highlighting group name
@@ -120,7 +106,7 @@ end
 --
 --- @param text string?
 --- @return string?
-M.unescape = function(text)
+M.erase = function(text)
   assert(type(text) == "string")
 
   local result, pos = text

@@ -148,7 +148,45 @@ String manipulation utilities.
 - `islower(c:string):boolean`: Whether character `c` is lower case alphabetic character (a-z), string length of `c` must be `1`. Also see C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
 - `isupper(c:string):boolean`: Whether character `c` is upper case alphabetic character (A-Z), string length of `c` must be `1`. Also see C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
 
-## Usage
+### [commons.termcolors](/lua/commons/termcolors.lua)
+
+Terminal ANSI colors rendering utilities.
+
+> [!NOTE]
+>
+> This module requires true color terminal support and Neovim enables `termguicolors` to present the best display.
+
+- `render(text:string, name:string, hl:string?):string`: Render `text` content with ANSI color (yellow, red, blue, etc) and RGB color (#808080, #FF00FF, etc), or vim's syntax highlighting group. Vim's syntax highlighting group has higher priority, but only working when it's been provided. Returns the rendered text content in terminal colors. For example: `\27[38;2;216;166;87mCTRL-U\27[0m` (rendered text `CTRL-U`).
+
+There're a bunch of pre-defined CSS colors:
+
+- `black(text:string, hl:string?):string`: Render `text` content with black color, or with vim's syntax highlighting group `hl` if been provided.
+- `silver(text:string, hl:string?):string`: same.
+- `white(text:string, hl:string?):string`: same.
+- `violet(text:string, hl:string?):string`: same.
+- `magenta(text:string, hl:string?):string` (`fuchsia`): same.
+- `red(text:string, hl:string?):string`: same.
+- `purple(text:string, hl:string?):string`: same.
+- `indigo(text:string, hl:string?):string`: same.
+- `yellow(text:string, hl:string?):string`: same.
+- `gold(text:string, hl:string?):string`: same.
+- `orange(text:string, hl:string?):string`: same.
+- `chocolate(text:string, hl:string?):string`: same.
+- `olive(text:string, hl:string?):string`: same.
+- `green(text:string, hl:string?):string`: same.
+- `lime(text:string, hl:string?):string`: same.
+- `teal(text:string, hl:string?):string`: same.
+- `cyan(text:string, hl:string?):string` (`aqua`): same.
+- `blue(text:string, hl:string?):string`: same.
+- `navy(text:string, hl:string?):string`: same.
+- `slateblue(text:string, hl:string?):string`: same.
+- `steelblue(text:string, hl:string?):string`: same.
+
+And some other APIs:
+
+- `retrieve(attr:"fg"|"bg", hl:string):string`: Retrieve ANSI/RGB color codes from vim's syntax highlighting group name. Returns ANSI color codes (30, 35, etc) or RGB color codes (#808080, #FF00FF, etc).
+- `escape(attr:"fg"|"bg", code:string):string`: Format/escape ANSI/RGB color code to terminal escaped (printable) style. Returns the rendered text content in terminal colors. For example: `38;2;216;166;87`.
+- `erase(text:string):string`: Erase ANSI/RGB colors from `text` content. Returns the raw text content.
 
 ## Development
 
