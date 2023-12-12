@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/linrongbin16/commons.nvim/compare/v1.4.1...v1.4.2) (2023-12-12)
+
+
+### Bug Fixes
+
+* **lib:** compatible API signature in spawn ([#25](https://github.com/linrongbin16/commons.nvim/issues/25)) ([4e59da0](https://github.com/linrongbin16/commons.nvim/commit/4e59da088ccc2a2be043e503ae6dd58800b022c3))
+
 ## [1.4.1](https://github.com/linrongbin16/commons.nvim/compare/v1.4.0...v1.4.1) (2023-12-12)
 
 
