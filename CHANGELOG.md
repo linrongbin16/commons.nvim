@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.1](https://github.com/linrongbin16/commons.nvim/compare/v1.0.0...v1.0.1) (2023-12-12)
+
+
+### Bug Fixes
+
+* **docs:** fix embed install github actions ([#9](https://github.com/linrongbin16/commons.nvim/issues/9)) ([e69551a](https://github.com/linrongbin16/commons.nvim/commit/e69551a9b11b81c0d0365a5d48022faed11261a2))
+* **lib:** fix json require path ([e69551a](https://github.com/linrongbin16/commons.nvim/commit/e69551a9b11b81c0d0365a5d48022faed11261a2))
+
+
+### Performance Improvements
+
+* **embed:** remove environment variable ([#7](https://github.com/linrongbin16/commons.nvim/issues/7)) ([1e42aa3](https://github.com/linrongbin16/commons.nvim/commit/1e42aa3d74f898f258e30a3a50a4b6f35d4fc416))
+
 ## 1.0.0 (2023-12-12)
 
 
