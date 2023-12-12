@@ -71,9 +71,14 @@ luarocks install commons.nvim
 
 <details><summary><b>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></b></summary>
 
-Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder:
+Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
 
 ```yaml
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
 jobs:
   install_commons_nvim:
     name: Install commons.nvim
@@ -95,27 +100,93 @@ jobs:
           commit_message: "chore(pr): auto-commit commons.nvim"
 ```
 
-<!-- cd ./lua/your/plugin/commons -->
-<!-- find ./ -type f -name '*.lua' -exec sed -i 's/require("commons")/require("your.plugins.commons")/g' {} \; -->
-<!-- cd $HOME -->
-
-And you need to export the **module prefix** (since the default lua module prefix is `commons`) in environment variable:
+And expose the `_COMMONS_NVIM_MODULE_PREFIX` environment variable at the first line to override the default `commons`:
 
 ```lua
 vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin.'
 ```
 
-Then in your plugin project, load the commons library with:
+Then load the library with your prefix:
 
 ```lua
 local strings = require('your.plugin.commons.strings')
 ```
 
+Here's some real-world examples:
+
+- [gentags.nvim](https://github.com/linrongbin16/gentags.nvim/blob/4dccab6b03f72f9903e497795283cce263293ab6/lua/gentags.lua?plain=1#L1)
+
 </details>
 
 ## Modules
 
-## Usage
+### [commons.jsons](/lua/commons/jsons.lua)
+
+Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://neovim.io/doc/user/lua.html#vim.json) for Neovim &ge; 0.10.
+
+- `encode(t:table):string`: encode lua table to json object/list string.
+- `decode(j:string):table`: decode json object/list string to lua table.
+
+### [commons.strings](/lua/commons/strings.lua)
+
+String manipulation utilities.
+
+- `empty(s:string?):boolean`/`not_empty(s:string?):boolean`: Whether string `s` is empty or not.
+- `blank(s:string?):boolean`/`not_blank(s:string?):boolean`: Whether (trimed) string `s` is blank or not.
+- `find(s:string, t:string, start:integer?):boolean`: Search the first index position of target `t` in string `s`, start from optional `start`, by default `start` is `1`. Returns `nil` if not found, lua string index if been found.
+- `rfind(s:string, t:string, rstart:integer?):boolean`: Reverse search the last index position of target `t` in string `s`, start from optional `rstart`, by default `rstart` is `#s` (length of `s`). Returns `nil` if not found, lua string index if been found.
+- `ltrim(s:string, t:string?):string`: Trim optional target `t` from left side of string `s`, by default all whitespaces are been trimed if `t` is not provided. To trim both sides please use [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
+- `rtrim(s:string, t:string?):string`: Trim optional target `t` from right side of string `s`, by default all whitespaces are been trimed if `t` is not provided. To trim both sides please use [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
+- `split(s:string, sep:string, opts:{plain:boolean?,trimempty:boolean?}?):string`: Split string `s` by `sep`, by default the `opts` is `{plain = true, trimempty = false}`. This is just a wrapper for [vim.split(s, sep, {plain=true})](<https://neovim.io/doc/user/lua.html#vim.split()>).
+- `startswith(s:string, t:string):boolean`: Whether string `s` starts with target `t`.
+- `endswith(s:string, t:string):boolean`: Whether string `s` ends with target `t`.
+- `isspace(c:string):boolean`: Whether character `c` is whitespace, string length of `c` must be `1`. Also see C++ Reference [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
+- `isalnum(c:string):boolean`: Whether character `c` is alphanumeric (0-9 A-Z a-z), string length of `c` must be `1`. Also see C++ Reference [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
+- `isdigit(c:string):boolean`: Whether character `c` is digit (0-9), string length of `c` must be `1`. Also see C++ Reference [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
+- `isxdigit(c:string):boolean`: Whether character `c` is hex digit (0-9 a-f A-F), string length of `c` must be `1`. Also see C++ Reference [isxdigit](https://en.cppreference.com/w/cpp/string/byte/isxdigit).
+- `isalpha(c:string):boolean`: Whether character `c` is alphabetic character (a-z A-Z), string length of `c` must be `1`. Also see C++ Reference [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
+- `islower(c:string):boolean`: Whether character `c` is lower case alphabetic character (a-z), string length of `c` must be `1`. Also see C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
+- `isupper(c:string):boolean`: Whether character `c` is upper case alphabetic character (A-Z), string length of `c` must be `1`. Also see C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
+
+### [commons.termcolors](/lua/commons/termcolors.lua)
+
+Terminal ANSI colors rendering utilities.
+
+> [!NOTE]
+>
+> This module requires true color terminal support and Neovim enables `termguicolors` to present the best display.
+
+- `render(text:string, name:string, hl:string?):string`: Render `text` content with ANSI color (yellow, red, blue, etc) and RGB color (#808080, #FF00FF, etc), or vim's syntax highlighting group. Vim's syntax highlighting group has higher priority, but only working when it's been provided. Returns the rendered text content in terminal colors. For example: `\27[38;2;216;166;87mCTRL-U\27[0m` (rendered text `CTRL-U`).
+
+There're a bunch of pre-defined CSS colors:
+
+- `black(text:string, hl:string?):string`: Render `text` content with black color, or with vim's syntax highlighting group `hl` if been provided.
+- `silver(text:string, hl:string?):string`: same.
+- `white(text:string, hl:string?):string`: same.
+- `violet(text:string, hl:string?):string`: same.
+- `magenta(text:string, hl:string?):string` (`fuchsia`): same.
+- `red(text:string, hl:string?):string`: same.
+- `purple(text:string, hl:string?):string`: same.
+- `indigo(text:string, hl:string?):string`: same.
+- `yellow(text:string, hl:string?):string`: same.
+- `gold(text:string, hl:string?):string`: same.
+- `orange(text:string, hl:string?):string`: same.
+- `chocolate(text:string, hl:string?):string`: same.
+- `olive(text:string, hl:string?):string`: same.
+- `green(text:string, hl:string?):string`: same.
+- `lime(text:string, hl:string?):string`: same.
+- `teal(text:string, hl:string?):string`: same.
+- `cyan(text:string, hl:string?):string` (`aqua`): same.
+- `blue(text:string, hl:string?):string`: same.
+- `navy(text:string, hl:string?):string`: same.
+- `slateblue(text:string, hl:string?):string`: same.
+- `steelblue(text:string, hl:string?):string`: same.
+
+And some other APIs:
+
+- `retrieve(attr:"fg"|"bg", hl:string):string`: Retrieve ANSI/RGB color codes from vim's syntax highlighting group name. Returns ANSI color codes (30, 35, etc) or RGB color codes (#808080, #FF00FF, etc).
+- `escape(attr:"fg"|"bg", code:string):string`: Format/escape ANSI/RGB color code to terminal escaped (printable) style. Returns the rendered text content in terminal colors. For example: `38;2;216;166;87`.
+- `erase(text:string):string`: Erase ANSI/RGB colors from `text` content. Returns the raw text content.
 
 ## Development
 

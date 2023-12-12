@@ -279,7 +279,7 @@ describe("commons.strings", function()
           or (i >= string.byte(A) and i <= string.byte(F))
           or (i >= string.byte(_0) and i <= string.byte(_9))
         then
-          assert_true(strings.ishex(string.char(i)))
+          assert_true(strings.isxdigit(string.char(i)))
         else
           -- print(
           --   string.format(
@@ -288,7 +288,7 @@ describe("commons.strings", function()
           --     vim.inspect(strs.ishex(string.char(i)))
           --   )
           -- )
-          assert_false(strings.ishex(string.char(i)))
+          assert_false(strings.isxdigit(string.char(i)))
         end
       end
     end)

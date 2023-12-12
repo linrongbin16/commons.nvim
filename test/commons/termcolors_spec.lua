@@ -10,8 +10,8 @@ describe("commons.termcolors", function()
   end)
 
   local termcolors = require("commons.termcolors")
-  describe("[hlcode]", function()
-    local hlgroups = {
+  describe("[retrieve]", function()
+    local TEST_CASES = {
       "Special",
       "Normal",
       "LineNr",
@@ -22,9 +22,9 @@ describe("commons.termcolors", function()
       "String",
     }
     it("fg", function()
-      for _, grp in ipairs(hlgroups) do
-        local actual = termcolors.hlcode(grp, "fg")
-        print(string.format("hlcode(%s): %s\n", grp, vim.inspect(actual)))
+      for _, hl in ipairs(TEST_CASES) do
+        local actual = termcolors.retrieve("fg", hl)
+        print(string.format("hlcode(%s): %s\n", hl, vim.inspect(actual)))
         assert_true(type(actual) == "string" or actual == nil)
         if type(actual) == "string" then
           assert_true(tonumber(actual) >= 0)
@@ -32,9 +32,9 @@ describe("commons.termcolors", function()
       end
     end)
     it("bg", function()
-      for _, group in ipairs(hlgroups) do
-        local actual = termcolors.hlcode(group, "bg")
-        print(string.format("hlcode(%s): %s\n", group, vim.inspect(actual)))
+      for _, hl in ipairs(TEST_CASES) do
+        local actual = termcolors.retrieve("bg", hl)
+        print(string.format("hlcode(%s): %s\n", hl, vim.inspect(actual)))
         assert_true(type(actual) == "string" or actual == nil)
         if type(actual) == "string" then
           assert_true(tonumber(actual) >= 0)
@@ -65,8 +65,7 @@ describe("commons.termcolors", function()
       navy = "TabLine",
     }
     -- see: https://stackoverflow.com/a/55324681/4438921
-    local function test_render(msg, result)
-      print(msg)
+    local function test_render(result)
       assert_eq(type(result), "string")
       assert_true(string.len(result) > 0)
       local i0, j0 = result:find("\x1b%[0m")
@@ -100,20 +99,22 @@ describe("commons.termcolors", function()
 
     it("fg", function()
       for color, hl in pairs(TEST_CASES) do
+        print(string.format("fg-1: %s-%s\n", color, hl))
         local actual = termcolors.render("fg", color, hl)
-        test_render(
-          string.format("fg(%s): %s\n", hl, vim.inspect(actual)),
-          actual
+        print(
+          string.format("fg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
         )
+        test_render(actual)
       end
     end)
     it("bg", function()
       for color, hl in pairs(TEST_CASES) do
+        print(string.format("bg-1: %s-%s\n", color, hl))
         local actual = termcolors.render("bg", color, hl)
-        test_render(
-          string.format("bg(%s): %s\n", hl, vim.inspect(actual)),
-          actual
+        print(
+          string.format("bg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
         )
+        test_render(actual)
       end
     end)
   end)
