@@ -1,4 +1,5 @@
 {
   "diagnostics.globals": ["vim", "describe", "before_each", "it", "jit"],
+  "diagnostics.disableScheme": ["_system.lua"],
   "workspace.checkThirdParty": "Disable"
 }
