@@ -22,7 +22,7 @@ describe("commons.spawn", function()
         { on_stdout = dummy, on_stderr = dummy }
       )
       sp:wait()
-      print(string.format("spawn wait-1:%s\n", vim.inspect(sp)))
+      -- print(string.format("spawn wait-1:%s\n", vim.inspect(sp)))
     end)
     it("test2", function()
       local lines = fileios.readlines("README.md") --[[@as table]]
@@ -39,7 +39,7 @@ describe("commons.spawn", function()
         { on_stdout = process_line, on_stderr = dummy }
       )
       sp:wait()
-      print(string.format("spawn wait-2:%s\n", vim.inspect(sp)))
+      -- print(string.format("spawn wait-2:%s\n", vim.inspect(sp)))
     end)
     local delimiter_i = 0
     while delimiter_i <= 25 do
@@ -60,13 +60,13 @@ describe("commons.spawn", function()
           { on_stdout = process_line, on_stderr = dummy }
         )
         sp:wait()
-        print(
-          string.format(
-            "spawn wait-delimiter-%d:%s\n",
-            vim.inspect(delimiter_i),
-            vim.inspect(sp)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "spawn wait-delimiter-%d:%s\n",
+        --     vim.inspect(delimiter_i),
+        --     vim.inspect(sp)
+        --   )
+        -- )
       end)
       -- upper case: A
       local upper_char = string.char(65 + delimiter_i)
@@ -85,13 +85,13 @@ describe("commons.spawn", function()
           { on_stdout = process_line, on_stderr = dummy }
         )
         sp:wait()
-        print(
-          string.format(
-            "spawn wait-uppercase-%d:%s\n",
-            vim.inspect(delimiter_i),
-            vim.inspect(sp)
-          )
-        )
+        -- print(
+        --   string.format(
+        --     "spawn wait-uppercase-%d:%s\n",
+        --     vim.inspect(delimiter_i),
+        --     vim.inspect(sp)
+        --   )
+        -- )
       end)
       delimiter_i = delimiter_i + math.random(1, 5)
     end
@@ -101,7 +101,7 @@ describe("commons.spawn", function()
         { on_stdout = dummy, on_stderr = dummy }
       )
       sp:wait()
-      print(string.format("spawn wait-3:%s\n", vim.inspect(sp)))
+      -- print(string.format("spawn wait-3:%s\n", vim.inspect(sp)))
     end)
     it("stderr2", function()
       local i = 1
@@ -113,7 +113,7 @@ describe("commons.spawn", function()
         { on_stdout = process_line, on_stderr = process_line, blocking = true }
       )
       sp:wait()
-      print(string.format("spawn wait-4:%s\n", vim.inspect(sp)))
+      -- print(string.format("spawn wait-4:%s\n", vim.inspect(sp)))
     end)
   end)
   describe("[nonblocking]", function()
@@ -124,7 +124,7 @@ describe("commons.spawn", function()
         function(exitcode, signal) end
       )
       sp:kill(9)
-      print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
+      -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
     end)
     it("consume line", function()
       local lines = fileios.readlines("README.md") --[[@as table]]
@@ -141,7 +141,7 @@ describe("commons.spawn", function()
         { on_stdout = process_line, on_stderr = dummy },
         function(exitcode, signal) end
       )
-      print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
+      -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
     end)
     it("stdout on newline", function()
       local lines = fileios.readlines("README.md") --[[@as table]]
@@ -158,7 +158,7 @@ describe("commons.spawn", function()
         { on_stdout = process_line, on_stderr = dummy },
         function(exitcode, signal) end
       )
-      print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
+      -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
     end)
   end)
 end)
