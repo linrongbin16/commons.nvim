@@ -85,13 +85,19 @@ jobs:
         run: |
           echo "pwd"
           echo $PWD
+          echo "home"
+          echo $HOME
           git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
           cp -rf ~/.commons.nvim/lua/commons ./lua/your/plugin/commons
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
-          commit_message: "chore(pr): embed commons.nvim library"
+          commit_message: "chore(pr): auto-commit commons.nvim"
 ```
+
+<!-- cd ./lua/your/plugin/commons -->
+<!-- find ./ -type f -name '*.lua' -exec sed -i 's/require("commons")/require("your.plugins.commons")/g' {} \; -->
+<!-- cd $HOME -->
 
 And you need to export the **module prefix** (since the default lua module prefix is `commons`) in environment variable:
 
