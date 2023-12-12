@@ -24,18 +24,6 @@ M.run = function(cmd, opts)
   --- @param data string?
   local function _handle_stderr(err, data) end
 
-  local system_opts = {
-    cwd = opts.cwd,
-    env = opts.env,
-    clear_env = type(opts.clear_env) == "boolean" and opts.clear_env or false,
-    stdin = opts.stdin,
-    stdout = _handle_stdout,
-    stderr = _handle_stderr,
-    text = type(opts.text) == "boolean" and opts.text or true,
-    timeout = opts.timeout,
-    detach = opts.detach,
-  }
-
   local _system = require("commons._system").run
 
   if vim.fn.has("nvim-0.10") > 0 and type(vim.system) == "function" then
@@ -47,6 +35,7 @@ M.run = function(cmd, opts)
       cwd = opts.cwd,
       env = opts.env,
       clear_env = type(opts.clear_env) == "boolean" and opts.clear_env or false,
+      ---@diagnostic disable-next-line: assign-type-mismatch
       stdin = opts.stdin,
       stdout = _handle_stdout,
       stderr = _handle_stderr,
@@ -61,6 +50,7 @@ M.run = function(cmd, opts)
       cwd = opts.cwd,
       env = opts.env,
       clear_env = type(opts.clear_env) == "boolean" and opts.clear_env or false,
+      ---@diagnostic disable-next-line: assign-type-mismatch
       stdin = opts.stdin,
       stdout = _handle_stdout,
       stderr = _handle_stderr,
