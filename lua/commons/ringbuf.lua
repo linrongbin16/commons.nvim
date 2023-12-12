@@ -8,13 +8,13 @@ local M = {}
 --- @field maxsize integer
 local RingBuffer = {}
 
---- @param maxsize integer
+--- @param size integer
 --- @return fzfx.RingBuffer
-function RingBuffer:new(maxsize)
+function RingBuffer:new(size)
   local o = {
     pos = 0,
     queue = {},
-    maxsize = maxsize,
+    maxsize = size,
   }
   setmetatable(o, self)
   self.__index = self
