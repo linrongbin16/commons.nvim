@@ -4,7 +4,7 @@ local M = {}
 
 -- FileLineReader {
 
---- @class fzfx.FileLineReader
+--- @class commons.FileLineReader
 --- @field filename string
 --- @field handler integer
 --- @field filesize integer
@@ -15,9 +15,10 @@ local FileLineReader = {}
 
 --- @param filename string
 --- @param batchsize integer?
---- @return fzfx.FileLineReader?
+--- @return commons.FileLineReader?
 function FileLineReader:open(filename, batchsize)
-  local handler = vim.loop.fs_open(filename, "r", 438) --[[@as integer]]
+  local uv = require("commons.uv")
+  local handler = uv.fs_open(filename, "r", 438) --[[@as integer]]
   if type(handler) ~= "number" then
     error(
       string.format(
@@ -27,7 +28,7 @@ function FileLineReader:open(filename, batchsize)
     )
     return nil
   end
-  local fstat = vim.loop.fs_fstat(handler) --[[@as table]]
+  local fstat = uv.fs_fstat(handler) --[[@as table]]
   if type(fstat) ~= "table" then
     error(
       string.format(
@@ -35,7 +36,7 @@ function FileLineReader:open(filename, batchsize)
         vim.inspect(filename)
       )
     )
-    vim.loop.fs_close(handler)
+    uv.fs_close(handler)
     return nil
   end
 
@@ -54,6 +55,7 @@ end
 
 --- @return integer
 function FileLineReader:_read_chunk()
+  local uv = require("commons.uv")
   local chunksize = (self.filesize >= self.offset + self.batchsize)
       and self.batchsize
     or (self.filesize - self.offset)
@@ -63,7 +65,7 @@ function FileLineReader:_read_chunk()
   local data, --[[@as string?]]
     read_err,
     read_name =
-    vim.loop.fs_read(self.handler, chunksize, self.offset)
+    uv.fs_read(self.handler, chunksize, self.offset)
   if read_err then
     error(
       string.format(
@@ -123,8 +125,9 @@ function FileLineReader:next()
 end
 
 function FileLineReader:close()
+  local uv = require("commons.uv")
   if self.handler then
-    vim.loop.fs_close(self.handler)
+    uv.fs_close(self.handler)
     self.handler = nil
   end
 end
@@ -153,10 +156,11 @@ end
 --- @param on_complete fun(data:string?):nil
 --- @param opts {trim:boolean?}|nil  by default opts={trim=true}
 M.asyncreadfile = function(filename, on_complete, opts)
+  local uv = require("commons.uv")
   opts = opts or { trim = true }
   opts.trim = type(opts.trim) == "boolean" and opts.trim or true
 
-  vim.loop.fs_open(filename, "r", 438, function(open_err, fd)
+  uv.fs_open(filename, "r", 438, function(open_err, fd)
     if open_err then
       error(
         string.format(
@@ -167,7 +171,7 @@ M.asyncreadfile = function(filename, on_complete, opts)
       )
       return
     end
-    vim.loop.fs_fstat(
+    uv.fs_fstat(
       ---@diagnostic disable-next-line: param-type-mismatch
       fd,
       function(fstat_err, stat)
@@ -192,7 +196,7 @@ M.asyncreadfile = function(filename, on_complete, opts)
           return
         end
         ---@diagnostic disable-next-line: param-type-mismatch
-        vim.loop.fs_read(fd, stat.size, 0, function(read_err, data)
+        uv.fs_read(fd, stat.size, 0, function(read_err, data)
           if read_err then
             error(
               string.format(
@@ -204,7 +208,7 @@ M.asyncreadfile = function(filename, on_complete, opts)
             return
           end
           ---@diagnostic disable-next-line: param-type-mismatch
-          vim.loop.fs_close(fd, function(close_err)
+          uv.fs_close(fd, function(close_err)
             on_complete(
               (opts.trim and type(data) == "string") and vim.trim(data) or data
             )
@@ -227,7 +231,7 @@ end
 --- @param filename string
 --- @return string[]|nil
 M.readlines = function(filename)
-  local reader = FileLineReader:open(filename) --[[@as fzfx.FileLineReader]]
+  local reader = M.FileLineReader:open(filename) --[[@as commons.FileLineReader]]
   if not reader then
     return nil
   end
@@ -256,7 +260,8 @@ end
 --- @param content string
 --- @param on_complete fun(bytes:integer?):any
 M.asyncwritefile = function(filename, content, on_complete)
-  vim.loop.fs_open(filename, "w", 438, function(open_err, fd)
+  local uv = require("commons.uv")
+  uv.fs_open(filename, "w", 438, function(open_err, fd)
     if open_err then
       error(
         string.format(
@@ -268,7 +273,7 @@ M.asyncwritefile = function(filename, content, on_complete)
       return
     end
     ---@diagnostic disable-next-line: param-type-mismatch
-    vim.loop.fs_write(fd, content, nil, function(write_err, bytes)
+    uv.fs_write(fd, content, nil, function(write_err, bytes)
       if write_err then
         error(
           string.format(
@@ -280,7 +285,7 @@ M.asyncwritefile = function(filename, content, on_complete)
         return
       end
       ---@diagnostic disable-next-line: param-type-mismatch
-      vim.loop.fs_close(fd, function(close_err)
+      uv.fs_close(fd, function(close_err)
         if close_err then
           error(
             string.format(
