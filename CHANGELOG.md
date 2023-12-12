@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/linrongbin16/commons.nvim/compare/v1.0.1...v1.1.0) (2023-12-12)
+
+
+### Features
+
+* **lib:** add `fileios` ([#11](https://github.com/linrongbin16/commons.nvim/issues/11)) ([45f049f](https://github.com/linrongbin16/commons.nvim/commit/45f049f347c3f9a2cb7824db1bc096f61c4a0078))
+
 ## [1.0.1](https://github.com/linrongbin16/commons.nvim/compare/v1.0.0...v1.0.1) (2023-12-12)
 
 
