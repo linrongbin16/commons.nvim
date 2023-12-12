@@ -21,9 +21,11 @@ The commons lua library for Neovim plugin project.
   - [LuaRocks](#luarocks)
   - [Embed Source Code](#embed-source-code)
 - [Modules](#modules)
+  - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
+  - [commons.uv](#commonsuv)
 - [Development](#development)
 - [Contribute](#contribute)
 
@@ -115,9 +117,25 @@ Here're some real-world examples:
 
 ## Modules
 
+### [commons.fileios](/lua/commons/fileios.lua)
+
+File (sync/async) IO operations.
+
+Read operations:
+
+- `readfile(filename:string, opts:{trim:boolean?}?):string`: Read the file content, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Returns the file content.
+- `readlines(filename:string):string[]|nil`: Read the file content line by line. Returns the file content by strings list.
+- `asyncreadfile(filename:string, on_complete:fun(data:string?):nil, opts:{trim:boolean?}?):nil`: Async read the file content, invoke callback `on_complete` when read is done, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Throw an error if failed.
+
+Write operations:
+
+- `writefile(filename:string, content:string):integer`: Write text `context` to file, returns `-1` if failed, otherwise `0`.
+- `writelines(filename:string, lines:string[]):integer`: Write `lines` content to file, returns `-1` if failed, otherwise `0`.
+- `asyncwritefile(filename:string, content:string, on_complete:fun(bytes:integer?):nil):nil`: Async write text `content` to the file, invoke callback `on_complete` when write is done. Throw an error if failed.
+
 ### [commons.jsons](/lua/commons/jsons.lua)
 
-Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://neovim.io/doc/user/lua.html#vim.json) for Neovim &ge; 0.10.
+Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/lua.txt?plain=1#L772) for Neovim &ge; 0.10.
 
 - `encode(t:table):string`: encode lua table to json object/list string.
 - `decode(j:string):table`: decode json object/list string to lua table.
@@ -182,6 +200,10 @@ And some other APIs:
 - `retrieve(attr:"fg"|"bg", hl:string):string`: Retrieve ANSI/RGB color codes from vim's syntax highlighting group name. Returns ANSI color codes (30, 35, etc) or RGB color codes (#808080, #FF00FF, etc).
 - `escape(attr:"fg"|"bg", code:string):string`: Format/escape ANSI/RGB color code to terminal escaped (printable) style. Returns the rendered text content in terminal colors. For example: `38;2;216;166;87`.
 - `erase(text:string):string`: Erase ANSI/RGB colors from `text` content. Returns the raw text content.
+
+### [commons.uv](/lua/commons/uv.lua)
+
+Use [vim.loop](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/deprecated.txt?plain=1#L166) for Neovim &lt; 0.10, [vim.uv](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/news.txt?plain=1#L345) for Neovim &ge; 0.10.
 
 ## Development
 
