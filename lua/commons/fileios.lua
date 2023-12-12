@@ -137,11 +137,11 @@ M.FileLineReader = FileLineReader
 -- FileLineReader }
 
 --- @param filename string
---- @param opts {trim:boolean?}|nil  by default opts={trim=true}
+--- @param opts {trim:boolean?}?  by default opts={trim=false}
 --- @return string?
 M.readfile = function(filename, opts)
-  opts = opts or { trim = true }
-  opts.trim = type(opts.trim) == "boolean" and opts.trim or true
+  opts = opts or { trim = false }
+  opts.trim = type(opts.trim) == "boolean" and opts.trim or false
 
   local f = io.open(filename, "r")
   if f == nil then
@@ -154,11 +154,11 @@ end
 
 --- @param filename string
 --- @param on_complete fun(data:string?):nil
---- @param opts {trim:boolean?}|nil  by default opts={trim=true}
+--- @param opts {trim:boolean?}|nil  by default opts={trim=false}
 M.asyncreadfile = function(filename, on_complete, opts)
   local uv = require("commons.uv")
-  opts = opts or { trim = true }
-  opts.trim = type(opts.trim) == "boolean" and opts.trim or true
+  opts = opts or { trim = false }
+  opts.trim = type(opts.trim) == "boolean" and opts.trim or false
 
   uv.fs_open(filename, "r", 438, function(open_err, fd)
     if open_err then

@@ -21,6 +21,7 @@ The commons lua library for Neovim plugin project.
   - [LuaRocks](#luarocks)
   - [Embed Source Code](#embed-source-code)
 - [Modules](#modules)
+  - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
@@ -114,6 +115,22 @@ Here're some real-world examples:
 </details>
 
 ## Modules
+
+### [commons.fileios](/lua/commons/fileios.lua)
+
+File (sync/async) IO operations.
+
+Read operations:
+
+- `readfile(filename:string, opts:{trim:boolean?}?):string`: Read the file content, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Returns the file content.
+- `readlines(filename:string):string[]|nil`: Read the file content line by line. Returns the file content by strings list.
+- `asyncreadfile(filename:string, on_complete:fun(data:string?):nil, opts:{trim:boolean?}?):nil`: Async read the file content, invoke callback `on_complete` when read is done, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Throw an error if failed.
+
+Write operations:
+
+- `writefile(filename:string, content:string):integer`: Write text `context` to file, returns `-1` if failed, otherwise `0`.
+- `writelines(filename:string, lines:string[]):integer`: Write `lines` content to file, returns `-1` if failed, otherwise `0`.
+- `asyncwritefile(filename:string, content:string, on_complete:fun(bytes:integer?):nil):nil`: Async write text `content` to the file, invoke callback `on_complete` when write is done. Throw an error if failed.
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
