@@ -10,8 +10,8 @@ describe("commons.termcolors", function()
   end)
 
   local termcolors = require("commons.termcolors")
-  describe("[hlcode]", function()
-    local hlgroups = {
+  describe("[retrieve]", function()
+    local TEST_CASES = {
       "Special",
       "Normal",
       "LineNr",
@@ -22,9 +22,9 @@ describe("commons.termcolors", function()
       "String",
     }
     it("fg", function()
-      for _, grp in ipairs(hlgroups) do
-        local actual = termcolors.hlcode(grp, "fg")
-        print(string.format("hlcode(%s): %s\n", grp, vim.inspect(actual)))
+      for _, hl in ipairs(TEST_CASES) do
+        local actual = termcolors.retrieve("fg", hl)
+        print(string.format("hlcode(%s): %s\n", hl, vim.inspect(actual)))
         assert_true(type(actual) == "string" or actual == nil)
         if type(actual) == "string" then
           assert_true(tonumber(actual) >= 0)
@@ -32,9 +32,9 @@ describe("commons.termcolors", function()
       end
     end)
     it("bg", function()
-      for _, group in ipairs(hlgroups) do
-        local actual = termcolors.hlcode(group, "bg")
-        print(string.format("hlcode(%s): %s\n", group, vim.inspect(actual)))
+      for _, hl in ipairs(TEST_CASES) do
+        local actual = termcolors.retrieve("bg", hl)
+        print(string.format("hlcode(%s): %s\n", hl, vim.inspect(actual)))
         assert_true(type(actual) == "string" or actual == nil)
         if type(actual) == "string" then
           assert_true(tonumber(actual) >= 0)
@@ -119,12 +119,15 @@ describe("commons.termcolors", function()
   end)
   describe("[erase]", function()
     it("no change", function()
-      assert_eq("hello world", termcolors.erase("hello world"))
-      assert_eq("let's go", termcolors.erase("let's go"))
+      assert_eq("hello world", termcolors.unescape("hello world"))
+      assert_eq("let's go", termcolors.unescape("let's go"))
     end)
     it("erase", function()
-      assert_eq("hello world", termcolors.erase("\x1b[38mhello world\x1b[0m"))
-      assert_eq("let's go", termcolors.erase("\x1b[38mlet's go\x1b[0m"))
+      assert_eq(
+        "hello world",
+        termcolors.unescape("\x1b[38mhello world\x1b[0m")
+      )
+      assert_eq("let's go", termcolors.unescape("\x1b[38mlet's go\x1b[0m"))
     end)
   end)
 end)
