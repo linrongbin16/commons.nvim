@@ -30,6 +30,7 @@ The commons lua library for Neovim plugin project.
   - [commons.ringbuf](#commonsringbuf)
   - [commons.spawn](#commonsspawn)
   - [commons.strings](#commonsstrings)
+  - [commons.tables](#commonstables)
   - [commons.termcolors](#commonstermcolors)
   - [commons.uv](#commonsuv)
   - [commons.windows](#commonswindows)
@@ -253,6 +254,12 @@ String utilities.
 - `isalpha(c:string):boolean`: Whether character `c` is alphabetic character (a-z A-Z), string length of `c` must be `1`. Also see C++ Reference [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
 - `islower(c:string):boolean`: Whether character `c` is lower case alphabetic character (a-z), string length of `c` must be `1`. Also see C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
 - `isupper(c:string):boolean`: Whether character `c` is upper case alphabetic character (A-Z), string length of `c` must be `1`. Also see C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
+
+### [commons.tables](/lua/commons/tables.lua)
+
+Easier table/list data structure for lua.
+
+- `tbl_empty(t:any):boolean`/`tbl_not_empty(t:any):boolean`: Whether table `t` is empty or not.
 
 ### [commons.termcolors](/lua/commons/termcolors.lua)
 
