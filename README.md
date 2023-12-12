@@ -71,9 +71,14 @@ luarocks install commons.nvim
 
 <details><summary><b>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></b></summary>
 
-Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder:
+Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
 
 ```yaml
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
 jobs:
   install_commons_nvim:
     name: Install commons.nvim
@@ -95,21 +100,21 @@ jobs:
           commit_message: "chore(pr): auto-commit commons.nvim"
 ```
 
-<!-- cd ./lua/your/plugin/commons -->
-<!-- find ./ -type f -name '*.lua' -exec sed -i 's/require("commons")/require("your.plugins.commons")/g' {} \; -->
-<!-- cd $HOME -->
-
-And you need to export the **module prefix** (since the default lua module prefix is `commons`) in environment variable:
+And expose the `_COMMONS_NVIM_MODULE_PREFIX` environment variable at the first line to override the default `commons`:
 
 ```lua
 vim.env._COMMONS_NVIM_MODULE_PREFIX = 'your.plugin.'
 ```
 
-Then in your plugin project, load the commons library with:
+Then load the library with your prefix:
 
 ```lua
 local strings = require('your.plugin.commons.strings')
 ```
+
+Here's some real-world examples:
+
+- [gentags.nvim](https://github.com/linrongbin16/gentags.nvim/blob/4dccab6b03f72f9903e497795283cce263293ab6/lua/gentags.lua?plain=1#L1)
 
 </details>
 
