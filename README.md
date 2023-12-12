@@ -26,6 +26,7 @@ The commons lua library for Neovim plugin project.
   - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.numbers](#commonsnumbers)
+  - [commons.paths](#commonspaths)
   - [commons.ringbuf](#commonsringbuf)
   - [commons.strings](#commonsstrings)
   - [commons.termcolors](#commonstermcolors)
@@ -171,6 +172,16 @@ Numbers utilities.
 - `gt(a:number?, b:number?):boolean`/`ge(a:number?, b:number?):boolean`: Whether `a` is greater than (or greater equal to) `b` or not.
 - `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`, e.g. when `value < left` returns `left`, when `value > right` returns `right`.
 - `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
+
+### [commons.paths](/lua/commons/paths.lua)
+
+- `SEPARATOR:string`: `/` for UNIX/Linux, `\\` for Windows.
+- `normalize(p:string, opts:{backslash:boolean?, expand:boolean?}?):string`: normalize path, e.g. replace Windows path separator `\\\\` to `\\`. The `backslash = true` could replace `\\` to `/`, the `expand = true` could expand the home `~` to full path, by default `opts` is `{backslash = false, expand = false}`.
+- `join(...):string`: join multiple components into path, for example `join('my', 'folder')` returns `my/folder` on UNIX/Linux, returns `my\\folder` on Windows.
+- `reduce2home(p:string?):string`: Reduce path `p` to start with home `~`, By default `p` is current working directory.
+- `reduce(p:string?):string`: Reduce path `p` to start with home `~` or current working directory `.`, By default `p` is current working directory.
+- `shorten(p:string?):string`: Shorten path `p` to the `~/p/l/commons.nvim` style, start with home `~` or current working directory `.`, By default `p` is current working directory.
+- `pipename():string`: Make named pipe path, for UNIX/Linux it's a tmp file, for Windows it's `\\.\pipe\nvim-pipe-12873-182710`.
 
 ### [commons.ringbuf](/lua/commons/ringbuf.lua)
 
