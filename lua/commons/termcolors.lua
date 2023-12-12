@@ -92,7 +92,7 @@ end
 --- @return string
 M.render = function(text, name, hl)
   local fgfmt = nil
-  local fgcode = strings.not_empty(hl) and M.retrieve(hl --[[@as string]], "fg")
+  local fgcode = strings.not_empty(hl) and M.retrieve("fg", hl --[[@as string]])
     or nil
   if type(fgcode) == "string" then
     fgfmt = M.escape("fg", fgcode)
@@ -103,7 +103,7 @@ M.render = function(text, name, hl)
   end
 
   local fmt = nil
-  local bgcode = strings.not_empty(hl) and M.retrieve(hl --[[@as string]], "bg")
+  local bgcode = strings.not_empty(hl) and M.retrieve("bg", hl --[[@as string]])
     or nil
   if type(bgcode) == "string" then
     local bgcolor = M.escape("bg", bgcode)

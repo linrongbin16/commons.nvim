@@ -65,8 +65,7 @@ describe("commons.termcolors", function()
       navy = "TabLine",
     }
     -- see: https://stackoverflow.com/a/55324681/4438921
-    local function test_render(msg, result)
-      print(msg)
+    local function test_render(result)
       assert_eq(type(result), "string")
       assert_true(string.len(result) > 0)
       local i0, j0 = result:find("\x1b%[0m")
@@ -100,20 +99,22 @@ describe("commons.termcolors", function()
 
     it("fg", function()
       for color, hl in pairs(TEST_CASES) do
+        print(string.format("fg-1: %s-%s\n", color, hl))
         local actual = termcolors.render("fg", color, hl)
-        test_render(
-          string.format("fg(%s): %s\n", hl, vim.inspect(actual)),
-          actual
+        print(
+          string.format("fg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
         )
+        test_render(actual)
       end
     end)
     it("bg", function()
       for color, hl in pairs(TEST_CASES) do
+        print(string.format("bg-1: %s-%s\n", color, hl))
         local actual = termcolors.render("bg", color, hl)
-        test_render(
-          string.format("bg(%s): %s\n", hl, vim.inspect(actual)),
-          actual
+        print(
+          string.format("bg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
         )
+        test_render(actual)
       end
     end)
   end)
