@@ -1,44 +1,93 @@
--- Compatible ring buffer Neovim lua API
+-- Drop-in replacement 'RingBuffer' data structure
 
 local M = {}
 
---- @class fzfx.RingBuffer
+--- @class commons.RingBuffer
 --- @field pos integer
 --- @field queue any[]
+--- @field size integer
 --- @field maxsize integer
 local RingBuffer = {}
 
---- @param size integer
---- @return fzfx.RingBuffer
-function RingBuffer:new(size)
+--- @param maxsize integer?
+--- @return commons.RingBuffer
+function RingBuffer:new(maxsize)
+  assert(type(maxsize) == "number" and maxsize > 0)
   local o = {
     pos = 0,
     queue = {},
-    maxsize = size,
+    size = 0,
+    maxsize = maxsize,
   }
   setmetatable(o, self)
   self.__index = self
   return o
 end
 
+function RingBuffer:_inc_pos()
+  if self.pos == self.maxsize then
+    self.pos = 1
+  else
+    self.pos = self.pos + 1
+  end
+end
+
+function RingBuffer:_dec_pos()
+  if self.pos == 1 then
+    self.pos = self.maxsize
+  else
+    self.pos = self.pos - 1
+  end
+end
+
 --- @param item any
 --- @return integer
 function RingBuffer:push(item)
-  if #self.queue < self.maxsize then
-    self.pos = self.pos + 1
+  assert(self.size >= 0 and self.size <= self.maxsize)
+
+  if self.size < self.maxsize then
     table.insert(self.queue, item)
+    self:_inc_pos()
+    self.size = self.size + 1
   else
-    if self.pos == #self.queue then
-      self.pos = 1
-    else
-      self.pos = self.pos + 1
-    end
+    self:_inc_pos()
     self.queue[self.pos] = item
   end
   return self.pos
 end
 
+--- @return any?
+function RingBuffer:pop()
+  if self.size <= 0 then
+    return nil
+  end
+
+  local old = self.queue[self.pos]
+  self.queue[self.pos] = nil
+  self.size = self.size - 1
+  self:_dec_pos()
+  return old
+end
+
+--- @return any?
+function RingBuffer:peek()
+  if self.size <= 0 then
+    return nil
+  end
+  return self.queue[self.pos]
+end
+
+--- @return integer
+function RingBuffer:clear()
+  local old = self.size
+  self.pos = 0
+  self.queue = {}
+  self.size = 0
+  return old
+end
+
 -- get the item on pos, or the last pushed item
+--
 --- @param pos integer?
 --- @return any?
 function RingBuffer:get(pos)
