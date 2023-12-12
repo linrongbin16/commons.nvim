@@ -1,5 +1,4 @@
 {
   "diagnostics.globals": ["vim", "describe", "before_each", "it", "jit"],
-  "workspace.ignoreDir": ["./lua/commons/_system.lua"],
   "workspace.checkThirdParty": "Disable"
 }
