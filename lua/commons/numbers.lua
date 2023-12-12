@@ -2,7 +2,7 @@
 
 local M = {}
 
--- math
+-- int32 max/min
 M.INT32_MAX = 2147483647
 M.INT32_MIN = -2147483648
 
@@ -17,7 +17,7 @@ end
 local IncrementalId = 0
 
 --- @return integer
-M.incremental_id_i32 = function()
+M.incremental_id = function()
   if IncrementalId >= M.INT32_MAX then
     IncrementalId = 1
   else
