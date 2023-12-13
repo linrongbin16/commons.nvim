@@ -153,8 +153,8 @@ local strings = require("your.plugin.commons.strings")
 
 Compatible Neovim buffer relate APIs.
 
-- `get_buf_option(bufnr:integer, name:string):any`: get `bufnr` buffer option.
-- `set_buf_option(bufnr:integer, name:string, value:any):any`: set `bufnr` buffer option value.
+- `get_buf_option(bufnr:integer, name:string):any`: get buffer option.
+- `set_buf_option(bufnr:integer, name:string, value:any):any`: set buffer option.
 
 ### [commons.fileios](/lua/commons/fileios.lua)
 
@@ -162,24 +162,28 @@ Sync/async file IO operations.
 
 Read operations:
 
-- `readfile(filename:string, opts:{trim:boolean?}?):string`: Read the file content, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Returns the file content.
-- `readlines(filename:string):string[]|nil`: Read the file content line by line. Returns the file content by strings list.
-- `asyncreadfile(filename:string, on_complete:fun(data:string?):nil, opts:{trim:boolean?}?):nil`: Async read the file content, invoke callback `on_complete` when read is done, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Throw an error if failed.
+- `readfile(filename:string, opts:{trim:boolean?}?):string`: Read the file content, returns text content.
+  - By default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content.
+- `readlines(filename:string):string[]|nil`: Read the file content line by line, returns the file content by strings list.
+  - The newline break `\n` is removed from each line.
+- `asyncreadfile(filename:string, on_complete:fun(data:string?):nil, opts:{trim:boolean?}?):nil`: Async read the file content, invoke callback `on_complete` when read is done, throw an error if failed.
+  - By default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content.
 
 Write operations:
 
 - `writefile(filename:string, content:string):integer`: Write text `context` to file, returns `-1` if failed, otherwise `0`.
 - `writelines(filename:string, lines:string[]):integer`: Write `lines` content to file, returns `-1` if failed, otherwise `0`.
+  - The newline break `\n` is appended for each line.
 - `asyncwritefile(filename:string, content:string, on_complete:fun(bytes:integer?):nil):nil`: Async write text `content` to the file, invoke callback `on_complete` when write is done. Throw an error if failed.
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
-Encode/decode between lua table/list and json string.
+Encode/decode between lua table and json string.
 
 Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/lua.txt?plain=1#L772) for Neovim &ge; 0.10.
 
-- `encode(t:table):string`: encode lua table to json object/list string.
-- `decode(j:string):table`: decode json object/list string to lua table.
+- `encode(t:table):string`: encode lua table to json string.
+- `decode(j:string):table`: decode json string to lua table.
 
 ### [commons.numbers](/lua/commons/numbers.lua)
 
