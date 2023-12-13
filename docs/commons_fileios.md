@@ -63,6 +63,8 @@ function FileLineReader:close():nil
 
 ## Functions
 
+?> Read operations
+
 ### `readfile`
 
 Read all the content from a file.
@@ -120,3 +122,59 @@ Parameters:
 
 - `opts`: Options.
   - `trim`: Whether to trim whitespaces around file content, by default `false`.
+
+?> Write operations
+
+### `writefile`
+
+Write content into file.
+
+```lua
+function(filename:string, content:string):0|1
+```
+
+Returns:
+
+- If success, returns `0`.
+- If failed to write, returns `-1`.
+
+### `writelines`
+
+Write content into file by lines.
+
+```lua
+function(filename:string, lines:string):0|1
+```
+
+Parameters:
+
+- `filename`: File name.
+- `lines`: content as lines (strings list).
+
+  ?> **Note:** The newline break `\n` is appended for each line.
+
+Returns:
+
+- If success, returns `0`.
+- If failed to write, returns `-1`.
+
+### `asyncwritefile`
+
+Async write all the content into a file, invoke callback function on write complete.
+
+```lua
+function(filename:string, content:string, on_complete:fun(bytes:integer?):any):nil
+```
+
+Parameters:
+
+- `filename`: File name.
+- `content`: File content.
+- `on_complete`: Callback function that will be invoked on write complete, with signature:
+
+  ```lua
+  function(bytes:integer?):any
+  ```
+
+  - Parameters:
+    - `bytes`: written bytes.
