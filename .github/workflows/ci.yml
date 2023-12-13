@@ -68,6 +68,7 @@ jobs:
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
           commit_message: "chore(pr): auto-commit"
+          file_pattern: "lua/** docs/**"
   unit_test:
     name: Unit Test
     strategy:
