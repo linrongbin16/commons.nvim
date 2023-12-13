@@ -44,25 +44,32 @@ The commons lua library for Neovim plugin project.
 
 ### Plugin Manager
 
-<details><summary><b>With <a href="https://github.com/folke/lazy.nvim">lazy.nvim</a></b></summary>
+#### With [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 require("lazy").setup({
-  "linrongbin16/commons.nvim",
+  {
+    "linrongbin16/commons.nvim",
+
+    -- optional to avoid break changes
+    tag = '1.4.*',
+    version = '1.4.*',
+  },
 })
 ```
 
-</details>
-
-<details><summary><b>With <a href="https://github.com/lewis6991/pckr.nvim">pckr.nvim</a></b></summary>
+#### With [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
 
 ```lua
 require("pckr").add({
-  "linrongbin16/commons.nvim",
+  {
+    "linrongbin16/commons.nvim",
+
+    -- optional to avoid break changes
+    tag = '*',
+  },
 })
 ```
-
-</details>
 
 ### LuaRocks
 
