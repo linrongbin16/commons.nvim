@@ -4,15 +4,12 @@
 
 > The commons lua library for Neovim plugin project.
 
-This lua library includes multiple modules:
-
-- Utilities for lua tables, strings & numbers with type check.
-- Translation between lua tables and json strings.
-- File IO operations.
-- File path operations.
-- Compatible Neovim APIs from v0.6 to nightly.
-- Run child-process and handle line-wise output from stdout/stderr.
-- Terminal ANSI/RGB color renderings.
+- [Requirements](/requirements.md)
+- [Install](/install.md)
+- [Usage](/usage.md)
+- Modules
+  - [commons.buffers](/commons_buffers.md)
+  - [commons.fileios](/commons_fileios.md)
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
