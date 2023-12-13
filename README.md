@@ -53,8 +53,8 @@ require("lazy").setup({
     "linrongbin16/commons.nvim",
 
     -- (optional) specify the version/tag
-    tag = '*',
-    version = '*',
+    tag = 'v1.4.3',
+    version = 'v1.4.*',
   },
 })
 ```
@@ -67,7 +67,7 @@ require("pckr").add({
     "linrongbin16/commons.nvim",
 
     -- (optional) specify the tag
-    tag = '*',
+    tag = 'v1.*',
   },
 })
 ```
@@ -121,7 +121,7 @@ jobs:
           commit_message: "chore(pr): auto-commit commons.nvim"
 ```
 
-To embed specified tag/version, please add `--branch {tag}` when clone, for example `v1.4.3`:
+To specify tag/version (for example `v1.4.3`):
 
 ```sh
 git clone --depth=1 --branch v1.4.3 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
@@ -151,26 +151,39 @@ local strings = require("your.plugin.commons.strings")
 
 ### [commons.buffers](/lua/commons/buffers.lua)
 
-Compatible Neovim buffer relate APIs.
+Compatible Neovim APIs relate to nvim buffers.
 
-- `get_buf_option(bufnr:integer, name:string):any`: get `bufnr` buffer option.
-- `set_buf_option(bufnr:integer, name:string, value:any):any`: set `bufnr` buffer option value.
+- `get_buf_option`: Get buffer option.
+- `set_buf_option`: Set buffer option.
 
 ### [commons.fileios](/lua/commons/fileios.lua)
 
 Sync/async file IO operations.
 
-Read operations:
+For read operations:
 
-- `readfile(filename:string, opts:{trim:boolean?}?):string`: Read the file content, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Returns the file content.
-- `readlines(filename:string):string[]|nil`: Read the file content line by line. Returns the file content by strings list.
-- `asyncreadfile(filename:string, on_complete:fun(data:string?):nil, opts:{trim:boolean?}?):nil`: Async read the file content, invoke callback `on_complete` when read is done, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Throw an error if failed.
+- `FileLineReader` (`commons.FileLineReader`): Line-wise file reader: read by chunks, iterate by lines.
 
-Write operations:
+  - `open`: Create a file reader, returns the file reader object.
+  - `has_next`: Whether has more lines to read.
+  - `next`: Get next line.
+  - `close`: Close the file reader.
 
-- `writefile(filename:string, content:string):integer`: Write text `context` to file, returns `-1` if failed, otherwise `0`.
-- `writelines(filename:string, lines:string[]):integer`: Write `lines` content to file, returns `-1` if failed, otherwise `0`.
-- `asyncwritefile(filename:string, content:string, on_complete:fun(bytes:integer?):nil):nil`: Async write text `content` to the file, invoke callback `on_complete` when write is done. Throw an error if failed.
+- `readfile`: Read all the content from a file, returns file content.
+- `readlines`: Read file content by lines, returns file content in lines.
+  > [!NOTE]
+  >
+  > Newline break `\n` is auto removed from each line.
+- `asyncreadfile`: Async read all the content from a file, invoke callback function on read complete.
+
+For write operations:
+
+- `writefile`: Write content into file.
+- `writelines`: Write content into file by lines.
+  > [!NOTE]
+  >
+  > Newline break `\n` is auto appended for each line.
+- `asyncwritefile`: Async write all the content into a file, invoke callback function on write complete.
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 

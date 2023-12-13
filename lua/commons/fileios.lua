@@ -1,19 +1,19 @@
 local M = {}
 
 -- FileLineReader {
-
+--
 --- @class commons.FileLineReader
---- @field filename string
---- @field handler integer
---- @field filesize integer
---- @field offset integer
---- @field batchsize integer
---- @field buffer string?
+--- @field filename string    file name.
+--- @field handler integer    file handle.
+--- @field filesize integer   file size in bytes.
+--- @field offset integer     current read position.
+--- @field batchsize integer  chunk size for each read operation running internally.
+--- @field buffer string?     internal data buffer.
 local FileLineReader = {}
 
---- @param filename string
---- @param batchsize integer?
---- @return commons.FileLineReader?
+--- @param filename string            file name.
+--- @param batchsize integer?         (optional) batch size, by default 4096.
+--- @return commons.FileLineReader?   returns file reader, returns `nil` and throws an error if failed to open file.
 function FileLineReader:open(filename, batchsize)
   local uv = require("commons.uv")
   local handler = uv.fs_open(filename, "r", 438) --[[@as integer]]
@@ -51,6 +51,7 @@ function FileLineReader:open(filename, batchsize)
   return o
 end
 
+--- @private
 --- @return integer
 function FileLineReader:_read_chunk()
   local uv = require("commons.uv")
@@ -81,13 +82,13 @@ function FileLineReader:_read_chunk()
   return #data
 end
 
---- @return boolean
+--- @return boolean   returns `true` if has more lines, `false` if not.
 function FileLineReader:has_next()
   self:_read_chunk()
   return self.buffer ~= nil and string.len(self.buffer) > 0
 end
 
---- @return string?
+--- @return string?   returns next line, returns `nil` if no more lines.
 function FileLineReader:next()
   --- @return string?
   local function impl()
@@ -122,6 +123,7 @@ function FileLineReader:next()
   end
 end
 
+-- Close the file reader.
 function FileLineReader:close()
   local uv = require("commons.uv")
   if self.handler then
@@ -134,9 +136,10 @@ M.FileLineReader = FileLineReader
 
 -- FileLineReader }
 
---- @param filename string
---- @param opts {trim:boolean?}?  by default opts={trim=false}
---- @return string?
+--- @param filename string        file name.
+--- @param opts {trim:boolean?}?  options:
+---                                 1. `trim`: whether to trim whitespaces around text content, by default `false`.
+--- @return string?               returns file content, returns `nil` if failed to open file.
 M.readfile = function(filename, opts)
   opts = opts or { trim = false }
   opts.trim = type(opts.trim) == "boolean" and opts.trim or false
@@ -150,9 +153,11 @@ M.readfile = function(filename, opts)
   return opts.trim and vim.trim(content) or content
 end
 
---- @param filename string
---- @param on_complete fun(data:string?):nil
---- @param opts {trim:boolean?}|nil  by default opts={trim=false}
+--- @param filename string                    file name.
+--- @param on_complete fun(data:string?):nil  callback on read complete.
+---                                             1. `data`: the file content.
+--- @param opts {trim:boolean?}?              options:
+---                                             1. `trim`: whether to trim whitespaces around text content, by default `false`.
 M.asyncreadfile = function(filename, on_complete, opts)
   local uv = require("commons.uv")
   opts = opts or { trim = false }
@@ -226,8 +231,11 @@ M.asyncreadfile = function(filename, on_complete, opts)
   end)
 end
 
---- @param filename string
---- @return string[]|nil
+-- Read file content by lines, returns content in lines.
+-- The newline break `\n` is removed from each line.
+--
+--- @param filename string  file name.
+--- @return string[]|nil    return file content in lines (strings list), returns `nil` if failed to open file.
 M.readlines = function(filename)
   local reader = M.FileLineReader:open(filename) --[[@as commons.FileLineReader]]
   if not reader then
@@ -241,9 +249,9 @@ M.readlines = function(filename)
   return results
 end
 
---- @param filename string
---- @param content string
---- @return integer
+--- @param filename string  file name.
+--- @param content string   file content.
+--- @return integer         returns `0` if success, returns `-1` if failed.
 M.writefile = function(filename, content)
   local f = io.open(filename, "w")
   if not f then
@@ -254,9 +262,10 @@ M.writefile = function(filename, content)
   return 0
 end
 
---- @param filename string
---- @param content string
---- @param on_complete fun(bytes:integer?):any
+--- @param filename string                      file name.
+--- @param content string                       file content.
+--- @param on_complete fun(bytes:integer?):any  callback on write complete.
+---                                               1. `bytes`: written data bytes.
 M.asyncwritefile = function(filename, content, on_complete)
   local uv = require("commons.uv")
   uv.fs_open(filename, "w", 438, function(open_err, fd)
@@ -302,9 +311,9 @@ M.asyncwritefile = function(filename, content, on_complete)
   end)
 end
 
---- @param filename string
---- @param lines string[]
---- @return integer
+--- @param filename string  file name.
+--- @param lines string[]   content lines.
+--- @return integer         returns `0` if success, returns `-1` if failed.
 M.writelines = function(filename, lines)
   local f = io.open(filename, "w")
   if not f then
