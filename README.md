@@ -149,12 +149,7 @@ local strings = require("your.plugin.commons.strings")
 
 ## Modules
 
-### [commons.buffers](/lua/commons/buffers.lua)
-
-Compatible Neovim buffer relate APIs.
-
-- `get_buf_option(bufnr:integer, name:string):any`: get buffer option.
-- `set_buf_option(bufnr:integer, name:string, value:any):any`: set buffer option.
+- [commons.buffers](/lua/commons/buffers.lua)
 
 ### [commons.fileios](/lua/commons/fileios.lua)
 
@@ -265,18 +260,21 @@ Drop-in replacement **Ring Buffer** data structure with iterator support.
 
 ### [commons.spawn](/lua/commons/spawn.lua)
 
-Sync/async run child-process via `uv.spawn` API, and handle stdout/stderr IO by line-based callbacks.
+Sync/async run child-process via `uv.spawn` API, and handle stdout/stderr IO by line-wise callbacks.
 
-- `run(cmd:string[], opts:{stdout:fun(line:string):nil, stderr:fun(line:string):nil, [string]:any}, on_exit:fun(completed:vim.SystemCompleted):nil|nil):vim.SystemObject`: run command line, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only difference is `opts` provide more friendly line-based `stdout` and `stderr` callbacks, and by default `{text = true}`.
-  - `stdout`/`stderr`: both use the function signature `fun(line:string):any`, been invoked when receiving a line from stdout/stderr.
+- `run(cmd:string[], opts:{stdout:fun(line:string):nil, stderr:fun(line:string):nil, [string]:any}, on_exit:fun(completed:vim.SystemCompleted):nil|nil):vim.SystemObject`: run command line, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>), all parameters are the same except:
+  - The `stdout`/`stderr` functions in `opts` are line-wise callbacks use signature `fun(line:string):nil`, they're been invoked when receiving a line from child-process stdout/stderr.
+  - By default `opts` is `{text = true}`.
 
 ### [commons.strings](/lua/commons/strings.lua)
 
 String utilities.
 
 - `empty(s:string?):boolean`/`not_empty(s:string?):boolean`: Whether string `s` is empty or not.
-- `blank(s:string?):boolean`/`not_blank(s:string?):boolean`: Whether (trimed) string `s` is blank or not.
-- `find(s:string, t:string, start:integer?):boolean`: Search the first index position of target `t` in string `s`, start from optional `start`, by default `start` is `1`. Returns `nil` if not found, lua string index if been found.
+- `blank(s:string?):boolean`/`not_blank(s:string?):boolean`: Whether string `s` is blank (empty after trimmed) or not.
+- `find(s:string, t:string, start:integer?):boolean`: Search the first position of target `t` in string `s`, start from optional `start`.
+  - Returns `nil` if not found, otherwise an integer index that `>= 1`.
+  - By default `start` is `1`.
 - `rfind(s:string, t:string, rstart:integer?):boolean`: Reverse search the last index position of target `t` in string `s`, start from optional `rstart`, by default `rstart` is `#s` (length of `s`). Returns `nil` if not found, lua string index if been found.
 - `ltrim(s:string, t:string?):string`: Trim optional target `t` from left side of string `s`, by default all whitespaces are been trimed if `t` is not provided. To trim both sides please use [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
 - `rtrim(s:string, t:string?):string`: Trim optional target `t` from right side of string `s`, by default all whitespaces are been trimed if `t` is not provided. To trim both sides please use [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
