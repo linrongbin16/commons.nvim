@@ -1,5 +1,3 @@
--- Json encode/decode
-
 local M = {}
 
 M.encode = (vim.fn.has("nvim-0.9") and vim.json ~= nil) and vim.json.encode

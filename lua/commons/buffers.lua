@@ -1,5 +1,3 @@
--- Compatible Neovim buffer related API
-
 local M = {}
 
 --- @param bufnr integer

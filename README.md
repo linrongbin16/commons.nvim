@@ -158,7 +158,7 @@ Compatible Neovim buffer relate APIs.
 
 ### [commons.fileios](/lua/commons/fileios.lua)
 
-File (sync/async) IO operations.
+Sync/async file IO operations.
 
 Read operations:
 
@@ -174,6 +174,8 @@ Write operations:
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
+Encode/decode between lua table/list and json string.
+
 Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/lua.txt?plain=1#L772) for Neovim &ge; 0.10.
 
 - `encode(t:table):string`: encode lua table to json object/list string.
@@ -181,7 +183,7 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 
 ### [commons.numbers](/lua/commons/numbers.lua)
 
-Numbers utilities.
+Numbers and integers utilities.
 
 - `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
 - `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
@@ -191,6 +193,8 @@ Numbers utilities.
 - `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
 
 ### [commons.paths](/lua/commons/paths.lua)
+
+File/directory path utilities.
 
 - `SEPARATOR:string`: `/` for UNIX/Linux, `\\` for Windows.
 - `normalize(p:string, opts:{backslash:boolean?, expand:boolean?}?):string`: normalize path, e.g. replace Windows path separator `\\\\` to `\\`. The `backslash = true` could replace `\\` to `/`, the `expand = true` could expand the home `~` to full path, by default `opts` is `{backslash = false, expand = false}`.
@@ -244,9 +248,9 @@ Drop-in replacement **Ring Buffer** data structure with iterator support.
 
 ### [commons.spawn](/lua/commons/spawn.lua)
 
-Sync/async run child-process via `uv.spawn` API, and handle stdout/stderr IO by lines.
+Sync/async run child-process via `uv.spawn` API, and handle stdout/stderr IO by line-based callbacks.
 
-- `run(cmd:string[], opts:{stdout:fun(line:string):nil, stderr:fun(line:string):nil, [string]:any}, on_exit:fun(completed:vim.SystemCompleted):nil|nil):vim.SystemObject`: run command line, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only difference is `opts` provide more friendly line-based `stdout` and `stderr` callbacks.
+- `run(cmd:string[], opts:{stdout:fun(line:string):nil, stderr:fun(line:string):nil, [string]:any}, on_exit:fun(completed:vim.SystemCompleted):nil|nil):vim.SystemObject`: run command line, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only difference is `opts` provide more friendly line-based `stdout` and `stderr` callbacks, and by default `{text = true}`.
   - `stdout`/`stderr`: both use the function signature `fun(line:string):any`, been invoked when receiving a line from stdout/stderr.
 
 ### [commons.strings](/lua/commons/strings.lua)
@@ -272,21 +276,21 @@ String utilities.
 
 ### [commons.tables](/lua/commons/tables.lua)
 
-Table/list data structure for lua.
+Lua table/list utilities.
 
-For tables:
+For lua table:
 
 - `tbl_empty(t:any):boolean`/`tbl_not_empty(t:any):boolean`: Whether table `t` is empty or not.
 - `tbl_get(t:any, ...:any):any`: Retrieve element from lua table/list, this is just a wrapper of [vim.tbl_get](<https://neovim.io/doc/user/lua.html#vim.tbl_get()>).
 
-For list:
+For lua list:
 
 - `list_empty(l:any):boolean`/`list_not_empty(l:any):boolean`: Whether list `l` is empty or not.
 - `list_index(l:any, idx:integer):integer`: Get list index with negatives support, for `idx > 0` returns the same value, for `idx < 0` returns `#l + idx + 1`, e.g. `-1` returns `#l` (the last element index), `-#l` returns `1` (the first element index).
 
 ### [commons.termcolors](/lua/commons/termcolors.lua)
 
-Terminal ANSI colors rendering utilities.
+Terminal ANSI color rendering utilities.
 
 > [!NOTE]
 >
@@ -325,6 +329,8 @@ And some other APIs:
 - `erase(text:string):string`: Erase ANSI/RGB colors from `text` content. Returns the raw text content.
 
 ### [commons.uv](/lua/commons/uv.lua)
+
+Lua uv.
 
 Use [vim.loop](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/deprecated.txt?plain=1#L166) for Neovim &lt; 0.10, [vim.uv](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/news.txt?plain=1#L345) for Neovim &ge; 0.10.
 

@@ -1,5 +1,3 @@
--- Numbers utilities
-
 local M = {}
 
 -- int32 max/min
