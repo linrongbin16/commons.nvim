@@ -15,7 +15,7 @@ The commons lua library for Neovim plugin project.
 
 This lua library includes multiple modules:
 
-- Utilities for lua tables, strings & numbers with type check.
+- Utilities for lua tables, strings, numbers and other data structures.
 - Translation between lua tables and json strings.
 - File IO operations.
 - File path operations.
