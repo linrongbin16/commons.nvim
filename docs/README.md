@@ -13,8 +13,6 @@
 The commons lua library for Neovim plugin project.
 </i></p>
 
-For installation & API references, please see [document pages](https://linrongbin16.github.io/commons.nvim/).
-
 ## Table of Contents
 
 - [Requirements](#requirements)
