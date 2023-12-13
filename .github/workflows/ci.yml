@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: |
           luarocks install ldoc
-          ldoc -d docs .
+          ldoc .
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:

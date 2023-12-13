@@ -1,5 +1,6 @@
-project = 'commons.nvim'
-description = 'The commons lua library for Neovim plugin project.'
+project = 'API References'
+description = 'Commons.nvim'
+full_description = 'The commons lua library for Neovim plugin project.'
 title = 'API References'
 dir = 'docs'
 style = '!fixed'
