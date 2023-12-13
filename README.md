@@ -276,21 +276,21 @@ String utilities.
 
 ### [commons.tables](/lua/commons/tables.lua)
 
-Table/list data structure for lua.
+Lua table/list utilities.
 
-For tables:
+For lua table:
 
 - `tbl_empty(t:any):boolean`/`tbl_not_empty(t:any):boolean`: Whether table `t` is empty or not.
 - `tbl_get(t:any, ...:any):any`: Retrieve element from lua table/list, this is just a wrapper of [vim.tbl_get](<https://neovim.io/doc/user/lua.html#vim.tbl_get()>).
 
-For list:
+For lua list:
 
 - `list_empty(l:any):boolean`/`list_not_empty(l:any):boolean`: Whether list `l` is empty or not.
 - `list_index(l:any, idx:integer):integer`: Get list index with negatives support, for `idx > 0` returns the same value, for `idx < 0` returns `#l + idx + 1`, e.g. `-1` returns `#l` (the last element index), `-#l` returns `1` (the first element index).
 
 ### [commons.termcolors](/lua/commons/termcolors.lua)
 
-Terminal ANSI colors rendering utilities.
+Terminal ANSI color rendering utilities.
 
 > [!NOTE]
 >
@@ -329,6 +329,8 @@ And some other APIs:
 - `erase(text:string):string`: Erase ANSI/RGB colors from `text` content. Returns the raw text content.
 
 ### [commons.uv](/lua/commons/uv.lua)
+
+Lua uv.
 
 Use [vim.loop](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/deprecated.txt?plain=1#L166) for Neovim &lt; 0.10, [vim.uv](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/news.txt?plain=1#L345) for Neovim &ge; 0.10.
 
