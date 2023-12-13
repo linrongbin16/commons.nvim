@@ -209,9 +209,12 @@ File path utilities.
   - Set `double_backslash = true` to also replace `\\\\` to `/`.
   - Set `expand = true` to expand the user home directory `~` to full path.
   - By default `opts` is `{double_backslash = false, expand = false}`.
-- `join(...):string`: join multiple components into path, for example `join('my', 'folder')` returns `my/folder` on UNIX/Linux, returns `my\\folder` on Windows.
-- `reduce2home(p:string?):string`: Reduce path `p` to start with home `~`, By default `p` is current working directory.
-- `reduce(p:string?):string`: Reduce path `p` to start with home `~` or current working directory `.`, By default `p` is current working directory.
+- `join(...):string`: join multiple components into path.
+  - For example `join('my', 'folder')` returns `my/folder` on UNIX/Linux, returns `my\\folder` on Windows.
+- `reduce2home(p:string?):string`: Reduce path `p` to start with home directory `~`.
+  - By default `p` is current working directory `.`.
+- `reduce(p:string?):string`: Reduce path `p` to start with home directory `~` or current working directory `.`.
+  - By default `p` is current working directory `.`.
 - `shorten(p:string?):string`: Shorten path `p` to the `~/p/l/commons.nvim` style, start with home `~` or current working directory `.`, By default `p` is current working directory.
 - `pipename():string`: Make named pipe path, for UNIX/Linux it's a tmp file, for Windows it looks like `\\.\pipe\nvim-pipe-12873-182710`.
 
