@@ -151,12 +151,12 @@ M.FileLineReader = FileLineReader
 
 -- The `commons.FileLineReader` class }
 
--- Read all the content from a file.
+-- Read all the content from a file, returns file content.
 --
 --- @param filename string        file name.
 --- @param opts {trim:boolean?}?  options:
 ---                                 1. `trim`: whether to trim whitespaces around text content, by default `false`.
---- @return string?               file content.
+--- @return string?               returns file content, returns `nil` if failed to open file.
 M.readfile = function(filename, opts)
   opts = opts or { trim = false }
   opts.trim = type(opts.trim) == "boolean" and opts.trim or false
@@ -250,11 +250,11 @@ M.asyncreadfile = function(filename, on_complete, opts)
   end)
 end
 
--- Read file content by lines.
+-- Read file content by lines, returns content in lines.
 -- The newline break `\n` is removed from each line.
 --
 --- @param filename string  file name.
---- @return string[]|nil    file content in lines (strings list).
+--- @return string[]|nil    return file content in lines (strings list), returns `nil` if failed to open file.
 M.readlines = function(filename)
   local reader = M.FileLineReader:open(filename) --[[@as commons.FileLineReader]]
   if not reader then
@@ -268,11 +268,11 @@ M.readlines = function(filename)
   return results
 end
 
--- Write `content` into file.
+-- Write `content` into file, returns `0` if success.
 --
 --- @param filename string  file name.
 --- @param content string   file content.
---- @return integer         `0` if success, `-1` if failed.
+--- @return integer         returns `0` if success, returns `-1` if failed.
 M.writefile = function(filename, content)
   local f = io.open(filename, "w")
   if not f then
@@ -334,12 +334,12 @@ M.asyncwritefile = function(filename, content, on_complete)
   end)
 end
 
--- Write content into file by lines.
+-- Write content into file by lines, returns `0` if success.
 -- The newline break `\n` is appended for each line.
 --
 --- @param filename string  file name.
 --- @param lines string[]   content lines.
---- @return integer         `0` if success, `-1` if failed.
+--- @return integer         returns `0` if success, returns `-1` if failed.
 M.writelines = function(filename, lines)
   local f = io.open(filename, "w")
   if not f then
