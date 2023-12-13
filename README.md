@@ -189,19 +189,26 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 
 Numbers and integers utilities.
 
-- `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
+- `INT32_MIN`/`INT32_MAX`: 32-bit integer max/min value.
 - `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
 - `lt(a:number?, b:number?):boolean`/`le(a:number?, b:number?):boolean`: Whether `a` is less than (or less equal to) `b` or not.
 - `gt(a:number?, b:number?):boolean`/`ge(a:number?, b:number?):boolean`: Whether `a` is greater than (or greater equal to) `b` or not.
-- `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`, e.g. when `value < left` returns `left`, when `value > right` returns `right`.
+- `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`.
+  - For `value < left` returns `left`.
+  - For `value > right` returns `right`.
 - `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
 
 ### [commons.paths](/lua/commons/paths.lua)
 
-File/directory path utilities.
+File path utilities.
 
-- `SEPARATOR:string`: `/` for UNIX/Linux, `\\` for Windows.
-- `normalize(p:string, opts:{backslash:boolean?, expand:boolean?}?):string`: normalize path, e.g. replace Windows path separator `\\\\` to `\\`. The `backslash = true` could replace `\\` to `/`, the `expand = true` could expand the home `~` to full path, by default `opts` is `{backslash = false, expand = false}`.
+- `SEPARATOR:string`: file path separator character.
+  - For UNIX/Linux `/`.
+  - For Windows `\\`.
+- `normalize(p:string, opts:{double_backslash:boolean?, expand:boolean?}?):string`: normalize path separators, e.g. replace Windows `\\` to UNIX/Linux `\\`.
+  - Set `double_backslash = true` to also replace `\\\\` to `/`.
+  - Set `expand = true` to expand the user home directory `~` to full path.
+  - By default `opts` is `{double_backslash = false, expand = false}`.
 - `join(...):string`: join multiple components into path, for example `join('my', 'folder')` returns `my/folder` on UNIX/Linux, returns `my\\folder` on Windows.
 - `reduce2home(p:string?):string`: Reduce path `p` to start with home `~`, By default `p` is current working directory.
 - `reduce(p:string?):string`: Reduce path `p` to start with home `~` or current working directory `.`, By default `p` is current working directory.
