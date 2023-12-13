@@ -1,8 +1,15 @@
+-- Compatible Neovim APIs relate to nvim buffers.
+--
+-- Author: Lin Rongbin (linrongbin16@outlook.com)
+-- Copyright: MIT
+
 local M = {}
 
---- @param bufnr integer
---- @param name string
---- @return any
+-- Get buffer option with `bufnr` and option `name`, returns option value.
+--
+--- @param bufnr integer  buffer number
+--- @param name string    option name
+--- @return any           option value
 M.get_buf_option = function(bufnr, name)
   if vim.fn.has("nvim-0.8") > 0 then
     return vim.api.nvim_get_option_value(name, { buf = bufnr })
