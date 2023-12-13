@@ -44,39 +44,53 @@ The commons lua library for Neovim plugin project.
 
 ### Plugin Manager
 
-<details><summary><b>With <a href="https://github.com/folke/lazy.nvim">lazy.nvim</a></b></summary>
+#### With [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 require("lazy").setup({
-  "linrongbin16/commons.nvim",
+  {
+    "linrongbin16/commons.nvim",
+
+    -- (optional) specify the version/tag
+    tag = '*',
+    version = '*',
+  },
 })
 ```
 
-</details>
-
-<details><summary><b>With <a href="https://github.com/lewis6991/pckr.nvim">pckr.nvim</a></b></summary>
+#### With [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
 
 ```lua
 require("pckr").add({
-  "linrongbin16/commons.nvim",
+  {
+    "linrongbin16/commons.nvim",
+
+    -- (optional) specify the tag
+    tag = '*',
+  },
 })
 ```
 
-</details>
-
 ### LuaRocks
-
-<details><summary><b>With <a href="https://luarocks.org/">luarocks</a></b></summary>
 
 ```bash
 luarocks install commons.nvim
-```
 
-</details>
+# (optional) specify the version
+luarocks install commons.nvim 1.4.1
+```
 
 ### Embed Source Code
 
-<details><summary><b>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></b></summary>
+Manual copy/paste also works:
+
+1. Copy/paste all `lua/commons/*.lua` into one of your plugin folders.
+2. Replace all prefix `require("commons` to `require("your.plugin.commons`.
+
+Or
+
+<details><summary>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></summary>
+<br/>
 
 Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
 
@@ -97,14 +111,11 @@ jobs:
         run: |
           echo "pwd"
           echo $PWD
-          echo "home"
-          echo $HOME
           git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
-          mkdir -p ./lua/gentags/commons
+          mkdir -p ./lua/your/plugin/commons
           cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/your/plugin/commons
           cd ./lua/your/plugin/commons
           find . -type f -name '*.lua' -exec sed -i 's/require("commons/require("your.plugin.commons/g' {} \;
-          cd $HOME
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
@@ -113,7 +124,7 @@ jobs:
 
 Here're some real-world examples:
 
-- [gentags.nvim's ci.yml](https://github.com/linrongbin16/gentags.nvim/blob/5f5bd825951fb8bc8c5dea7919c46a86063c6e5e/.github/workflows/ci.yml?plain=1#L47-L51) and its [action runs](https://github.com/linrongbin16/gentags.nvim/actions/runs/7176179406/job/19540665077).
+- gentags.nvim's [ci.yml](https://github.com/linrongbin16/gentags.nvim/blob/5f5bd825951fb8bc8c5dea7919c46a86063c6e5e/.github/workflows/ci.yml?plain=1#L47-L51) and its [action runs](https://github.com/linrongbin16/gentags.nvim/actions/runs/7176179406/job/19540665077).
 
 </details>
 
