@@ -1,4 +1,0 @@
--- Entry point of all modules.
---
--- Author: Lin Rongbin (linrongbin16@outlook.com)
--- Copyright: MIT
