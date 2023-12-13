@@ -215,8 +215,11 @@ File path utilities.
   - By default `p` is current working directory `.`.
 - `reduce(p:string?):string`: Reduce path `p` to start with home directory `~` or current working directory `.`.
   - By default `p` is current working directory `.`.
-- `shorten(p:string?):string`: Shorten path `p` to the `~/p/l/commons.nvim` style, start with home `~` or current working directory `.`, By default `p` is current working directory.
-- `pipename():string`: Make named pipe path, for UNIX/Linux it's a tmp file, for Windows it looks like `\\.\pipe\nvim-pipe-12873-182710`.
+- `shorten(p:string?):string`: Shorten path `p` to the `~/p/l/commons.nvim` style, e.g. all folders are shorten to only the 1st character, and start with home directory `~` or current working directory `.`.
+  - By default `p` is current working directory `.`.
+- `pipename():string`: Make named pipe temporary path.
+  - For UNIX/Linux it's a tmp file path.
+  - For Windows it looks like `\\.\pipe\nvim-pipe-12873-182710`.
 
 ### [commons.ringbuf](/lua/commons/ringbuf.lua)
 
