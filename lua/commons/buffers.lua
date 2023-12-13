@@ -1,16 +1,18 @@
+--- Compatible APIs for nvim buffers.
+--
 --- @author Lin Rongbin (linrongbin16@outlook.com)
 --- @copyright MIT
-
--- Compatible APIs for nvim buffers.
+--- @module commons.buffers
 
 local M = {}
 
 --- Get buffer option.
--- Get option value by `bufnr` and option `name`, returns option value.
 --
---- @param bufnr integer
---- @param name string
---- @return any
+-- Get with `bufnr` and option `name`, returns option value.
+--
+--- @param bufnr integer  (the buffer number)
+--- @param name string    (the option name)
+--- @return any           (the option value)
 M.get_buf_option = function(bufnr, name)
   if vim.fn.has("nvim-0.8") > 0 then
     return vim.api.nvim_get_option_value(name, { buf = bufnr })
@@ -20,11 +22,12 @@ M.get_buf_option = function(bufnr, name)
 end
 
 --- Set buffer option.
--- Set option value to `value`, by `bufnr` and option `name`.
+--
+-- Set option to `value`, with `bufnr` and option `name`.
 ---
---- @param bufnr integer
---- @param name string
---- @param value any
+--- @param bufnr integer  (the buffer number)
+--- @param name string    (the option name)
+--- @param value any      (the option value)
 --- @return any
 M.set_buf_option = function(bufnr, name, value)
   if vim.fn.has("nvim-0.8") > 0 then
