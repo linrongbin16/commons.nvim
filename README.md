@@ -89,7 +89,8 @@ Manual copy/paste also works:
 
 Or
 
-<details><summary><b>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></b></summary>
+<details><summary>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></summary>
+<br/>
 
 Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
 
