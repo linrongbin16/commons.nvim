@@ -202,14 +202,14 @@ Numbers and integers utilities.
 
 File path utilities.
 
-- `SEPARATOR:string`: file path separator character.
+- `SEPARATOR:string`: File path separator character.
   - For UNIX/Linux `/`.
   - For Windows `\\`.
-- `normalize(p:string, opts:{double_backslash:boolean?, expand:boolean?}?):string`: normalize path separators, e.g. replace Windows `\\` to UNIX/Linux `\\`.
+- `normalize(p:string, opts:{double_backslash:boolean?, expand:boolean?}?):string`: Normalize path separators, e.g. replace Windows `\\` to UNIX/Linux `\\`.
   - Set `double_backslash = true` to also replace `\\\\` to `/`.
   - Set `expand = true` to expand the user home directory `~` to full path.
   - By default `opts` is `{double_backslash = false, expand = false}`.
-- `join(...):string`: join multiple components into path.
+- `join(...):string`: Join multiple components into path.
   - For example `join('my', 'folder')` returns `my/folder` on UNIX/Linux, returns `my\\folder` on Windows.
 - `reduce2home(p:string?):string`: Reduce path `p` to start with home directory `~`.
   - By default `p` is current working directory `.`.
@@ -225,43 +225,43 @@ File path utilities.
 
 Drop-in replacement **Ring Buffer** data structure with iterator support.
 
-- `commons.RingBuffer`:
+- `commons.RingBuffer`: The ring buffer class.
 
-  - `new(maxsize:integer):commons.RingBuffer`: Create new ring buffer data structure with fixed list size.
-  - `push(item:any):integer`: Push new `item` into ring buffer. Returns new added item index.
-  - `pop():any`: Pop out latest added `item` from ring buffer. Returns the latest added item.
-  - `peek():any`: Get latest added `item` without remove it from ring buffer. Returns the latest added item.
-  - `clear():any`: Clear whole ring buffer. Returns the previous items count.
-  - `iterator():commons._RingBufferIterator`: Returns iterator (from oldest to latest).
-  - `riterator():commons._RingBufferRIterator`: Returns reverse iterator (from latest to oldest).
+  - `new(maxsize:integer):commons.RingBuffer`: Create new ring buffer with fixed list size.
+  - `push(item:any):integer`: Push new `item` into ring buffer, returns new added item index.
+  - `pop():any`: Pop out latest added `item` from ring buffer, returns the latest added item.
+  - `peek():any`: Get latest added `item` without remove it from ring buffer, returns the latest added item.
+  - `clear():any`: Clear whole ring buffer, returns the previous items count.
+  - `iterator():commons._RingBufferIterator`: Returns iterator (from oldest to newest).
+  - `riterator():commons._RingBufferRIterator`: Returns reverse iterator (from newest to oldest).
 
-- `commons._RingBufferIterator`:
-
-  - `has_next():boolean`: Whether has next item in ring buffer.
-  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
-
-  ```lua
-  local ringbuf = require("commons.ringbuf").RingBuffer:new()
-  local iter = ringbuf:iterator()
-  while iter:has_next() do
-    local item = iter:next()
-    -- consume item
-  end
-  ```
-
-- `commons._RingBufferRIterator`:
+- `commons._RingBufferIterator`: The iterator (from oldest to newest) class.
 
   - `has_next():boolean`: Whether has next item in ring buffer.
-  - `next():any`: Returns next item in ring buffer, returns `nil` if there's no more items. For example:
+  - `next():any`: Returns next item in ring buffer. For example:
 
-  ```lua
-  local ringbuf = require("commons.ringbuf").RingBuffer:new()
-  local riter = ringbuf:riterator()
-  while iter:has_next() do
-    local item = iter:next()
-    -- consume item
-  end
-  ```
+    ```lua
+    local rb = require("commons.ringbuf").RingBuffer:new()
+    local iter = rb:iterator()
+    while iter:has_next() do
+      local item = iter:next()
+      -- consume item
+    end
+    ```
+
+- `commons._RingBufferRIterator`: The reverse iterator (from newest to oldest) class.
+
+  - `has_next():boolean`: Whether has next item in ring buffer.
+  - `next():any`: Returns next item in ring buffer. For example:
+
+    ```lua
+    local rb = require("commons.ringbuf").RingBuffer:new()
+    local riter = rb:riterator()
+    while iter:has_next() do
+      local item = iter:next()
+      -- consume item
+    end
+    ```
 
 ### [commons.spawn](/lua/commons/spawn.lua)
 
