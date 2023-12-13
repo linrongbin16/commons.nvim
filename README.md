@@ -51,9 +51,9 @@ require("lazy").setup({
   {
     "linrongbin16/commons.nvim",
 
-    -- optional to avoid break changes
-    tag = '1.4.*',
-    version = '1.4.*',
+    -- (optional) specify the version/tag
+    tag = '*',
+    version = '*',
   },
 })
 ```
@@ -65,7 +65,7 @@ require("pckr").add({
   {
     "linrongbin16/commons.nvim",
 
-    -- optional to avoid break changes
+    -- (optional) specify the tag
     tag = '*',
   },
 })
@@ -73,13 +73,12 @@ require("pckr").add({
 
 ### LuaRocks
 
-<details><summary><b>With <a href="https://luarocks.org/">luarocks</a></b></summary>
-
 ```bash
 luarocks install commons.nvim
-```
 
-</details>
+# (optional) specify the version
+luarocks install commons.nvim 1.4.1
+```
 
 ### Embed Source Code
 
