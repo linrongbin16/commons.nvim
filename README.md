@@ -135,13 +135,13 @@ Here're some real-world examples:
 
 ## Usage
 
-When installed with plugin manager or luarocks, please use:
+With plugin manager or luarocks, please use:
 
 ```lua
 local strings = require("commons.strings")
 ```
 
-When installed with embed source code, please use:
+With embedded source code, please use:
 
 ```lua
 local strings = require("your.plugin.commons.strings")
