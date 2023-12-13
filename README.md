@@ -39,13 +39,13 @@ The commons lua library for Neovim plugin project.
 
 ## Requirements
 
-- neovim &ge; 0.6.0.
+- Neovim &ge; 0.6.0.
 
 ## Install
 
 ### Plugin Manager
 
-#### With [lazy.nvim](https://github.com/folke/lazy.nvim)
+#### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 require("lazy").setup({
@@ -59,7 +59,7 @@ require("lazy").setup({
 })
 ```
 
-#### With [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
+#### [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
 
 ```lua
 require("pckr").add({
@@ -88,12 +88,10 @@ Manual copy/paste also works:
 1. Copy/paste all `lua/commons/*.lua` into one of your plugin folders.
 2. Replace all prefix `require("commons` to `require("your.plugin.commons`.
 
-Or
-
-<details><summary>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></summary>
+<details><summary>Or with <a href="https://docs.github.com/en/actions">GitHub Actions</a></summary>
 <br/>
 
-Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
+Embed with auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
 
 ```yaml
 name: CI
@@ -123,6 +121,12 @@ jobs:
           commit_message: "chore(pr): auto-commit commons.nvim"
 ```
 
+To embed specified tag/version, please add `--branch {tag}` when clone, for example `v1.4.3`:
+
+```sh
+git clone --depth=1 --branch v1.4.3 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
+```
+
 Here're some real-world examples:
 
 - gentags.nvim's [ci.yml](https://github.com/linrongbin16/gentags.nvim/blob/5f5bd825951fb8bc8c5dea7919c46a86063c6e5e/.github/workflows/ci.yml?plain=1#L47-L51) and its [action runs](https://github.com/linrongbin16/gentags.nvim/actions/runs/7176179406/job/19540665077).
@@ -131,13 +135,13 @@ Here're some real-world examples:
 
 ## Usage
 
-When installed with plugin manager or luarocks, please use:
+With plugin manager or luarocks, please use:
 
 ```lua
 local strings = require("commons.strings")
 ```
 
-When installed with embed source code, please use:
+With embedded source code, please use:
 
 ```lua
 local strings = require("your.plugin.commons.strings")
