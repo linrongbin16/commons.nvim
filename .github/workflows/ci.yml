@@ -55,6 +55,9 @@ jobs:
           git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.loop/g' ./lua/commons/_system.lua
+      - uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "luajit-2.1.0-beta3"
       - uses: leafo/gh-actions-luarocks@v4
       - name: Generate docs
         shell: bash
