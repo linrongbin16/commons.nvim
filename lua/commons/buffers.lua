@@ -18,10 +18,11 @@ M.get_buf_option = function(bufnr, name)
   end
 end
 
---- @param bufnr integer
---- @param name string
---- @param value any
---- @return any
+-- Set buffer option with `bufnr` and option `name`, to option `value`.
+--
+--- @param bufnr integer  buffer number
+--- @param name string    option name
+--- @param value any      option value
 M.set_buf_option = function(bufnr, name, value)
   if vim.fn.has("nvim-0.8") > 0 then
     return vim.api.nvim_set_option_value(name, value, { buf = bufnr })
