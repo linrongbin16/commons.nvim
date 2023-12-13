@@ -160,29 +160,28 @@ Compatible Neovim APIs relate to nvim buffers.
 
 Sync/async file IO operations.
 
+For read operations:
+
 - `FileLineReader` (`commons.FileLineReader`): Line-wise file reader: read by chunks, iterate by lines.
 
   - `open`: Create a file reader, returns the file reader object.
+  - `has_next`: Whether has more lines to read.
+  - `next`: Get next line.
+  - `close`: Close the file reader.
 
-  - `function(filename:string, batchsize:integer?):commons.FileLineReader?`
+- `readfile`: Read all the content from a file, returns file content.
+- `readlines`: Read file content by lines, returns file content in lines.
+  > [!NOTE]
+  > Newline break `\n` is auto removed from each line.
+- `asyncreadfile`: Async read all the content from a file, invoke callback function on read complete.
 
-    - `filename`: File name.
-    - `batchsize`: (Optional) chunk size on internal ready operation, by default 4096.
-    - Returns file reader, returns `nil` and throws an error if failed to open file.
+For write operations:
 
-- `FileLineReader:has_next`: Whether has more lines to read.
-
-  - `function():boolean`
-    - Returns `true` if has more lines, `false` if not.
-
-- `FileLineReader:next`: Returns next line.
-
-  - `function():string?`
-    - Returns line string if has next line, `nil` if not.
-
-`readfile`: Read all the content from a file, returns file content.
-
-- `function(filename:string, opts:{trim:boolean?}?):string?`
+- `writefile`: Write content into file.
+- `writelines`: Write content into file by lines.
+  > [!NOTE]
+  > Newline break `\n` is auto appended for each line.
+- `asyncwritefile`: Async write all the content into a file, invoke callback function on write complete.
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 

@@ -2,8 +2,6 @@ local M = {}
 
 -- FileLineReader {
 --
--- Line-wise file reader, it read a file chunk by chunk, but allow you iterate line by line.
---
 --- @class commons.FileLineReader
 --- @field filename string    file name.
 --- @field handler integer    file handle.
@@ -13,11 +11,9 @@ local M = {}
 --- @field buffer string?     internal data buffer.
 local FileLineReader = {}
 
--- Create a file reader, returns the file reader object.
---
 --- @param filename string            file name.
 --- @param batchsize integer?         (optional) batch size, by default 4096.
---- @return commons.FileLineReader?   returns file reader, returns `nil` if failed to open file and throws an error.
+--- @return commons.FileLineReader?   returns file reader, returns `nil` and throws an error if failed to open file.
 function FileLineReader:open(filename, batchsize)
   local uv = require("commons.uv")
   local handler = uv.fs_open(filename, "r", 438) --[[@as integer]]
@@ -86,16 +82,12 @@ function FileLineReader:_read_chunk()
   return #data
 end
 
--- Whether has more lines to read.
---
---- @return boolean   `true` if has more lines, `false` if not.
+--- @return boolean   returns `true` if has more lines, `false` if not.
 function FileLineReader:has_next()
   self:_read_chunk()
   return self.buffer ~= nil and string.len(self.buffer) > 0
 end
 
--- Get next line, returns next line.
---
 --- @return string?   returns next line, returns `nil` if no more lines.
 function FileLineReader:next()
   --- @return string?
@@ -144,8 +136,6 @@ M.FileLineReader = FileLineReader
 
 -- FileLineReader }
 
--- Read all the content from a file, returns file content.
---
 --- @param filename string        file name.
 --- @param opts {trim:boolean?}?  options:
 ---                                 1. `trim`: whether to trim whitespaces around text content, by default `false`.
@@ -163,8 +153,6 @@ M.readfile = function(filename, opts)
   return opts.trim and vim.trim(content) or content
 end
 
--- Async read all the content from a file, invoke callback `on_complete` when read operation done.
---
 --- @param filename string                    file name.
 --- @param on_complete fun(data:string?):nil  callback on read complete.
 ---                                             1. `data`: the file content.
@@ -261,8 +249,6 @@ M.readlines = function(filename)
   return results
 end
 
--- Write `content` into file, returns `0` if success.
---
 --- @param filename string  file name.
 --- @param content string   file content.
 --- @return integer         returns `0` if success, returns `-1` if failed.
@@ -276,8 +262,6 @@ M.writefile = function(filename, content)
   return 0
 end
 
--- Async write `content` to file, invoke callback `on_complete` when write complete.
---
 --- @param filename string                      file name.
 --- @param content string                       file content.
 --- @param on_complete fun(bytes:integer?):any  callback on write complete.
@@ -327,9 +311,6 @@ M.asyncwritefile = function(filename, content, on_complete)
   end)
 end
 
--- Write content into file by lines, returns `0` if success.
--- The newline break `\n` is appended for each line.
---
 --- @param filename string  file name.
 --- @param lines string[]   content lines.
 --- @return integer         returns `0` if success, returns `-1` if failed.
