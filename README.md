@@ -121,7 +121,7 @@ jobs:
           commit_message: "chore(pr): auto-commit commons.nvim"
 ```
 
-To embed specified tag/version, please add `--branch {tag}` when clone:
+To embed specified tag/version, please add `--branch {tag}` when clone, for example `v1.4.3`:
 
 ```sh
 git clone --depth=1 --branch v1.4.3 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
