@@ -4,6 +4,8 @@
 
 > The commons lua library for Neovim plugin project.
 
+## Table of Contents
+
 - [Requirements](/requirements.md)
 - [Install](/install.md)
 - [Usage](/usage.md)
