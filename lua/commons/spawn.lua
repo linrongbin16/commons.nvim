@@ -1,5 +1,3 @@
--- Sync/async child-process and stdout/stderr line-based outputs processing
-
 local M = {}
 
 --- @alias commons.SpawnLineProcessor fun(line:string):any
