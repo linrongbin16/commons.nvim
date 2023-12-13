@@ -8,7 +8,7 @@ local M = {}
 
 --- Get buffer option.
 --
--- Get with `bufnr` and option `name`, returns option value.
+-- Get with **'bufnr'** and option **'name'**, returns option value.
 --
 --- @param bufnr integer  (the buffer number)
 --- @param name string    (the option name)
@@ -23,7 +23,7 @@ end
 
 --- Set buffer option.
 --
--- Set option to `value`, with `bufnr` and option `name`.
+-- Set option to **'value'**, with **'bufnr'** and option **'name'**.
 ---
 --- @param bufnr integer  (the buffer number)
 --- @param name string    (the option name)
