@@ -149,28 +149,8 @@ local strings = require("your.plugin.commons.strings")
 
 ## Modules
 
-### [commons.buffers](/lua/commons/buffers.lua)
-
-Compatible Neovim buffer relate APIs.
-
-- `get_buf_option(bufnr:integer, name:string):any`: get `bufnr` buffer option.
-- `set_buf_option(bufnr:integer, name:string, value:any):any`: set `bufnr` buffer option value.
-
-### [commons.fileios](/lua/commons/fileios.lua)
-
-Sync/async file IO operations.
-
-Read operations:
-
-- `readfile(filename:string, opts:{trim:boolean?}?):string`: Read the file content, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Returns the file content.
-- `readlines(filename:string):string[]|nil`: Read the file content line by line. Returns the file content by strings list.
-- `asyncreadfile(filename:string, on_complete:fun(data:string?):nil, opts:{trim:boolean?}?):nil`: Async read the file content, invoke callback `on_complete` when read is done, by default `opts` is `{trim = false}`, e.g. not trim whitespaces around text content. Throw an error if failed.
-
-Write operations:
-
-- `writefile(filename:string, content:string):integer`: Write text `context` to file, returns `-1` if failed, otherwise `0`.
-- `writelines(filename:string, lines:string[]):integer`: Write `lines` content to file, returns `-1` if failed, otherwise `0`.
-- `asyncwritefile(filename:string, content:string, on_complete:fun(bytes:integer?):nil):nil`: Async write text `content` to the file, invoke callback `on_complete` when write is done. Throw an error if failed.
+- [commons.buffers](/lua/commons/buffers.lua)
+- [commons.fileios](/lua/commons/fileios.lua)
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
