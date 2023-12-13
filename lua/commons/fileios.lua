@@ -1,7 +1,15 @@
+--- File sync/async IO operations.
+--
+-- @author Lin Rongbin (linrongbin16@outlook.com)
+-- @copyright MIT
+-- @module commons.fileios
+
 local M = {}
 
 -- FileLineReader {
 
+--- Line-wise file reader class.
+--
 --- @class commons.FileLineReader
 --- @field filename string
 --- @field handler integer
