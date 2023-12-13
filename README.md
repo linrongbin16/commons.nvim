@@ -151,30 +151,18 @@ local strings = require("your.plugin.commons.strings")
 
 ### [commons.buffers](/lua/commons/buffers.lua)
 
-> Compatible Neovim APIs relate to nvim buffers.
+Compatible Neovim APIs relate to nvim buffers.
 
-`get_buf_option`: Get buffer option with buffer number `bufnr` and option `name`.
-
-- `function(bufnr:integer, name:string):any`
-
-  - `bufnr`: Buffer number.
-  - `name`: Option name.
-  - Returns option value.
-
-`set_buf_option`: Set buffer option to `value`, with buffer number `bufnr` and option `name`.
-
-- `function(bufnr:integer, name:string, value:any):any`
-  - `bufnr`: Buffer number.
-  - `name`: Option name.
-  - `value`: Option value.
+- `get_buf_option`: Get buffer option.
+- `set_buf_option`: Set buffer option.
 
 ### [commons.fileios](/lua/commons/fileios.lua)
 
-> Sync/async file IO operations.
+Sync/async file IO operations.
 
-`FileLineReader` (`commons.FileLineReader`): Line-wise file reader: read by chunks, iterate by lines.
+- `FileLineReader` (`commons.FileLineReader`): Line-wise file reader: read by chunks, iterate by lines.
 
-- `FileLineReader:open`: Create a file reader, returns the file reader object.
+  - `open`: Create a file reader, returns the file reader object.
 
   - `function(filename:string, batchsize:integer?):commons.FileLineReader?`
 
