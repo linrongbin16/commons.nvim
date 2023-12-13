@@ -183,7 +183,7 @@ Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 
 
 ### [commons.numbers](/lua/commons/numbers.lua)
 
-Numbers utilities.
+Numbers and integers utilities.
 
 - `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
 - `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
@@ -193,6 +193,8 @@ Numbers utilities.
 - `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
 
 ### [commons.paths](/lua/commons/paths.lua)
+
+File/directory path utilities.
 
 - `SEPARATOR:string`: `/` for UNIX/Linux, `\\` for Windows.
 - `normalize(p:string, opts:{backslash:boolean?, expand:boolean?}?):string`: normalize path, e.g. replace Windows path separator `\\\\` to `\\`. The `backslash = true` could replace `\\` to `/`, the `expand = true` could expand the home `~` to full path, by default `opts` is `{backslash = false, expand = false}`.
