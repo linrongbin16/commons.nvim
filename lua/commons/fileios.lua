@@ -18,11 +18,11 @@ local M = {}
 --- @field buffer string?     internal data buffer.
 local FileLineReader = {}
 
--- Create a file reader.
+-- Create a file reader, returns the file reader object.
 --
 --- @param filename string            file name.
 --- @param batchsize integer?         (optional) batch size, by default 4096.
---- @return commons.FileLineReader?   file reader object, returns `nil` if failed to open, and throw an error.
+--- @return commons.FileLineReader?   returns file reader, returns `nil` if failed to open file and throws an error.
 function FileLineReader:open(filename, batchsize)
   local uv = require("commons.uv")
   local handler = uv.fs_open(filename, "r", 438) --[[@as integer]]
@@ -60,10 +60,10 @@ function FileLineReader:open(filename, batchsize)
   return o
 end
 
--- Read a data chunk into internal buffer.
+-- Read a data chunk into internal buffer, returns read data bytes.
 --
 --- @private
---- @return integer   read bytes, returns -1 if failed.
+--- @return integer   returns read bytes, returns `-1` if failed.
 function FileLineReader:_read_chunk()
   local uv = require("commons.uv")
   local chunksize = (self.filesize >= self.offset + self.batchsize)
@@ -101,9 +101,9 @@ function FileLineReader:has_next()
   return self.buffer ~= nil and string.len(self.buffer) > 0
 end
 
--- Get next line.
+-- Get next line, returns next line.
 --
---- @return string?   next line, returns `nil` if no more lines.
+--- @return string?   returns next line, returns `nil` if no more lines.
 function FileLineReader:next()
   --- @return string?
   local function impl()

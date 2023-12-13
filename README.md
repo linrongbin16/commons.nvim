@@ -22,8 +22,6 @@ The commons lua library for Neovim plugin project.
   - [Embed Source Code](#embed-source-code)
 - [Usage](#usage)
 - [Modules](#modules)
-  - [commons.buffers](#commonsbuffers)
-  - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.numbers](#commonsnumbers)
   - [commons.paths](#commonspaths)
