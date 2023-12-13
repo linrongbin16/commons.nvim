@@ -19,6 +19,10 @@ end
 --- @param ... any
 --- @return any
 M.tbl_get = function(t, ...)
+  if vim.fn.has("nvim-0.10") > 0 and type(vim.tbl_get) == "function" then
+    return vim.tbl_get(t, ...)
+  end
+
   local e = t --[[@as table]]
   for _, k in ipairs({ ... }) do
     if M.tbl_not_empty(e) and e[k] ~= nil then

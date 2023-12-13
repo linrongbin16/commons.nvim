@@ -257,9 +257,17 @@ String utilities.
 
 ### [commons.tables](/lua/commons/tables.lua)
 
-Easier table/list data structure for lua.
+Table/list data structure for lua.
+
+For tables:
 
 - `tbl_empty(t:any):boolean`/`tbl_not_empty(t:any):boolean`: Whether table `t` is empty or not.
+- `tbl_get(t:any, ...:any):any`: Retrieve element from lua table/list, this is just a wrapper of [vim.tbl_get](<https://neovim.io/doc/user/lua.html#vim.tbl_get()>).
+
+For list:
+
+- `list_empty(l:any):boolean`/`list_not_empty(l:any):boolean`: Whether list `l` is empty or not.
+- `list_index(l:any, idx:integer):integer`: Get list index with negatives support, for `idx > 0` returns the same value, for `idx < 0` returns `#l + idx + 1`, e.g. `-1` returns `#l` (the last element index), `-#l` returns `1` (the first element index).
 
 ### [commons.termcolors](/lua/commons/termcolors.lua)
 
