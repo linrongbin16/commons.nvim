@@ -151,22 +151,50 @@ local strings = require("your.plugin.commons.strings")
 
 ### [commons.buffers](/lua/commons/buffers.lua)
 
-Compatible Neovim APIs relate to nvim buffers.
+> Compatible Neovim APIs relate to nvim buffers.
 
-- `get_buf_option`: Get buffer option with buffer number `bufnr` and option `name`.
+`get_buf_option`: Get buffer option with buffer number `bufnr` and option `name`.
 
-  - `function(bufnr:integer, name:string):any`
-    - `bufnr`: Buffer number.
-    - `name`: Option name.
-    - Returns option value.
+- `function(bufnr:integer, name:string):any`
 
-- `set_buf_option`: Set buffer option to `value`, with buffer number `bufnr` and option `name`.
-  - `function(bufnr:integer, name:string, value:any):any`
-    - `bufnr`: Buffer number.
-    - `name`: Option name.
-    - `value`: Option value.
+  - `bufnr`: Buffer number.
+  - `name`: Option name.
+  - Returns option value.
+
+`set_buf_option`: Set buffer option to `value`, with buffer number `bufnr` and option `name`.
+
+- `function(bufnr:integer, name:string, value:any):any`
+  - `bufnr`: Buffer number.
+  - `name`: Option name.
+  - `value`: Option value.
 
 ### [commons.fileios](/lua/commons/fileios.lua)
+
+> Sync/async file IO operations.
+
+`FileLineReader` (`commons.FileLineReader`): Line-wise file reader: read by chunks, iterate by lines.
+
+- `FileLineReader:open`: Create a file reader, returns the file reader object.
+
+  - `function(filename:string, batchsize:integer?):commons.FileLineReader?`
+
+    - `filename`: File name.
+    - `batchsize`: (Optional) chunk size on internal ready operation, by default 4096.
+    - Returns file reader, returns `nil` and throws an error if failed to open file.
+
+- `FileLineReader:has_next`: Whether has more lines to read.
+
+  - `function():boolean`
+    - Returns `true` if has more lines, `false` if not.
+
+- `FileLineReader:next`: Returns next line.
+
+  - `function():string?`
+    - Returns line string if has next line, `nil` if not.
+
+`readfile`: Read all the content from a file, returns file content.
+
+- `function(filename:string, opts:{trim:boolean?}?):string?`
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 

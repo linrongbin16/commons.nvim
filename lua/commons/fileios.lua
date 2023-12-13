@@ -1,11 +1,6 @@
--- File sync/async IO operations.
---
--- Author: Lin Rongbin (linrongbin16@outlook.com)
--- Copyright: MIT
-
 local M = {}
 
--- The `commons.FileLineReader` class {
+-- FileLineReader {
 --
 -- Line-wise file reader, it read a file chunk by chunk, but allow you iterate line by line.
 --
@@ -60,10 +55,8 @@ function FileLineReader:open(filename, batchsize)
   return o
 end
 
--- Read a data chunk into internal buffer, returns read data bytes.
---
 --- @private
---- @return integer   returns read bytes, returns `-1` if failed.
+--- @return integer
 function FileLineReader:_read_chunk()
   local uv = require("commons.uv")
   local chunksize = (self.filesize >= self.offset + self.batchsize)
@@ -149,7 +142,7 @@ end
 
 M.FileLineReader = FileLineReader
 
--- The `commons.FileLineReader` class }
+-- FileLineReader }
 
 -- Read all the content from a file, returns file content.
 --
