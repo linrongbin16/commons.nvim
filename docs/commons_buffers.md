@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
 
-# [commons.buffers](/lua/commons/buffers.lua ":ignore")
+# [commons.buffers](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/buffers.lua)
 
 The compatible Neovim APIs for nvim buffers.
 
@@ -16,8 +16,8 @@ function(bufnr:integer, name:string):any
 
 ### `set_buf_option`
 
-Set buffer option.
+Set buffer option (to `value`) with buffer name (`bufnr`) and option name (`name`).
 
 ```lua
-(bufnr:integer, name:string, value:any):any
+function(bufnr:integer, name:string, value:any):any
 ```

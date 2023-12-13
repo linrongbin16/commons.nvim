@@ -1,52 +1,10 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
+<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD026 -->
 
 # Welcome to commons.nvim's Documentation!
 
 > The commons lua library for Neovim plugin project.
 
 ## Install
-
-## Modules
-
-### [commons.buffers](/lua/commons/buffers.lua)
-
-Compatible Neovim APIs relate to nvim buffers.
-
-- `get_buf_option`: Get buffer option.
-- `set_buf_option`: Set buffer option.
-
-### [commons.fileios](/lua/commons/fileios.lua)
-
-Sync/async file IO operations.
-
-For read operations:
-
-- `FileLineReader` (`@class`): Line-wise file reader: read by chunks, iterate by lines.
-
-  - `open`: Create a file reader, returns the file reader object.
-  - `has_next`: Whether has more lines to read.
-  - `next`: Get next line.
-  - `close`: Close the file reader.
-
-- `readfile`: Read all the content from a file, returns file content.
-- `readlines`: Read file content by lines, returns file content in lines.
-
-  > **Note**
-  >
-  > Newline break `\n` is auto removed from each line.
-
-- `asyncreadfile`: Async read all the content from a file, invoke callback function on read complete.
-
-For write operations:
-
-- `writefile`: Write content into file.
-- `writelines`: Write content into file by lines.
-
-  > **Note**
-  >
-  > Newline break `\n` is auto appended for each line.
-
-- `asyncwritefile`: Async write all the content into a file, invoke callback function on write complete.
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
