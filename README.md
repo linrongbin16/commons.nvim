@@ -47,7 +47,7 @@ For installation & API references, please see [document pages](https://linrongbi
 
 ### Plugin Manager
 
-#### With [lazy.nvim](https://github.com/folke/lazy.nvim)
+#### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 require("lazy").setup({
@@ -61,7 +61,7 @@ require("lazy").setup({
 })
 ```
 
-#### With [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
+#### [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
 
 ```lua
 require("pckr").add({
