@@ -88,9 +88,7 @@ Manual copy/paste also works:
 1. Copy/paste all `lua/commons/*.lua` into one of your plugin folders.
 2. Replace all prefix `require("commons` to `require("your.plugin.commons`.
 
-Or
-
-<details><summary>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></summary>
+<details><summary>Or with <a href="https://docs.github.com/en/actions">GitHub Actions</a></summary>
 <br/>
 
 Embed with auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
