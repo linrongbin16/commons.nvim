@@ -53,8 +53,8 @@ require("lazy").setup({
     "linrongbin16/commons.nvim",
 
     -- (optional) specify the version/tag
-    tag = '*',
-    version = '*',
+    tag = 'v1.4.3',
+    version = 'v1.4.*',
   },
 })
 ```
@@ -67,7 +67,7 @@ require("pckr").add({
     "linrongbin16/commons.nvim",
 
     -- (optional) specify the tag
-    tag = '*',
+    tag = 'v1.*',
   },
 })
 ```
