@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.0](https://github.com/linrongbin16/commons.nvim/compare/v1.4.3...v1.5.0) (2023-12-13)
+
+
+### Features
+
+* **lib:** add 'tables' ([#31](https://github.com/linrongbin16/commons.nvim/issues/31)) ([efb7fda](https://github.com/linrongbin16/commons.nvim/commit/efb7fdaed21665e42bb524d51f6277c9949400ba))
+
+
+### Performance Improvements
+
+* **test:** add v0.7.0 Neovim version for unit test matrix ([efb7fda](https://github.com/linrongbin16/commons.nvim/commit/efb7fdaed21665e42bb524d51f6277c9949400ba))
+
 ## [1.4.3](https://github.com/linrongbin16/commons.nvim/compare/v1.4.2...v1.4.3) (2023-12-12)
 
 
