@@ -39,7 +39,7 @@ The commons lua library for Neovim plugin project.
 
 ## Requirements
 
-- neovim &ge; 0.6.0.
+- Neovim &ge; 0.6.0.
 
 ## Install
 
@@ -93,7 +93,7 @@ Or
 <details><summary>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></summary>
 <br/>
 
-Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
+Embed with auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
 
 ```yaml
 name: CI
@@ -121,6 +121,12 @@ jobs:
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
           commit_message: "chore(pr): auto-commit commons.nvim"
+```
+
+To embed specified tag/version, please add `--branch {tag}` when clone:
+
+```sh
+git clone --depth=1 --branch v1.4.3 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
 ```
 
 Here're some real-world examples:
