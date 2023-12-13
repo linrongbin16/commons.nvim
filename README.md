@@ -162,7 +162,7 @@ Sync/async file IO operations.
 
 For read operations:
 
-- `FileLineReader` (`commons.FileLineReader`): Line-wise file reader: read by chunks, iterate by lines.
+- `FileLineReader` (`@class`): Line-wise file reader: read by chunks, iterate by lines.
 
   - `open`: Create a file reader, returns the file reader object.
   - `has_next`: Whether has more lines to read.
@@ -204,12 +204,17 @@ Encode/decode between lua table/list and json string.
 
 Numbers and integers utilities.
 
-- `INT32_MIN`/`INT32_MAX`: 32 bit integer max/min value.
-- `eq(a:number?, b:number?):boolean`/`ne(a:number?, b:number?):boolean`: Whether `a` and `b` are equal or not.
-- `lt(a:number?, b:number?):boolean`/`le(a:number?, b:number?):boolean`: Whether `a` is less than (or less equal to) `b` or not.
-- `gt(a:number?, b:number?):boolean`/`ge(a:number?, b:number?):boolean`: Whether `a` is greater than (or greater equal to) `b` or not.
-- `bound(value:number?, left:number?, right:numbers?):number`: Returns the bounded `value` by the max value `right` and min value `left`, e.g. when `value < left` returns `left`, when `value > right` returns `right`.
-- `auto_incremental_id():integer`: Returns auto-incremental ID, start from `1`.
+- `INT32_MAX`/`INT32_MIN`: 32 bit integer max/min value.
+
+- `eq`/`ne`: Whether equals to or not.
+- `lt`/`le`: Whether is less than (`lt`) or not, less equal to (`le`) or not.
+- `gt`/`ge`: Whether is greater than (`gt`) or not, greater equal to (`ge`) or not.
+- `bound`: Bound `value` by upper bound `right` and lower bound `left`.
+  > **Note**
+  >
+  > - When `value < left` returns `left`.
+  > - When `value > right` returns `right`.
+- `auto_incremental_id`: Get auto-incremental integer, start from `1`.
 
 ### [commons.paths](/lua/commons/paths.lua)
 
