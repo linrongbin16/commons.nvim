@@ -63,7 +63,7 @@ jobs:
     name: Unit Test
     strategy:
       matrix:
-        nvim_version: [stable, nightly, v0.6.0]
+        nvim_version: [stable, nightly, v0.6.0, v0.7.0]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -83,9 +83,6 @@ jobs:
           luarocks install luacov
           luarocks install cluacov
           luarocks install vusted
-          git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-          ~/.fzf/install
-          export PATH="$HOME/.fzf/bin:$PATH"
           vusted --coverage --shuffle ./test
       - name: Generate coverage reports
         shell: bash
