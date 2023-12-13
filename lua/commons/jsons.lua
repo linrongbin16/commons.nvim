@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-param
 local M = {}
 
 --- @param t table?   lua table.
