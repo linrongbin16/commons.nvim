@@ -3,3 +3,4 @@
 - [Home](/)
 - Modules
   - [commons.buffers](commons_buffers.md)
+  - [commons.fileios](commons_fileios.md)

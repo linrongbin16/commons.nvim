@@ -11,9 +11,9 @@ local M = {}
 --- @field buffer string?     internal data buffer.
 local FileLineReader = {}
 
---- @param filename string            file name.
---- @param batchsize integer?         (optional) batch size, by default 4096.
---- @return commons.FileLineReader?   returns file reader, returns `nil` and throws an error if failed to open file.
+--- @param filename string
+--- @param batchsize integer?
+--- @return commons.FileLineReader?
 function FileLineReader:open(filename, batchsize)
   local uv = require("commons.uv")
   local handler = uv.fs_open(filename, "r", 438) --[[@as integer]]
@@ -82,13 +82,13 @@ function FileLineReader:_read_chunk()
   return #data
 end
 
---- @return boolean   returns `true` if has more lines, `false` if not.
+--- @return boolean
 function FileLineReader:has_next()
   self:_read_chunk()
   return self.buffer ~= nil and string.len(self.buffer) > 0
 end
 
---- @return string?   returns next line, returns `nil` if no more lines.
+--- @return string?
 function FileLineReader:next()
   --- @return string?
   local function impl()
@@ -136,10 +136,9 @@ M.FileLineReader = FileLineReader
 
 -- FileLineReader }
 
---- @param filename string        file name.
---- @param opts {trim:boolean?}?  options:
----                                 1. `trim`: whether to trim whitespaces around text content, by default `false`.
---- @return string?               returns file content, returns `nil` if failed to open file.
+--- @param filename string
+--- @param opts {trim:boolean?}?
+--- @return string?
 M.readfile = function(filename, opts)
   opts = opts or { trim = false }
   opts.trim = type(opts.trim) == "boolean" and opts.trim or false
@@ -231,11 +230,8 @@ M.asyncreadfile = function(filename, on_complete, opts)
   end)
 end
 
--- Read file content by lines, returns content in lines.
--- The newline break `\n` is removed from each line.
---
---- @param filename string  file name.
---- @return string[]|nil    return file content in lines (strings list), returns `nil` if failed to open file.
+--- @param filename string
+--- @return string[]|nil
 M.readlines = function(filename)
   local reader = M.FileLineReader:open(filename) --[[@as commons.FileLineReader]]
   if not reader then

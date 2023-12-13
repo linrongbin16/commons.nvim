@@ -6,15 +6,6 @@
 
 ## Install
 
-## Modules
-
-### [commons.buffers](/lua/commons/buffers.lua)
-
-Compatible Neovim APIs relate to nvim buffers.
-
-- `get_buf_option`: Get buffer option.
-- `set_buf_option`: Set buffer option.
-
 ### [commons.fileios](/lua/commons/fileios.lua)
 
 Sync/async file IO operations.
