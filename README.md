@@ -158,7 +158,7 @@ Compatible Neovim buffer relate APIs.
 
 ### [commons.fileios](/lua/commons/fileios.lua)
 
-File (sync/async) IO operations.
+Sync/async file IO operations.
 
 Read operations:
 
