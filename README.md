@@ -22,6 +22,8 @@ The commons lua library for Neovim plugin project.
   - [Embed Source Code](#embed-source-code)
 - [Usage](#usage)
 - [Modules](#modules)
+  - [commons.buffers](#commonsbuffers)
+  - [commons.fileios](#commonsfileios)
   - [commons.jsons](#commonsjsons)
   - [commons.numbers](#commonsnumbers)
   - [commons.paths](#commonspaths)
@@ -147,8 +149,24 @@ local strings = require("your.plugin.commons.strings")
 
 ## Modules
 
-- [commons.buffers](/lua/commons/buffers.lua)
-- [commons.fileios](/lua/commons/fileios.lua)
+### [commons.buffers](/lua/commons/buffers.lua)
+
+Compatible Neovim APIs relate to nvim buffers.
+
+- `get_buf_option`: Get buffer option with buffer number `bufnr` and option `name`.
+
+  - `function(bufnr:integer, name:string):any`
+    - `bufnr`: Buffer number.
+    - `name`: Option name.
+    - Returns option value.
+
+- `set_buf_option`: Set buffer option to `value`, with buffer number `bufnr` and option `name`.
+  - `function(bufnr:integer, name:string, value:any):any`
+    - `bufnr`: Buffer number.
+    - `name`: Option name.
+    - `value`: Option value.
+
+### [commons.fileios](/lua/commons/fileios.lua)
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
