@@ -174,6 +174,8 @@ Write operations:
 
 ### [commons.jsons](/lua/commons/jsons.lua)
 
+Encode/decode between lua table/list and json string.
+
 Use [actboy168/json.lua](https://github.com/actboy168/json.lua) for Neovim &lt; 0.10, [vim.json](https://github.com/neovim/neovim/blob/a9fbba81d5d4562a2d2b2cbb41d73f1de83d3102/runtime/doc/lua.txt?plain=1#L772) for Neovim &ge; 0.10.
 
 - `encode(t:table):string`: encode lua table to json object/list string.
