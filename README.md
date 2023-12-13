@@ -82,6 +82,10 @@ luarocks install commons.nvim 1.4.1
 
 ### Embed Source Code
 
+Just copy and paste all lua files into one of your plugin folders, and replace all prefix `require("commons` to `require("your.plugin.commons`, it also works.
+
+Or
+
 <details><summary><b>With <a href="https://docs.github.com/en/actions">GitHub Actions</a></b></summary>
 
 Download and auto-commit (with [git-auto-commit-action@v4](https://github.com/stefanzweifel/git-auto-commit-action)) to `lua/your/plugin/commons` folder when submit PRs:
@@ -103,14 +107,11 @@ jobs:
         run: |
           echo "pwd"
           echo $PWD
-          echo "home"
-          echo $HOME
           git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
-          mkdir -p ./lua/gentags/commons
+          mkdir -p ./lua/your/plugin/commons
           cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/your/plugin/commons
           cd ./lua/your/plugin/commons
           find . -type f -name '*.lua' -exec sed -i 's/require("commons/require("your.plugin.commons/g' {} \;
-          cd $HOME
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
