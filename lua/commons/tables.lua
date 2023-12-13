@@ -16,19 +16,18 @@ end
 -- for example when parameter `t = { a = { b = 1 } }` and `field = 'a.b'`, it will return `1`.
 --
 --- @param t any?
---- @param field string
+--- @param ... any
 --- @return any
-M.tbl_get = function(t, field)
-  local cur = t --[[@as table]]
-  local field_splits = vim.split(field, ".", { plain = true, trimempty = true })
-  for _, f in ipairs(field_splits) do
-    if M.tbl_not_empty(cur) and cur[f] ~= nil then
-      cur = cur[f]
+M.tbl_get = function(t, ...)
+  local e = t --[[@as table]]
+  for _, k in ipairs({ ... }) do
+    if M.tbl_not_empty(e) and e[k] ~= nil then
+      e = e[k]
     else
       return nil
     end
   end
-  return cur
+  return e
 end
 
 --- @param l any?
