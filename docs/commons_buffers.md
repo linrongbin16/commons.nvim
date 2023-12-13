@@ -19,5 +19,5 @@ function(bufnr:integer, name:string):any
 Set buffer option (to `value`) with buffer name (`bufnr`) and option name (`name`).
 
 ```lua
-(bufnr:integer, name:string, value:any):any
+function(bufnr:integer, name:string, value:any):any
 ```
