@@ -14,7 +14,9 @@ The ring buffer class.
 --- @class commons.RingBuffer
 ```
 
-#### `new`
+#### Functions
+
+##### `new`
 
 Create new ring buffer object.
 
@@ -30,7 +32,7 @@ Returns:
 
 - Returns the ring buffer object.
 
-#### `push`
+##### `push`
 
 Push new `item` into ring buffer.
 
@@ -46,7 +48,7 @@ Returns:
 
 - Returns the index of new added item.
 
-#### `pop`
+##### `pop`
 
 Pop out the latest added item from ring buffer.
 
@@ -59,7 +61,7 @@ Returns:
 - If ring buffer is not empty, returns the latest added item.
 - If ring buffer is empty, returns `nil`.
 
-#### `peek`
+##### `peek`
 
 Get (peek) the latest added item in ring buffer, without modify the ring buffer.
 
@@ -72,7 +74,7 @@ Returns:
 - If ring buffer is not empty, returns the latest added item.
 - If ring buffer is empty, returns `nil`.
 
-#### `clear`
+##### `clear`
 
 Clear the ring buffer.
 
@@ -80,7 +82,7 @@ Clear the ring buffer.
 function RingBuffer:clear():nil
 ```
 
-#### `iterator`
+##### `iterator`
 
 Returns the iterator that allow foreach all the items from oldest to latest.
 
@@ -90,7 +92,7 @@ function RingBuffer:iterator():commons._RingBufferIterator
 
 ?> **See:** [\_RingBufferIterator](#_RingBufferIterator).
 
-#### `riterator`
+##### `riterator`
 
 Returns the reverse iterator that allow foreach all the items from latest to oldest.
 
@@ -108,7 +110,9 @@ The iterator class that allow foreach all items from oldest to latest.
 --- @class commons._RingBufferIterator
 ```
 
-#### `has_next`
+#### Functions
+
+##### `has_next`
 
 Whether has next item in ring buffer.
 
@@ -116,7 +120,7 @@ Whether has next item in ring buffer.
 function _RingBufferIterator:has_next():boolean
 ```
 
-#### `next`
+##### `next`
 
 Get the next item in ring buffer.
 
@@ -147,7 +151,9 @@ The reverse iterator class that allow foreach all items from latest to oldest.
 --- @class commons._RingBufferRIterator
 ```
 
-#### `has_next`
+#### Functions
+
+##### `has_next`
 
 Whether has next item in ring buffer.
 
@@ -155,7 +161,7 @@ Whether has next item in ring buffer.
 function _RingBufferRIterator:has_next():boolean
 ```
 
-#### `next`
+##### `next`
 
 Get the next item in ring buffer.
 

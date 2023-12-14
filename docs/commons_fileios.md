@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
+<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
 # [commons.fileios](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/fileios.lua)
 
@@ -14,7 +14,9 @@ Line-wise file reader, read by chunks, iterate by lines.
 --- @class commons.FileLineReader
 ```
 
-#### `open`
+#### Functions
+
+##### `open`
 
 Create a file reader.
 
@@ -32,7 +34,7 @@ Returns:
 - If success, returns file reader object.
 - If failed to open file, returns `nil`.
 
-#### `has_next`
+##### `has_next`
 
 Whether has more lines to read.
 
@@ -40,7 +42,7 @@ Whether has more lines to read.
 function FileLineReader:has_next():boolean
 ```
 
-#### `next`
+##### `next`
 
 Get next line.
 
@@ -53,7 +55,7 @@ Returns:
 - If has next line, returns next line.
 - If no more lines, returns `nil`.
 
-#### `close`
+##### `close`
 
 Close the file reader.
 
