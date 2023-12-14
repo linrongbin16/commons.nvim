@@ -13,3 +13,4 @@
   - [commons.ringbuf](commons_ringbuf.md)
   - [commons.spawn](commons_spawn.md)
   - [commons.strings](commons_strings.md)
+  - [commons.tables](commons_tables.md)
