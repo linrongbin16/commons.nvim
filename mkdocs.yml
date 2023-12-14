@@ -2,7 +2,7 @@ site_name: commons.nvim
 site_url: https://linrongbin16.github.io/commons.nvim
 site_description: The commons lua library for Neovim plugin project.
 site_author: Lin Rongbin (linrongbin16@outlook.com)
-copyright: MIT
+copyright: MIT 2023 Lin Rongbin (linrongbin16@outlook.com)
 repo_url: https://github.com/linrongbin16/commons.nvim
 edit_uri: blob/main/docs_source/
 edit_uri_template: "blob/main/docs_source/{path}"

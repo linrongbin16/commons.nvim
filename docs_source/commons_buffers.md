@@ -11,7 +11,7 @@ The compatible Neovim APIs for nvim buffers.
 Get buffer option with buffer number (`bufnr`) and option name (`name`).
 
 ```lua
-function(bufnr:integer, name:string):any
+function get_buf_option(bufnr:integer, name:string):any
 ```
 
 ### `set_buf_option`
@@ -19,5 +19,5 @@ function(bufnr:integer, name:string):any
 Set buffer option (to `value`) with buffer name (`bufnr`) and option name (`name`).
 
 ```lua
-function(bufnr:integer, name:string, value:any):any
+function set_buf_option(bufnr:integer, name:string, value:any):any
 ```
