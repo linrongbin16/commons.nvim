@@ -21,7 +21,10 @@ The file system path separator.
 
 ### `normalize`
 
-Normalize path, replace Windows path separator `\\` to UNIX/Linux separator `/`.
+Normalize path with below steps:
+
+- Trim all whitespaces.
+- replace Windows path separator `\\` to UNIX/Linux separator `/`.
 
 ```lua
 function normalize(p:string, opts:{double_backslash:boolean?, expand:boolean?}?):string
