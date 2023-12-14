@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   mkdocs:
-    name: PR Conventional Commit
+    name: Make docs
     if: ${{ github.ref != 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
