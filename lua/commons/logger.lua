@@ -35,7 +35,10 @@ local LogHighlights = {
   [5] = "ErrorMsg",
 }
 
+--- @alias commons.LoggerConfigs {name:string,level:commons.LogLevels?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?}
+--- @type commons.LoggerConfigs
 local Defaults = {
+  --- @type string
   name = nil,
   level = LogLevels.INFO,
   console_log = true,
@@ -44,9 +47,10 @@ local Defaults = {
   file_log_dir = vim.fn.stdpath("data"),
 }
 
+--- @type commons.LoggerConfigs
 local Configs = {}
 
---- @param opts table?
+--- @param opts commons.LoggerConfigs
 M.setup = function(opts)
   Configs = vim.tbl_deep_extend("force", vim.deepcopy(Defaults), opts or {})
   if type(Configs.level) == "string" then
@@ -75,6 +79,9 @@ M.setup = function(opts)
   end
 end
 
+--- @param level commons.LogLevels
+--- @param fmt string
+--- @param ... any
 M.echo = function(level, fmt, ...)
   local msg = string.format(fmt, ...)
   local msg_lines = vim.split(msg, "\n", { plain = true })
