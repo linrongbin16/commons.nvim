@@ -15,3 +15,5 @@
   - [commons.strings](commons_strings.md)
   - [commons.tables](commons_tables.md)
   - [commons.termcolors](commons_termcolors.md)
+  - [commons.uv](commons_uv.md)
+  - [commons.windows](commons_windows.md)
