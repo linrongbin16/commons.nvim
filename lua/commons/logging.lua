@@ -13,7 +13,7 @@ local LogLevels = {
   OFF = 5,
 }
 
---- @type table
+--- @enum commons.LogLevelNames
 local LogLevelNames = {
   [0] = "TRACE",
   [1] = "DEBUG",
@@ -35,8 +35,363 @@ local LogHighlights = {
   [5] = "ErrorMsg",
 }
 
---- @alias commons.LoggerConfigs {name:string,level:commons.LogLevels?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?}
---- @type commons.LoggerConfigs
+-- Formatter {
+
+--- @class commons.logging.Formatter
+--- @field fmt string
+--- @field datefmt string
+--- @field msecsfmt string
+local Formatter = {}
+
+--- @param fmt string
+--- @param opts {datefmt:string?,msecsfmt:string?}?
+--- @return commons.logging.Formatter
+function Formatter:new(fmt, opts)
+  assert(type(fmt) == "string")
+
+  opts = opts or { datefmt = "%Y-%m-%d %H:%M:%S", msecsfmt = "%06d" }
+  opts.datefmt = type(opts.datefmt) == "string" and opts.datefmt
+    or "%Y-%m-%d %H:%M:%S"
+  opts.msecsfmt = type(opts.msecsfmt) == "string" and opts.msecsfmt or "%06d"
+
+  local o = {
+    fmt = fmt,
+    datefmt = opts.datefmt,
+    msecsfmt = opts.msecsfmt,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+local FORMATTING_TAGS = {
+  LEVEL_NO = "%(levelno)s",
+  LEVEL_NAME = "%(levelname)s",
+  MESSAGE = "%(message)s",
+  ASCTIME = "%(asctime)s",
+  MSECS = "%(msecs)d",
+  NAME = "%(name)s",
+  PROCESS = "%(process)d",
+}
+
+--- @param meta table<string,any>
+--- @return string
+function Formatter:format(meta)
+  local strings = require("commons.strings")
+
+  local n = string.len(self.fmt)
+
+  local function make_detect(tag)
+    local function impl(idx)
+      if idx - 1 >= 1 and string.sub(self.fmt, idx - 1, idx) == "%%" then
+        return false
+      end
+
+      local endpos = idx + string.len(FORMATTING_TAGS[tag]) - 1
+      if endpos > n then
+        return false
+      end
+
+      return strings.startswith(
+        string.sub(self.fmt, idx, endpos),
+        FORMATTING_TAGS[tag]
+      )
+    end
+    return impl
+  end
+
+  local tags = {
+    "LEVEL_NO",
+    "LEVEL_NAME",
+    "MESSAGE",
+    "ASCTIME",
+    "MSECS",
+    "NAME",
+    "PROCESS",
+  }
+
+  local builder = {}
+  local i = 1
+  local tmp = ""
+
+  while i <= n do
+    local hit = false
+    for _, tag in ipairs(tags) do
+      local is_tag = make_detect(tag)
+      if is_tag(i) then
+        if string.len(tmp) > 0 then
+          table.insert(builder, tmp)
+          tmp = ""
+        end
+        i = i + string.len(FORMATTING_TAGS[tag])
+        hit = true
+        if tag == "ASCTIME" then
+          table.insert(builder, os.date(self.datefmt, meta.SECONDS))
+        elseif tag == "MSECS" then
+          table.insert(builder, os.date(self.msecsfmt, meta.MSECS))
+        else
+          table.insert(builder, tostring(meta[tag]))
+        end
+        break
+      end
+    end
+
+    if not hit then
+      tmp = tmp .. string.sub(self.fmt, i, i)
+      i = i + 1
+    end
+  end
+
+  return table.concat(builder, "")
+end
+
+M.Formatter = Formatter
+
+-- Formatter }
+
+-- Handler {
+
+--- @class commons.logging.Handler
+local Handler = {}
+
+--- @param meta commons.logging._MetaInfo
+function Handler:write(meta)
+  assert(false)
+end
+
+-- ConsoleHandler {
+
+--- @class commons.logging.ConsoleHandler : commons.logging.Handler
+--- @field formatter commons.logging.Formatter
+local ConsoleHandler = {}
+
+--- @param formatter commons.logging.Formatter?
+--- @return commons.logging.ConsoleHandler
+function ConsoleHandler:new(formatter)
+  if formatter == nil then
+    formatter = Formatter:new("[%(name)s] %(message)s")
+  end
+
+  local o = {
+    formatter = formatter,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+--- @param meta commons.logging._MetaInfo
+function ConsoleHandler:write(meta)
+  local chunks = {}
+  local record = self.formatter:format(meta)
+  table.insert(chunks, {
+    record,
+    LogHighlights[meta.LEVEL_NO],
+  })
+  vim.schedule(function()
+    vim.api.nvim_echo(chunks, false, {})
+  end)
+end
+
+M.ConsoleHandler = ConsoleHandler
+
+-- ConsoleHandler }
+
+-- FileHandler {
+
+--- @class commons.logging.FileHandler : commons.logging.Handler
+--- @field formatter commons.logging.Formatter
+--- @field filepath string
+--- @field filemode "a"|"w"
+--- @field filehandle any
+local FileHandler = {}
+
+--- @param filepath string
+--- @param filemode "a"|"w"|nil
+--- @param formatter commons.logging.Formatter?
+--- @return commons.logging.FileHandler
+function FileHandler:new(filepath, filemode, formatter)
+  assert(type(filepath) == "string")
+  assert(filemode == "a" or filemode == "w" or filemode == nil)
+
+  if formatter == nil then
+    formatter =
+      Formatter:new("%(asctime)s,%(msecs)d [%(levelname)s] %(message)s")
+  end
+
+  filemode = filemode ~= nil and string.lower(filemode) or "a"
+  local filehandle = nil
+
+  if filemode == "w" then
+    filehandle = io.open(filepath, "w")
+    assert(
+      filehandle ~= nil,
+      string.format("failed to open file:%s", vim.inspect(filepath))
+    )
+  end
+
+  local o = {
+    formatter = formatter,
+    filepath = filepath,
+    filemode = filemode,
+    filehandle = filehandle,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function FileHandler:close()
+  if self.filemode == "w" or self.filehandle ~= nil then
+    self.filehandle:close()
+    self.filehandle = nil
+  end
+end
+
+--- @param meta commons.logging._MetaInfo
+function FileHandler:write(meta)
+  local fp = nil
+
+  if self.filemode == "w" then
+    assert(
+      self.filehandle ~= nil,
+      string.format("failed to write file log:%s", vim.inspect(self.filepath))
+    )
+    fp = self.filehandle
+  elseif self.filemode == "a" then
+    fp = io.open(self.filepath, "a")
+  end
+
+  if fp then
+    local record = self.formatter:format(meta)
+    fp:write(string.format("%s\n", record))
+  end
+
+  if self.filemode == "a" and fp ~= nil then
+    fp:close()
+  end
+end
+
+M.FileHandler = FileHandler
+
+-- FileHandler }
+
+-- Handler }
+
+-- Logger {
+
+--- @class commons.logging.Logger
+--- @field name string
+--- @field level commons.LogLevels
+--- @field handlers commons.logging.Handler[]
+local Logger = {}
+
+--- @param name string
+--- @param level commons.LogLevels
+function Logger:new(name, level)
+  assert(type(name) == "string")
+  assert(type(level) == "number" and LogLevelNames[level] ~= nil)
+
+  local o = {
+    name = name,
+    level = level,
+    handlers = {},
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+--- @param handler commons.logging.Handler
+function Logger:add_handler(handler)
+  assert(type(handler) == "table")
+  table.insert(self.handlers, handler)
+end
+
+--- @param lvl integer
+--- @param fmt string
+--- @param ... any
+function Logger:_log(lvl, fmt, ...)
+  assert(type(lvl) == "number" and LogLevelNames[lvl] ~= nil)
+
+  local uv = require("commons.uv")
+
+  if lvl < self.level then
+    return
+  end
+
+  local msg = string.format(fmt, ...)
+  local msg_lines = vim.split(msg, "\n", { plain = true })
+
+  for _, handler in ipairs(self.handlers) do
+    for _, line in ipairs(msg_lines) do
+      local secs, millis = uv.gettimeofday()
+
+      --- @alias commons.logging._MetaInfo {LEVEL_NO:commons.LogLevels,LEVEL_NAME:commons.LogLevelNames,MESSAGE:string,SECONDS:integer,MILLISECONDS:integer}
+      local meta_info = {
+        LEVEL_NO = lvl,
+        LEVEL_NAME = LogLevelNames[lvl],
+        MESSAGE = line,
+        SECONDS = secs,
+        MSECS = millis,
+        NAME = self.name,
+        PROCESS = uv.os_getpid(),
+      }
+      handler:write(meta_info)
+    end
+  end
+end
+
+--- @param fmt string
+--- @param ... any
+function Logger:debug(fmt, ...)
+  self:_log(LogLevels.DEBUG, fmt, ...)
+end
+
+--- @param fmt string
+--- @param ... any
+function Logger:info(fmt, ...)
+  self:_log(LogLevels.INFO, fmt, ...)
+end
+
+--- @param fmt string
+--- @param ... any
+function Logger:warn(fmt, ...)
+  self:_log(LogLevels.WARN, fmt, ...)
+end
+
+--- @param fmt string
+--- @param ... any
+function Logger:err(fmt, ...)
+  self:_log(LogLevels.ERROR, fmt, ...)
+end
+
+--- @param fmt string
+--- @param ... any
+function Logger:throw(fmt, ...)
+  self:_log(LogLevels.ERROR, fmt, ...)
+  error(string.format(fmt, ...))
+end
+
+--- @param cond any
+--- @param fmt string
+--- @param ... any
+function Logger:ensure(cond, fmt, ...)
+  if not cond then
+    self:err(fmt, ...)
+  end
+  assert(cond, string.format(fmt, ...))
+end
+
+M.Logger = Logger
+
+-- Logger }
+
+--- @type table<string, commons.logging.Logger>
+local NAMESPACE = {}
+
+--- @alias commons.LoggingConfigs {name:string,level:commons.LogLevels?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?}
+--- @type commons.LoggingConfigs
 local Defaults = {
   --- @type string
   name = nil,
@@ -47,143 +402,86 @@ local Defaults = {
   file_log_dir = vim.fn.stdpath("data"),
 }
 
---- @type commons.LoggerConfigs
-local Configs = {}
-
---- @param opts commons.LoggerConfigs
+--- @param opts commons.LoggingConfigs
 M.setup = function(opts)
-  Configs = vim.tbl_deep_extend("force", vim.deepcopy(Defaults), opts or {})
-  if type(Configs.level) == "string" then
-    assert(
-      string.upper(Configs.level) == "TRACE"
-        or string.upper(Configs.level) == "DEBUG"
-        or string.upper(Configs.level) == "INFO"
-        or string.upper(Configs.level) == "WARN"
-        or string.upper(Configs.level) == "ERROR"
-        or string.upper(Configs.level) == "OFF"
-    )
-    Configs.level = LogLevels[Configs.level]
+  local conf = vim.tbl_deep_extend("force", vim.deepcopy(Defaults), opts or {})
+  if type(conf.level) == "string" then
+    assert(LogLevels[string.upper(conf.level)] ~= nil)
+    conf.level = LogLevels[string.upper(conf.level)]
   end
-  assert(
-    type(Configs.level) == "number" and LogHighlights[Configs.level] ~= nil
-  )
-  if Configs.file_log then
-    assert(type(Configs.file_log_name) == "string")
+  assert(type(conf.level) == "number" and LogHighlights[conf.level] ~= nil)
+
+  local console_handler = ConsoleHandler:new()
+  local logger = Logger:new(conf.name, conf.level)
+  logger:add_handler(console_handler)
+
+  if conf.file_log then
+    assert(type(conf.file_log_name) == "string")
     local SEPARATOR = IS_WINDOWS and "\\" or "/"
-    Configs._file_log_path = string.format(
-      "%s%s%s",
-      Configs.file_log_dir or "",
-      SEPARATOR,
-      Configs.file_log_name
+    local filepath = string.format(
+      "%s%s",
+      type(conf.file_log_dir) == "string" and (conf.file_log_dir .. SEPARATOR)
+        or "",
+      conf.file_log_name
     )
+    local file_handler = FileHandler:new(filepath, "a")
+    logger:add_handler(file_handler)
+  end
+
+  M.add_logger(logger)
+end
+
+--- @param name string?
+--- @return commons.logging.Logger?
+M.get = function(name)
+  if name then
+    return NAMESPACE[name]
+  else
+    return next(NAMESPACE) --[[@as commons.logging.Logger?]]
   end
 end
 
---- @param level commons.LogLevels
---- @param fmt string
---- @param ... any
-M.echo = function(level, fmt, ...)
-  local msg = string.format(fmt, ...)
-  local msg_lines = vim.split(msg, "\n", { plain = true })
-
-  local title = ""
-  if type(Configs.name) == "string" and string.len(Configs.name) > 0 then
-    title = Configs.name .. " "
-  end
-
-  local prefix = ""
-  if level >= M.LogLevels.ERROR then
-    prefix = "error! "
-  elseif level == M.LogLevels.WARN then
-    prefix = "warning! "
-  end
-
-  local chunks = {}
-  for _, line in ipairs(msg_lines) do
-    table.insert(chunks, {
-      string.format("%s%s%s", title, prefix, line),
-      LogHighlights[level],
-    })
-  end
-
-  vim.schedule(function()
-    vim.api.nvim_echo(chunks, false, {})
-  end)
-end
-
---- @param level integer
---- @param msg string
-local function _log(level, msg)
-  local uv = require("commons.uv")
-
-  if level < Configs.level then
-    return
-  end
-
-  if Configs.console_log and level >= LogLevels.INFO then
-    M.echo(level, msg)
-  end
-
-  if Configs.file_log then
-    local fp = io.open(Configs._file_log_path, "a")
-    if fp then
-      local msg_lines = vim.split(msg, "\n", { plain = true })
-      for _, line in ipairs(msg_lines) do
-        local secs, ms = uv.gettimeofday()
-        fp:write(
-          string.format(
-            "%s.%06d [%s]: %s\n",
-            os.date("%Y-%m-%d %H:%M:%S", secs),
-            ms,
-            LogLevelNames[level],
-            line
-          )
-        )
-      end
-      fp:close()
-    end
-  end
+--- @param logger commons.logging.Logger
+M.add_logger = function(logger)
+  assert(type(logger) == "table")
+  NAMESPACE[logger.name] = logger
 end
 
 --- @param fmt string
 --- @param ... any
 M.debug = function(fmt, ...)
-  _log(LogLevels.DEBUG, string.format(fmt, ...))
+  M.get():debug(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.info = function(fmt, ...)
-  _log(LogLevels.INFO, string.format(fmt, ...))
+  M.get():info(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.warn = function(fmt, ...)
-  _log(LogLevels.WARN, string.format(fmt, ...))
+  M.get():warn(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.err = function(fmt, ...)
-  _log(LogLevels.ERROR, string.format(fmt, ...))
+  M.get():err(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.throw = function(fmt, ...)
-  _log(LogLevels.ERROR, string.format(fmt, ...))
-  error(string.format(fmt, ...))
+  M.get():throw(fmt, ...)
 end
 
 --- @param cond any
 --- @param fmt string
 --- @param ... any
 M.ensure = function(cond, fmt, ...)
-  if not cond then
-    M.err(fmt, ...)
-    error(string.format(fmt, ...))
-  end
+  M.get():ensure(cond, fmt, ...)
 end
 
 return M
