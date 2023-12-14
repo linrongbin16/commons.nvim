@@ -182,6 +182,10 @@ end
 
 --- @param meta commons.logging._MetaInfo
 function ConsoleHandler:write(meta)
+  if meta.LEVEL_NO < LogLevels.INFO then
+    return
+  end
+
   local chunks = {}
   local record = self.formatter:format(meta)
   table.insert(chunks, {
@@ -412,7 +416,7 @@ M.setup = function(opts)
   assert(type(conf.level) == "number" and LogHighlights[conf.level] ~= nil)
 
   local console_handler = ConsoleHandler:new()
-  local logger = Logger:new(conf.name, conf.level)
+  local logger = Logger:new(conf.name, conf.level --[[@as commons.LogLevels]])
   logger:add_handler(console_handler)
 
   if conf.file_log then
@@ -428,30 +432,36 @@ M.setup = function(opts)
     logger:add_handler(file_handler)
   end
 
-  M.add_logger(logger)
+  M.add(logger)
 end
 
---- @param name string?
+--- @param name string
+--- @return boolean
+M.has = function(name)
+  assert(type(name) == "string")
+  return NAMESPACE[name] ~= nil
+end
+
+--- @param name string
 --- @return commons.logging.Logger?
 M.get = function(name)
-  if name then
-    return NAMESPACE[name]
-  else
-    local _, logger = next(NAMESPACE)
-    return logger --[[@as commons.logging.Logger?]]
-  end
+  assert(type(name) == "string")
+  return NAMESPACE[name]
 end
 
 --- @param logger commons.logging.Logger
-M.add_logger = function(logger)
+M.add = function(logger)
   assert(type(logger) == "table")
+  assert(NAMESPACE[logger.name] == nil)
   NAMESPACE[logger.name] = logger
 end
+
+local ROOT = "root"
 
 --- @param fmt string
 --- @param ... any
 M.debug = function(fmt, ...)
-  local logger = M.get()
+  local logger = M.get(ROOT)
   assert(logger ~= nil)
   logger:debug(fmt, ...)
 end
@@ -459,7 +469,7 @@ end
 --- @param fmt string
 --- @param ... any
 M.info = function(fmt, ...)
-  local logger = M.get()
+  local logger = M.get(ROOT)
   assert(logger ~= nil)
   logger:info(fmt, ...)
 end
@@ -467,7 +477,7 @@ end
 --- @param fmt string
 --- @param ... any
 M.warn = function(fmt, ...)
-  local logger = M.get()
+  local logger = M.get(ROOT)
   assert(logger ~= nil)
   logger:warn(fmt, ...)
 end
@@ -475,7 +485,7 @@ end
 --- @param fmt string
 --- @param ... any
 M.err = function(fmt, ...)
-  local logger = M.get()
+  local logger = M.get(ROOT)
   assert(logger ~= nil)
   logger:err(fmt, ...)
 end
@@ -483,7 +493,7 @@ end
 --- @param fmt string
 --- @param ... any
 M.throw = function(fmt, ...)
-  local logger = M.get()
+  local logger = M.get(ROOT)
   assert(logger ~= nil)
   logger:throw(fmt, ...)
 end
@@ -492,7 +502,7 @@ end
 --- @param fmt string
 --- @param ... any
 M.ensure = function(cond, fmt, ...)
-  local logger = M.get()
+  local logger = M.get(ROOT)
   assert(logger ~= nil)
   logger:ensure(cond, fmt, ...)
 end
