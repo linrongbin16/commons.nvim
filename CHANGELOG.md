@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.2](https://github.com/linrongbin16/commons.nvim/compare/v1.5.1...v1.5.2) (2023-12-14)
+
+
+### Bug Fixes
+
+* **types:** fix typecheck in 'jsons' ([#49](https://github.com/linrongbin16/commons.nvim/issues/49)) ([e0b418b](https://github.com/linrongbin16/commons.nvim/commit/e0b418bbf4a578438a4bd4d7d9972b0f7c616fb5))
+* **types:** fix typecheck in 'spawn' ([#49](https://github.com/linrongbin16/commons.nvim/issues/49)) ([e0b418b](https://github.com/linrongbin16/commons.nvim/commit/e0b418bbf4a578438a4bd4d7d9972b0f7c616fb5))
+
 ## [1.5.1](https://github.com/linrongbin16/commons.nvim/compare/v1.5.0...v1.5.1) (2023-12-14)
 
 
