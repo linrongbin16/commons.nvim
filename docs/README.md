@@ -9,6 +9,7 @@
   - [commons.buffers](/commons_buffers.md): The compatible Neovim APIs for nvim buffers.
   - [commons.fileios](/commons_fileios.md): File sync/async IO operations.
   - [commons.jsons](/commons_jsons.md): Encode/decode between lua table/list and json string.
+  - [commons.logger](/commons_logger.md): Logger with variadic parameters support..
   - [commons.numbers](/commons_numbers.md): Numbers utilities, with type check.
   - [commons.paths](/commons_paths.md): File and directory path utilities.
   - [commons.ringbuf](/commons_ringbuf.md): Drop-in [vim.ringbuf](<https://neovim.io/doc/user/lua.html#vim.ringbuf()>) replacement data structure with iterator support.
