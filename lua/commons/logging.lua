@@ -128,7 +128,7 @@ function Formatter:format(meta)
         if tag == "ASCTIME" then
           table.insert(builder, os.date(self.datefmt, meta.SECONDS))
         elseif tag == "MSECS" then
-          table.insert(builder, os.date(self.msecsfmt, meta.MSECS))
+          table.insert(builder, string.format(self.msecsfmt, meta.MSECS))
         else
           table.insert(builder, tostring(meta[tag]))
         end
