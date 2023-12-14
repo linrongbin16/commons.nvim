@@ -2,8 +2,6 @@
 
 # Welcome to commons.nvim's Documentation!
 
-> The commons lua library for Neovim plugin project.
-
 ## Requirements
 
 - Neovim &ge; 0.6.0.
