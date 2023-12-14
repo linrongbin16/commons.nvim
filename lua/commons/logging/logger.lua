@@ -6,7 +6,7 @@ local M = {}
 --- @class commons.Logger
 --- @field name string
 --- @field level commons.LogLevels
---- @field handlers handler:commons.logging.Handler[]
+--- @field handlers commons.logging.Handler[]
 local Logger = {}
 
 --- @param name string
