@@ -62,8 +62,24 @@ Parameters:
     !> **Note:** The debug messages (logging level &le; `LogLevels.DEBUG`) will be filtered, e.g. not print to the nvim's command line.
 
   - `file_log`: Whether enable file log, by default is `false`.
-  - `file_log_name`: File log name, working with `file_log`, **mandatory** when setting `file_log = true`. For example: `gitlinker.log`.
+  - `file_log_name`: File log name, working with `file_log`, **mandatory** when setting `file_log = true`.
   - `file_log_dir`: File log directory, working with `file_log`, **mandatory** when setting `file_log = true`. By default is `vim.fn.stdpath("data")`.
+
+Examples:
+
+```lua
+local logger = require("commons.logger")
+local LogLevels = require("commons.logger").LogLevels
+
+logger.setup({
+  name = "[gitlinker]",
+  level = LogLevels.DEBUG,
+  file_log = true,
+  file_log_name = "gitlinker.log",
+})
+
+logger.debug("This is the first debugging message on %s", vim.inspect(logger.debug))
+```
 
 ### `echo`
 
