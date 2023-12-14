@@ -27,10 +27,12 @@ M.LogLevels = LogLevels
 M.LogLevelNames = LogLevelNames
 
 local LogHighlights = {
+  [0] = "Comment",
   [1] = "Comment",
   [2] = "None",
   [3] = "WarningMsg",
   [4] = "ErrorMsg",
+  [5] = "ErrorMsg",
 }
 
 local Defaults = {
@@ -104,7 +106,7 @@ end
 
 --- @param level integer
 --- @param msg string
-local function log(level, msg)
+local function _log(level, msg)
   local uv = require("commons.uv")
 
   if level < Configs.level then
@@ -136,42 +138,45 @@ local function log(level, msg)
   end
 end
 
-local function debug(fmt, ...)
-  log(LogLevels.DEBUG, string.format(fmt, ...))
+--- @param fmt string
+--- @param ... any
+M.debug = function(fmt, ...)
+  _log(LogLevels.DEBUG, string.format(fmt, ...))
 end
 
-local function info(fmt, ...)
-  log(LogLevels.INFO, string.format(fmt, ...))
+--- @param fmt string
+--- @param ... any
+M.info = function(fmt, ...)
+  _log(LogLevels.INFO, string.format(fmt, ...))
 end
 
-local function warn(fmt, ...)
-  log(LogLevels.WARN, string.format(fmt, ...))
+--- @param fmt string
+--- @param ... any
+M.warn = function(fmt, ...)
+  _log(LogLevels.WARN, string.format(fmt, ...))
 end
 
-local function err(fmt, ...)
-  log(LogLevels.ERROR, string.format(fmt, ...))
+--- @param fmt string
+--- @param ... any
+M.err = function(fmt, ...)
+  _log(LogLevels.ERROR, string.format(fmt, ...))
 end
 
-local function throw(fmt, ...)
-  log(LogLevels.ERROR, string.format(fmt, ...))
+--- @param fmt string
+--- @param ... any
+M.throw = function(fmt, ...)
+  _log(LogLevels.ERROR, string.format(fmt, ...))
   error(string.format(fmt, ...))
 end
 
-local function ensure(cond, fmt, ...)
+--- @param cond any
+--- @param fmt string
+--- @param ... any
+M.ensure = function(cond, fmt, ...)
   if not cond then
-    throw(fmt, ...)
+    M.err(fmt, ...)
+    error(string.format(fmt, ...))
   end
 end
-
-local M = {
-  LogLevels = LogLevels,
-  setup = setup,
-  debug = debug,
-  info = info,
-  warn = warn,
-  err = err,
-  throw = throw,
-  ensure = ensure,
-}
 
 return M
