@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/linrongbin16/commons.nvim/compare/v1.5.0...v1.5.1) (2023-12-14)
+
+
+### Performance Improvements
+
+* **docs:** use github pages for documentation ([#44](https://github.com/linrongbin16/commons.nvim/issues/44)) ([0d940fc](https://github.com/linrongbin16/commons.nvim/commit/0d940fc3bcb0e3cd052f94576acc5a94513aa03b))
+
 ## [1.5.0](https://github.com/linrongbin16/commons.nvim/compare/v1.4.3...v1.5.0) (2023-12-13)
 
 
