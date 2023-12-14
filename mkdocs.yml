@@ -2,3 +2,6 @@ site_name: commons.nvim
 site_url: https://github.com/linrongbin16/commons.nvim
 docs_dir: docs_source
 site_dir: docs
+nav:
+  - Home: index.md
+  - API References: references.md
