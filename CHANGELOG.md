@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/linrongbin16/commons.nvim/compare/v1.5.2...v1.6.0) (2023-12-14)
+
+
+### Features
+
+* **logger:** add 'logger' module ([#52](https://github.com/linrongbin16/commons.nvim/issues/52)) ([c63d2c3](https://github.com/linrongbin16/commons.nvim/commit/c63d2c364025b9b2b72aec0bd1c673964523c388))
+
 ## [1.5.2](https://github.com/linrongbin16/commons.nvim/compare/v1.5.1...v1.5.2) (2023-12-14)
 
 
