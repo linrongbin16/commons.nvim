@@ -9,3 +9,4 @@
   - [commons.fileios](commons_fileios.md)
   - [commons.jsons](commons_jsons.md)
   - [commons.numbers](commons_numbers.md)
+  - [commons.paths](commons_paths.md)
