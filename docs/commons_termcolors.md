@@ -2,7 +2,7 @@
 
 # [commons.termcolors](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/termcolors.lua)
 
-Terminal ANSI color rendering utilities.
+Terminal ANSI/RGB color rendering utilities.
 
 ?> **Note:** This module requires terminal has true color support and Neovim enables `termguicolors` for the best display.
 

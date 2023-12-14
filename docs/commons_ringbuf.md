@@ -2,7 +2,7 @@
 
 # [commons.ringbuf](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/ringbuf.lua)
 
-Drop-in replacement **Ring Buffer** data structure with iterator support.
+Drop-in [vim.ringbuf](<https://neovim.io/doc/user/lua.html#vim.ringbuf()>) replacement data structure with iterator support.
 
 ## Classes
 

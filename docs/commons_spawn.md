@@ -2,7 +2,7 @@
 
 # [commons.spawn](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/spawn.lua)
 
-Sync/async run child-process via `uv.spawn` API, and handle stdout/stderr IO by line-based callbacks.
+Run child-process with friendly line-wise callbacks to handle stdout/stderr output, a wrapper on [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>).
 
 ## Functions
 
