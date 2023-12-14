@@ -45,7 +45,7 @@ jobs:
           echo "pwd"
           echo $PWD
           git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
-          cp ~/.json.lua/json.lua ./lua/commons/actboy168_json.lua
+          cp ~/.json.lua/json.lua ./lua/commons/_json.lua
       - name: Add _system.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         shell: bash
