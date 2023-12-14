@@ -2,7 +2,7 @@
 
 # [commons.tables](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/tables.lua)
 
-Lua table/list utilities.
+Lua table/list utilities, with type check.
 
 ## Functions
 

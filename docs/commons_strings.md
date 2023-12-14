@@ -2,7 +2,7 @@
 
 # [commons.strings](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/strings.lua)
 
-String utilities.
+Strings utilities, with type check.
 
 ## Functions
 
