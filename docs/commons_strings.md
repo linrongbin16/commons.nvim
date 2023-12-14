@@ -166,7 +166,7 @@ Whether character `c` is whitespace.
 function isspace(c:string):boolean
 ```
 
-?> **See:** C/C++ [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
+?> **See:** C/C++ Reference [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
 
 ### `isalnum`
 
@@ -178,7 +178,7 @@ Whether character `c` is alphanumeric (0-9 A-Z a-z).
 function isalnum(c:string):boolean
 ```
 
-?> **See:** C/C++ [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
+?> **See:** C/C++ Reference [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
 
 ### `isdigit`
 
@@ -190,7 +190,7 @@ Whether character `c` is digit (0-9).
 function isdigit(c:string):boolean
 ```
 
-?> **See:** C/C++ [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
+?> **See:** C/C++ Reference [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
 
 ### `isxdigit`
 
@@ -202,7 +202,7 @@ Whether character `c` is hex digit (0-9 a-f A-F).
 function isxdigit(c:string):boolean
 ```
 
-?> **See:** C/C++ [isxdigit](https://en.cppreference.com/w/cpp/string/byte/isxdigit).
+?> **See:** C/C++ Reference [isxdigit](https://en.cppreference.com/w/cpp/string/byte/isxdigit).
 
 ### `isalpha`
 
@@ -214,7 +214,7 @@ Whether character `c` is alphabetic character (a-z A-Z).
 function isalpha(c:string):boolean
 ```
 
-?> **See:** C/C++ [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
+?> **See:** C/C++ Reference [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
 
 ### `islower`
 
@@ -226,7 +226,7 @@ Whether character `c` is lower case alphabetic character (a-z).
 function islower(c:string):boolean
 ```
 
-?> **See:** C/C++ [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
+?> **See:** C/C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
 
 ### `isupper`
 
@@ -238,4 +238,4 @@ Whether character `c` is upper case alphabetic character (A-Z).
 function isupper(c:string):boolean
 ```
 
-?> **See:** C/C++ [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
+?> **See:** C/C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
