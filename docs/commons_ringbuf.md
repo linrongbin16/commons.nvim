@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
+<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
 # [commons.ringbuf](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/ringbuf.lua)
 

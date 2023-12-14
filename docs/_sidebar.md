@@ -11,3 +11,4 @@
   - [commons.numbers](commons_numbers.md)
   - [commons.paths](commons_paths.md)
   - [commons.ringbuf](commons_ringbuf.md)
+  - [commons.spawn](commons_spawn.md)
