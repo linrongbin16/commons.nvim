@@ -17,3 +17,5 @@
   - [commons.termcolors](commons_termcolors.md)
   - [commons.uv](commons_uv.md)
   - [commons.windows](commons_windows.md)
+- [Development](/development.md)
+- [Contribute](/contribute.md)
