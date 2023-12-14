@@ -42,7 +42,7 @@ luarocks install commons.nvim 1.4.1
 
 ## Embed Source Code
 
-### Manual Copy/Paste
+### Manual
 
 1. Copy/paste all `lua/commons/*.lua` into one of your plugin folders.
 2. Replace all prefix `require("commons` to `require("your.plugin.commons`.
