@@ -36,3 +36,5 @@ Parameters:
     ```
 
   - `text`: By default is `true`.
+
+- `on_exit`: Exactly the same passing to `vim.system`.
