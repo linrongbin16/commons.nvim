@@ -23,7 +23,7 @@ This lua library includes multiple modules:
 - Run child-process and handle line-wise output from stdout/stderr.
 - Terminal ANSI/RGB color renderings.
 
-For installation & API references, please check [documentation](https://linrongbin16.github.io/commons.nvim).
+<!-- For installation & API references, please check [documentation](https://linrongbin16.github.io/commons.nvim). -->
 
 ## Table of Contents
 
