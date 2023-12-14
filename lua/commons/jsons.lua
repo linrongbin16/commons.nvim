@@ -1,14 +1,24 @@
 ---@diagnostic disable: undefined-doc-param
 local M = {}
 
---- @param t table    lua table.
---- @return string    returns json string.
-M.encode = (vim.fn.has("nvim-0.9") and vim.json ~= nil) and vim.json.encode
-  or require("commons._json").encode
+--- @param t table?   lua table.
+--- @return string?   returns json string.
+M.encode = function(t)
+  if vim.fn.has("nvim-0.9") and vim.json ~= nil then
+    return vim.json.encode(t)
+  else
+    return require("commons._json").encode(t)
+  end
+end
 
---- @param j string   json string.
---- @return table     returns lua table.
-M.decode = (vim.fn.has("nvim-0.9") and vim.json ~= nil) and vim.json.decode
-  or require("commons._json").decode
+--- @param j string?  json string.
+--- @return table?    returns lua table.
+M.decode = function(j)
+  if vim.fn.has("nvim-0.9") and vim.json ~= nil then
+    return vim.json.decode(j)
+  else
+    return require("commons._json").decode(j)
+  end
+end
 
 return M
