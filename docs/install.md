@@ -68,6 +68,7 @@ jobs:
         shell: bash
         run: |
           git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
+          rm -rf ./lua/your/plugins/commons
           mkdir -p ./lua/your/plugin/commons
           cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/your/plugin/commons
           cd ./lua/your/plugin/commons
