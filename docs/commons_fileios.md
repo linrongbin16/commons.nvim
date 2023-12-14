@@ -70,7 +70,7 @@ function FileLineReader:close():nil
 Read all the content from a file.
 
 ```lua
-function readfile(filename:string, opts:{trim:boolean?}?):string?
+function(filename:string, opts:{trim:boolean?}?):string?
 ```
 
 Parameters:
@@ -89,7 +89,7 @@ Returns:
 Read all the file content into lines (strings list).
 
 ```lua
-function readlines(filename:string):string[]|nil
+function(filename:string):string[]|nil
 ```
 
 Returns:
@@ -105,7 +105,7 @@ Returns:
 Async read all the content from a file, invoke callback function on read complete.
 
 ```lua
-function asyncreadfile(filename:string, on_complete:fun(data:string?):any, opts:{trim:boolean?}?):nil
+function(filename:string, on_complete:fun(data:string?):any, opts:{trim:boolean?}?):nil
 ```
 
 Parameters:
@@ -114,7 +114,7 @@ Parameters:
 - `on_complete`: Callback function that will be invoked on read complete, with signature:
 
   ```lua
-  function on_complete(data:string?):any
+  function(data:string?):any
   ```
 
   - Parameters:
@@ -130,7 +130,7 @@ Parameters:
 Write content into file.
 
 ```lua
-function writefile(filename:string, content:string):0|1
+function(filename:string, content:string):0|1
 ```
 
 Returns:
@@ -143,7 +143,7 @@ Returns:
 Write content into file by lines.
 
 ```lua
-function writelines(filename:string, lines:string):0|1
+function(filename:string, lines:string):0|1
 ```
 
 Parameters:

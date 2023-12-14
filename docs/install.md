@@ -1,22 +1,10 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD026 -->
+<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
 
-# Welcome to commons.nvim's Documentation!
+# Install
 
-## Requirements
+## Plugin Manager
 
-- Neovim &ge; 0.6.0.
-
-## Install
-
-There're 3 ways to install the commons library:
-
-- With Neovim plugin manager.
-- With LuaRocks.
-- Embed source code.
-
-### Plugin Manager
-
-#### With [lazy.nvim](https://github.com/folke/lazy.nvim)
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 require("lazy").setup({
@@ -30,7 +18,7 @@ require("lazy").setup({
 })
 ```
 
-#### With [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
+### [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
 
 ```lua
 require("pckr").add({
@@ -43,7 +31,7 @@ require("pckr").add({
 })
 ```
 
-### LuaRocks
+## LuaRocks
 
 ```bash
 luarocks install commons.nvim
@@ -52,14 +40,14 @@ luarocks install commons.nvim
 luarocks install commons.nvim 1.4.1
 ```
 
-### Embed Source Code
+## Embed Source Code
 
-#### Manual
+### Manual Copy/Paste
 
 1. Copy/paste all `lua/commons/*.lua` into one of your plugin folders.
 2. Replace all prefix `require("commons` to `require("your.plugin.commons`.
 
-#### [GitHub Actions](https://docs.github.com/en/actions)
+### [GitHub Actions](https://docs.github.com/en/actions)
 
 Embed to `lua/your/plugin/commons` folder when submit PRs:
 
