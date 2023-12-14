@@ -14,7 +14,10 @@ import click
 from mdutils.mdutils import MdUtils
 from tinydb import Query, TinyDB
 
-def collect_symbols(p):
+
+def collect_symbols(filename):
+    pass
+
 
 @click.command()
 @click.option(
@@ -27,7 +30,11 @@ def collect_symbols(p):
 def gendoc(debug_opt):
     with os.scandir("./lua/commons") as modules:
         for entry in modules:
-            if entry.name.endswith(".lua") and entry.is_file():
+            if (
+                entry.name.endswith(".lua")
+                and not entry.name.startswith("_")
+                and entry.is_file()
+            ):
                 print(entry.name, entry.path)
 
 
