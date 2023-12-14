@@ -7,3 +7,5 @@
 - Modules
   - [commons.buffers](commons_buffers.md)
   - [commons.fileios](commons_fileios.md)
+  - [commons.jsons](commons_jsons.md)
+  - [commons.numbers](commons_numbers.md)
