@@ -80,7 +80,7 @@ M.echo = function(level, fmt, ...)
   local msg_lines = vim.split(msg, "\n", { plain = true })
 
   local title = ""
-  if type(Configs.name) and string.len(Configs.name) > 0 then
+  if type(Configs.name) == "string" and string.len(Configs.name) > 0 then
     title = Configs.name .. " "
   end
 
