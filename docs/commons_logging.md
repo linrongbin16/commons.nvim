@@ -259,3 +259,21 @@ Returns:
 
 - If the logger exist, returns the logger instance.
 - If the logger not found, returns `nil`.
+
+### `add`
+
+Add the logger into logging system.
+
+```lua
+function add(logger:commons.logging.Logger):nil
+```
+
+Parameters:
+
+- `logger`: The logger instance.
+
+## Classes
+
+### `Logger`
+
+The logger class.
