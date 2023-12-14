@@ -8,9 +8,7 @@ Sync/async run child-process via `uv.spawn` API, and handle stdout/stderr IO by 
 
 ### `run`
 
-Run command line in child-process, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>).
-
-The only differences are:
+Run command line in child-process, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only differences are:
 
 - It provides more friendly line-based `stdout` and `stderr` callbacks in `opts`.
 - By default `text = true` in `opts`.
