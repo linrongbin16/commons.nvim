@@ -390,7 +390,7 @@ M.Logger = Logger
 --- @type table<string, commons.logging.Logger>
 local NAMESPACE = {}
 
---- @alias commons.LoggingConfigs {name:string,level:commons.LogLevels?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?}
+--- @alias commons.LoggingConfigs {name:string,level:(commons.LogLevels|string)?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?}
 --- @type commons.LoggingConfigs
 local Defaults = {
   --- @type string
@@ -437,7 +437,8 @@ M.get = function(name)
   if name then
     return NAMESPACE[name]
   else
-    return next(NAMESPACE) --[[@as commons.logging.Logger?]]
+    local _, logger = next(NAMESPACE)
+    return logger --[[@as commons.logging.Logger?]]
   end
 end
 
@@ -450,38 +451,50 @@ end
 --- @param fmt string
 --- @param ... any
 M.debug = function(fmt, ...)
-  M.get():debug(fmt, ...)
+  local logger = M.get()
+  assert(logger ~= nil)
+  logger:debug(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.info = function(fmt, ...)
-  M.get():info(fmt, ...)
+  local logger = M.get()
+  assert(logger ~= nil)
+  logger:info(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.warn = function(fmt, ...)
-  M.get():warn(fmt, ...)
+  local logger = M.get()
+  assert(logger ~= nil)
+  logger:warn(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.err = function(fmt, ...)
-  M.get():err(fmt, ...)
+  local logger = M.get()
+  assert(logger ~= nil)
+  logger:err(fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.throw = function(fmt, ...)
-  M.get():throw(fmt, ...)
+  local logger = M.get()
+  assert(logger ~= nil)
+  logger:throw(fmt, ...)
 end
 
 --- @param cond any
 --- @param fmt string
 --- @param ... any
 M.ensure = function(cond, fmt, ...)
-  M.get():ensure(cond, fmt, ...)
+  local logger = M.get()
+  assert(logger ~= nil)
+  logger:ensure(cond, fmt, ...)
 end
 
 return M
