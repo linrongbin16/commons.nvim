@@ -9,7 +9,6 @@ describe("commons.spawn", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
-  local strings = require("commons.strings")
   local fileios = require("commons.fileios")
   local spawn = require("commons.spawn")
 
@@ -121,7 +120,7 @@ describe("commons.spawn", function()
       local sp = spawn.run(
         { "cat", "README.md" },
         { stdout = dummy, stderr = dummy },
-        function(exitcode, signal) end
+        function(completed) end
       )
       sp:kill(9)
       -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
@@ -139,7 +138,7 @@ describe("commons.spawn", function()
       local sp = spawn.run(
         { "cat", "README.md" },
         { stdout = process_line, stderr = dummy },
-        function(exitcode, signal) end
+        function(completed) end
       )
       -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
     end)
@@ -156,7 +155,7 @@ describe("commons.spawn", function()
       local sp = spawn.run(
         { "cat", "README.md" },
         { stdout = process_line, stderr = dummy },
-        function(exitcode, signal) end
+        function(completed) end
       )
       -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
     end)
