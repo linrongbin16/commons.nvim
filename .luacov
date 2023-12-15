@@ -1,5 +1,5 @@
 modules = {
-    ["commons.*"] = "lua/commons",
+    ["commons.*"] = "lua",
 }
 
 exclude = {
