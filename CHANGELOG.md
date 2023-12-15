@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/linrongbin16/commons.nvim/compare/v2.0.1...v2.1.0) (2023-12-15)
+
+
+### Features
+
+* **paths:** add 'parent' ([#67](https://github.com/linrongbin16/commons.nvim/issues/67)) ([94d900c](https://github.com/linrongbin16/commons.nvim/commit/94d900c11bb78770d68deb6f6c60d8c9fccf60a2))
+
 ## [2.0.1](https://github.com/linrongbin16/commons.nvim/compare/v2.0.0...v2.0.1) (2023-12-15)
 
 
