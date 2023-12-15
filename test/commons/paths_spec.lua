@@ -9,6 +9,7 @@ describe("commons.paths", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
+  local strings = require("commons.strings")
   local paths = require("commons.paths")
 
   describe("[normalize]", function()
@@ -123,6 +124,9 @@ describe("commons.paths", function()
       local actual3 = paths.parent(input3)
       local expect3 = "~/.config/nvim/lazy"
       assert_eq(actual3, expect3)
+
+      local actual4 = paths.parent()
+      assert_true(strings.startswith(cwd, actual4))
     end)
   end)
 end)

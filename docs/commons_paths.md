@@ -101,3 +101,19 @@ Make named pipe path, for UNIX/Linux it's tmp file path, for Windows it looks li
 ```lua
 function pipename():string
 ```
+
+### `parent`
+
+Get parent path.
+
+```lua
+function parent(p:string?):string
+```
+
+Parameters:
+
+- `p`: Input path, by default is current working directory `.`.
+
+Returns:
+
+- Returns the parent path.
