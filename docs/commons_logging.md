@@ -503,4 +503,7 @@ The logging formatter is (as well) heavily influenced by [python-logging's LogRe
   ?> **Why?** The reason of splitting `%(msecs)d` from `%(asctime)s` is mostly because the `os.date()` API doesn't support milliseconds portion rendering together with date and time.
 
 - `%(name)s`: Logger name.
+- `%(filename)s`: Source file.
+- `%(line_no)d`: Line no.
+- `%(funcName)s`: Function name.
 - `%(process)d`: Process ID.
