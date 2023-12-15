@@ -4,7 +4,7 @@
 
 Logging system with [python-logging](https://docs.python.org/3/howto/logging.html) like features.
 
-!> **Note:** This module requires initialize before write logging messages.
+!> **Note:** This module requires initialize before writing logs.
 
 ## Introduction
 
@@ -20,6 +20,8 @@ logging.setup({
   file_log = true,
   file_log_name = "your_logging.log",
 })
+
+-- First get logger by name, then write logs
 logging.get("your_logging"):debug("This is the first debugging message")
 logging.get("your_logging"):info(
   "This is the first info with global logger: %s",
@@ -27,15 +29,15 @@ logging.get("your_logging"):info(
 )
 ```
 
-The `setup` function will create a logger instance named `your_logging` and add it into the logging system.
+The `setup` function will create a logger instance named `your_logging` and register into the logging system.
 
-Each time you write a logging message, you need to get the logger via `logging.get` API with the logger name `your_logging`.
+!> **Note:** Each time you write a logging message, you need to get the logger by logger name `your_logging`.
 
 ### Root Logger
 
 The logger named `root` by default is the global singleton logger instance.
 
-Once you initialize the logging system with the name `root`, you can easily writing messages without the `get` API:
+Once you initialize the logging system with the name `root`, you can easily use the global logging APIs without get the logger:
 
 ```lua
 local logging = require("commons.logging")
@@ -45,6 +47,8 @@ logging.setup({
   file_log = true,
   file_log_name = "root.log",
 })
+
+-- Directly use logging APIs, without get logger by name
 logging.debug("This is the first debugging message")
 logging.info(
   "This is the first info with global logger: %s",
@@ -52,26 +56,27 @@ logging.info(
 )
 ```
 
-The `logging.debug`, `logging.info` and other logging APIs are equivalent to:
+The global logging APIs are equivalent to:
 
 ```lua
 local root_logger = logging.get("root")
 root_logger:debug(...)
 root_logger:info(...)
-...
 ```
 
-### Plugin (Isolated) Mode
+!> **Note:** This would bring potential conflictions between multiple Neovim plugins if they all use the same root logger in same lua package namespace. See [Isolated Logger Instance](#isolated-logger-instance).
 
-When developing a Neovim plugin, you will need to use a isolated memory space to separate the unique logger to avoid potentially confliction from other logger instancse in the same Neovim editor instance.
+### Isolated Logger Instance
 
-To create a unique/separated logger, please use:
+When installing the commons library with Neovim plugin manager or LuaRocks (see [Install](/install.md)), the commons library use the lua package namespace `commons` (e.g. the `require("commons")`), this would bring potential risks that multiple Neovim plugins share the same logging system, and further have conflictions on the global root logger instance if they all use the global logging APIs, in the same Neovim editor instance.
+
+To avoid such issue, Neovim plugin will have to create isolated logger instance for itself:
 
 ```lua
 local paths = require("commons.paths")
 local logging = require("commons.logging")
 
--- create two handlers
+-- Create logging handlers: ConsoleHandler (nvim's command line) and FileHandler.
 local console_handler = logging.ConsoleHandler:new()
 local file_handler = logging.FileHandler:new(
   string.format(
@@ -82,15 +87,15 @@ local file_handler = logging.FileHandler:new(
   )
 )
 
--- create logger
+-- Create logger instance.
 local logger = logging.Logger:new("your_plugin", logging.LogLevels.DEBUG)
 logger:add_handler(console_handler)
 logger:add_handler(file_handler)
 
--- add logger into logging system
+-- Add instance into logging system.
 logging.add(logger)
 
--- invoke logging API in another place
+-- Invoke logging API on specified logger instance.
 local logger2 = logging.get("your_plugin")
 logger2:debug("This is the first debugging message for your plugin")
 logger2:warn(
@@ -103,13 +108,18 @@ logger2:warn(
 
 ### Customization
 
-The logging system support partial python-logging features, which allow you customize the logger:
+The logging system support python-logging like features, that allow you customize the logger with:
 
-- `Logger`: Top-level API class for user to write logging messages.
-- `Handler`: Different type of logging devices.
-  - `ConsoleHandler`: Write logging messages to Neovim's command line.
-  - `FileHandler`: Write logging messages to file.
-- `Formatter`: Customize final logging message formats.
+- `Logger`: Top-level API class, you can bind multiple handlers on a single logger.
+- `Handler`: Different logging devices, each handler will have its own logging formatter.
+
+  - `ConsoleHandler`: Write logs as nvim's messages.
+
+    !> **Note:** The console handler will only print logs with logging level &ge; `INFO`, to avoid the interference of too noisy debugging messages to user.
+
+  - `FileHandler`: Write logs to file.
+
+- `Formatter`: Logging formatter that actually responsible for final logging record rendering.
 
 ## Constants
 
@@ -165,41 +175,25 @@ Parameters:
   - `level`: Log level, by default is `LogLevels.INFO`.
   - `console_log`: Whether enable console (message) log, by default is `true`.
 
-    !> **Note:** The debug messages (logging level &lt; `LogLevels.INFO`) will be filtered, e.g. not print to the nvim's command line.
+    !> **Note:** The console handler will only print logs with `level >= LogLevels.INFO`, to avoid the interference of too noisy debugging messages to user.
 
   - `file_log`: Whether enable file log, by default is `false`.
   - `file_log_name`: File log name, working with `file_log`, **mandatory** when setting `file_log = true`.
   - `file_log_dir`: File log directory, working with `file_log`, **mandatory** when setting `file_log = true`. By default is `vim.fn.stdpath("data")`.
 
-### `debug`
+### `debug`/`info`/`warn`/`err`
 
-Write logging message in debug (`LogLevels.DEBUG`) level.
+Write logging message with below levels:
+
+- `LogLevels.DEBUG`
+- `LogLevels.INFO`
+- `LogLevels.WARN`
+- `LogLevels.ERROR`
 
 ```lua
 function debug(fmt:string, ...:any):nil
-```
-
-### `info`
-
-Write logging message in info (`LogLevels.INFO`) level.
-
-```lua
 function info(fmt:string, ...:any):nil
-```
-
-### `warn`
-
-Write logging message in warning (`LogLevels.WARN`) level.
-
-```lua
 function warn(fmt:string, ...:any):nil
-```
-
-### `err`
-
-Write logging message in error (`LogLevels.ERROR`) level.
-
-```lua
 function err(fmt:string, ...:any):nil
 ```
 

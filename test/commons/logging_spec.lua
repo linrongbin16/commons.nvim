@@ -22,7 +22,7 @@ describe("commons.logging", function()
     file_log_dir = ".",
   })
 
-  describe("[log]", function()
+  describe("[logging]", function()
     it("debug", function()
       logging.debug("debug without parameters")
       logging.debug("debug with 1 parameters: %s", "a")

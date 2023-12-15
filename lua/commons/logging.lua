@@ -452,6 +452,10 @@ end
 --- @param logger commons.logging.Logger
 M.add = function(logger)
   assert(type(logger) == "table")
+  assert(
+    (type(logger.name) == "string" and string.len(logger.name) > 0)
+      or logger.name ~= nil
+  )
   assert(NAMESPACE[logger.name] == nil)
   NAMESPACE[logger.name] = logger
 end
