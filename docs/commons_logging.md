@@ -158,7 +158,7 @@ logging.add(logger)
 local logger2 = logging.get("your_plugin") --[[@as commons.logging.Logger]]
 logger2:debug("This is the first debugging message for your plugin")
 logger2:warn(
-  "This is the first warning message for your plugin with your logger: %s",
+  "Warning! This is the first warning message for your plugin with your logger: %s",
   vim.inspect(logger2)
 )
 ```
@@ -169,7 +169,7 @@ This example will finally write 2 types of logs:
 
   ```txt
   [your_plugin] This is the first debugging message for your plugin
-  [your_plugin] This is the first warning message for your plugin with your logger: {
+  [your_plugin] Warning! This is the first warning message for your plugin with your logger: {
     name = "your_plugin",
     level = 1,
     handlers = { ... },
@@ -180,7 +180,7 @@ This example will finally write 2 types of logs:
 
   ```txt
   2023-12-14 18:50:17,508383 [your_plugin] |DEBUG| - This is the first debugging message for your plugin.
-  2023-12-14 18:50:17,513379 [your_plugin] |WARN| - This is the first warning message for your plugin with your logger: {.
+  2023-12-14 18:50:17,513379 [your_plugin] |WARN| - Warning! This is the first warning message for your plugin with your logger: {.
   2023-12-14 18:50:17,513380 [your_plugin] |WARN| -   name = "your_plugin",.
   2023-12-14 18:50:17,513382 [your_plugin] |WARN| -   level = 1,.
   2023-12-14 18:50:17,513382 [your_plugin] |WARN| -   handlers = { ... },
