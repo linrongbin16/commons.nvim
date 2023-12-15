@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.0.0](https://github.com/linrongbin16/commons.nvim/compare/v1.6.0...v2.0.0) (2023-12-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **paths:** normalize by default replace '\\' to '/' ([#51](https://github.com/linrongbin16/commons.nvim/issues/51))
+* **logging:** add logging documents ([#57](https://github.com/linrongbin16/commons.nvim/issues/57))
+* **logger:** remove legacy 'logger' module ([#57](https://github.com/linrongbin16/commons.nvim/issues/57))
+* **logging:** update logging documents ([#59](https://github.com/linrongbin16/commons.nvim/issues/59))
+* **logger:** fix potential confliction on global singleton logger instance
+* **logging:** new logging system ([#57](https://github.com/linrongbin16/commons.nvim/issues/57))
+
+### Features
+
+* **logging:** new logging system ([#57](https://github.com/linrongbin16/commons.nvim/issues/57)) ([b417cbb](https://github.com/linrongbin16/commons.nvim/commit/b417cbb615c3286df32f0d28a6f3ba081b2e5533))
+
+
+### Bug Fixes
+
+* **logger:** fix potential confliction on global singleton logger instance ([b417cbb](https://github.com/linrongbin16/commons.nvim/commit/b417cbb615c3286df32f0d28a6f3ba081b2e5533))
+* **paths:** normalize by default replace '\\' to '/' ([#51](https://github.com/linrongbin16/commons.nvim/issues/51)) ([d7e21ed](https://github.com/linrongbin16/commons.nvim/commit/d7e21edb868b30567d62144f87f5144353a8bccf))
+
+
+### Documentation
+
+* **logger:** remove legacy 'logger' module ([#57](https://github.com/linrongbin16/commons.nvim/issues/57)) ([d7e21ed](https://github.com/linrongbin16/commons.nvim/commit/d7e21edb868b30567d62144f87f5144353a8bccf))
+* **logging:** add logging documents ([#57](https://github.com/linrongbin16/commons.nvim/issues/57)) ([d7e21ed](https://github.com/linrongbin16/commons.nvim/commit/d7e21edb868b30567d62144f87f5144353a8bccf))
+* **logging:** update logging documents ([#59](https://github.com/linrongbin16/commons.nvim/issues/59)) ([d7e21ed](https://github.com/linrongbin16/commons.nvim/commit/d7e21edb868b30567d62144f87f5144353a8bccf))
+
 ## [1.6.0](https://github.com/linrongbin16/commons.nvim/compare/v1.5.2...v1.6.0) (2023-12-14)
 
 
