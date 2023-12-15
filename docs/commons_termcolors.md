@@ -4,7 +4,7 @@
 
 Terminal ANSI/RGB color rendering utilities.
 
-?> **Note:** This module requires terminal has true color support and Neovim enables `termguicolors` for the best display.
+!> This module requires terminal support true color and Neovim enables `termguicolors` for the best display.
 
 ## Functions
 
@@ -21,7 +21,7 @@ Parameters:
 - `text`: The content to be rendered.
 - `name`: The ANSI color name or RGB color code.
 - `hl`: The vim syntax highlighting group name, by default is `nil`.
-  ?> **Note:** Vim syntax highlighting group has higher priority, only when it's been provided.
+  ?> Vim syntax highlighting group has higher priority, only when it's been provided.
 
 Returns:
 
@@ -57,7 +57,7 @@ Parameters:
 
 - `text`: The content to be rendered.
 - `hl`: The vim syntax highlighting group name, by default is `nil`.
-  ?> **Note:** Vim syntax highlighting group has higher priority, only when it's been provided.
+  ?> Vim syntax highlighting group has higher priority, only when it's been provided.
 
 ### `silver`
 

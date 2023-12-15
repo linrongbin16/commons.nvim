@@ -11,7 +11,7 @@ local spawn = require("commons.spawn")
 ...
 ```
 
-!> **Note:** With plugin manager/LuaRocks installation, the commons library in potential multiple plugins will share the same lua package namespace (`commons`), thus will bring risks for the logging system, please see [commons.logging](/commons_logging.md) for more details.
+!> With plugin manager/LuaRocks, the commons library in potential multiple plugins will share the same lua package namespace (`commons`), thus will bring risks for the logging system, please see [commons.logging](/commons_logging.md) for more details.
 
 ## With Embedded Source Code
 
@@ -22,4 +22,4 @@ local spawn = require("your.plugin.commons.spawn")
 ...
 ```
 
-!> **Note:** With embedded source code installation, the commons library has a unique lua package namespace (`your.plugin.commons`), thus will allow using the global singleton logger instance in logging system, please see [commons.logging](/commons_logging.md) for more details.
+!> With embedded source code, the commons library has a unique lua package namespace (`your.plugin.commons`), thus will allow using the global singleton logger instance in logging system, please see [commons.logging](/commons_logging.md) for more details.

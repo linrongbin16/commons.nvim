@@ -98,7 +98,7 @@ Returns:
 
 - If success, returns file content as strings list.
 
-  ?> **Note:** The newline break `\n` is removed from each line.
+  ?> Newline break `\n` is removed from each line.
 
 - If failed to open, returns `nil`.
 
@@ -153,7 +153,7 @@ Parameters:
 - `filename`: File name.
 - `lines`: content as lines (strings list).
 
-  ?> **Note:** The newline break `\n` is appended for each line.
+  ?> Newline break `\n` is appended for each line.
 
 Returns:
 

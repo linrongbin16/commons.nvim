@@ -90,7 +90,7 @@ Returns the iterator that allow foreach all the items from oldest to latest.
 function RingBuffer:iterator():commons._RingBufferIterator
 ```
 
-?> **See:** [\_RingBufferIterator](#_RingBufferIterator).
+?> Also see: [\_RingBufferIterator](#_RingBufferIterator).
 
 ##### `riterator`
 
@@ -100,7 +100,7 @@ Returns the reverse iterator that allow foreach all the items from latest to old
 function RingBuffer:riterator():commons._RingBufferRIterator
 ```
 
-?> **See:** [\_RingBufferRIterator](#_RingBufferRIterator).
+?> Also see: [\_RingBufferRIterator](#_RingBufferRIterator).
 
 ### `_RingBufferIterator`
 
