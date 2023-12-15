@@ -14,7 +14,7 @@ describe("commons.logging", function()
   local LogLevelNames = require("commons.logging").LogLevelNames
 
   logging.setup({
-    name = "commons_test",
+    name = "root",
     level = "DEBUG",
     console_log = true,
     file_log = true,
