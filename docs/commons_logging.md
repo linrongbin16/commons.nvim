@@ -70,6 +70,8 @@ root_logger:info(...)
 
 When installing the commons library with Neovim plugin manager or LuaRocks (see [Install](/install.md)), the commons library use the lua package namespace `commons` (e.g. the `require("commons")`), this would bring potential risks that multiple Neovim plugins share the same logging system, and further have conflictions on the global root logger instance if they all use the global logging APIs, in the same Neovim editor instance.
 
+?> **See:** [Usage](/usage.md).
+
 To avoid such issue, Neovim plugin will have to create isolated logger instance for itself:
 
 ```lua
