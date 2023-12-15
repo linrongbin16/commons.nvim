@@ -89,7 +89,7 @@ Parameters:
 - `s`: The string that left side will been trimmed.
 - `t`: Target characters, by default is all whitespaces.
 
-Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
+?> Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
 
 ### `rtrim`
 
@@ -104,7 +104,7 @@ Parameters:
 - `s`: The string that right side will been trimmed.
 - `t`: Target characters, by default is all whitespaces.
 
-Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
+?> Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
 
 ### `split`
 
@@ -160,82 +160,82 @@ Parameters:
 
 Whether character `c` is whitespace.
 
-!> **Note:** Only allow single character as the parameter.
+!> Only allow single character as the parameter.
 
 ```lua
 function isspace(c:string):boolean
 ```
 
-?> **See:** C/C++ Reference [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
+?> Also see: C/C++ Reference [isspace](https://en.cppreference.com/w/cpp/string/byte/isspace).
 
 ### `isalnum`
 
 Whether character `c` is alphanumeric (0-9 A-Z a-z).
 
-!> **Note:** Only allow single character as the parameter.
+!> Only allow single character as the parameter.
 
 ```lua
 function isalnum(c:string):boolean
 ```
 
-?> **See:** C/C++ Reference [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
+?> Also see: C/C++ Reference [isalnum](https://en.cppreference.com/w/cpp/string/byte/isalnum).
 
 ### `isdigit`
 
 Whether character `c` is digit (0-9).
 
-!> **Note:** Only allow single character as the parameter.
+!> Only allow single character as the parameter.
 
 ```lua
 function isdigit(c:string):boolean
 ```
 
-?> **See:** C/C++ Reference [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
+?> Also see: C/C++ Reference [isdigit](https://en.cppreference.com/w/cpp/string/byte/isdigit).
 
 ### `isxdigit`
 
 Whether character `c` is hex digit (0-9 a-f A-F).
 
-!> **Note:** Only allow single character as the parameter.
+!> Only allow single character as the parameter.
 
 ```lua
 function isxdigit(c:string):boolean
 ```
 
-?> **See:** C/C++ Reference [isxdigit](https://en.cppreference.com/w/cpp/string/byte/isxdigit).
+?> Also see: C/C++ Reference [isxdigit](https://en.cppreference.com/w/cpp/string/byte/isxdigit).
 
 ### `isalpha`
 
 Whether character `c` is alphabetic character (a-z A-Z).
 
-!> **Note:** Only allow single character as the parameter.
+!> Only allow single character as the parameter.
 
 ```lua
 function isalpha(c:string):boolean
 ```
 
-?> **See:** C/C++ Reference [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
+?> Also see: C/C++ Reference [isalpha](https://en.cppreference.com/w/cpp/string/byte/isalpha).
 
 ### `islower`
 
 Whether character `c` is lower case alphabetic character (a-z).
 
-!> **Note:** Only allow single character as the parameter.
+!> Only allow single character as the parameter.
 
 ```lua
 function islower(c:string):boolean
 ```
 
-?> **See:** C/C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
+?> Also see: C/C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
 
 ### `isupper`
 
 Whether character `c` is upper case alphabetic character (A-Z).
 
-!> **Note:** Only allow single character as the parameter.
+!> Only allow single character as the parameter.
 
 ```lua
 function isupper(c:string):boolean
 ```
 
-?> **See:** C/C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
+?> Also see: C/C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
