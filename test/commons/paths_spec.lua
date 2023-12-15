@@ -9,6 +9,7 @@ describe("commons.paths", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
+  local strings = require("commons.strings")
   local paths = require("commons.paths")
 
   describe("[normalize]", function()
@@ -105,6 +106,27 @@ describe("commons.paths", function()
     it("test", function()
       local tmp = paths.pipename()
       assert_true(string.len(tmp) > 0)
+    end)
+  end)
+  describe("[parent]", function()
+    it("test", function()
+      local input1 = "~/.config/nvim/lazy/fzfx.nvim/test/path_spec.lua"
+      local actual1 = paths.parent(input1)
+      local expect1 = "~/.config/nvim/lazy/fzfx.nvim/test"
+      assert_eq(actual1, expect1)
+
+      local input2 = "~/.config/nvim/lazy/fzfx.nvim/test"
+      local actual2 = paths.parent(input2)
+      local expect2 = "~/.config/nvim/lazy/fzfx.nvim"
+      assert_eq(actual2, expect2)
+
+      local input3 = "~/.config/nvim/lazy/fzfx.nvim"
+      local actual3 = paths.parent(input3)
+      local expect3 = "~/.config/nvim/lazy"
+      assert_eq(actual3, expect3)
+
+      local actual4 = paths.parent()
+      assert_true(strings.startswith(cwd, actual4))
     end)
   end)
 end)

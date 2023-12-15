@@ -1,10 +1,8 @@
 modules = {
-    ["commons"] = "lua/commons.lua",
     ["commons.*"] = "lua",
 }
 
 exclude = {
     "lua/commons/_json.lua",
     "lua/commons/_system.lua",
-    "lua/commons/_system_types.lua",
 }

@@ -95,4 +95,10 @@ M.pipename = function()
   end
 end
 
+--- @param p string?
+--- @return string
+M.parent = function(p)
+  return vim.fn.fnamemodify(p or vim.fn.getcwd(), ":h")
+end
+
 return M
