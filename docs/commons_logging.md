@@ -72,39 +72,7 @@ When installing the commons library with Neovim plugin manager or LuaRocks (see 
 
 ?> **See:** [Usage](/usage.md).
 
-To avoid such issue, Neovim plugin will have to create isolated logger instance for itself:
-
-```lua
-local paths = require("commons.paths")
-local logging = require("commons.logging")
-
--- Create logging handlers: ConsoleHandler (nvim's command line) and FileHandler.
-local console_handler = logging.ConsoleHandler:new()
-local file_handler = logging.FileHandler:new(
-  string.format(
-    "%s%s%s",
-    vim.fn.stdpath("data"),
-    paths.SEPARATOR,
-    "your_plugin.log"
-  )
-)
-
--- Create logger instance.
-local logger = logging.Logger:new("your_plugin", logging.LogLevels.DEBUG)
-logger:add_handler(console_handler)
-logger:add_handler(file_handler)
-
--- Add instance into logging system.
-logging.add(logger)
-
--- Invoke logging API on specified logger instance.
-local logger2 = logging.get("your_plugin")
-logger2:debug("This is the first debugging message for your plugin")
-logger2:warn(
-  "This is the first warning message for your plugin with your logger: %s",
-  vim.inspect(logger2)
-)
-```
+To avoid such issue, Neovim plugin will have to create isolated logger instance for itself, e.g. use a specified logger just like [Setup](#setup).
 
 !> **Note:** The logger name for your plugin must be unique, and must not be `root`!
 
@@ -144,6 +112,80 @@ The final logging records can look like:
 ```
 
 Which is actually different from what user input in the logging APIs. That is what logging formatter does: formatting logs into final records with configurations.
+
+#### Example
+
+Here's an example of customizing logging formatters:
+
+```lua
+local paths = require("commons.paths")
+local logging = require("commons.logging")
+
+-- Step-1: Create a simple console handler that print to nvim's messages.
+
+local console_formatter = logging.Formatter:new("[%(name)s] %(message)s")
+local console_handler = logging.ConsoleHandler:new(console_formatter)
+
+-- Step-2: Create a complicated file handler that write logs to a file.
+local file_formatter = logging.Formatter:new(
+  "%(asctime)s,%(msecs)d [%(name)] |%(levelname)s| - %(message)s.",
+  {
+    datefmt = "%Y-%m-%dT%H:%M:%S",
+    msecsfmt = "%06d",
+  }
+)
+
+-- For UNIX/Linux, it's '~/.local/share/nvim/your_plugin.log'.
+-- For Windows, it's '~\AppData\Local\nvim-data\your_plugin.log'.
+local file_path = string.format(
+  "%s%s%s",
+  vim.fn.stdpath("data"),
+  paths.SEPARATOR,
+  "your_plugin.log"
+)
+
+local file_handler = logging.FileHandler:new(file_path, "a", file_formatter)
+
+-- Create logger in debug level.
+local logger = logging.Logger:new("your_plugin", logging.LogLevels.DEBUG)
+logger:add_handler(console_handler)
+logger:add_handler(file_handler)
+
+-- Register into logging system.
+logging.add(logger)
+
+-- In other places, write some logs.
+local logger2 = logging.get("your_plugin") --[[@as commons.logging.Logger]]
+logger2:debug("This is the first debugging message for your plugin")
+logger2:warn(
+  "Warning! This is the first warning message for your plugin with your logger: %s",
+  vim.inspect(logger2)
+)
+```
+
+This example will finally write 2 types of logs:
+
+- Console message looks like:
+
+  ```txt
+  [your_plugin] This is the first debugging message for your plugin
+  [your_plugin] Warning! This is the first warning message for your plugin with your logger: {
+    name = "your_plugin",
+    level = 1,
+    handlers = { ... },
+  }
+  ```
+
+- File logs looks like:
+
+  ```txt
+  2023-12-14 18:50:17,508383 [your_plugin] |DEBUG| - This is the first debugging message for your plugin.
+  2023-12-14 18:50:17,513379 [your_plugin] |WARN| - Warning! This is the first warning message for your plugin with your logger: {.
+  2023-12-14 18:50:17,513380 [your_plugin] |WARN| -   name = "your_plugin",.
+  2023-12-14 18:50:17,513382 [your_plugin] |WARN| -   level = 1,.
+  2023-12-14 18:50:17,513382 [your_plugin] |WARN| -   handlers = { ... },
+  2023-12-14 18:50:17,513382 [your_plugin] |WARN| - }.
+  ```
 
 ## Enums
 
