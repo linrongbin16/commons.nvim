@@ -72,6 +72,9 @@ local FORMATTING_TAGS = {
   MSECS = "%(msecs)d",
   NAME = "%(name)s",
   PROCESS = "%(process)d",
+  FILE_NAME = "%(filename)s",
+  LINE_NO = "%(lineno)d",
+  FUNC_NAME = "%(funcName)s",
 }
 
 --- @param meta table<string,any>
@@ -108,6 +111,9 @@ function Formatter:format(meta)
     "MSECS",
     "NAME",
     "PROCESS",
+    "FILE_NAME",
+    "LINE_NO",
+    "FUNC_NAME",
   }
 
   local builder = {}
@@ -129,7 +135,7 @@ function Formatter:format(meta)
           table.insert(builder, os.date(self.datefmt, meta.SECONDS))
         elseif tag == "MSECS" then
           table.insert(builder, string.format(self.msecsfmt, meta.MSECS))
-        else
+        elseif meta[tag] ~= nil then
           table.insert(builder, tostring(meta[tag]))
         end
         break
@@ -186,15 +192,20 @@ function ConsoleHandler:write(meta)
     return
   end
 
-  local chunks = {}
-  local record = self.formatter:format(meta)
-  table.insert(chunks, {
-    record,
-    LogHighlights[meta.LEVEL_NO],
-  })
-  vim.schedule(function()
-    vim.api.nvim_echo(chunks, false, {})
-  end)
+  local msg_lines = vim.split(meta.MESSAGE, "\n", { plain = true })
+  for _, line in ipairs(msg_lines) do
+    local chunks = {}
+    local line_meta =
+      vim.tbl_deep_extend("force", vim.deepcopy(meta), { MESSAGE = line })
+    local record = self.formatter:format(line_meta)
+    table.insert(chunks, {
+      record,
+      LogHighlights[line_meta.LEVEL_NO],
+    })
+    vim.schedule(function()
+      vim.api.nvim_echo(chunks, false, {})
+    end)
+  end
 end
 
 M.ConsoleHandler = ConsoleHandler
@@ -219,8 +230,9 @@ function FileHandler:new(filepath, filemode, formatter)
   assert(filemode == "a" or filemode == "w" or filemode == nil)
 
   if formatter == nil then
-    formatter =
-      Formatter:new("%(asctime)s,%(msecs)d [%(levelname)s] %(message)s")
+    formatter = Formatter:new(
+      "%(asctime)s,%(msecs)d [%(filename)s:%(lineno)d] %(levelname)s: %(message)s"
+    )
   end
 
   filemode = filemode ~= nil and string.lower(filemode) or "a"
@@ -313,10 +325,11 @@ function Logger:add_handler(handler)
   table.insert(self.handlers, handler)
 end
 
+--- @param dbg debuginfo?
 --- @param lvl integer
 --- @param fmt string
 --- @param ... any
-function Logger:_log(lvl, fmt, ...)
+function Logger:_log(dbg, lvl, fmt, ...)
   assert(type(lvl) == "number" and LogLevelNames[lvl] ~= nil)
 
   local uv = require("commons.uv")
@@ -326,55 +339,99 @@ function Logger:_log(lvl, fmt, ...)
   end
 
   local msg = string.format(fmt, ...)
-  local msg_lines = vim.split(msg, "\n", { plain = true })
 
   for _, handler in ipairs(self.handlers) do
-    for _, line in ipairs(msg_lines) do
-      local secs, millis = uv.gettimeofday()
-
-      --- @alias commons.logging._MetaInfo {LEVEL_NO:commons.LogLevels,LEVEL_NAME:commons.LogLevelNames,MESSAGE:string,SECONDS:integer,MILLISECONDS:integer}
-      local meta_info = {
-        LEVEL_NO = lvl,
-        LEVEL_NAME = LogLevelNames[lvl],
-        MESSAGE = line,
-        SECONDS = secs,
-        MSECS = millis,
-        NAME = self.name,
-        PROCESS = uv.os_getpid(),
-      }
-      handler:write(meta_info)
-    end
+    local secs, millis = uv.gettimeofday()
+    --- @alias commons.logging._MetaInfo {LEVEL_NO:commons.LogLevels,LEVEL_NAME:commons.LogLevelNames,MESSAGE:string,SECONDS:integer,MILLISECONDS:integer,FILE_NAME:string,LINE_NO:integer,FUNC_NAME:string}
+    local meta_info = {
+      LEVEL_NO = lvl,
+      LEVEL_NAME = LogLevelNames[lvl],
+      MESSAGE = msg,
+      SECONDS = secs,
+      MSECS = millis,
+      NAME = self.name,
+      PROCESS = uv.os_getpid(),
+      FILE_NAME = dbg ~= nil and (dbg.source or dbg.short_src) or nil,
+      LINE_NO = dbg ~= nil and (dbg.currentline or dbg.linedefined) or nil,
+      FUNC_NAME = dbg ~= nil and (dbg.func or dbg.what) or nil,
+    }
+    handler:write(meta_info)
   end
 end
 
 --- @param fmt string
 --- @param ... any
 function Logger:debug(fmt, ...)
-  self:_log(LogLevels.DEBUG, fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
+  self:_log(dbg, LogLevels.DEBUG, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 function Logger:info(fmt, ...)
-  self:_log(LogLevels.INFO, fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
+  self:_log(dbg, LogLevels.INFO, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 function Logger:warn(fmt, ...)
-  self:_log(LogLevels.WARN, fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
+  self:_log(dbg, LogLevels.WARN, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 function Logger:err(fmt, ...)
-  self:_log(LogLevels.ERROR, fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
+  self:_log(dbg, LogLevels.ERROR, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 function Logger:throw(fmt, ...)
-  self:_log(LogLevels.ERROR, fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
+  self:_log(dbg, LogLevels.ERROR, fmt, ...)
   error(string.format(fmt, ...))
 end
 
@@ -383,7 +440,16 @@ end
 --- @param ... any
 function Logger:ensure(cond, fmt, ...)
   if not cond then
-    self:err(fmt, ...)
+    local dbglvl = 2
+    local dbg = nil
+    while true do
+      dbg = debug.getinfo(dbglvl, "nfSl")
+      if not dbg or dbg.what ~= "C" then
+        break
+      end
+      dbglvl = dbglvl + 1
+    end
+    self:_log(dbg, LogLevels.ERROR, fmt, ...)
   end
   assert(cond, string.format(fmt, ...))
 end
@@ -466,50 +532,100 @@ local ROOT = "root"
 --- @param fmt string
 --- @param ... any
 M.debug = function(fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
   local logger = M.get(ROOT)
   assert(logger ~= nil)
-  logger:debug(fmt, ...)
+  logger:_log(dbg, LogLevels.DEBUG, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.info = function(fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
   local logger = M.get(ROOT)
   assert(logger ~= nil)
-  logger:info(fmt, ...)
+  logger:_log(dbg, LogLevels.INFO, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.warn = function(fmt, ...)
+  local dbg = debug.getinfo(2, "nfSl")
   local logger = M.get(ROOT)
   assert(logger ~= nil)
-  logger:warn(fmt, ...)
+  logger:_log(dbg, LogLevels.WARN, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.err = function(fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
   local logger = M.get(ROOT)
   assert(logger ~= nil)
-  logger:err(fmt, ...)
+  logger:_log(dbg, LogLevels.ERROR, fmt, ...)
 end
 
 --- @param fmt string
 --- @param ... any
 M.throw = function(fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
   local logger = M.get(ROOT)
   assert(logger ~= nil)
-  logger:throw(fmt, ...)
+  logger:_log(dbg, LogLevels.ERROR, fmt, ...)
+  error(string.format(fmt, ...))
 end
 
 --- @param cond any
 --- @param fmt string
 --- @param ... any
 M.ensure = function(cond, fmt, ...)
+  local dbglvl = 2
+  local dbg = nil
+  while true do
+    dbg = debug.getinfo(dbglvl, "nfSl")
+    if not dbg or dbg.what ~= "C" then
+      break
+    end
+    dbglvl = dbglvl + 1
+  end
   local logger = M.get(ROOT)
   assert(logger ~= nil)
-  logger:ensure(cond, fmt, ...)
+  if not cond then
+    logger:_log(dbg, LogLevels.ERROR, fmt, ...)
+  end
+  assert(cond, string.format(fmt, ...))
 end
 
 return M
