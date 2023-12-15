@@ -154,7 +154,7 @@ logger:add_handler(file_handler)
 -- Register into logging system.
 logging.add(logger)
 
--- In other places, get the logger and write logs.
+-- In other places, write some logs.
 local logger2 = logging.get("your_plugin") --[[@as commons.logging.Logger]]
 logger2:debug("This is the first debugging message for your plugin")
 logger2:warn(
