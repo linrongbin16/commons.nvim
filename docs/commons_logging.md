@@ -1,8 +1,8 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
+<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
 # [commons.logger](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/logger.lua)
 
-Logging system with [python-logging](https://docs.python.org/3/howto/logging.html) like features.
+Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
 
 !> **Note:** This module requires initialize before writing logs.
 
@@ -108,20 +108,42 @@ logger2:warn(
 
 ### Customization
 
-The logging system support python-logging like features, that allow you customize the logger with:
+The logging system is heavily influenced by [python-logging](https://docs.python.org/3/library/logging.html), it's built by below 3 main classes:
 
-- `Logger`: Top-level API class, you can bind multiple handlers on a single logger.
-- `Handler`: Different logging devices, each handler will have its own logging formatter.
+#### Logger
 
-  - `ConsoleHandler`: Write logs as nvim's messages.
+The top-level API class, provide `debug`/`info`/`warn`/`err` logging APIs for users.
 
-    !> **Note:** The console handler will only print logs with logging level &ge; `INFO`, to avoid the interference of too noisy debugging messages to user.
+The logger will collect all information (not only the logging message body) required for final rendering, pass them to its logging handlers.
 
-  - `FileHandler`: Write logs to file.
+Each logger has at least one logging handler, or multiple logging handlers.
 
-- `Formatter`: Logging formatter that actually responsible for final logging record rendering.
+#### Handler
 
-## Constants
+Logging handler is responsible for actually write logs into a device, e.g. the nvim messages (`echomsg` or `vim.notify`), or a file on local disk.
+
+Now we have below logging handlers:
+
+- `ConsoleHandler`: Write logs to nvim's messages.
+
+  !> **Note:** The console handler will only print logs with logging level &ge; `INFO`, to avoid the interference of too noisy debugging messages to user.
+
+- `FileHandler`: Write logs to file.
+
+To control the final logging records rendering, each handler has its own logging formatter.
+
+#### Formatter
+
+The final logging records can look like:
+
+```txt
+2023-12-14 18:50:17.508383 [DEBUG]: This is the first debugging message.
+2023-12-14 18:50:17.571393 [INFO]: This is the first info message.
+```
+
+Which is actually different from what user input in the logging APIs. That is what logging formatter does: formatting logs into final records with configurations.
+
+## Enums
 
 ### `LogLevels`
 
@@ -183,7 +205,7 @@ Parameters:
 
 ### `debug`/`info`/`warn`/`err`
 
-Write logging message with below levels:
+Write logs with below levels:
 
 - `LogLevels.DEBUG`
 - `LogLevels.INFO`
@@ -235,7 +257,7 @@ Parameters:
 
 Returns:
 
-- Returns whether logging system has the logger instance.
+- Returns whether logging system has the logger.
 
 ### `get`
 
@@ -251,12 +273,12 @@ Parameters:
 
 Returns:
 
-- If the logger exist, returns the logger instance.
-- If the logger not found, returns `nil`.
+- If logger exist, returns the logger.
+- If logger not found, returns `nil`.
 
 ### `add`
 
-Add the logger into logging system.
+Register logger into logging system.
 
 ```lua
 function add(logger:commons.logging.Logger):nil
@@ -264,10 +286,177 @@ function add(logger:commons.logging.Logger):nil
 
 Parameters:
 
-- `logger`: The logger instance.
+- `logger`: The logger.
 
 ## Classes
 
 ### `Logger`
 
 The logger class.
+
+```lua
+--- @class commons.logging.Logger
+```
+
+#### Functions
+
+##### `new`
+
+Create new logger.
+
+```lua
+function Logger:new(name:string, level:commons.logging.LogLevels):commons.logging.Logger
+```
+
+Parameters:
+
+- `name`: Logger name.
+- `level`: Logging level.
+
+Returns:
+
+- Returns logger instance.
+
+##### `add_handler`
+
+Add logging handler.
+
+```lua
+function Logger:add_handler(handler: commons.logging.Handler):nil
+```
+
+Parameters:
+
+- `handler`: Logging handler, see [Handler](#handler).
+
+##### `debug`/`info`/`warn`/`err`
+
+Same with global logging APIs, see above [debug/info/warn/err](#debuginfowarnerr).
+
+##### `throw`
+
+Same with global logging APIs, see above [throw](#throw).
+
+##### `ensure`
+
+Same with global logging APIs, see above [ensure](#ensure).
+
+### `ConsoleHandler`
+
+The logging handler that write nvim's messages.
+
+```lua
+--- @class commons.logging.ConsoleHandler
+```
+
+#### Functions
+
+##### `new`
+
+Create new console handler.
+
+```lua
+function ConsoleHandler:new(formatter: commons.logging.Formatter?):commons.logging.ConsoleHandler
+```
+
+Parameters:
+
+- `formatter`: The logging formatter, by default is `[%(name)s] %(message)s`. For example: `[gitlinker] https://github.com/linrongbin16/commons.nvim/blob/c651def812/docs/README.md#L364 (lines can be wrong)`.
+
+  ?> **See:** [Formatter](#formatter) and [Formatting Attributes](#formatting-attributes).
+
+### `FileHandler`
+
+The logging handler that write logs to file.
+
+```lua
+--- @class commons.logging.FileHandler
+```
+
+#### Functions
+
+##### `new`
+
+Create new file handler.
+
+```lua
+function FileHandler:new(filepath:string, filemode:"a"|"w"|nil, formatter:commons.logging.Formatter):commons.logging.FileHandler
+```
+
+Parameters:
+
+- `filepath`: The full file name that logs will be written to.
+- `filemode`: File mode.
+  - `a`: Append mode, logs will be append at the end of logging file.
+  - `w`: Write mode, exist file content will be removed before writing.
+- `formatter`: The logging formatter, by default is `%(asctime)s,%(msecs)d [%(levelname)s] %(message)s`
+
+  ?> **See:** [Formatter](#formatter) and [Formatting Attributes](#formatting-attributes).
+
+### `Formatter`
+
+The logging formatter that actually render the final logging records.
+
+```lua
+--- @class commons.logging.Formatter
+```
+
+#### Functions
+
+##### `new`
+
+Create new logging formatter.
+
+```lua
+function Formatter:new(fmt:string, opts:{datefmt:string?, msecsfmt:string?}?):commons.logging.Formatter
+```
+
+Parameters:
+
+- `fmt`: The formatting template string, see [Formatting Attributes](#formatting-attributes).
+- `opts`: Formatting options.
+
+  - `datefmt`: The formatting placeholder for date and time (`%(asctime)s`), evaluated by [os.date()](https://www.lua.org/pil/22.1.html).
+
+    - By default is `%Y-%m-%d %H:%M:%S`, for example: `2023-12-14 18:50:17`.
+
+    ?> **See:** [Formatting Attributes](#formatting-attributes).
+
+  - `msecsfmt`: The formatting placeholder for milliseconds (`%(msecs)d`), evaluated by [string.format](https://www.lua.org/pil/20.html).
+
+    - By default is `%06d`, for example: `00713`.
+
+    ?> **See:** [Formatting Attributes](#formatting-attributes).
+
+Returns:
+
+- Returns logging formatter.
+
+#### Formatting Attributes
+
+The logging formatter is (as well) heavily influenced by [python-logging's LogRecord attributes](https://docs.python.org/3/library/logging.html#logrecord-attributes). For now supported attributes are:
+
+- `%(levelno)s`: Numeric logging level (0-5), see [LogLevels](#loglevels).
+- `%(levelname)s`: Text logging level (TRACE, DEBUG, etc), see [LogLevelNames](#loglevelnames).
+- `%(message)s`: Logging message from user input.
+- `%(asctime)s`: Date time, useful when you need extra debugging messages (especially in file handler).
+
+  - By default it's formatted by [os.date()](https://www.lua.org/pil/22.1.html) with `%Y-%m-%d %H:%M:%S`, you can configure it with the `datefmt` options when creating a formatter.
+
+    ?> **See:** [Formatter:new](#formatter).
+
+  - For example:
+
+    ```txt
+    2023-12-14 18:50:17.508383 [DEBUG]: This is the first debugging message.
+    2023-12-14 18:50:17.571393 [INFO]: This is the first info message.
+    ```
+
+- `%(msecs)d`: Milliseconds portion of the logging time, useful when you need the exact timestamp (especially in file handler).
+
+  ?> **Tip:** Create formatter with setting `fmt` to `"%(asctime)s,%(msecs)d"` (with comma `,`) will give you: `2023-12-14 18:50:17,571393`.
+
+  ?> **Why?** The reason of splitting `%(msecs)d` from `%(asctime)s` is mostly because the `os.date()` API doesn't support milliseconds portion rendering together with date and time.
+
+- `%(name)s`: Logger name.
+- `%(process)d`: Process ID.

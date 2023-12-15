@@ -292,6 +292,7 @@ local Logger = {}
 
 --- @param name string
 --- @param level commons.LogLevels
+--- @return commons.logging.Logger
 function Logger:new(name, level)
   assert(type(name) == "string")
   assert(type(level) == "number" and LogLevelNames[level] ~= nil)
