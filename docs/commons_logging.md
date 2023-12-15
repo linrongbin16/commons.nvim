@@ -363,7 +363,7 @@ Parameters:
 
 - `formatter`: The logging formatter, by default is `[%(name)s] %(message)s`. For example: `[gitlinker] https://github.com/linrongbin16/commons.nvim/blob/c651def812/docs/README.md#L364 (lines can be wrong)`.
 
-  ?> **See:** [Formatter](#formatter) and [Formatting Attributes](#formatting-attributes).
+  ?> **See:** [Formatter](#formatter) and [Formatting Attributes](#attributes).
 
 ### `FileHandler`
 
@@ -391,7 +391,7 @@ Parameters:
   - `w`: Write mode, exist file content will be removed before writing.
 - `formatter`: The logging formatter, by default is `%(asctime)s,%(msecs)d [%(levelname)s] %(message)s`
 
-  ?> **See:** [Formatter](#formatter) and [Formatting Attributes](#formatting-attributes).
+  ?> **See:** [Formatter](#formatter) and [Formatting Attributes](#attributes).
 
 ### `Formatter`
 
@@ -413,26 +413,26 @@ function Formatter:new(fmt:string, opts:{datefmt:string?, msecsfmt:string?}?):co
 
 Parameters:
 
-- `fmt`: The formatting template string, see [Formatting Attributes](#formatting-attributes).
+- `fmt`: The formatting template string, see [Formatting Attributes](#attributes).
 - `opts`: Formatting options.
 
   - `datefmt`: The formatting placeholder for date and time (`%(asctime)s`), evaluated by [os.date()](https://www.lua.org/pil/22.1.html).
 
     - By default is `%Y-%m-%d %H:%M:%S`, for example: `2023-12-14 18:50:17`.
 
-    ?> **See:** [Formatting Attributes](#formatting-attributes).
+    ?> **See:** [Formatting Attributes](#attributes).
 
   - `msecsfmt`: The formatting placeholder for milliseconds (`%(msecs)d`), evaluated by [string.format](https://www.lua.org/pil/20.html).
 
     - By default is `%06d`, for example: `00713`.
 
-    ?> **See:** [Formatting Attributes](#formatting-attributes).
+    ?> **See:** [Formatting Attributes](#attributes).
 
 Returns:
 
 - Returns logging formatter.
 
-#### Formatting Attributes
+#### Attributes
 
 The logging formatter is (as well) heavily influenced by [python-logging's LogRecord attributes](https://docs.python.org/3/library/logging.html#logrecord-attributes). For now supported attributes are:
 
