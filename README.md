@@ -19,7 +19,7 @@ This lua library includes multiple modules:
 - File IO & path operations.
 - Convert between lua tables and json strings.
 - Run child-process and handle line-wise output from stdout/stderr.
-- Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
+- Logging system with python-logging like features.
 - Terminal ANSI/RGB color renderings.
 - Compatible APIs support Neovim versions from v0.6 to nightly.
 
