@@ -8,7 +8,7 @@
   - [commons.buffers](commons_buffers.md)
   - [commons.fileios](commons_fileios.md)
   - [commons.jsons](commons_jsons.md)
-  - [commons.logger](commons_logger.md)
+  - [commons.logging](commons_logging.md)
   - [commons.numbers](commons_numbers.md)
   - [commons.paths](commons_paths.md)
   - [commons.ringbuf](commons_ringbuf.md)

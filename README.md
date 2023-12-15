@@ -18,9 +18,9 @@ This lua library includes multiple modules:
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
 - Convert between lua tables and json strings.
-- Compatible APIs support Neovim versions from v0.6 to nightly.
 - Run child-process and handle line-wise output from stdout/stderr.
+- Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
 - Terminal ANSI/RGB color renderings.
-- Logging.
+- Compatible APIs support Neovim versions from v0.6 to nightly.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
