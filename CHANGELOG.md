@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/linrongbin16/commons.nvim/compare/v2.0.0...v2.0.1) (2023-12-15)
+
+
+### Performance Improvements
+
+* **logging:** support file, function and line number format attributes ([#64](https://github.com/linrongbin16/commons.nvim/issues/64)) ([dde8665](https://github.com/linrongbin16/commons.nvim/commit/dde866568379691c4d3524c1c93c2bf979d4b212))
+
 ## [2.0.0](https://github.com/linrongbin16/commons.nvim/compare/v1.6.0...v2.0.0) (2023-12-15)
 
 
