@@ -2,7 +2,9 @@
 
 # Welcome to commons.nvim's Documentation!
 
-> The commons lua library for Neovim plugin project.
+<p align="center"><i>
+The commons lua library for Neovim plugin project.
+</i></p>
 
 - Commons Modules
 
