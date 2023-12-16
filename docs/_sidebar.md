@@ -18,6 +18,6 @@
   - [commons.termcolors](commons_termcolors.md)
   - [commons.uv](commons_uv.md)
   - [commons.windows](commons_windows.md)
-- [Changelog](/changelog.md)
+- [Changelog](/CHANGELOG.md)
 - [Development](/development.md)
 - [Contribute](/contribute.md)
