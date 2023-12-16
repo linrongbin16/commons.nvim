@@ -10,7 +10,9 @@ The compatible Neovim APIs for nvim buffers.
 
 Get buffer option.
 
-https://github.com/linrongbin16/commons.nvim/blob/487e197fe8ce9db28aec656df43df1c712710fac/lua/commons/buffers.lua#L3-L6
+```lua
+function get_buf_option(bufnr:integer, name:string):any
+```
 
 Parameters:
 
@@ -25,7 +27,9 @@ Returns:
 
 Set buffer option value.
 
-https://github.com/linrongbin16/commons.nvim/blob/487e197fe8ce9db28aec656df43df1c712710fac/lua/commons/buffers.lua#L14-L17
+```lua
+function set_buf_option(bufnr:integer, name:string, value:any):any
+```
 
 Parameters:
 
