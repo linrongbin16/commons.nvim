@@ -504,6 +504,6 @@ The logging formatter is (as well) heavily influenced by [python-logging's LogRe
 
 - `%(name)s`: Logger name.
 - `%(filename)s`: Source file.
-- `%(line_no)d`: Line no.
+- `%(lineno)d`: Line no.
 - `%(funcName)s`: Function name.
 - `%(process)d`: Process ID.
