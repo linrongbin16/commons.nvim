@@ -1,5 +1,6 @@
 local M = {}
 
+--- @deprecated
 --- @param bufnr integer
 --- @param name string
 --- @return any
@@ -11,6 +12,7 @@ M.get_buf_option = function(bufnr, name)
   end
 end
 
+--- @deprecated
 --- @param bufnr integer
 --- @param name string
 --- @param value any

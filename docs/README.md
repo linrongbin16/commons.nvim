@@ -6,9 +6,9 @@
 The commons lua library for Neovim plugin project.
 </i></p>
 
-- Commons Modules
+- Modules
 
-  - [commons.buffers](/commons_buffers.md): The compatible Neovim APIs for nvim buffers.
+  - [commons.apis](/commons_apis.md): Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](https://neovim.io/doc/user/api.html).
   - [commons.fileios](/commons_fileios.md): File sync/async IO operations.
   - [commons.jsons](/commons_jsons.md): Encode/decode between lua table/list and json string.
   - [commons.logging](/commons_logging.md): Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
@@ -20,4 +20,3 @@ The commons lua library for Neovim plugin project.
   - [commons.tables](/commons_tables.md): Lua table/list utilities, with type check.
   - [commons.termcolors](/commons_termcolors.md): Terminal ANSI/RGB color rendering utilities.
   - [commons.uv](/commons_uv.md): A wrapper on [vim.loop](https://github.com/neovim/neovim/blob/36552adb39edff2d909743f16c1f061bc74b5c4e/runtime/doc/deprecated.txt?plain=1#L166) (for Neovim &lt; 0.10) or [vim.uv](https://neovim.io/doc/user/lua.html#vim.uv) (for Neovim &ge; 0.10).
-  - [commons.windows](/commons_windows.md): The compatible Neovim APIs for nvim windows.
