@@ -72,6 +72,29 @@ Whether `a` is greater than or equals to (&ge;) `b`, with type check.
 function ge(a:number?, b:number?):boolean
 ```
 
+### `mod`
+
+Get the remainder of division, e.g. the `%` calculate operator.
+
+```lua
+function mod(a:integer, b:integer):integer
+```
+
+Parameters:
+
+- `a`: Divisor.
+- `b`: Dividend.
+
+Returns:
+
+- Remainder.
+
+?> Also see: [math.fmod](http://lua-users.org/wiki/MathLibraryTutorial).
+
+```lua
+function ge(a:number?, b:number?):boolean
+```
+
 ### `bound`
 
 Bound `value` by upper bound `right` and lower bound `left`.
