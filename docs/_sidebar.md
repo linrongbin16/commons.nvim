@@ -5,7 +5,7 @@
 - [Install](/install.md)
 - [Usage](/usage.md)
 - Modules
-  - [commons.buffers](commons_buffers.md)
+  - [commons.apis](commons_apis.md)
   - [commons.fileios](commons_fileios.md)
   - [commons.jsons](commons_jsons.md)
   - [commons.logging](commons_logging.md)
@@ -17,7 +17,6 @@
   - [commons.tables](commons_tables.md)
   - [commons.termcolors](commons_termcolors.md)
   - [commons.uv](commons_uv.md)
-  - [commons.windows](commons_windows.md)
 - [Changelog](/CHANGELOG.md)
 - [Development](/development.md)
 - [Contribute](/contribute.md)
