@@ -18,6 +18,7 @@ https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/buffers.lua#L
   (<a href='https://codepen.io/desandro'>@desandro</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
+
 ```lua
 function get_buf_option(bufnr:integer, name:string):any
 ```
