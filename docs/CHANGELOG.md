@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.2.0](https://github.com/linrongbin16/commons.nvim/compare/v2.1.0...v2.2.0) (2023-12-16)
+
+
+### Features
+
+* **numbers:** add 'mod' ([#80](https://github.com/linrongbin16/commons.nvim/issues/80)) ([b486672](https://github.com/linrongbin16/commons.nvim/commit/b486672bea84affe9938d4d3faf3dae761ba5204))
+
+
+### Performance
+
+* **modules:** merge 'buffers' and 'windows' into 'apis' ([b486672](https://github.com/linrongbin16/commons.nvim/commit/b486672bea84affe9938d4d3faf3dae761ba5204))
+
+
+### Upgrade
+
+* **buffers:** deprecate 'buffers' module ([b486672](https://github.com/linrongbin16/commons.nvim/commit/b486672bea84affe9938d4d3faf3dae761ba5204))
+* **windows:** deprecate 'windows' module ([b486672](https://github.com/linrongbin16/commons.nvim/commit/b486672bea84affe9938d4d3faf3dae761ba5204))
+
 ## [2.1.0](https://github.com/linrongbin16/commons.nvim/compare/v2.0.1...v2.1.0) (2023-12-15)
 
 
