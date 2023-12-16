@@ -8,13 +8,7 @@
 
 ```lua
 require("lazy").setup({
-  {
-    "linrongbin16/commons.nvim",
-
-    -- (optional) specify the version/tag
-    tag = 'v1.4.3',
-    version = 'v1.4.*',
-  },
+  "linrongbin16/commons.nvim",
 })
 ```
 
@@ -22,12 +16,7 @@ require("lazy").setup({
 
 ```lua
 require("pckr").add({
-  {
-    "linrongbin16/commons.nvim",
-
-    -- (optional) specify the tag
-    tag = 'v1.*',
-  },
+  "linrongbin16/commons.nvim",
 })
 ```
 
