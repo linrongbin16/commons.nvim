@@ -73,4 +73,58 @@ M.mod = function(a, b)
   return math.floor(math.fmod(a, b))
 end
 
+--- @param a any
+--- @param ... any
+--- @return integer, integer
+M.max = function(a, ...)
+  local others = { ... }
+  assert(
+    #others >= 1 and type(others[#others]) == "function",
+    string.format(
+      "last param 'f' must be unary-function returns a number ('function:(v:any):number'): %s",
+      vim.inspect(others)
+    )
+  )
+  local mapper = others[#others]
+  local maximal_item = a
+  local maximal_value = mapper(a)
+  local maximal_index = 1
+  for i, o in ipairs(others) do
+    if i < #others then
+      if mapper(o) > maximal_value then
+        maximal_item = o
+        maximal_index = i
+      end
+    end
+  end
+  return maximal_item, maximal_index
+end
+
+--- @param a any
+--- @param ... any
+--- @return integer, integer
+M.min = function(a, ...)
+  local others = { ... }
+  assert(
+    #others >= 1 and type(others[#others]) == "function",
+    string.format(
+      "last param 'f' must be unary-function returns a number ('function:(v:any):number'): %s",
+      vim.inspect(others)
+    )
+  )
+  local mapper = others[#others]
+  local minimal_item = a
+  local minimal_value = mapper(a)
+  local minimal_index = 1
+  for i, o in ipairs(others) do
+    if i < #others then
+      if mapper(o) < minimal_value then
+        minimal_item = o
+        minimal_index = i
+      end
+    end
+  end
+  return minimal_item, minimal_index
+end
+
 return M
