@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.1](https://github.com/linrongbin16/commons.nvim/compare/v2.4.0...v2.4.1) (2023-12-17)
+
+
+### Performance
+
+* **logging:** add 'file_log_mode' option to logging 'setup' ([#92](https://github.com/linrongbin16/commons.nvim/issues/92)) ([c0883e0](https://github.com/linrongbin16/commons.nvim/commit/c0883e0dc093b04e4f465800ade2fe9faff394ee))
+
 ## [2.4.0](https://github.com/linrongbin16/commons.nvim/compare/v2.3.1...v2.4.0) (2023-12-17)
 
 
