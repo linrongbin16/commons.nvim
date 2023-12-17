@@ -243,7 +243,12 @@ Parameters:
 
     !> Console handler will only print when `level >= LogLevels.INFO`, to avoid the interference of too noisy debugging messages to user.
 
+    ?> Also see: [ConsoleHandler](#consolehandler).
+
   - `file_log`: Whether enable file log, by default is `false`.
+
+    ?> Also see: [FileHandler](#filehandler).
+
   - `file_log_name`: File log name, working with `file_log`. **Mandatory** when setting `file_log = true`.
   - `file_log_dir`: File log directory, working with `file_log`. **Mandatory** when setting `file_log = true`. By default is `vim.fn.stdpath("data")`.
   - `file_log_mode`: File log open mode, working with `file_log`. **Mandatory** when setting `file_log = true`. By default is `"a"`.
