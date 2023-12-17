@@ -73,7 +73,7 @@ M.mod = function(a, b)
   return math.floor(math.fmod(a, b))
 end
 
-M.bit = require ("commons._bitop").bit
-M.bit32 = require ("commons._bitop").bit32
+M.bit = require("commons._bitop").bit
+M.bit32 = require("commons._bitop").bit32
 
 return M
