@@ -16,9 +16,10 @@ You can easily initialize the logging system via the `setup` function, for examp
 local logging = require("commons.logging")
 logging.setup({
   name = "your_logging",
-  console_log = true,
-  file_log = true,
-  file_log_name = "your_logging.log",
+  console_log = false,  -- by default is `true`
+  file_log = true,      -- by default is `false`
+  file_log_name = "your_logging.log",   -- by default is `nil`
+  file_log_mode = "w",  -- by default is `"a"`.
 })
 
 -- First get logger by name, then write logs
@@ -43,7 +44,6 @@ Once you initialize the logging system with the name `root`, you can easily use 
 local logging = require("commons.logging")
 logging.setup({
   name = "root", -- here we create the `root` logger instance
-  console_log = true,
   file_log = true,
   file_log_name = "root.log",
 })
@@ -228,7 +228,7 @@ local LogLevelNames = {
 Initialize global singleton logger instance.
 
 ```lua
---- @alias commons.LoggingConfigs {name:string,level:(commons.LogLevels|string)?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?}
+--- @alias commons.LoggingConfigs {name:string,level:(commons.LogLevels|string)?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?,file_log_mode:"a"|"w"|nil}
 
 function setup(opts:commons.LoggingConfigs):nil
 ```
@@ -243,9 +243,17 @@ Parameters:
 
     !> Console handler will only print when `level >= LogLevels.INFO`, to avoid the interference of too noisy debugging messages to user.
 
+    ?> Also see: [ConsoleHandler](#consolehandler).
+
   - `file_log`: Whether enable file log, by default is `false`.
-  - `file_log_name`: File log name, working with `file_log`, **mandatory** when setting `file_log = true`.
-  - `file_log_dir`: File log directory, working with `file_log`, **mandatory** when setting `file_log = true`. By default is `vim.fn.stdpath("data")`.
+
+    ?> Also see: [FileHandler](#filehandler).
+
+  - `file_log_name`: File log name, working with `file_log`. **Mandatory** when setting `file_log = true`.
+  - `file_log_dir`: File log directory, working with `file_log`. **Mandatory** when setting `file_log = true`. By default is `vim.fn.stdpath("data")`.
+  - `file_log_mode`: File log open mode, working with `file_log`. **Mandatory** when setting `file_log = true`. By default is `"a"`.
+    - `"a"`: Append mode.
+    - `"w"`: Write mode.
 
 ### `debug`/`info`/`warn`/`err`
 
@@ -429,10 +437,10 @@ function FileHandler:new(filepath:string, filemode:"a"|"w"|nil, formatter:common
 
 Parameters:
 
-- `filepath`: The full file name that logs will be written to.
-- `filemode`: File mode.
-  - `a`: Append mode, logs will be append at the end of logging file.
-  - `w`: Write mode, exist file content will be removed before writing.
+- `filepath`: Full file name that logs will be written to.
+- `filemode`: File mode, by default is `"a"`.
+  - `"a"`: Append mode, logs will be append at the end of logging file.
+  - `"w"`: Write mode, exist file content will be removed before writing.
 - `formatter`: The logging formatter, by default is `%(asctime)s,%(msecs)d [%(levelname)s] %(message)s`
 
   ?> Also see: [Formatter](#formatter) and [Formatting Attributes](#attributes).
