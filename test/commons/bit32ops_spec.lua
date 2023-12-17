@@ -14,7 +14,6 @@ describe("commons.bit32ops", function()
   local bit32ops = require("commons.bit32ops")
 
   describe("[get_buf_option/set_buf_option]", function()
-    it("get filetype", function()
-    end)
+    it("get filetype", function() end)
   end)
 end)
