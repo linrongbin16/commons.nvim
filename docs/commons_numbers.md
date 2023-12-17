@@ -91,9 +91,41 @@ Returns:
 
 ?> Also see: [math.fmod](http://lua-users.org/wiki/MathLibraryTutorial).
 
+### `max`
+
+Get the maximal element by unary-function mapped value.
+
 ```lua
-function ge(a:number?, b:number?):boolean
+function max(f:fun(v:any):number, a:any, ...:any):any,integer
 ```
+
+Parameters:
+
+- `f`: Unary function that map a paramter to number value.
+- `a`: First parameter.
+- `...`: Other variadic parameters.
+
+Returns:
+
+- Returns the maximal parameter and its position.
+
+### `min`
+
+Get the minimal element by unary-function mapped value.
+
+```lua
+function min(f:fun(v:any):number, a:any, ...:any):any,integer
+```
+
+Parameters:
+
+- `f`: Unary function that map a paramter to number value.
+- `a`: First parameter.
+- `...`: Other variadic parameters.
+
+Returns:
+
+- Returns the minimal parameter and its position.
 
 ### `bound`
 
