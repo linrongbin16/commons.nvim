@@ -3,5 +3,6 @@ modules = {
 }
 
 exclude = {
-    "lua/commons/_*.lua",
+    "lua/commons/_json.lua",
+    "lua/commons/_system.lua",
 }

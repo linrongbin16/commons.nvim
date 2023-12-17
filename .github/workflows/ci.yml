@@ -30,23 +30,15 @@ jobs:
           level: Information
           configpath: ".luarc.json"
           neodev-version: stable
+      - uses: lunarmodules/luacheck@v1
+        with:
+          args: lua --config .luacheckrc
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./test
-      - uses: lunarmodules/luacheck@v1
-        with:
-          args: lua --config .luacheckrc
-      - name: Install _bitop.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        shell: bash
-        run: |
-          echo "pwd"
-          echo $PWD
-          git clone --depth=1 https://github.com/AlberTajuelo/bitop-lua ~/.bitop.lua
-          cp ~/.bitop.lua/src/bitop/funcs.lua ./lua/commons/_bitop.lua
-      - name: Install _json.lua
+      - name: Add _json.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         shell: bash
         run: |
@@ -54,7 +46,7 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
           cp ~/.json.lua/json.lua ./lua/commons/_json.lua
-      - name: Install _system.lua
+      - name: Add _system.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         shell: bash
         run: |
@@ -69,8 +61,6 @@ jobs:
           commit_message: "chore(pr): auto-commit"
   unit_test:
     name: Unit Test
-    needs: 
-      - luacheck
     strategy:
       matrix:
         nvim_version: [stable, nightly, v0.6.0, v0.7.0]
@@ -114,6 +104,7 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
+      - luacheck
       - unit_test
     runs-on: ubuntu-latest
     steps:
