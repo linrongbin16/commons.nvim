@@ -119,7 +119,7 @@ function min(f:fun(v:any):number, a:any, ...:any):any,integer
 
 Parameters:
 
-- `f`: Unary function that map a paramter to number value.
+- `f`: Unary function that map a parameter to number value.
 - `a`: First parameter.
 - `...`: Other variadic parameters.
 
