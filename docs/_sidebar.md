@@ -6,6 +6,7 @@
 - [Usage](/usage.md)
 - Modules
   - [commons.apis](commons_apis.md)
+  - [commons.bit32ops](commons_bit32ops.md)
   - [commons.fileios](commons_fileios.md)
   - [commons.jsons](commons_jsons.md)
   - [commons.logging](commons_logging.md)

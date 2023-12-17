@@ -9,6 +9,7 @@ The commons lua library for Neovim plugin project.
 - Modules
 
   - [commons.apis](/commons_apis.md): Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](https://neovim.io/doc/user/api.html).
+  - [commons.bit32ops](/commons_bit32ops.md): Lua-5.1/Luajit-2 compatible 32-bit operations, just a wrapper on [BitOp](https://bitop.luajit.org/index.html) (if `bit` module exists) or [AlberTajuelo/bitop-lua](https://github.com/AlberTajuelo/bitop-lua) (otherwise).
   - [commons.fileios](/commons_fileios.md): File sync/async IO operations.
   - [commons.jsons](/commons_jsons.md): Encode/decode between lua table/list and json string.
   - [commons.logging](/commons_logging.md): Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
