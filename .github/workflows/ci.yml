@@ -30,14 +30,14 @@ jobs:
           level: Information
           configpath: ".luarc.json"
           neodev-version: stable
-      - uses: lunarmodules/luacheck@v1
-        with:
-          args: lua --config .luacheckrc
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./test
+      - uses: lunarmodules/luacheck@v1
+        with:
+          args: lua --config .luacheckrc
       - name: Install _bitop.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         shell: bash
