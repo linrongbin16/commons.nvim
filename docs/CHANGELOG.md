@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/linrongbin16/commons.nvim/compare/v2.3.0...v2.3.1) (2023-12-17)
+
+
+### Bug Fixes
+
+* **modules:** revert 'bit32ops' [#84](https://github.com/linrongbin16/commons.nvim/issues/84) ([#87](https://github.com/linrongbin16/commons.nvim/issues/87)) ([1a14d31](https://github.com/linrongbin16/commons.nvim/commit/1a14d313e9f0506da3ac33fcc91b7aa464db7480))
+
 ## [2.3.0](https://github.com/linrongbin16/commons.nvim/compare/v2.2.0...v2.3.0) (2023-12-17)
 
 
