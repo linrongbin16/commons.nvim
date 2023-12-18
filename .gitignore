@@ -43,4 +43,4 @@ luac.out
 .DS_Store
 
 # log
-commons_test.log
+*.log
