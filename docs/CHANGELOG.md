@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/linrongbin16/commons.nvim/compare/v3.0.0...v3.0.1) (2023-12-18)
+
+
+### Miscellaneous
+
+* **logging:** add test cases for 'Logger' ([#98](https://github.com/linrongbin16/commons.nvim/issues/98)) ([38eb222](https://github.com/linrongbin16/commons.nvim/commit/38eb2222a3327d2ecffda1c3a2c5ef633959d141))
+
 ## [3.0.0](https://github.com/linrongbin16/commons.nvim/compare/v2.4.2...v3.0.0) (2023-12-18)
 
 
