@@ -10,12 +10,12 @@ Run child-process with friendly line-wise callbacks to handle stdout/stderr outp
 
 Run command line in child-process, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only differences are:
 
-- It provides more friendly line-based `stdout` and `stderr` callbacks in `opts`.
+- It provides more friendly line-based `on_stdout` and `on_stderr` callbacks in `opts`.
 - By default `text = true` in `opts`.
 
 ```lua
 --- @alias commons.SpawnLineProcessor fun(line:string):nil
---- @alias commons.SpawnOpts {stdout:commons.SpawnLineProcessor, stderr:commons.SpawnLineProcessor, [string]:any}
+--- @alias commons.SpawnOpts {on_stdout:commons.SpawnLineProcessor, on_stderr:commons.SpawnLineProcessor, [string]:any}
 --- @alias commons.SpawnOnExit fun(completed:vim.SystemCompleted):nil
 
 function run(cmd:string[], opts:commons.SpawnOpts, on_exit:commons.SpawnOnExit?):vim.SystemObject
@@ -26,8 +26,8 @@ Parameters:
 - `cmd`: Exactly the same passing to `vim.system`.
 - `opts`: Almost the same passing to `vim.system`, except:
 
-  - `stdout`: Use line-wise callback that will be invoked when receiving a line from stdout.
-  - `stderr`: Use line-wise callback that will be invoked when receiving a line from stderr, they are using the same function signature:
+  - `on_stdout`: Use line-wise callback that will be invoked when receiving a line from stdout.
+  - `on_stderr`: Use line-wise callback that will be invoked when receiving a line from stderr, they are using the same function signature:
 
     ```lua
     function fn_line_processor(line:string):nil

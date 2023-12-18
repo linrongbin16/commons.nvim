@@ -18,7 +18,7 @@ describe("commons.spawn", function()
     it("test1", function()
       local sp = spawn.run(
         { "cat", "README.md" },
-        { stdout = dummy, stderr = dummy }
+        { on_stdout = dummy, on_stderr = dummy }
       )
       sp:wait()
       -- print(string.format("spawn wait-1:%s\n", vim.inspect(sp)))
@@ -35,7 +35,7 @@ describe("commons.spawn", function()
       end
       local sp = spawn.run(
         { "cat", "README.md" },
-        { stdout = process_line, stderr = dummy }
+        { on_stdout = process_line, on_stderr = dummy }
       )
       sp:wait()
       -- print(string.format("spawn wait-2:%s\n", vim.inspect(sp)))
@@ -56,7 +56,7 @@ describe("commons.spawn", function()
         end
         local sp = spawn.run(
           { "cat", "README.md" },
-          { stdout = process_line, stderr = dummy }
+          { on_stdout = process_line, on_stderr = dummy }
         )
         sp:wait()
         -- print(
@@ -81,7 +81,7 @@ describe("commons.spawn", function()
         end
         local sp = spawn.run(
           { "cat", "README.md" },
-          { stdout = process_line, stderr = dummy }
+          { on_stdout = process_line, on_stderr = dummy }
         )
         sp:wait()
         -- print(
@@ -97,7 +97,7 @@ describe("commons.spawn", function()
     it("stderr", function()
       local sp = spawn.run(
         { "cat", "README.md" },
-        { stdout = dummy, stderr = dummy }
+        { on_stdout = dummy, on_stderr = dummy }
       )
       sp:wait()
       -- print(string.format("spawn wait-3:%s\n", vim.inspect(sp)))
@@ -109,7 +109,7 @@ describe("commons.spawn", function()
       end
       local sp = spawn.run(
         { "cat", "non_exists.txt" },
-        { stdout = process_line, stderr = process_line, blocking = true }
+        { on_stdout = process_line, on_stderr = process_line, blocking = true }
       )
       sp:wait()
       -- print(string.format("spawn wait-4:%s\n", vim.inspect(sp)))
@@ -119,7 +119,7 @@ describe("commons.spawn", function()
     it("open", function()
       local sp = spawn.run(
         { "cat", "README.md" },
-        { stdout = dummy, stderr = dummy },
+        { on_stdout = dummy, on_stderr = dummy },
         function(completed) end
       )
       sp:kill(9)
@@ -137,7 +137,7 @@ describe("commons.spawn", function()
       end
       local sp = spawn.run(
         { "cat", "README.md" },
-        { stdout = process_line, stderr = dummy },
+        { on_stdout = process_line, on_stderr = dummy },
         function(completed) end
       )
       -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
@@ -154,7 +154,7 @@ describe("commons.spawn", function()
       end
       local sp = spawn.run(
         { "cat", "README.md" },
-        { stdout = process_line, stderr = dummy },
+        { on_stdout = process_line, on_stderr = dummy },
         function(completed) end
       )
       -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
