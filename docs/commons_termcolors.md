@@ -10,7 +10,7 @@ Terminal ANSI/RGB color rendering utilities.
 
 ### `COLOR_NAMES`
 
-The strings list contains below :
+The strings list contains below values:
 
 - `"black"`: <span style='background-color:black; color:white'>Black</span>.
 - `"grey"`: <span style='background-color:grey; color:white'>Grey</span>.
