@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.2](https://github.com/linrongbin16/commons.nvim/compare/v2.4.1...v2.4.2) (2023-12-18)
+
+
+### Performance
+
+* **termcolors:** export constants 'COLOR_NAMES' for pre-defined colors ([#94](https://github.com/linrongbin16/commons.nvim/issues/94)) ([9b255cc](https://github.com/linrongbin16/commons.nvim/commit/9b255cc69f31c04b372a210a74b6f829e0979ca6))
+
 ## [2.4.1](https://github.com/linrongbin16/commons.nvim/compare/v2.4.0...v2.4.1) (2023-12-17)
 
 
