@@ -10,7 +10,9 @@ Terminal ANSI/RGB color rendering utilities.
 
 ### `COLOR_NAMES`
 
-The strings list contains below values:
+The strings list contains below values, it also match the pre-defined CSS color APIs:
+
+?> Also see [Pre-defined Color APIs](#pre-defined-color-apis).
 
 - `"black"`: <span style='background-color:black; color:white'>Black</span>.
 - `"grey"`: <span style='background-color:grey; color:white'>Grey</span>.
@@ -74,11 +76,11 @@ Returns:
 
 - Returns the raw text content, for example: `CTRL-U`.
 
+### Pre-defined Color APIs
+
 ?> There're a bunch of pre-defined CSS color functions:
 
-### `black` and other colors
-
-Almost same with [render](#render) function, except always use the `"black"` color.
+`black`: Almost same with [render](#render) function, except always use the `"black"` color.
 
 ```lua
 function black(text:string, hl:string?):string
@@ -91,7 +93,7 @@ Parameters:
 
   - Vim syntax highlighting group has higher priority, only when it's been provided.
 
-There're also other color APIs:
+Here're other colors:
 
 - `function silver(text:string, hl:string?):string`
 - `function white(text:string, hl:string?):string`
