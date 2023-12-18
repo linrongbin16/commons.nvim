@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/linrongbin16/commons.nvim/compare/v2.4.2...v3.0.0) (2023-12-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **spawn:** rename 'stdout'/'stderr' to 'on_stdout'/'on_stderr' ([#96](https://github.com/linrongbin16/commons.nvim/issues/96))
+
+### Performance
+
+* **spawn:** rename 'stdout'/'stderr' to 'on_stdout'/'on_stderr' ([#96](https://github.com/linrongbin16/commons.nvim/issues/96)) ([a20b9e7](https://github.com/linrongbin16/commons.nvim/commit/a20b9e7c664fe54de4ed07e5e62334a8994475b8))
+
 ## [2.4.2](https://github.com/linrongbin16/commons.nvim/compare/v2.4.1...v2.4.2) (2023-12-18)
 
 
