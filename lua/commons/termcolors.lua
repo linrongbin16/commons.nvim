@@ -1,5 +1,3 @@
--- Render text with terminal colors
-
 local M = {}
 
 --- @param attr "fg"|"bg"
@@ -23,7 +21,7 @@ end
 
 -- Pre-defined CSS colors
 -- Also see: https://www.quackit.com/css/css_color_codes.cfm
-local CSS_COLORS = {
+M.CSS_COLORS = {
   black = "0;30",
   grey = M.escape("fg", "#808080"),
   silver = M.escape("fg", "#c0c0c0"),
@@ -80,8 +78,8 @@ M.render = function(text, name, hl)
     or nil
   if type(fgcode) == "string" then
     fgfmt = M.escape("fg", fgcode)
-  elseif CSS_COLORS[name] then
-    fgfmt = CSS_COLORS[name]
+  elseif M.CSS_COLORS[name] then
+    fgfmt = M.CSS_COLORS[name]
   else
     fgfmt = M.escape("fg", name)
   end
@@ -121,7 +119,7 @@ end
 -- Helper functions for the `render` API.
 -- Render `text` content with pre-defined CSS color (see CSS_COLORS), or vim's syntax highlighting group (only if been provided).
 do
-  for name, code in pairs(CSS_COLORS) do
+  for name, code in pairs(M.CSS_COLORS) do
     --- @param text string
     --- @param hl string?
     --- @return string
