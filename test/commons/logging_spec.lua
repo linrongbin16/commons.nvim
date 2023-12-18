@@ -12,51 +12,45 @@ describe("commons.logging", function()
   local logging = require("commons.logging")
   local LogLevels = require("commons.logging").LogLevels
   local LogLevelNames = require("commons.logging").LogLevelNames
-
-  logging.setup({
-    name = "root",
-    level = "DEBUG",
-    console_log = true,
-    file_log = true,
-    file_log_name = "commons_test.log",
-    file_log_dir = ".",
-  })
-
   describe("[logging]", function()
+    logging.setup({
+      name = "root",
+      level = "DEBUG",
+      console_log = true,
+      file_log = true,
+      file_log_name = "commons_test_logging.log",
+      file_log_dir = ".",
+    })
+
     it("debug", function()
       logging.debug("debug without parameters")
       logging.debug("debug with 1 parameters: %s", "a")
       logging.debug("debug with 2 parameters: %s, %d", "a", 1)
       logging.debug("debug with 3 parameters: %s, %d, %f", "a", 1, 3.12)
-      assert_true(true)
     end)
     it("info", function()
       logging.info("info without parameters")
       logging.info("info with 1 parameters: %s", "a")
       logging.info("info with 2 parameters: %s, %d", "a", 1)
       logging.info("info with 3 parameters: %s, %d, %f", "a", 1, 3.12)
-      assert_true(true)
     end)
     it("warn", function()
       logging.warn("warn without parameters")
       logging.warn("warn with 1 parameters: %s", "a")
       logging.warn("warn with 2 parameters: %s, %d", "a", 1)
       logging.warn("warn with 3 parameters: %s, %d, %f", "a", 1, 3.12)
-      assert_true(true)
     end)
     it("err", function()
       logging.err("err without parameters")
       logging.err("err with 1 parameters: %s", "a")
       logging.err("err with 2 parameters: %s, %d", "a", 1)
       logging.err("err with 3 parameters: %s, %d, %f", "a", 1, 3.12)
-      assert_true(true)
     end)
     it("ensure", function()
       logging.ensure(true, "ensure without parameters")
       logging.ensure(true, "ensure with 1 parameters: %s", "a")
       logging.ensure(true, "ensure with 2 parameters: %s, %d", "a", 1)
       logging.ensure(true, "ensure with 3 parameters: %s, %d, %f", "a", 1, 3.12)
-      assert_true(true)
       local ok1, err1 =
         pcall(logging.ensure, false, "ensure without parameters")
       print(vim.inspect(err1) .. "\n")
@@ -105,6 +99,35 @@ describe("commons.logging", function()
         assert_eq(type(k), "string")
         assert_eq(type(v), "number")
       end
+    end)
+  end)
+  describe("[logger]", function()
+    logging.setup({
+      name = "test_logger",
+      level = "DEBUG",
+      console_log = true,
+      file_log = true,
+      file_log_name = "commons_test_logging2.log",
+      file_log_dir = ".",
+      file_log_mode = "w",
+    })
+    it("debug", function()
+      logging.get("test_logger"):debug("debug without parameters")
+      logging.get("test_logger"):debug("debug with 1 parameters: %s", "a")
+      logging
+        .get("test_logger")
+        :debug("debug with 2 parameters: %s, %d", "a", 1)
+      logging
+        .get("test_logger")
+        :debug("debug with 3 parameters: %s, %d, %f", "a", 1, 3.12)
+    end)
+    it("info", function()
+      logging.get("test_logger"):info("info without parameters")
+      logging.get("test_logger"):info("info with 1 parameters: %s", "a")
+      logging.get("test_logger"):info("info with 2 parameters: %s, %d", "a", 1)
+      logging
+        .get("test_logger")
+        :info("info with 3 parameters: %s, %d, %f", "a", 1, 3.12)
     end)
   end)
 end)
