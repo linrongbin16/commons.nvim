@@ -21,7 +21,7 @@ end
 
 -- Pre-defined CSS colors
 -- Also see: https://www.quackit.com/css/css_color_codes.cfm
-M.CSS_COLORS = {
+local CSS_COLORS = {
   black = "0;30",
   grey = M.escape("fg", "#808080"),
   silver = M.escape("fg", "#c0c0c0"),
@@ -66,9 +66,9 @@ M.retrieve = function(attr, hl)
   return nil
 end
 
---- @param text string   the text content to be rendered
---- @param name string      the ANSI color name or RGB color codes
---- @param hl string?       the highlighting group name
+--- @param text string    the text content to be rendered
+--- @param name string    the ANSI color name or RGB color codes
+--- @param hl string?     the highlighting group name
 --- @return string
 M.render = function(text, name, hl)
   local strings = require("commons.strings")
@@ -78,8 +78,8 @@ M.render = function(text, name, hl)
     or nil
   if type(fgcode) == "string" then
     fgfmt = M.escape("fg", fgcode)
-  elseif M.CSS_COLORS[name] then
-    fgfmt = M.CSS_COLORS[name]
+  elseif CSS_COLORS[name] then
+    fgfmt = CSS_COLORS[name]
   else
     fgfmt = M.escape("fg", name)
   end
@@ -96,10 +96,6 @@ M.render = function(text, name, hl)
   return string.format("[%sm%s[0m", fmt, text)
 end
 
--- Unescape(erase) the terminal colors from `text` content.
---
--- Returns the raw text content.
---
 --- @param text string?
 --- @return string?
 M.erase = function(text)
@@ -116,16 +112,18 @@ M.erase = function(text)
   return result
 end
 
--- Helper functions for the `render` API.
--- Render `text` content with pre-defined CSS color (see CSS_COLORS), or vim's syntax highlighting group (only if been provided).
+--- @type string[]
+M.COLOR_NAMES = {}
+
 do
-  for name, code in pairs(M.CSS_COLORS) do
+  for name, code in pairs(CSS_COLORS) do
     --- @param text string
     --- @param hl string?
     --- @return string
     M[name] = function(text, hl)
       return M.render(text, name, hl)
     end
+    table.insert(M.COLOR_NAMES, name)
   end
 end
 
