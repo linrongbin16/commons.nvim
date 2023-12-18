@@ -10,12 +10,12 @@ Terminal ANSI/RGB color rendering utilities.
 
 ### `COLOR_NAMES`
 
-The strings list contains below values:
+The strings list contains below :
 
 - `"black"`: <span style='background-color:black; color:white'>Black</span>.
 - `"grey"`: <span style='background-color:grey; color:white'>Grey</span>.
 - `"silver"`: <span style='background-color:silver; color:white'>Silver</span>.
-- `"white"`: <span style='background-color:black; color:white'>The <span style='background-color:white; color:black'>White</span> color</span>.
+- `"white"`: <span style='background-color:black; color:white'>The<span style='background-color:white; color:black'> White </span>color</span>.
 - `"violet"`: <span style='background-color:violet; color:white'>Violet</span>.
 - `"magenta"`: <span style='background-color:magenta; color:white'>Magenta</span>.
 - `"fuchsia"`: <span style='background-color:fuchsia; color:white'>Fuchsia</span>.
