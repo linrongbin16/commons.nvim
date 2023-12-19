@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/linrongbin16/commons.nvim/compare/v3.0.1...v3.1.0) (2023-12-19)
+
+
+### Features
+
+* **logging:** add low-level API 'log' with 'level' option ([#100](https://github.com/linrongbin16/commons.nvim/issues/100)) ([1942a55](https://github.com/linrongbin16/commons.nvim/commit/1942a55b9b885f5dddf8c026debc73a4afad8e50))
+
 ## [3.0.1](https://github.com/linrongbin16/commons.nvim/compare/v3.0.0...v3.0.1) (2023-12-18)
 
 
