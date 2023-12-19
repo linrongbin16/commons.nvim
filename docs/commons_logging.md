@@ -255,6 +255,20 @@ Parameters:
     - `"a"`: Append mode.
     - `"w"`: Write mode.
 
+### `log`
+
+Write logs with specified logging level.
+
+```lua
+function log(level:integer|string, fmt:string, ...:any):nil
+```
+
+Parameters:
+
+- `level`: Logging level, could be either integer value (`LogLevels`) or string value (`LogLevelNames`).
+- `fmt`: Logging format.
+- `...`: Logging format parameters.
+
 ### `debug`/`info`/`warn`/`err`
 
 Write logs with below levels:
@@ -380,6 +394,10 @@ function Logger:add_handler(handler: commons.logging.Handler):nil
 Parameters:
 
 - `handler`: Logging handler, see [Handler](#handler).
+
+##### `log`
+
+Same with global logging APIs, see above [log](#log).
 
 ##### `debug`/`info`/`warn`/`err`
 
