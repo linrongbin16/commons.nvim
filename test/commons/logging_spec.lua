@@ -33,6 +33,8 @@ describe("commons.logging", function()
         1,
         3.12
       )
+      local ok, err = pcall(logging.log, "ERROR", "error message with pcall")
+      assert_true(ok)
     end)
     it("debug", function()
       logging.debug("debug without parameters")
@@ -134,6 +136,10 @@ describe("commons.logging", function()
       logging
         .get("test_logger")
         :log("ERROR", "error with 3 parameters: %s, %d, %f", "a", 1, 3.12)
+      local logger = logging.get("test_logger") --[[@as commons.logging.Logger]]
+      local ok, err =
+        pcall(logger.log, logger, "ERROR", "error message with pcall")
+      assert_true(ok)
     end)
     it("debug", function()
       logging.get("test_logger"):debug("debug without parameters")
