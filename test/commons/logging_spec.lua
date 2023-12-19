@@ -24,8 +24,8 @@ describe("commons.logging", function()
 
     it("log", function()
       logging.log(LogLevels.DEBUG, "debug without parameters")
-      logging.log(LogLevels.INFO, "info with 1 parameters: %s", "a")
-      logging.log(LogLevels.WARN, "warn with 2 parameters: %s, %d", "a", 1)
+      logging.log("INFO", "info with 1 parameters: %s", "a")
+      logging.log("WARN", "warn with 2 parameters: %s, %d", "a", 1)
       logging.log(
         LogLevels.ERROR,
         "error with 3 parameters: %s, %d, %f",
@@ -124,9 +124,7 @@ describe("commons.logging", function()
       file_log_mode = "w",
     })
     it("log", function()
-      logging
-        .get("test_logger")
-        :log(LogLevels.DEBUG, "debug without parameters")
+      logging.get("test_logger"):log("DEBUG", "debug without parameters")
       logging
         .get("test_logger")
         :log(LogLevels.INFO, "info with 1 parameters: %s", "a")
@@ -135,13 +133,7 @@ describe("commons.logging", function()
         :log(LogLevels.WARN, "warn with 2 parameters: %s, %d", "a", 1)
       logging
         .get("test_logger")
-        :log(
-          LogLevels.ERROR,
-          "error with 3 parameters: %s, %d, %f",
-          "a",
-          1,
-          3.12
-        )
+        :log("ERROR", "error with 3 parameters: %s, %d, %f", "a", 1, 3.12)
     end)
     it("debug", function()
       logging.get("test_logger"):debug("debug without parameters")
