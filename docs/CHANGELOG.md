@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.3](https://github.com/linrongbin16/commons.nvim/compare/v3.1.2...v3.1.3) (2023-12-20)
+
+
+### Performance
+
+* **numbers:** loose types ([#109](https://github.com/linrongbin16/commons.nvim/issues/109)) ([0f3806f](https://github.com/linrongbin16/commons.nvim/commit/0f3806f815e177b5ac261da5f4256039bbdf7eaa))
+
 ## [3.1.2](https://github.com/linrongbin16/commons.nvim/compare/v3.1.1...v3.1.2) (2023-12-20)
 
 
