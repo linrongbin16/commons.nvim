@@ -60,6 +60,7 @@ jobs:
           rm -rf ./lua/your/plugins/commons
           mkdir -p ./lua/your/plugin/commons
           cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/your/plugin/commons
+          cp ~/.commons.nvim/version.txt ./lua/your/plugin/commons/version.txt
           cd ./lua/your/plugin/commons
           find . -type f -name '*.lua' -exec sed -i 's/require("commons/require("your.plugin.commons/g' {} \;
       - uses: stefanzweifel/git-auto-commit-action@v4
