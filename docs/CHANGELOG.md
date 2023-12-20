@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.2](https://github.com/linrongbin16/commons.nvim/compare/v3.1.1...v3.1.2) (2023-12-20)
+
+
+### Bug Fixes
+
+* **termcolors:** fix '\27[m' character in 'erase' ([#107](https://github.com/linrongbin16/commons.nvim/issues/107)) ([125ccb6](https://github.com/linrongbin16/commons.nvim/commit/125ccb61590a07f1462c59c90895b0cc976c7569))
+
 ## [3.1.1](https://github.com/linrongbin16/commons.nvim/compare/v3.1.0...v3.1.1) (2023-12-20)
 
 
