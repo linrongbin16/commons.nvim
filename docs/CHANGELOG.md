@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.4](https://github.com/linrongbin16/commons.nvim/compare/v3.1.3...v3.1.4) (2023-12-20)
+
+
+### Bug Fixes
+
+* **paths:** fix 'pipename' require ([#111](https://github.com/linrongbin16/commons.nvim/issues/111)) ([67fc158](https://github.com/linrongbin16/commons.nvim/commit/67fc1583397ba7d8baca501b9e61545dd822c524))
+
 ## [3.1.3](https://github.com/linrongbin16/commons.nvim/compare/v3.1.2...v3.1.3) (2023-12-20)
 
 
