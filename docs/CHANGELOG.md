@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.1.1](https://github.com/linrongbin16/commons.nvim/compare/v3.1.0...v3.1.1) (2023-12-20)
+
+
+### Miscellaneous
+
+* **termcolors:** add test cases for 'render' ([ad3fb65](https://github.com/linrongbin16/commons.nvim/commit/ad3fb6564d1d5b06415050de97b9bbf10224ecb3))
+
+
+### Deprecated
+
+* **termcolors:** make 'escape' internal ([#103](https://github.com/linrongbin16/commons.nvim/issues/103)) ([ad3fb65](https://github.com/linrongbin16/commons.nvim/commit/ad3fb6564d1d5b06415050de97b9bbf10224ecb3))
+
 ## [3.1.0](https://github.com/linrongbin16/commons.nvim/compare/v3.0.1...v3.1.0) (2023-12-19)
 
 
