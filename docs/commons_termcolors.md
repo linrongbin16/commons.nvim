@@ -136,20 +136,3 @@ Parameters:
 Returns:
 
 - Returns ANSI color codes (`30`, `35`, etc) or RGB color codes (`#808080`, `#FF00FF`, etc).
-
-### `escape`
-
-Format (escape) ANSI/RGB color code to terminal escaped (printable) style.
-
-```lua
-function escape(attr:"fg"|"bg", code:string):string
-```
-
-Parameters:
-
-- `attr`: Escape for foreground (`fg`) or background (`bg`).
-- `code`: The ANSI color code (`30`, `35`, etc) or RGB color code (`#808080`, `#FF00FF`, etc).
-
-Returns:
-
-- Returns the terminal escaped format, for example: `38;2;216;166;87`.

@@ -119,6 +119,37 @@ describe("commons.termcolors", function()
         test_render(actual)
       end
     end)
+    it("print builtin", function()
+      print(
+        "builtin-1 grey:" .. termcolors.render("Grey Color", "grey") .. "\n"
+      )
+      print(
+        "builtin-2 magenta:"
+          .. termcolors.render("Magenta Color", "magenta")
+          .. "\n"
+      )
+      print(
+        "builtin-3 chocolate:"
+          .. termcolors.render("Chocolate Color", "chocolate")
+          .. "\n"
+      )
+      print(
+        "builtin-4 teal:" .. termcolors.render("Teal Color", "teal") .. "\n"
+      )
+    end)
+    it("print RGB", function()
+      print(
+        "RGB-1 #808080:" .. termcolors.render("Grey Color", "#808080") .. "\n"
+      )
+      print(
+        "RGB-2 fuchsia:"
+          .. termcolors.render("Fuchsia Color", "#FF00FF")
+          .. "\n"
+      )
+      print(
+        "RGB-3 olive:" .. termcolors.render("Olive Color", "#808000") .. "\n"
+      )
+    end)
   end)
   describe("[erase]", function()
     it("no change", function()
