@@ -114,7 +114,7 @@ jobs:
           release-type: simple
           package-name: commons.nvim
           changelog-path: docs/CHANGELOG.md
-          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Performance","hidden":false},{"type":"refactor","section":"Miscellaneous","hidden":false},{"type":"test","section":"Miscellaneous","hidden":false},{"type":"deprecate","section":"Deprecate","hidden":false},{"type":"drop","section":"Break Changes","hidden":false}]'
+          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"perf","section":"Performance","hidden":false},{"type":"refactor","section":"Miscellaneous","hidden":false},{"type":"test","section":"Miscellaneous","hidden":false},{"type":"deprecate","section":"Deprecate","hidden":false},{"type":"break","section":"Break Changes","hidden":false}]'
       - uses: actions/checkout@v4
       - uses: rickstaa/action-create-tag@v1
         if: ${{ steps.release.outputs.release_created }}
