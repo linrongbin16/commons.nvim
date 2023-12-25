@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.2.0](https://github.com/linrongbin16/commons.nvim/compare/v3.1.4...v3.2.0) (2023-12-25)
+
+
+### Features
+
+* **strings:** add 'trim', use lua pattern for '(l/r)trim' ([#113](https://github.com/linrongbin16/commons.nvim/issues/113)) ([a7c6161](https://github.com/linrongbin16/commons.nvim/commit/a7c6161fa7a9510c644b3696cd65779751efc343))
+
+
+### Performance
+
+* **strings:** use lua pattern for 'ltrim'/'rtrim' ([#113](https://github.com/linrongbin16/commons.nvim/issues/113)) ([a7c6161](https://github.com/linrongbin16/commons.nvim/commit/a7c6161fa7a9510c644b3696cd65779751efc343))
+
 ## [3.1.4](https://github.com/linrongbin16/commons.nvim/compare/v3.1.3...v3.1.4) (2023-12-20)
 
 
