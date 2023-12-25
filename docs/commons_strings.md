@@ -78,7 +78,7 @@ Returns:
 
 ### `ltrim`
 
-Trim target `t` from left side of string `s`, by default trim all whitespaces.
+Trim target `t` from left side of string `s`, using [lua patterns](https://www.lua.org/pil/20.2.html).
 
 ```lua
 function ltrim(s:string, t:string?):string
@@ -87,13 +87,13 @@ function ltrim(s:string, t:string?):string
 Parameters:
 
 - `s`: The string that left side will been trimmed.
-- `t`: Target characters, by default is all whitespaces.
+- `t`: Target characters, by default is `%s+`, e.g. all whitespaces.
 
-?> Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
+?> Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>) and [Lua String Trim](http://lua-users.org/wiki/StringTrim).
 
 ### `rtrim`
 
-Trim target `t` from right side of string `s`, by default trim all whitespaces.
+Trim target `t` from right side of string `s`, using [lua patterns](https://www.lua.org/pil/20.2.html).
 
 ```lua
 function rtrim(s:string, t:string?):string
@@ -102,9 +102,24 @@ function rtrim(s:string, t:string?):string
 Parameters:
 
 - `s`: The string that right side will been trimmed.
-- `t`: Target characters, by default is all whitespaces.
+- `t`: Target characters, by default is `%s+`, e.g. all whitespaces.
 
-?> Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>).
+?> Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>) and [Lua String Trim](http://lua-users.org/wiki/StringTrim).
+
+### `trim`
+
+Trim target `t` from both left and right sides of string `s`, using [lua patterns](https://www.lua.org/pil/20.2.html).
+
+```lua
+function trim(s:string, t:string?):string
+```
+
+Parameters:
+
+- `s`: The string that right side will been trimmed.
+- `t`: Target characters, by default is `%s+`, e.g. all whitespaces.
+
+?> Also see [vim.trim](<https://neovim.io/doc/user/lua.html#vim.trim()>) and [Lua String Trim](http://lua-users.org/wiki/StringTrim).
 
 ### `split`
 
