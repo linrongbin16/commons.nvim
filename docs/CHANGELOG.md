@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.1](https://github.com/linrongbin16/commons.nvim/compare/v3.2.0...v3.2.1) (2023-12-25)
+
+
+### Bug Fixes
+
+* **tables:** fix 'tbl_get' NPE ([#115](https://github.com/linrongbin16/commons.nvim/issues/115)) ([4250b33](https://github.com/linrongbin16/commons.nvim/commit/4250b33edb5d25c483ba4eaa582aa0d0c2c6fc16))
+
 ## [3.2.0](https://github.com/linrongbin16/commons.nvim/compare/v3.1.4...v3.2.0) (2023-12-25)
 
 
