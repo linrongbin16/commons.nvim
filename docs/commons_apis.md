@@ -6,9 +6,7 @@ Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](
 
 ## Functions
 
-### Buffer
-
-#### `get_buf_option`
+### `get_buf_option`
 
 Get buffer option.
 
@@ -25,7 +23,7 @@ Returns:
 
 - Returns option value.
 
-#### `set_buf_option`
+### `set_buf_option`
 
 Set buffer option value.
 
@@ -39,9 +37,7 @@ Parameters:
 - `name`: The option number.
 - `value`: The option value.
 
-### Window
-
-#### `get_win_option`
+### `get_win_option`
 
 Get window option.
 
@@ -58,7 +54,7 @@ Returns:
 
 - Returns the option value.
 
-#### `set_win_option`
+### `set_win_option`
 
 Set window option.
 
