@@ -266,3 +266,11 @@ function setchar(s:string, pos:integer, ch:string):string
 ```
 
 ?> Also see: C/C++ Reference [string::operator[]](https://en.cppreference.com/w/cpp/string/basic_string/operator_at).
+
+### `tolist`
+
+Convert string to lua list(table).
+
+```lua
+function tolist(s:string):string[]
+```

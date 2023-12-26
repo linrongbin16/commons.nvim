@@ -253,4 +253,16 @@ M.setchar = function(s, pos, ch)
   return buffer
 end
 
+--- @param s string
+--- @return string[]
+M.tolist = function(s)
+  assert(type(s) == "string")
+  local l = {}
+  local n = string.len(s)
+  for i = 1, n do
+    table.insert(l, string.sub(s, i, i))
+  end
+  return l
+end
+
 return M

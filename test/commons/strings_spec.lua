@@ -358,4 +358,15 @@ describe("commons.strings", function()
       assert_eq(strings.setchar("abcdefg", -7, "-"), "-bcdefg")
     end)
   end)
+  describe("[tolist]", function()
+    it("test", function()
+      assert_true(
+        vim.deep_equal(
+          strings.tolist("abcdefg"),
+          { "a", "b", "c", "d", "e", "f", "g" }
+        )
+      )
+      assert_true(vim.deep_equal(strings.tolist(""), {}))
+    end)
+  end)
 end)
