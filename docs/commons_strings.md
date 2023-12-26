@@ -267,10 +267,10 @@ function setchar(s:string, pos:integer, ch:string):string
 
 ?> Also see: C/C++ Reference [string::operator[]](https://en.cppreference.com/w/cpp/string/basic_string/operator_at).
 
-### `tolist`
+### `tochars`
 
 Split string into a lua list(table) of characters.
 
 ```lua
-function tolist(s:string):string[]
+function tochars(s:string):string[]
 ```

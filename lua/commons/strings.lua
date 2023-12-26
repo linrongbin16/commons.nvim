@@ -255,7 +255,7 @@ end
 
 --- @param s string
 --- @return string[]
-M.tolist = function(s)
+M.tochars = function(s)
   assert(type(s) == "string")
   local l = {}
   local n = string.len(s)
