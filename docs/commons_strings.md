@@ -255,7 +255,7 @@ function isupper(c:string):boolean
 
 ?> Also see: C/C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
 
-### `setchar`
+### [`setchar`](https://github.com/linrongbin16/commons.nvim/blob/9855b0f56fb53581340b81a3be259841829cd4f7/lua/commons/strings.lua?plain=1#L235)
 
 Set character `ch` to specific position in string `s`, like C/C++ style `string[]` operator.
 
