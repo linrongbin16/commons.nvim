@@ -269,7 +269,7 @@ function setchar(s:string, pos:integer, ch:string):string
 
 ### `tolist`
 
-Convert string to lua list(table).
+Split string into a lua list(table) of characters.
 
 ```lua
 function tolist(s:string):string[]
