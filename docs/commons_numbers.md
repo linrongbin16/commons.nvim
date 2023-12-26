@@ -154,3 +154,21 @@ Get auto-incremental ID, start from `1`.
 ```lua
 function auto_incremental_id():integer
 ```
+
+### `shuffle`
+
+Shuffle list.
+
+?> The shuffle function will not change the input list `l`.
+
+```lua
+function shuffle(l:any[]):any[]
+```
+
+Parameters:
+
+- `l`: Lua list to shuffle.
+
+Returns:
+
+- Returns the shuffled list.

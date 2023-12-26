@@ -125,6 +125,23 @@ M.min = function(f, a, ...)
 end
 
 --- @param l any[]|string
-M.shuffle = function(l) end
+--- @return any[]|string
+M.shuffle = function(l)
+  assert(type(l) == "table")
+  local n = #l
+
+  local new_l = {}
+  for i = 1, n do
+    table.insert(new_l, l[i])
+  end
+
+  for i = n, 1, -1 do
+    local j = math.random(n)
+    local tmp = new_l[j]
+    new_l[j] = new_l[i]
+    new_l[i] = tmp
+  end
+  return new_l
+end
 
 return M

@@ -257,7 +257,7 @@ function isupper(c:string):boolean
 
 ### `setchar`
 
-Set character `ch` to specific position in string `s`, just like C/C++ style `string[]` operator.
+Set character `ch` to specific position in string `s`, like C/C++ style `string[]` operator.
 
 !> Only allow single character as the parameter `ch`.
 
