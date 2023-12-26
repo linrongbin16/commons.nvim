@@ -243,7 +243,7 @@ function islower(c:string):boolean
 
 ?> Also see: C/C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
 
-### `isupper`
+### [`isupper`](https://github.com/linrongbin16/commons.nvim/blob/05d944fe6925edd0c43b091671f816e778f59bbf/lua/commons/strings.lua?plain=1#L225)
 
 Whether character `c` is upper case alphabetic character (A-Z).
 
