@@ -124,4 +124,7 @@ M.min = function(f, a, ...)
   return minimal_item, minimal_index
 end
 
+--- @param l any[]|string
+M.shuffle = function(l) end
+
 return M

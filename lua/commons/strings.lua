@@ -228,4 +228,29 @@ M.isupper = function(c)
   return c:match("%u") ~= nil
 end
 
+--- @param s string
+--- @param pos integer
+--- @param ch string
+--- @return string
+M.setchar = function(s, pos, ch)
+  assert(type(s) == "string")
+  assert(type(pos) == "number")
+  assert(type(ch) == "string")
+  assert(string.len(ch) == 1)
+
+  local n = string.len(s)
+  pos = require("commons.tables").list_index(pos, n)
+
+  local buffer = ""
+  if pos > 1 then
+    buffer = string.sub(s, 1, pos - 1)
+  end
+  buffer = buffer .. ch
+  if pos < n then
+    buffer = buffer .. string.sub(s, pos + 1)
+  end
+
+  return buffer
+end
+
 return M
