@@ -157,7 +157,7 @@ function auto_incremental_id():integer
 
 ### `random`
 
-Drop-in relacement of `math.random` API.
+Drop-in 32-bit random relacement of `math.random` API.
 
 ```lua
 function random(m:integer?, n:integer?):number?,string?
