@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.1](https://github.com/linrongbin16/commons.nvim/compare/v3.4.0...v3.4.1) (2023-12-26)
+
+
+### Performance
+
+* **numbers:** fallback to 'math.random' if uv.random not succeed ([#124](https://github.com/linrongbin16/commons.nvim/issues/124)) ([942a7ea](https://github.com/linrongbin16/commons.nvim/commit/942a7ea6fe5d75605f6d72e6b58ce9906ba0972a))
+
 ## [3.4.0](https://github.com/linrongbin16/commons.nvim/compare/v3.3.0...v3.4.0) (2023-12-26)
 
 
