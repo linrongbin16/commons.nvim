@@ -157,7 +157,7 @@ function auto_incremental_id():integer
 
 ### `random`
 
-Drop-in 32-bit random relacement of `math.random` API implemented via [uv.random](https://github.com/luvit/luv/blob/master/docs.md#uvrandomlen-flags-callback).
+Drop-in 32-bit random replacement of `math.random` API implemented via [uv.random](https://github.com/luvit/luv/blob/master/docs.md#uvrandomlen-flags-callback).
 
 ```lua
 function random(m:integer?, n:integer?):number
