@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/linrongbin16/commons.nvim/compare/v3.3.0...v3.4.0) (2023-12-26)
+
+
+### Features
+
+* **numbers:** add 'random' API ([#121](https://github.com/linrongbin16/commons.nvim/issues/121)) ([ee437e2](https://github.com/linrongbin16/commons.nvim/commit/ee437e2c92e2b179c5cf40c2ffb7b798523bd302))
+
 ## [3.3.0](https://github.com/linrongbin16/commons.nvim/compare/v3.2.1...v3.3.0) (2023-12-26)
 
 
