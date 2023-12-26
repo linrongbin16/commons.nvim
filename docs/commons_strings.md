@@ -243,7 +243,7 @@ function islower(c:string):boolean
 
 ?> Also see: C/C++ Reference [islower](https://en.cppreference.com/w/cpp/string/byte/islower).
 
-### [`isupper`](https://github.com/linrongbin16/commons.nvim/blob/05d944fe6925edd0c43b091671f816e778f59bbf/lua/commons/strings.lua?plain=1#L225)
+### `isupper`
 
 Whether character `c` is upper case alphabetic character (A-Z).
 
@@ -255,7 +255,7 @@ function isupper(c:string):boolean
 
 ?> Also see: C/C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
 
-### [`setchar`](https://github.com/linrongbin16/commons.nvim/blob/9855b0f56fb53581340b81a3be259841829cd4f7/lua/commons/strings.lua?plain=1#L235)
+### `setchar`
 
 Set character `ch` to specific position in string `s`, like C/C++ style `string[]` operator.
 
