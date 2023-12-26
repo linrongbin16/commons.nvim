@@ -347,4 +347,26 @@ describe("commons.strings", function()
       end
     end)
   end)
+  describe("[setchar]", function()
+    it("test", function()
+      assert_eq(strings.setchar("abcdefg", 1, "b"), "bbcdefg")
+      assert_eq(strings.setchar("abcdefg", 2, "c"), "accdefg")
+      assert_eq(strings.setchar("abcdefg", 6, "a"), "abcdeag")
+      assert_eq(strings.setchar("abcdefg", 7, "-"), "abcdef-")
+      assert_eq(strings.setchar("abcdefg", -1, "a"), "abcdefa")
+      assert_eq(strings.setchar("abcdefg", -2, "a"), "abcdeag")
+      assert_eq(strings.setchar("abcdefg", -7, "-"), "-bcdefg")
+    end)
+  end)
+  describe("[tochars]", function()
+    it("test", function()
+      assert_true(
+        vim.deep_equal(
+          strings.tochars("abcdefg"),
+          { "a", "b", "c", "d", "e", "f", "g" }
+        )
+      )
+      assert_true(vim.deep_equal(strings.tochars(""), {}))
+    end)
+  end)
 end)

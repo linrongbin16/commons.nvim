@@ -254,3 +254,23 @@ function isupper(c:string):boolean
 ```
 
 ?> Also see: C/C++ Reference [isupper](https://en.cppreference.com/w/cpp/string/byte/isupper).
+
+### `setchar`
+
+Set character `ch` to specific position in string `s`, like C/C++ style `string[]` operator.
+
+!> Only allow single character as the parameter `ch`.
+
+```lua
+function setchar(s:string, pos:integer, ch:string):string
+```
+
+?> Also see: C/C++ Reference [string::operator[]](https://en.cppreference.com/w/cpp/string/basic_string/operator_at).
+
+### `tochars`
+
+Split string into a lua list(table) of characters.
+
+```lua
+function tochars(s:string):string[]
+```

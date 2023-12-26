@@ -93,5 +93,15 @@ describe("commons.numbers", function()
       local ok, err = pcall(numbers.min, "a", "bc", "def")
       assert_false(ok)
     end)
+    it("shuffle", function()
+      local input = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 }
+      local last_actual = vim.deepcopy(input)
+      for i = 1, 50 do
+        local actual = numbers.shuffle(input)
+        assert_false(vim.deep_equal(input, actual))
+        assert_false(vim.deep_equal(last_actual, actual))
+        last_actual = vim.deepcopy(actual)
+      end
+    end)
   end)
 end)
