@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.3.0](https://github.com/linrongbin16/commons.nvim/compare/v3.2.1...v3.3.0) (2023-12-26)
+
+
+### Features
+
+* **numbers:** add 'shuffle' API ([#119](https://github.com/linrongbin16/commons.nvim/issues/119)) ([69cd5da](https://github.com/linrongbin16/commons.nvim/commit/69cd5dae28be4e428a1bfe35cc7e7df14a91c10f))
+* **strings:** add 'setchar'/'tochars' API ([#119](https://github.com/linrongbin16/commons.nvim/issues/119)) ([69cd5da](https://github.com/linrongbin16/commons.nvim/commit/69cd5dae28be4e428a1bfe35cc7e7df14a91c10f))
+
 ## [3.2.1](https://github.com/linrongbin16/commons.nvim/compare/v3.2.0...v3.2.1) (2023-12-25)
 
 
