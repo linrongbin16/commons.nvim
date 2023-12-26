@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.2](https://github.com/linrongbin16/commons.nvim/compare/v3.4.1...v3.4.2) (2023-12-26)
+
+
+### Performance
+
+* **spawn:** add returned types ([#129](https://github.com/linrongbin16/commons.nvim/issues/129)) ([9fca684](https://github.com/linrongbin16/commons.nvim/commit/9fca684f4240301968c59f78abcc52058fe59ce4))
+
 ## [3.4.1](https://github.com/linrongbin16/commons.nvim/compare/v3.4.0...v3.4.1) (2023-12-26)
 
 
