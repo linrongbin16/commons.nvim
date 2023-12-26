@@ -155,6 +155,26 @@ Get auto-incremental ID, start from `1`.
 function auto_incremental_id():integer
 ```
 
+### `random`
+
+Drop-in 32-bit random relacement of `math.random` API.
+
+```lua
+function random(m:integer?, n:integer?):number?,string?
+```
+
+Parameters:
+
+- `m`: Random integer bound.
+- `n`: Random integer bound2.
+
+Returns:
+
+- When both `m` and `n` are `nil`, returns random floats in range `[0,1)`.
+- When `m` is provided and `n` is `nil`, returns random integer in range `[1,m]`.
+- When both `m` and `n` are provided, returns random integer in range `[m,n]`.
+- If failed by some internal reason, returns `nil` and `err` message.
+
 ### `shuffle`
 
 Shuffle list.
