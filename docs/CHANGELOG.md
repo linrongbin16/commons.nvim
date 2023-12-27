@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.3](https://github.com/linrongbin16/commons.nvim/compare/v3.4.2...v3.4.3) (2023-12-27)
+
+
+### Performance
+
+* **paths:** improve returned value from 'parent' API ([#131](https://github.com/linrongbin16/commons.nvim/issues/131)) ([5ea6ae2](https://github.com/linrongbin16/commons.nvim/commit/5ea6ae29c930d35541072427c410e2cf41bef6a8))
+
 ## [3.4.2](https://github.com/linrongbin16/commons.nvim/compare/v3.4.1...v3.4.2) (2023-12-26)
 
 
