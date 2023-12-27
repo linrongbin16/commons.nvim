@@ -116,4 +116,5 @@ Parameters:
 
 Returns:
 
-- Returns the parent path.
+- Returns the parent path if `p` is a valid file path.
+- Returns `nil` if `p` is already root path, e.g. the `/`.

@@ -127,6 +127,12 @@ describe("commons.paths", function()
 
       local actual4 = paths.parent()
       assert_true(strings.startswith(cwd, actual4))
+
+      local actual5 = paths.parent("/")
+      assert_eq(actual5, nil)
+
+      local actual6 = paths.parent("~/.config/nvim/lazy/")
+      assert_eq(actual6, "~/.config/nvim")
     end)
   end)
 end)
