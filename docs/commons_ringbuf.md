@@ -14,7 +14,7 @@ The ring buffer class.
 --- @class commons.RingBuffer
 ```
 
-#### Functions
+#### Methods
 
 ##### `new`
 
@@ -110,7 +110,7 @@ The iterator class that allow foreach all items from oldest to latest.
 --- @class commons._RingBufferIterator
 ```
 
-#### Functions
+#### Methods
 
 ##### `has_next`
 
@@ -151,7 +151,7 @@ The reverse iterator class that allow foreach all items from latest to oldest.
 --- @class commons._RingBufferRIterator
 ```
 
-#### Functions
+#### Methods
 
 ##### `has_next`
 

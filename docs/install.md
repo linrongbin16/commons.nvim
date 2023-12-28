@@ -2,32 +2,15 @@
 
 # Install
 
-## Plugin Manager
+!> Embedding source code to project is the recommend way to install this library, both [LuaRocks](https://luarocks.org/) and Neovim plugin managers cannot guarantee they handle the version confliction issue correctly, which brings potential exceptions in runtime. See below.
 
-### [lazy.nvim](https://github.com/folke/lazy.nvim)
+## The Version Confliction Issue
 
-```lua
-require("lazy").setup({
-  "linrongbin16/commons.nvim",
-})
-```
+For example now we have two plugins `A` and `B`, they both depend on the `commons` library, but on different versions, say `v2.1.0` and `v3.4.3`.
 
-### [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
+The major version means there're some break changes, say `commons.paths.parent` API behavior is different on `v2.x` and `v3.x`. And it just happened both `A` and `B` are using this API.
 
-```lua
-require("pckr").add({
-  "linrongbin16/commons.nvim",
-})
-```
-
-## LuaRocks
-
-```bash
-luarocks install commons.nvim
-
-# (optional) specify the version
-luarocks install commons.nvim 1.4.1
-```
+We expect `A` use `commons-v2.1.0` and `B` use `commons-v3.4.3`, but when `A` and `B` use LuaRocks or Neovim plugin managers to depend `commons` library, the package manager cannot guarantee such behavior, e.g. the `commons` library version is uncertain, thus bring potential exceptions in runtime.
 
 ## Embed Source Code
 
@@ -78,3 +61,30 @@ git clone --depth=1 --branch v1.4.3 https://github.com/linrongbin16/commons.nvim
 Here're real-world examples:
 
 - gentags.nvim's [ci.yml](https://github.com/linrongbin16/gentags.nvim/blob/5f5bd825951fb8bc8c5dea7919c46a86063c6e5e/.github/workflows/ci.yml?plain=1#L47-L51) and its [action runs](https://github.com/linrongbin16/gentags.nvim/actions/runs/7176179406/job/19540665077).
+
+## LuaRocks
+
+```bash
+luarocks install commons.nvim
+
+# (optional) specify the version
+luarocks install commons.nvim 1.4.1
+```
+
+## Plugin Manager
+
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
+
+```lua
+require("lazy").setup({
+  "linrongbin16/commons.nvim",
+})
+```
+
+### [pckr.nvim](https://github.com/lewis6991/pckr.nvim)
+
+```lua
+require("pckr").add({
+  "linrongbin16/commons.nvim",
+})
+```

@@ -6,8 +6,6 @@ Lua table/list utilities, with type check.
 
 ## Functions
 
-?> For lua tables
-
 ### `tbl_empty`
 
 Whether lua table `t` is empty, with type check.
@@ -39,7 +37,24 @@ Parameters:
 - `t`: The lua table/list.
 - `...`: Variadic indexing fields.
 
-?> For lua lists
+### `tbl_contains`
+
+Whether lua table `t` contains a value `v`, with optional `compare` function.
+
+```lua
+function tbl_contains(t:table?, v:any, compare:(fun(a:any,b:any):boolean)|nil):boolean
+```
+
+Parameters:
+
+- `t`: Lua table.
+- `v`: Target value.
+- `compare`: Optional compare function that accept two parameters and returns whether they're equal. By default is `=`.
+
+Returns:
+
+- Returns `true` if table `t` contains value `v`.
+- Returns `false` if table `t` doesn't contain value `v`.
 
 ### `list_empty`
 
@@ -76,3 +91,22 @@ Returns:
 - If `idx < 0`, returns `#l + idx + 1`, for example:
   - If `idx = -1`, returns `#l`, e.g. the last element position.
   - If `idx = -#l`, returns `1`, e.g. the first element position.
+
+### `list_contains`
+
+Whether lua list `l` contains a value `v`, with optional `compare` function.
+
+```lua
+function list_contains(t:table?, v:any, compare:(fun(a:any,b:any):boolean)|nil):boolean
+```
+
+Parameters:
+
+- `l`: Lua list.
+- `v`: Target value.
+- `compare`: Optional compare function that accept two parameters and returns whether they're equal. By default is `=`.
+
+Returns:
+
+- Returns `true` if list `l` contains value `v`.
+- Returns `false` if list `l` doesn't contain value `v`.
