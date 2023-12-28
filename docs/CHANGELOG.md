@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/linrongbin16/commons.nvim/compare/v3.4.3...v3.5.0) (2023-12-28)
+
+
+### Features
+
+* **tables:** add 'tbl_contains' and 'list_contains' API ([#133](https://github.com/linrongbin16/commons.nvim/issues/133)) ([f019c8f](https://github.com/linrongbin16/commons.nvim/commit/f019c8fdfe6e2b5fa18c6247864a3af588ccd4d1))
+
 ## [3.4.3](https://github.com/linrongbin16/commons.nvim/compare/v3.4.2...v3.4.3) (2023-12-27)
 
 
