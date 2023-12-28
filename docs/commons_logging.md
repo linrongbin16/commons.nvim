@@ -364,7 +364,7 @@ The logger class.
 --- @class commons.logging.Logger
 ```
 
-#### Functions
+#### Methods
 
 ##### `new`
 
@@ -419,7 +419,7 @@ The logging handler that write nvim's messages.
 --- @class commons.logging.ConsoleHandler
 ```
 
-#### Functions
+#### Methods
 
 ##### `new`
 
@@ -433,7 +433,7 @@ Parameters:
 
 - `formatter`: The logging formatter, by default is `[%(name)s] %(message)s`. For example: `[gitlinker] https://github.com/linrongbin16/commons.nvim/blob/c651def812/docs/README.md#L364 (lines can be wrong)`.
 
-  ?> Also see: [Formatter](#formatter) and [Formatting Attributes](#attributes).
+  ?> Also see: [Formatter](#formatter) and [Formatting Attributes](#formatting-attributes).
 
 ### `FileHandler`
 
@@ -443,7 +443,7 @@ The logging handler that write logs to file.
 --- @class commons.logging.FileHandler
 ```
 
-#### Functions
+#### Methods
 
 ##### `new`
 
@@ -461,7 +461,7 @@ Parameters:
   - `"w"`: Write mode, exist file content will be removed before writing.
 - `formatter`: The logging formatter, by default is `%(asctime)s,%(msecs)d [%(levelname)s] %(message)s`
 
-  ?> Also see: [Formatter](#formatter) and [Formatting Attributes](#attributes).
+  ?> Also see: [Formatter](#formatter) and [Formatting Attributes](#formatting-attributes).
 
 ### `Formatter`
 
@@ -471,7 +471,7 @@ The logging formatter that actually render the final logging records.
 --- @class commons.logging.Formatter
 ```
 
-#### Functions
+#### Methods
 
 ##### `new`
 
@@ -483,26 +483,26 @@ function Formatter:new(fmt:string, opts:{datefmt:string?, msecsfmt:string?}?):co
 
 Parameters:
 
-- `fmt`: The formatting template string, see [Formatting Attributes](#attributes).
+- `fmt`: The formatting template string, see [Formatting Attributes](#formatting-attributes).
 - `opts`: Formatting options.
 
   - `datefmt`: The formatting placeholder for date and time (`%(asctime)s`), evaluated by [os.date()](https://www.lua.org/pil/22.1.html).
 
     - By default is `%Y-%m-%d %H:%M:%S`, for example: `2023-12-14 18:50:17`.
 
-    ?> Also see: [Formatting Attributes](#attributes).
+    ?> Also see: [Formatting Attributes](#formatting-attributes).
 
   - `msecsfmt`: The formatting placeholder for milliseconds (`%(msecs)d`), evaluated by [string.format](https://www.lua.org/pil/20.html).
 
     - By default is `%06d`, for example: `00713`.
 
-    ?> Also see: [Formatting Attributes](#attributes).
+    ?> Also see: [Formatting Attributes](#formatting-attributes).
 
 Returns:
 
 - Returns logging formatter.
 
-#### Attributes
+#### Formatting Attributes
 
 The logging formatter is (as well) heavily influenced by [python-logging's LogRecord attributes](https://docs.python.org/3/library/logging.html#logrecord-attributes). For now supported attributes are:
 
