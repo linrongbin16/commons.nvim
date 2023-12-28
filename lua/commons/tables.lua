@@ -63,9 +63,6 @@ M.list_not_empty = function(l)
   return type(l) == "table" and #l > 0
 end
 
--- list index `i` support both positive or negative. `n` is the length of list.
--- if i > 0, i is in range [1,n].
--- if i < 0, i is in range [-1,-n], -1 maps to last position (e.g. n), -n maps to first position (e.g. 1).
 --- @param i integer
 --- @param n integer
 --- @return integer
