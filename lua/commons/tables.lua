@@ -33,7 +33,7 @@ end
 
 --- @param t any[]
 --- @param v any
---- @param compare fun(a:any, b:any):boolean
+--- @param compare fun(a:any, b:any):boolean|nil
 --- @return boolean
 M.tbl_contains = function(t, v, compare)
   assert(type(t) == "table")
@@ -77,7 +77,7 @@ end
 
 --- @param l any[]
 --- @param v any
---- @param compare fun(a:any, b:any):boolean
+--- @param compare fun(a:any, b:any):boolean|nil
 --- @return boolean
 M.list_contains = function(l, v, compare)
   assert(type(l) == "table")
