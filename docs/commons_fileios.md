@@ -14,7 +14,7 @@ Line-wise file reader, read by chunks, iterate by lines.
 --- @class commons.FileLineReader
 ```
 
-#### Functions
+#### Methods
 
 ##### `open`
 
