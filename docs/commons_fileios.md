@@ -65,8 +65,6 @@ function FileLineReader:close():nil
 
 ## Functions
 
-?> Read operations
-
 ### `readfile`
 
 Read all the content from a file.
@@ -124,8 +122,6 @@ Parameters:
 
 - `opts`: Options.
   - `trim`: Whether to trim whitespaces around file content, by default `false`.
-
-?> Write operations
 
 ### `writefile`
 
