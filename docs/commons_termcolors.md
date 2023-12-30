@@ -53,9 +53,7 @@ Parameters:
 
 - `text`: The content to be rendered.
 - `name`: The ANSI color name or RGB color code.
-- `hl`: The vim syntax highlighting group name, by default is `nil`.
-
-  ?> Vim syntax highlighting group has higher priority, only when it's been provided.
+- `hl`: The vim syntax highlighting group name, by default is `nil`. It has higher priority when provided.
 
 Returns:
 
