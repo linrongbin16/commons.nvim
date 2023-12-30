@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.logger](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/logger.lua)
+# [commons.logging](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/logging.lua)
 
 Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
 
