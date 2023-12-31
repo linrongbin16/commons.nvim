@@ -31,6 +31,7 @@ local CSS_COLORS = {
   magenta = "0;35",
   fuchsia = M.escape("fg", "#FF00FF"),
   red = "0;31",
+  darkred = M.escape('fg', '#8B0000'),
   maroon = M.escape("fg", "#800000"),
   salmon = M.escape("fg", "#FA8072"),
   crimson = M.escape("fg", "#DC143C"),
