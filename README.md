@@ -25,6 +25,9 @@ This lua library includes multiple modules:
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
+Embedded external libraries:
+- [json.lua](https://github.com/actboy168/json.lua): A pure Lua JSON library.
+
 Please open [issue](https://github.com/linrongbin16/commons.nvim/issues)/[PR](https://github.com/linrongbin16/commons.nvim/pulls) for anything about commons.nvim.
 
 Likes commons.nvim? Consider
