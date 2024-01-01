@@ -71,19 +71,9 @@ M.normalize = function(p, opts)
     return s
   end
 
-  local result = vim.trim(p)
-
-  if opts.double_backslash then
-    result = _double_backslash(result)
-  end
-  result = _single_backslash(result)
-
+  local result = M._normalize_slash(p, opts)
   if opts.expand then
-    result = vim.fn.expand(result) --[[@as string]]
-    if opts.double_backslash then
-      result = _double_backslash(result)
-    end
-    result = _single_backslash(result)
+     result = M.expand(result)
   end
 
   if opts.resolve then
