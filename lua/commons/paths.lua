@@ -11,7 +11,6 @@ M._normalize_slash = function(p, opts)
   opts.double_backslash = type(opts.double_backslash) == "boolean"
       and opts.double_backslash
     or false
-  
   -- '\\\\' => '\\'
   local function _double_backslash(s)
     if string.match(s, [[\\]]) then
