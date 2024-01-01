@@ -61,7 +61,7 @@ M.normalize = function(p, opts)
   end
 
   if opts.resolve then
-    result = require("commons.uv").fs_realpath(result)
+    result = require("commons.uv").fs_realpath(result)  --[[@as string]]
   end
 
   return result
