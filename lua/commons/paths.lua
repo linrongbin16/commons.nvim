@@ -55,33 +55,13 @@ M.normalize = function(p, opts)
   opts.expand = type(opts.expand) == "boolean" and opts.expand or false
   opts.resolve = type(opts.resolve) == "boolean" and opts.resolve or false
 
-  -- '\\\\' => '\\'
-  local function _double_backslash(s)
-    if string.match(s, [[\\]]) then
-      s = string.gsub(s, [[\\]], [[\]])
-    end
-    return s
-  end
-
-  -- '\\' => '/'
-  local function _single_backslash(s)
-    if string.match(s, [[\]]) then
-      s = string.gsub(s, [[\]], [[/]])
-    end
-    return s
-  end
-
   local result = M._normalize_slash(p, opts)
   if opts.expand then
     result = M.expand(result)
   end
 
   if opts.resolve then
-    result = vim.fn.resolve(result)
-    if opts.double_backslash then
-      result = _double_backslash(result)
-    end
-    result = _single_backslash(result)
+    result = require ('commoms.uv').fs_realpath(result)
   end
 
   return result
