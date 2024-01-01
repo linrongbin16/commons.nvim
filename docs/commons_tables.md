@@ -24,7 +24,7 @@ function tbl_not_empty(t:table?):boolean
 
 ### `tbl_get`
 
-Drop-in replacement of [vim.tbl_get](<https://neovim.io/doc/user/lua.html#vim.tbl_get()>).
+Drop-in replacement of [vim.tbl_get()](<https://neovim.io/doc/user/lua.html#vim.tbl_get()>).
 
 ```lua
 function tbl_get(t:table?, ...:any):any
