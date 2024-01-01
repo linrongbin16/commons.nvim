@@ -4,6 +4,42 @@ local M = {}
 
 M.SEPARATOR = IS_WINDOWS and "\\" or "/"
 
+
+M._normalize_slash = function(p, opts)
+  assert(type(p) == "string")
+  opts = opts or { double_backslash = false }
+  opts.double_backslash = type(opts.double_backslash) == "boolean"
+      and opts.double_backslash
+    or false
+  
+  -- '\\\\' => '\\'
+  local function _double_backslash(s)
+    if string.match(s, [[\\]]) then
+      s = string.gsub(s, [[\\]], [[\]])
+    end
+    return s
+  end
+
+  -- '\\' => '/'
+  local function _single_backslash(s)
+    if string.match(s, [[\]]) then
+      s = string.gsub(s, [[\]], [[/]])
+    end
+    return s
+  end
+  local result = vim.trim(p)
+
+  if opts.double_backslash then
+    result = _double_backslash(result)
+  end
+  result = _single_backslash(result)
+  return result
+end
+
+M.expand = function(p)
+  
+end
+
 --- @param p string
 --- @param opts {double_backslash:boolean?,expand:boolean?,resolve:boolean?}?
 --- @return string
