@@ -11,6 +11,7 @@ describe("commons.paths", function()
 
   local strings = require("commons.strings")
   local paths = require("commons.paths")
+    local uv = require ('commons.uv')
 
   describe("[normalize]", function()
     it("unix", function()
@@ -40,6 +41,15 @@ describe("commons.paths", function()
       print(string.format("normalize-4:%s\n", actual4))
       vim.cmd([[!rm -rf t1]])
       vim.cmd([[!rm -rf t3.txt]])
+
+            local expect5 = "~/github/linrongbin16/fzfx.nvim/lua/tests"
+      local actual5 = paths.normalize(expect5, {expand=true})
+      local expect6 = "~/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua"
+      local actual6 = paths.normalize(expect6, {expand=true})
+      assert_true(strings.endswith(actual5, string.sub(expect5,2)))
+            assert_true(strings.startswith(actual5, uv.cwd()))
+      assert_true(strings.endswith(actual5, string.sub(expect5,2)))
+      assert_true(strings.startswith(actual5, uv.cwd()))
     end)
     it("windows", function()
       local actual1 = paths.normalize(
