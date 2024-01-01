@@ -38,8 +38,8 @@ describe("commons.paths", function()
       local actual4 =
         paths.normalize("./t3.txt", { expand = true, resolve = true })
       print(string.format("normalize-4:%s\n", actual4))
-            vim.cmd([[!rm -rf t1]])
-            vim.cmd([[!rm -rf t3.txt]])
+      vim.cmd([[!rm -rf t1]])
+      vim.cmd([[!rm -rf t3.txt]])
     end)
     it("windows", function()
       local actual1 = paths.normalize(
