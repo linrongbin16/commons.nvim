@@ -37,7 +37,12 @@ M._normalize_slash = function(p, opts)
 end
 
 M.expand = function(p)
-  
+  assert(type(p) == 'string')
+  if string.len(p)>= 1 and string.sub(p,1,1) == '~' then
+    return require('commons.uv').cwd().. string.sub(p, 2)
+  else
+    return p
+  end
 end
 
 --- @param p string
