@@ -13,7 +13,7 @@ M.normalize = function(p, opts)
       and opts.double_backslash
     or false
   opts.expand = type(opts.expand) == "boolean" and opts.expand or false
-  opts.resolve = type(opts.resolve) == 'boolean' and opts.resolve or false
+  opts.resolve = type(opts.resolve) == "boolean" and opts.resolve or false
 
   -- '\\\\' => '\\'
   local function _double_backslash(s)
