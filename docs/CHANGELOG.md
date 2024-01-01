@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.3](https://github.com/linrongbin16/commons.nvim/compare/v3.5.2...v3.5.3) (2024-01-01)
+
+
+### Performance
+
+* **paths:** add 'resolve' opts for 'normalize' ([#144](https://github.com/linrongbin16/commons.nvim/issues/144)) ([f47fba0](https://github.com/linrongbin16/commons.nvim/commit/f47fba089a3e2133ffc7761825c42df1a5f49aa3))
+
 ## [3.5.2](https://github.com/linrongbin16/commons.nvim/compare/v3.5.1...v3.5.2) (2024-01-01)
 
 
