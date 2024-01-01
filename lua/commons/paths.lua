@@ -73,7 +73,7 @@ M.normalize = function(p, opts)
 
   local result = M._normalize_slash(p, opts)
   if opts.expand then
-     result = M.expand(result)
+    result = M.expand(result)
   end
 
   if opts.resolve then
