@@ -6,7 +6,7 @@ M.encode = function(t)
   if t == nil then
     return nil
   end
-    return require("commons._json").encode(t)
+  return require("commons._json").encode(t)
 end
 
 --- @param j string?
@@ -15,7 +15,7 @@ M.decode = function(j)
   if j == nil then
     return nil
   end
-    return require("commons._json").decode(j)
+  return require("commons._json").decode(j)
 end
 
 return M
