@@ -35,8 +35,9 @@ describe("commons.paths", function()
       vim.cmd([[!mkdir -p t1/t2]])
       vim.cmd([[!touch t1/t2/t3.txt]])
       vim.cmd([[!ln -s t3.txt t1/t2/t3.txt]])
-      local actual4 = paths.normalize("t3.txt", { expand = true, resolve = true })
-            print(string.format('normalize-4:%s\n', actual4))
+      local actual4 =
+        paths.normalize("t3.txt", { expand = true, resolve = true })
+      print(string.format("normalize-4:%s\n", actual4))
     end)
     it("windows", function()
       local actual1 = paths.normalize(
