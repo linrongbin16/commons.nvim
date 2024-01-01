@@ -43,6 +43,13 @@ M.expand = function(p)
   end
 end
 
+M.resolve = function (p)
+  assert (type (p) == 'string')
+  local result, _ = require("commons.uv").fs_realpath(p)
+  return result ~= nil and result or p
+end
+
+
 --- @param p string
 --- @param opts {double_backslash:boolean?,expand:boolean?,resolve:boolean?}?
 --- @return string
@@ -61,10 +68,7 @@ M.normalize = function(p, opts)
   end
 
   if opts.resolve then
-    local tmp, _ = require("commons.uv").fs_realpath(result)
-    if tmp then
-      result = tmp
-    end
+      result = M.resolve(result)
   end
 
   return result
