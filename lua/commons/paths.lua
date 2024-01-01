@@ -8,6 +8,7 @@ M.SEPARATOR = IS_WINDOWS and "\\" or "/"
 --- @param opts {double_backslash:boolean?,expand:boolean?,resolve:boolean?}?
 --- @return string
 M.normalize = function(p, opts)
+  assert(type(p) == 'string')
   opts = opts or { double_backslash = false, expand = false, resolve = false }
   opts.double_backslash = type(opts.double_backslash) == "boolean"
       and opts.double_backslash
