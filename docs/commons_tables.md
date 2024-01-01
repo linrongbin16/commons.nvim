@@ -24,9 +24,7 @@ function tbl_not_empty(t:table?):boolean
 
 ### `tbl_get`
 
-Retrieve element from lua table/list with json-like fields indexing.
-
-?> Use builtin implementation for Neovim &lt; 0.10, use [vim.tbl_get](<https://neovim.io/doc/user/lua.html#vim.tbl_get()>) for Neovim &ge; 0.10.
+Drop-in replacement of [vim.tbl_get()](<https://neovim.io/doc/user/lua.html#vim.tbl_get()>).
 
 ```lua
 function tbl_get(t:table?, ...:any):any
@@ -36,6 +34,11 @@ Parameters:
 
 - `t`: The lua table/list.
 - `...`: Variadic indexing fields.
+
+Returns:
+
+- Returns element if get success.
+- Returns `nil` if get failed.
 
 ### `tbl_contains`
 
