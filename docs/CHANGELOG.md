@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.1](https://github.com/linrongbin16/commons.nvim/compare/v3.5.0...v3.5.1) (2024-01-01)
+
+
+### Performance
+
+* **jsons:** always use external library ([#140](https://github.com/linrongbin16/commons.nvim/issues/140)) ([a145f19](https://github.com/linrongbin16/commons.nvim/commit/a145f1953cbf05738e46b172c87b953083aa3695))
+
 ## [3.5.0](https://github.com/linrongbin16/commons.nvim/compare/v3.4.3...v3.5.0) (2023-12-28)
 
 
