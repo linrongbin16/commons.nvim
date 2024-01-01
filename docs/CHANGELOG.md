@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.2](https://github.com/linrongbin16/commons.nvim/compare/v3.5.1...v3.5.2) (2024-01-01)
+
+
+### Performance
+
+* **tables:** always use self-implementation for 'tbl_get' API ([#142](https://github.com/linrongbin16/commons.nvim/issues/142)) ([4cfed5c](https://github.com/linrongbin16/commons.nvim/commit/4cfed5c68eed0d1dfdb823b612a9211127b2d72f))
+
 ## [3.5.1](https://github.com/linrongbin16/commons.nvim/compare/v3.5.0...v3.5.1) (2024-01-01)
 
 
