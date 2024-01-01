@@ -35,7 +35,7 @@ describe("commons.paths", function()
       vim.cmd([[mkdir -p t1/t2]])
       vim.cmd([[touch t1/t2/t3.txt]])
       vim.cmd([[ln -s t3.txt t1/t2/t3.txt]])
-      assert_eq(paths.normalize('t3.txt', { expand = true, resolve = true }))
+      assert_eq(paths.normalize("t3.txt", { expand = true, resolve = true }))
     end)
     it("windows", function()
       local actual1 = paths.normalize(
