@@ -27,7 +27,7 @@ Normalize path with below steps:
 - replace Windows path separator `\\` to UNIX/Linux separator `/`.
 
 ```lua
-function normalize(p:string, opts:{double_backslash:boolean?, expand:boolean?}?):string
+function normalize(p:string, opts:{double_backslash:boolean?, expand:boolean?,resolve:boolean?}?):string
 ```
 
 Parameters:
@@ -37,6 +37,7 @@ Parameters:
 
   - `double_backslash`: Whether replace double backslashes `\\\\` to single backslash `\\` as well.
   - `expand`: Whether expand user home `~` to full path as well.
+  - `resolve`: Whether resolve symlink to real file path as well.
 
 Returns:
 

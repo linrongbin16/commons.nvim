@@ -27,6 +27,7 @@ Please check [documentation](https://linrongbin16.github.io/commons.nvim) for mo
 
 Embedded external libraries:
 - [json.lua](https://github.com/actboy168/json.lua): A pure Lua JSON library.
+- [_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](https://neovim.io/doc/user/lua.html#vim.system()) single file.
 
 Please open [issue](https://github.com/linrongbin16/commons.nvim/issues)/[PR](https://github.com/linrongbin16/commons.nvim/pulls) for anything about commons.nvim.
 

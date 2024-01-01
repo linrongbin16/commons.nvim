@@ -22,7 +22,8 @@ describe("commons.paths", function()
       assert_eq(actual2, expect2)
 
       local expect3 = "test/lib/paths_spec.lua"
-      local actual3 = paths.normalize(expect3, { expand = true })
+      local actual3 =
+        paths.normalize(expect3, { expand = true, resolve = true })
       -- print(
       --   string.format(
       --     "paths normalize, expect3:%s, actual3:%s\n",
@@ -31,6 +32,14 @@ describe("commons.paths", function()
       --   )
       -- )
       assert_eq(vim.fn.expand(expect3), actual3)
+      vim.cmd([[!mkdir -p t1/t2]])
+      vim.cmd([[!touch t1/t2/t3.txt]])
+      vim.cmd([[!ln -s t1/t2/t3.txt  ./t3.txt]])
+      local actual4 =
+        paths.normalize("./t3.txt", { expand = true, resolve = true })
+      print(string.format("normalize-4:%s\n", actual4))
+      vim.cmd([[!rm -rf t1]])
+      vim.cmd([[!rm -rf t3.txt]])
     end)
     it("windows", function()
       local actual1 = paths.normalize(

@@ -5,14 +5,16 @@ local M = {}
 M.SEPARATOR = IS_WINDOWS and "\\" or "/"
 
 --- @param p string
---- @param opts {double_backslash:boolean?,expand:boolean?}?
+--- @param opts {double_backslash:boolean?,expand:boolean?,resolve:boolean?}?
 --- @return string
 M.normalize = function(p, opts)
-  opts = opts or { double_backslash = false, expand = false }
+  assert(type(p) == "string")
+  opts = opts or { double_backslash = false, expand = false, resolve = false }
   opts.double_backslash = type(opts.double_backslash) == "boolean"
       and opts.double_backslash
     or false
   opts.expand = type(opts.expand) == "boolean" and opts.expand or false
+  opts.resolve = type(opts.resolve) == "boolean" and opts.resolve or false
 
   -- '\\\\' => '\\'
   local function _double_backslash(s)
@@ -30,7 +32,7 @@ M.normalize = function(p, opts)
     return s
   end
 
-  local result = p
+  local result = vim.trim(p)
 
   if opts.double_backslash then
     result = _double_backslash(result)
@@ -38,13 +40,19 @@ M.normalize = function(p, opts)
   result = _single_backslash(result)
 
   if opts.expand then
-    result = vim.fn.expand(vim.trim(result)) --[[@as string]]
+    result = vim.fn.expand(result) --[[@as string]]
     if opts.double_backslash then
       result = _double_backslash(result)
     end
     result = _single_backslash(result)
-  else
-    result = vim.trim(result)
+  end
+
+  if opts.resolve then
+    result = vim.fn.resolve(result)
+    if opts.double_backslash then
+      result = _double_backslash(result)
+    end
+    result = _single_backslash(result)
   end
 
   return result
