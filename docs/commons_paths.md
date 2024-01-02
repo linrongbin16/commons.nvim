@@ -109,6 +109,24 @@ Returns:
 
 - Returns `p` without change if there's no user home `~`, returns full path if there is.
 
+### `resolve`
+
+Resolve symlink path to linked full file path.
+
+```lua
+--- @param p string
+--- @return string
+M.resolve = function(p)
+```
+
+Parameters:
+
+- `p`: File path.
+
+Returns:
+
+- Returns `p` without change if it's not symlink, returns the linked full path if it is.
+
 ### `normalize`
 
 Normalize path with below steps:
