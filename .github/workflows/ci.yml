@@ -89,10 +89,18 @@ jobs:
         shell: pwsh
         run: |
           . env/bin/activate.ps1
+          luarocks install lua_cliargs
+          luarocks install luasystem
+          luarocks install dkjson
+          luarocks install say
+          luarocks install luafilesystem
+          luarocks install luassert
+          luarocks install lua-term
+          luarocks install penlight
+          luarocks install mediator_lua
           luarocks install busted
           luarocks install luacheck
           luarocks install luacov
-          luarocks install cluacov
           luarocks install vusted
           vusted --coverage --shuffle ./test
   unit_test:
@@ -120,7 +128,6 @@ jobs:
         run: |
           luarocks install luacheck
           luarocks install luacov
-          luarocks install cluacov
           luarocks install vusted
           vusted --coverage --shuffle ./test
       - name: Generate coverage reports
