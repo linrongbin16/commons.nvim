@@ -100,9 +100,8 @@ jobs:
           luarocks install mediator_lua
           luarocks install busted
           luarocks install luacheck
-          luarocks install luacov
           luarocks install vusted
-          vusted --coverage --shuffle ./test
+          vusted --shuffle ./test
   unit_test:
     name: Unit Test
     needs:
