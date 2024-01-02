@@ -172,7 +172,9 @@ M.join = function(...)
 Reduce path starts from user home `~`.
 
 ```lua
-function reduce2home(p:string?):string
+--- @param p string?
+--- @return string
+M.reduce2home = function(p)
 ```
 
 Parameters:
@@ -184,7 +186,9 @@ Parameters:
 Reduce path starts from user home `~`, or starts from current working directory `.`.
 
 ```lua
-function reduce(p:string?):string
+--- @param p string?
+--- @return string
+M.reduce = function(p)
 ```
 
 Parameters:
@@ -201,7 +205,9 @@ Returns:
 Shorten path to the `~/g/l/commons.nvim` style, e.g. reduce all parent components to single character length.
 
 ```lua
-function shorten(p:string?):string
+--- @param p string?
+--- @return string
+M.shorten = function(p)
 ```
 
 Parameters:
@@ -213,7 +219,8 @@ Parameters:
 Make named pipe path, for UNIX/Linux it's tmp file path, for Windows it looks like `\\.\pipe\nvim-pipe-12873-182710`.
 
 ```lua
-function pipename():string
+--- @return string
+M.pipename = function()
 ```
 
 ### `parent`
@@ -221,7 +228,9 @@ function pipename():string
 Get parent path.
 
 ```lua
-function parent(p:string?):string
+--- @param p string?
+--- @return string?
+M.parent = function(p)
 ```
 
 Parameters:
