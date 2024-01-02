@@ -77,6 +77,9 @@ jobs:
         with:
           neovim: true
           version: ${{ matrix.nvim_version }}
+      - run: Nvim executable
+        env:
+          VUSTED_NVIM: ${{ steps.vim.outputs.executable }}
       - run: |
           luarocks --lua-version=5.1 install vusted
           vusted ./test
