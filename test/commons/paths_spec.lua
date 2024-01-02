@@ -21,7 +21,7 @@ describe("commons.paths", function()
   end
 
   local function remove_file(p)
-    vim.cmd(string.format([[!rf -rf %s]], p))
+    vim.cmd(string.format([[!rm -rf %s]], p))
   end
 
   describe("[exists/isfile/isdir/issymlink]", function()
