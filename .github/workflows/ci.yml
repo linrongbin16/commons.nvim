@@ -60,8 +60,42 @@ jobs:
         with:
           commit_message: "chore(pr): auto-commit"
           push_options: "--force"
+  windows_unit_test:
+    name: Windows Unit Test
+    needs:
+      - luacheck
+    strategy:
+      matrix:
+        nvim_version: [stable, nightly, v0.6.0, v0.7.0]
+        os: [windows-latest]
+        lua: [luajit 2.1]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+          version: ${{ matrix.nvim_version }}
+      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install Lua and LuaRocks
+        run: |
+          python -m pip install hererocks
+          python -m hererocks env --${{ matrix.lua }} --luarocks latest
+      - name: Run test cases
+        shell: pwsh
+        run: |
+          luarocks install busted
+          luarocks install luacheck
+          luarocks install luacov
+          luarocks install cluacov
+          luarocks install vusted
+          vusted --coverage --shuffle ./test
   unit_test:
-    name: Ubuntu Unit Test
+    name: Unit Test
     needs:
       - luacheck
     strategy:
