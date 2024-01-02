@@ -135,7 +135,10 @@ Normalize path with below steps:
 - replace Windows path separator `\\` to UNIX/Linux separator `/`.
 
 ```lua
-function normalize(p:string, opts:{double_backslash:boolean?, expand:boolean?,resolve:boolean?}?):string
+--- @param p string
+--- @param opts {double_backslash:boolean?,expand:boolean?,resolve:boolean?}?
+--- @return string
+M.normalize = function(p, opts)
 ```
 
 Parameters:
