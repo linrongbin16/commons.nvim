@@ -88,6 +88,7 @@ jobs:
       - name: Run test cases
         shell: pwsh
         run: |
+          . env/bin/activate.ps1
           luarocks install busted
           luarocks install luacheck
           luarocks install luacov
