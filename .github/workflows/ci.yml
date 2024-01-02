@@ -82,8 +82,8 @@ jobs:
       - name: Run test cases
         shell: pwsh
         run: |
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-          Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
           scoop install main/luarocks
           luarocks install luacheck
           luarocks install luacov
