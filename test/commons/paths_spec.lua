@@ -11,35 +11,151 @@ describe("commons.paths", function()
 
   local strings = require("commons.strings")
   local paths = require("commons.paths")
+  local uv = require("commons.uv")
 
+  local function create_symlink(p1, p2)
+    vim.cmd(string.format([[!rm -rf %s]], p1))
+    vim.cmd(string.format([[!rm -rf %s]], p2))
+    vim.cmd(string.format([[!touch %s]], p1))
+    vim.cmd(string.format([[!ln -s %s  %s]], p1, p2))
+  end
+
+  local function remove_file(p)
+    vim.cmd(string.format([[!rm -rf %s]], p))
+  end
+
+  describe("[exists/isfile/isdir/issymlink]", function()
+    it("exists", function()
+      local expect1 = "test/commons/paths_spec.lua"
+      assert_true(paths.exists(expect1))
+      local expect2 = "asdf-test1"
+      assert_false(paths.exists(expect2))
+      local expect3 = "test/commons"
+      assert_true(paths.exists(expect3))
+    end)
+    it("isfile", function()
+      local expect1 = "test/commons/paths_spec.lua"
+      assert_true(paths.isfile(expect1))
+      local expect2 = "asdf-test2"
+      assert_false(paths.isfile(expect2))
+      local expect3 = "test/commons"
+      assert_false(paths.isfile(expect3))
+    end)
+    it("isdir", function()
+      local expect1 = "test/commons/paths_spec.lua"
+      assert_false(paths.isdir(expect1))
+      local expect2 = "asdf-test3"
+      assert_false(paths.isdir(expect2))
+      local expect3 = "test/commons"
+      assert_true(paths.isdir(expect3))
+    end)
+    it("islink", function()
+      local expect1 = "test/commons/paths_spec.lua"
+      assert_false(paths.islink(expect1))
+      local expect2 = "asdf-test4"
+      assert_false(paths.islink(expect2))
+      local expect3 = "test/commons"
+      assert_false(paths.islink(expect3))
+
+      local expect41 = "test7.txt"
+      local expect42 = "test8.txt"
+      create_symlink(expect41, expect42)
+      assert_false(paths.islink(expect41))
+      assert_true(paths.islink(expect42))
+      remove_file(expect41)
+      remove_file(expect42)
+    end)
+  end)
+  describe("[expand]", function()
+    local expect1 = "~/github/linrongbin16/fzfx.nvim/lua/tests"
+    local actual1 = paths.expand(expect1)
+    assert_true(strings.endswith(actual1, string.sub(expect1, 3)))
+  end)
+  describe("[resolve]", function()
+    local expect11 = "test311.txt"
+    local expect12 = "test312.txt"
+    create_symlink(expect11, expect12)
+    local actual1 = paths.resolve(expect12)
+    print(string.format("resolve-1:%s\n", vim.inspect(actual1)))
+    assert_true(strings.endswith(actual1, expect11))
+    remove_file(expect11)
+    remove_file(expect12)
+  end)
   describe("[normalize]", function()
-    it("unix", function()
+    it("user.home", function()
       local expect1 = "~/github/linrongbin16/fzfx.nvim/lua/tests"
       local actual1 = paths.normalize(expect1)
+      assert_eq(actual1, expect1)
+
       local expect2 = "~/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua"
       local actual2 = paths.normalize(expect2)
-      assert_eq(actual1, expect1)
       assert_eq(actual2, expect2)
 
-      local expect3 = "test/lib/paths_spec.lua"
-      local actual3 =
-        paths.normalize(expect3, { expand = true, resolve = true })
-      -- print(
-      --   string.format(
-      --     "paths normalize, expect3:%s, actual3:%s\n",
-      --     vim.inspect(vim.fn.expand(expect3)),
-      --     vim.inspect(actual3)
-      --   )
-      -- )
-      assert_eq(vim.fn.expand(expect3), actual3)
-      vim.cmd([[!mkdir -p t1/t2]])
-      vim.cmd([[!touch t1/t2/t3.txt]])
-      vim.cmd([[!ln -s t1/t2/t3.txt  ./t3.txt]])
+      local expect3 = "~/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua"
+      local actual3 = paths.normalize(expect3, { expand = true })
+      print(string.format("normalize-user.home-3:%s\n", vim.inspect(actual3)))
+      assert_true(strings.endswith(actual3, string.sub(expect3, 2)))
+      assert_true(strings.startswith(actual3, uv.os_homedir()))
+
+      local expect41 = "~/test141.txt"
+      local expect42 = "~/test142.txt"
+      create_symlink(expect41, expect42)
       local actual4 =
-        paths.normalize("./t3.txt", { expand = true, resolve = true })
-      print(string.format("normalize-4:%s\n", actual4))
-      vim.cmd([[!rm -rf t1]])
-      vim.cmd([[!rm -rf t3.txt]])
+        paths.normalize(expect42, { expand = true, resolve = true })
+      print(string.format("normalize-user.home-4:%s\n", vim.inspect(actual4)))
+      assert_true(strings.endswith(actual4, string.sub(expect41, 2)))
+      assert_true(strings.startswith(actual4, uv.os_homedir()))
+      remove_file(expect41)
+      remove_file(expect42)
+
+      local expect51 = "~/test151.txt"
+      local expect52 = "~/test152.txt"
+      create_symlink(expect51, expect52)
+      local actual5 = paths.normalize(expect52, { resolve = true })
+      print(string.format("normalize-user.home-5:%s\n", vim.inspect(actual5)))
+      assert_eq(expect52, actual5)
+    end)
+    it("relative", function()
+      local expect1 = "github/linrongbin16/fzfx.nvim/lua/tests"
+      local actual1 = paths.normalize(expect1)
+      assert_eq(actual1, expect1)
+
+      local expect2 = "./github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua"
+      local actual2 = paths.normalize(expect2)
+      assert_eq(actual2, expect2)
+
+      local expect3 = "./test/commons/paths_spec.lua"
+      local actual3 = paths.normalize(expect3, { expand = true })
+      assert_eq(actual3, expect3)
+
+      local expect4 = "./test/commons/paths_spec.lua"
+      local actual4 =
+        paths.normalize(expect4, { expand = true, resolve = true })
+      assert_eq(actual4, expect4)
+
+      local expect51 = "test251.txt"
+      local expect52 = "test252.txt"
+      create_symlink(expect51, expect52)
+      local actual5 = paths.normalize(expect52, { resolve = true })
+      print(string.format("normalize-relative-5:%s\n", vim.inspect(actual5)))
+      assert_true(strings.endswith(actual5, expect51))
+      remove_file(expect51)
+      remove_file(expect52)
+
+      local expect61 = "./test253.txt"
+      local expect62 = "./test254.txt"
+      create_symlink(expect61, expect62)
+      local actual6 = paths.normalize(expect62, { resolve = true })
+      print(string.format("normalize-relative-6:%s\n", vim.inspect(actual6)))
+      assert_true(strings.endswith(actual6, string.sub(expect61, 3)))
+      remove_file(expect61)
+      remove_file(expect62)
+
+      local expect7 = "github/linrongbin16/fzfx.nvim/lua/tests"
+      local actual7 =
+        paths.normalize(expect1, { expand = true, resolve = true })
+      print(string.format("normalize-relative-7:%s\n", vim.inspect(actual7)))
+      assert_eq(actual7, expect7)
     end)
     it("windows", function()
       local actual1 = paths.normalize(
