@@ -111,6 +111,9 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: notomo/action-setup-nvim-lua@v1
       - run: |
+          luarocks install luacheck
+          luarocks install luacov
+          luarocks install busted
           luarocks install vusted
           vusted --shuffle ./test
   unit_test:
