@@ -84,7 +84,7 @@ jobs:
         run: |
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-          scoop install main/luarocks
+          scoop install lua-for-windows
           luarocks install luacheck
           luarocks install luacov
           luarocks install cluacov
