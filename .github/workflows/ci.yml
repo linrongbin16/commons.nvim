@@ -68,7 +68,7 @@ jobs:
       matrix:
         nvim_version: [stable, nightly, v0.6.0, v0.7.0]
         os: [windows-latest]
-        lua: [luajit 2.1]
+        lua: [lua 5.1]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
