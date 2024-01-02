@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.6.0](https://github.com/linrongbin16/commons.nvim/compare/v3.5.3...v3.6.0) (2024-01-02)
+
+
+### Features
+
+* **paths:** add 'exists'/'isfile'/'isdir'/'islink' APIs  ([#146](https://github.com/linrongbin16/commons.nvim/issues/146)) ([53b87be](https://github.com/linrongbin16/commons.nvim/commit/53b87be5b70e930f90925466f8da43ff45b296c7))
+* **paths:** add 'expand'/'resolve' APIs  ([#146](https://github.com/linrongbin16/commons.nvim/issues/146)) ([53b87be](https://github.com/linrongbin16/commons.nvim/commit/53b87be5b70e930f90925466f8da43ff45b296c7))
+* **paths:** add 'resolve' opts in 'normalize'  ([#146](https://github.com/linrongbin16/commons.nvim/issues/146)) ([53b87be](https://github.com/linrongbin16/commons.nvim/commit/53b87be5b70e930f90925466f8da43ff45b296c7))
+* **paths:** add more APIs and refactor 'normalize' ([#146](https://github.com/linrongbin16/commons.nvim/issues/146)) ([53b87be](https://github.com/linrongbin16/commons.nvim/commit/53b87be5b70e930f90925466f8da43ff45b296c7))
+
 ## [3.5.3](https://github.com/linrongbin16/commons.nvim/compare/v3.5.2...v3.5.3) (2024-01-01)
 
 
