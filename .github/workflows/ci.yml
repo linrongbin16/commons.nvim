@@ -89,19 +89,18 @@ jobs:
         shell: pwsh
         run: |
           . env/bin/activate.ps1
-          luarocks install --local lua_cliargs
-          luarocks install --local luasystem
-          luarocks install --local dkjson
-          luarocks install --local say
-          luarocks install --local luafilesystem
-          luarocks install --local luassert
-          luarocks install --local lua-term
-          luarocks install --local penlight
-          luarocks install --local mediator_lua
-          luarocks install --local busted
-          luarocks install --local luacheck
-          luarocks install --local vusted
-          $env:VUSTED_USE_LOCAL=1
+          luarocks install lua_cliargs
+          luarocks install luasystem
+          luarocks install dkjson
+          luarocks install say
+          luarocks install luafilesystem
+          luarocks install luassert
+          luarocks install lua-term
+          luarocks install penlight
+          luarocks install mediator_lua
+          luarocks install busted
+          luarocks install luacheck
+          luarocks install vusted
           vusted --shuffle ./test
   unit_test:
     name: Unit Test
