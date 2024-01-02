@@ -66,6 +66,21 @@ describe("commons.paths", function()
       remove_file(expect42)
     end)
   end)
+  describe("[expand]", function()
+    local expect1 = "~/github/linrongbin16/fzfx.nvim/lua/tests"
+    local actual1 = paths.expand(expect1)
+    assert_eq(actual1, expect1)
+  end)
+  describe("[resolve]", function()
+    local expect11 = "test311.txt"
+    local expect12 = "test312.txt"
+    create_symlink(expect11, expect12)
+    local actual1 = paths.resolve(expect12)
+    print(string.format("resolve-1:%s\n", vim.inspect(actual1)))
+    assert_true(strings.endswith(actual1, expect11))
+    remove_file(expect11)
+    remove_file(expect12)
+  end)
   describe("[normalize]", function()
     it("user.home", function()
       local expect1 = "~/github/linrongbin16/fzfx.nvim/lua/tests"
