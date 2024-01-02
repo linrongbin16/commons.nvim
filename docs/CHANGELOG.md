@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.1](https://github.com/linrongbin16/commons.nvim/compare/v3.6.0...v3.6.1) (2024-01-02)
+
+
+### Bug Fixes
+
+* **paths:** remove 'print' debug ([#149](https://github.com/linrongbin16/commons.nvim/issues/149)) ([ed879d4](https://github.com/linrongbin16/commons.nvim/commit/ed879d41e29a3af38bb62178169b8cb1f3cc882f))
+
 ## [3.6.0](https://github.com/linrongbin16/commons.nvim/compare/v3.5.3...v3.6.0) (2024-01-02)
 
 
