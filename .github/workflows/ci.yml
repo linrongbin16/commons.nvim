@@ -71,17 +71,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: notomo/action-setup-nvim-lua@v1
       - uses: rhysd/action-setup-vim@v1
         id: vim
         with:
           neovim: true
           version: ${{ matrix.nvim_version }}
-      - uses: ilammy/msvc-dev-cmd@v1
-      - uses: notomo/action-setup-nvim-lua@v1
       - run: |
-          luarocks install busted
-          luarocks install vusted
-          vusted --shuffle ./test
+          luarocks --lua-version=5.1 install vusted
+          vusted ./test
   unit_test:
     name: Unit Test
     needs:
