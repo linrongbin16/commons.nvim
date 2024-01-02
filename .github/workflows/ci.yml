@@ -101,7 +101,7 @@ jobs:
           luarocks install busted
           luarocks install luacheck
           luarocks install --local vusted
-          VUSTED_USE_LOCAL=1 vusted --shuffle ./test
+          $env:VUSTED_USE_LOCAL=1 vusted --shuffle ./test
   unit_test:
     name: Unit Test
     needs:
