@@ -24,12 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: stevearc/nvim-typecheck-action@v1
-        with:
-          path: lua
-          level: Information
-          configpath: ".luarc.json"
-          neodev-version: stable
       - name: Add _json.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         shell: bash
@@ -47,14 +41,20 @@ jobs:
           git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.loop/g' ./lua/commons/_system.lua
-      - uses: lunarmodules/luacheck@v1
-        with:
-          args: lua --config .luacheckrc
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./test
+      - uses: lunarmodules/luacheck@v1
+        with:
+          args: lua --config .luacheckrc
+      - uses: stevearc/nvim-typecheck-action@v1
+        with:
+          path: lua
+          level: Information
+          configpath: ".luarc.json"
+          neodev-version: stable
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
