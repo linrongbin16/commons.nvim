@@ -60,71 +60,15 @@ jobs:
         with:
           commit_message: "chore(pr): auto-commit"
           push_options: "--force"
-  windows_unit_test:
-    name: Windows Unit Test
-    needs:
-      - luacheck
-    strategy:
-      matrix:
-        nvim_version: [stable, nightly, v0.6.0]
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: rhysd/action-setup-vim@v1
-        id: vim
-        with:
-          neovim: true
-          version: ${{ matrix.nvim_version }}
-      - uses: ilammy/msvc-dev-cmd@v1
-      - uses: leafo/gh-actions-lua@v10
-        with:
-          luaVersion: "luajit-2.1.0-beta3"
-      - name: Run test cases
-        shell: pwsh
-        run: |
-          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
-          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-          scoop install lua-for-windows
-          luarocks install luacheck
-          luarocks install luacov
-          luarocks install cluacov
-          luarocks install vusted
-          vusted --coverage --shuffle ./test
-  macos_unit_test:
-    name: MacOS Unit Test
-    needs:
-      - luacheck
-    strategy:
-      matrix:
-        nvim_version: [stable, nightly, v0.6.0]
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: rhysd/action-setup-vim@v1
-        id: vim
-        with:
-          neovim: true
-          version: ${{ matrix.nvim_version }}
-      - uses: leafo/gh-actions-lua@v10
-        with:
-          luaVersion: "luajit-2.1.0-beta3"
-      - uses: leafo/gh-actions-luarocks@v4
-      - name: Run test cases
-        shell: bash
-        run: |
-          luarocks install luacheck
-          luarocks install luacov
-          luarocks install cluacov
-          luarocks install vusted
-          vusted --coverage --shuffle ./test
-  ubuntu_unit_test:
+  unit_test:
     name: Ubuntu Unit Test
     needs:
       - luacheck
     strategy:
       matrix:
         nvim_version: [stable, nightly, v0.6.0, v0.7.0]
-    runs-on: ubuntu-latest
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: rhysd/action-setup-vim@v1
@@ -164,7 +108,7 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
-      - ubuntu_unit_test
+      - unit_test
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
