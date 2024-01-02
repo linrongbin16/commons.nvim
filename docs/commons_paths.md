@@ -143,9 +143,9 @@ Parameters:
 - `p`: Input path.
 - `opts`: Options, by default `{double_backslash = false, expand = false}`.
 
-  - `double_backslash`: Also replace double backslashes `\\\\` to single backslash `\\` as well.
-  - `expand`: Also expand user home `~` to full path as well.
-  - `resolve`: Also resolve symlink to linked full file path as well.
+  - `double_backslash`: Also replace double backslashes `\\\\` to single backslash `\\` as well, by default is `false`.
+  - `expand`: Also expand user home `~` to full path as well, by default is `false`.
+  - `resolve`: Also resolve symlink to linked full file path as well, by default is `false`.
 
 Returns:
 
