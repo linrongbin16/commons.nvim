@@ -37,7 +37,7 @@ end
 M.expand = function(p)
   assert(type(p) == "string")
   if string.len(p) >= 1 and string.sub(p, 1, 1) == "~" then
-    return require("commons.uv").cwd() .. string.sub(p, 2)
+    return require("commons.uv").os_homedir() .. string.sub(p, 2)
   else
     return p
   end
@@ -46,6 +46,13 @@ end
 M.resolve = function(p)
   assert(type(p) == "string")
   local result, _ = require("commons.uv").fs_realpath(p)
+  -- print(
+  --   string.format(
+  --     "|paths.resolve| p:%s, result:%s\n",
+  --     vim.inspect(p),
+  --     vim.inspect(result)
+  --   )
+  -- )
   return result ~= nil and result or p
 end
 
