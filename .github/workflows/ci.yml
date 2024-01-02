@@ -115,7 +115,7 @@ jobs:
           luarocks install vusted
           vusted --coverage --shuffle ./test
   ubuntu_unit_test:
-    name: Unit Test
+    name: Ubuntu Unit Test
     needs:
       - luacheck
     strategy:
