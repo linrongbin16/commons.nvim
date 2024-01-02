@@ -103,6 +103,12 @@ jobs:
       #     luarocks install luacheck
       #     luarocks install vusted
       #     vusted --shuffle ./test
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+          version: ${{ matrix.nvim_version }}
+      - uses: ilammy/msvc-dev-cmd@v1
       - uses: notomo/action-setup-nvim-lua@v1
       - run: |
           luarocks install vusted
