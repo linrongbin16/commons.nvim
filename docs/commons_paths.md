@@ -162,7 +162,9 @@ Join multiple path components with separator. For example `join('github', 'linro
 - For Windows, returns `github\\linrongbin16\\commons.nvim`.
 
 ```lua
-function join(...:any):string
+--- @param ... any
+--- @return string
+M.join = function(...)
 ```
 
 ### `reduce2home`
