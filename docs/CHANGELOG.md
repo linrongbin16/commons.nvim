@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.2](https://github.com/linrongbin16/commons.nvim/compare/v3.6.1...v3.6.2) (2024-01-02)
+
+
+### Miscellaneous
+
+* **strings:** add cases for 'ltrim'/'rtrim' ([#151](https://github.com/linrongbin16/commons.nvim/issues/151)) ([8a3f5c3](https://github.com/linrongbin16/commons.nvim/commit/8a3f5c3737eef9a830b7e4c15f5ac8e364f267ff))
+
 ## [3.6.1](https://github.com/linrongbin16/commons.nvim/compare/v3.6.0...v3.6.1) (2024-01-02)
 
 
