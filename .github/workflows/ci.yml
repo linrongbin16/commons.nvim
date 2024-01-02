@@ -59,8 +59,35 @@ jobs:
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
           commit_message: "chore(pr): auto-commit"
-          push_options: '--force'
-  unit_test:
+          push_options: "--force"
+  windows_unit_test:
+    name: Windows Unit Test
+    needs:
+      - luacheck
+    strategy:
+      matrix:
+        nvim_version: [stable, nightly, v0.6.0, v0.7.0]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+          version: ${{ matrix.nvim_version }}
+      - uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "luajit-2.1.0-beta3"
+      - uses: leafo/gh-actions-luarocks@v4
+      - name: Run test cases
+        shell: pwsh
+        run: |
+          luarocks install luacheck
+          luarocks install luacov
+          luarocks install cluacov
+          luarocks install vusted
+          vusted --coverage --shuffle ./test
+  ubuntu_unit_test:
     name: Unit Test
     needs:
       - luacheck
@@ -107,7 +134,7 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
-      - unit_test
+      - ubuntu_unit_test
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
