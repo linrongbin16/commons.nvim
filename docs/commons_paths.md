@@ -19,6 +19,78 @@ The file system path separator.
 
 ## Functions
 
+### `exists`
+
+Whether file path `p` exists, based on current working directory if file path is relative.
+
+```lua
+--- @param p string
+--- @return boolean
+M.exists = function(p)
+```
+
+Parameters:
+
+- `p`: File path.
+
+Returns:
+
+- Returns `true` if file path exists, `false` if not.
+
+### `isfile`
+
+Whether file path `p` exists and is file.
+
+```lua
+--- @param p string
+--- @return boolean
+M.isfile = function(p)
+```
+
+Parameters:
+
+- `p`: File path.
+
+Returns:
+
+- Returns `true` if file path exists and is file, `false` if not.
+
+### `isdir`
+
+Whether file path `p` exists and is directory, based on current working directory if file path is relative.
+
+```lua
+--- @param p string
+--- @return boolean
+M.isdir = function(p)
+```
+
+Parameters:
+
+- `p`: File path.
+
+Returns:
+
+- Returns `true` if file path exists and is directory, `false` if not.
+
+### `islink`
+
+Whether file path `p` exists and is symlink, based on current working directory if file path is relative.
+
+```lua
+--- @param p string
+--- @return boolean
+M.islink = function(p)
+```
+
+Parameters:
+
+- `p`: File path.
+
+Returns:
+
+- Returns `true` if file path exists and is symlink, `false` if not.
+
 ### `normalize`
 
 Normalize path with below steps:
@@ -37,7 +109,7 @@ Parameters:
 
   - `double_backslash`: Whether replace double backslashes `\\\\` to single backslash `\\` as well.
   - `expand`: Whether expand user home `~` to full path as well.
-  - `resolve`: Whether resolve symlink to real file path as well.
+  - `resolve`: Whether resolve symlink to linked full file path as well.
 
 Returns:
 
