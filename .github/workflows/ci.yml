@@ -79,10 +79,12 @@ jobs:
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "luajit-2.1.0-beta3"
-      - uses: leafo/gh-actions-luarocks@v4
       - name: Run test cases
         shell: pwsh
         run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+          Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+          scoop install main/luarocks
           luarocks install luacheck
           luarocks install luacov
           luarocks install cluacov
