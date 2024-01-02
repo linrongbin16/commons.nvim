@@ -89,6 +89,7 @@ jobs:
         shell: pwsh
         run: |
           . env/bin/activate.ps1
+          luarocks install argparse
           luarocks install lua_cliargs
           luarocks install luasystem
           luarocks install dkjson
