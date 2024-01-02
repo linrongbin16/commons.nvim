@@ -91,6 +91,24 @@ Returns:
 
 - Returns `true` if file path exists and is symlink, `false` if not.
 
+### `expand`
+
+Expand user home `~` to full file path.
+
+```lua
+--- @param p string
+--- @return string
+M.expand = function(p)
+```
+
+Parameters:
+
+- `p`: File path.
+
+Returns:
+
+- Returns `p` without change if there's no user home `~`, returns full path if there is.
+
 ### `normalize`
 
 Normalize path with below steps:
