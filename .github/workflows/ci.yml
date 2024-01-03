@@ -121,6 +121,15 @@ jobs:
           luarocks install cluacov
           luarocks install vusted
           vusted --coverage --shuffle ./test
+      - name: Check Coverage Reports
+        shell: bash
+        run: |
+          echo "ls ."
+          ls -l .
+          echo "run luacov"
+          luacov
+          echo "ls ."
+          ls -l .
           echo "cat ./luacov.report.out"
           cat ./luacov.report.out
       - uses: codecov/codecov-action@v3
