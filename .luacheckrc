@@ -6,4 +6,5 @@ exclude_files = {
   "lua/commons/_system.lua",
   "lua/commons/_system_types.lua",
   "lua/commons/_json.lua",
+  "lua/commons/async.lua",
 }
