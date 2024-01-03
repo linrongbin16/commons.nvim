@@ -110,8 +110,10 @@ describe("commons.paths", function()
       assert_true(strings.endswith(actual3, string.sub(expect3, 2)))
       assert_true(strings.startswith(actual3, uv.os_homedir()))
 
-      local expect41 = "~/test141.txt"
-      local expect42 = "~/test142.txt"
+      local expect41 = IS_WINDOWS and "%USERPROFILE%\\test141.txt"
+        or "~/test141.txt"
+      local expect42 = IS_WINDOWS and "%USERPROFILE%\\test142.txt"
+        or "~/test142.txt"
       create_symlink(expect41, expect42)
       local actual4 =
         paths.normalize(expect42, { expand = true, resolve = true })
@@ -159,8 +161,8 @@ describe("commons.paths", function()
       remove_file(expect51)
       remove_file(expect52)
 
-      local expect61 = "./test253.txt"
-      local expect62 = "./test254.txt"
+      local expect61 = IS_WINDOWS and ".\\test253.txt" or "./test253.txt"
+      local expect62 = IS_WINDOWS and ".\\test254.txt" or "./test254.txt"
       create_symlink(expect61, expect62)
       local actual6 = paths.normalize(expect62, { resolve = true })
       print(string.format("normalize-relative-6:%s\n", vim.inspect(actual6)))
