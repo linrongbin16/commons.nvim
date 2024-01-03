@@ -93,8 +93,6 @@ jobs:
         shell: bash
         run: |
           luarocks install luacheck
-          luarocks install luacov
-          luarocks install cluacov
           luarocks install vusted
           vusted --shuffle ./test
   code_coverage:
