@@ -14,14 +14,25 @@ describe("commons.paths", function()
   local uv = require("commons.uv")
 
   local function create_symlink(p1, p2)
-    vim.cmd(string.format([[!rm -rf %s]], p1))
-    vim.cmd(string.format([[!rm -rf %s]], p2))
-    vim.cmd(string.format([[!touch %s]], p1))
-    vim.cmd(string.format([[!ln -s %s  %s]], p1, p2))
+    if vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0 then
+      vim.cmd(string.format([[!rm %s]], p1))
+      vim.cmd(string.format([[!rm %s]], p2))
+      vim.cmd(string.format([[!touch %s]], p1))
+      vim.cmd(string.format([[!mklink %s %s]], p2, p1))
+    else
+      vim.cmd(string.format([[!rm %s]], p1))
+      vim.cmd(string.format([[!rm %s]], p2))
+      vim.cmd(string.format([[!touch %s]], p1))
+      vim.cmd(string.format([[!ln -s %s  %s]], p1, p2))
+    end
   end
 
   local function remove_file(p)
-    vim.cmd(string.format([[!rm -rf %s]], p))
+    if vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0 then
+      vim.cmd(string.format([[!rm %s]], p))
+    else
+      vim.cmd(string.format([[!rm %s]], p))
+    end
   end
 
   describe("[exists/isfile/isdir/issymlink]", function()
