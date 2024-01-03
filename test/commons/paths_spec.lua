@@ -131,19 +131,23 @@ describe("commons.paths", function()
     it("relative", function()
       local expect1 = "github/linrongbin16/fzfx.nvim/lua/tests"
       local actual1 = paths.normalize(expect1)
+      print(string.format("normalize-relative-1:%s\n", vim.inspect(actual1)))
       assert_eq(actual1, expect1)
 
       local expect2 = "./github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua"
       local actual2 = paths.normalize(expect2)
+      print(string.format("normalize-relative-2:%s\n", vim.inspect(actual2)))
       assert_eq(actual2, expect2)
 
       local expect3 = "./test/commons/paths_spec.lua"
       local actual3 = paths.normalize(expect3, { expand = true })
+      print(string.format("normalize-relative-3:%s\n", vim.inspect(actual3)))
       assert_eq(actual3, expect3)
 
       local expect4 = "./test/commons/paths_spec.lua"
       local actual4 =
         paths.normalize(expect4, { expand = true, resolve = true })
+      print(string.format("normalize-relative-4:%s\n", vim.inspect(actual4)))
       assert_eq(actual4, expect4)
 
       local expect51 = "test251.txt"
