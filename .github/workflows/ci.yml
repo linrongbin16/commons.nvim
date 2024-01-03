@@ -49,6 +49,7 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/ms-jpq/lua-async-await.git ~/.async_await
           cp ~/.async_await/lua/async.lua ./lua/commons/async.lua
+          sed -i '1s;^;---@diagnostic disable: deprecated\n' ./lua/commons/async.lua
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
