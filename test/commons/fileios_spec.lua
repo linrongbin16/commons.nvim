@@ -27,6 +27,7 @@ describe("commons.fileios", function()
         buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
       end
       reader:close()
+      content = content:gsub("\r\n", "\n")
       assert_eq(strings.rtrim(buffer --[[@as string]]), content)
     end)
     it("readfile and readlines", function()
@@ -40,6 +41,7 @@ describe("commons.fileios", function()
         assert_true(string.len(line) >= 0)
         buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
       end
+      content = content:gsub("\r\n", "\n")
       assert_eq(strings.rtrim(buffer --[[@as string]]), content)
     end)
   end)
@@ -64,6 +66,7 @@ describe("commons.fileios", function()
         assert_true(string.len(line) >= 0)
         buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
       end
+      content = content:gsub("\r\n", "\n")
       assert_eq(strings.rtrim(buffer --[[@as string]]), content)
       local j1 = vim.fn.jobstart(
         { "rm", t1 },
