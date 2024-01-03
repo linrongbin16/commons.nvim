@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.2](https://github.com/linrongbin16/commons.nvim/compare/v3.7.1...v3.7.2) (2024-01-03)
+
+
+### Miscellaneous
+
+* **ci:** add ci for windows unit test ([#148](https://github.com/linrongbin16/commons.nvim/issues/148)) ([641f328](https://github.com/linrongbin16/commons.nvim/commit/641f3285c59c4a797bab759ba480d0e8e610b727))
+
 ## [3.7.1](https://github.com/linrongbin16/commons.nvim/compare/v3.7.0...v3.7.1) (2024-01-03)
 
 
