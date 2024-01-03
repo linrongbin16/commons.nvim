@@ -69,6 +69,26 @@ jobs:
         with:
           commit_message: "chore(pr): auto-commit"
           push_options: "--force"
+  windows_unit_test:
+    name: Windows Unit Test
+    needs:
+      - luacheck
+    strategy:
+      matrix:
+        nvim_version: [stable, nightly, v0.6.0, v0.7.0]
+        os: [windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: notomo/action-setup-nvim-lua@v1
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+          version: ${{ matrix.nvim_version }}
+      - run: |
+          luarocks --lua-version=5.1 install vusted
+          vusted ./test
   unit_test:
     name: Unit Test
     needs:
@@ -76,7 +96,7 @@ jobs:
     strategy:
       matrix:
         nvim_version: [stable, nightly, v0.6.0, v0.7.0]
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
