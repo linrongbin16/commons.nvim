@@ -9,6 +9,8 @@ describe("commons.paths", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
+  local IS_WINDOWS = vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0
+
   local strings = require("commons.strings")
   local paths = require("commons.paths")
   local uv = require("commons.uv")
@@ -204,7 +206,7 @@ describe("commons.paths", function()
   describe("[join]", function()
     it("test", function()
       local actual1 = paths.join("a", "b", "c")
-      local expect1 = "a/b/c"
+      local expect1 = IS_WINDOWS and "a\\b\\c" or "a/b/c"
       assert_eq(actual1, expect1)
       local actual2 = paths.join("a")
       local expect2 = "a"
