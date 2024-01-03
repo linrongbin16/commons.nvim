@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.1](https://github.com/linrongbin16/commons.nvim/compare/v3.7.0...v3.7.1) (2024-01-03)
+
+
+### Performance
+
+* **spawn:** avoid 'vim.fn.has' in 'run' API ([#155](https://github.com/linrongbin16/commons.nvim/issues/155)) ([ddb65d4](https://github.com/linrongbin16/commons.nvim/commit/ddb65d4f507f1c42daf71d658e60a1d6f73c31d5))
+
 ## [3.7.0](https://github.com/linrongbin16/commons.nvim/compare/v3.6.2...v3.7.0) (2024-01-03)
 
 
