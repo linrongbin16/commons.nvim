@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.0](https://github.com/linrongbin16/commons.nvim/compare/v3.6.2...v3.7.0) (2024-01-03)
+
+
+### Features
+
+* **async:** embed 'ms-jpq/lua-async-await' as 'async' module ([#153](https://github.com/linrongbin16/commons.nvim/issues/153)) ([ee61ef7](https://github.com/linrongbin16/commons.nvim/commit/ee61ef7204aa619a71a9ad20c3b04d79a739f980))
+
 ## [3.6.2](https://github.com/linrongbin16/commons.nvim/compare/v3.6.1...v3.6.2) (2024-01-02)
 
 

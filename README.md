@@ -19,6 +19,7 @@ This lua library includes multiple modules:
 - File IO & path operations.
 - Convert between lua tables and json strings.
 - Run child-process and handle line-wise output from stdout/stderr.
+- Async/await by lua coroutine.
 - Logging system with python-logging like features.
 - Terminal ANSI/RGB color renderings.
 - Compatible APIs support Neovim versions from v0.6 to nightly.
@@ -26,11 +27,13 @@ This lua library includes multiple modules:
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
 Embedded external libraries:
+
 - [json.lua](https://github.com/actboy168/json.lua): A pure Lua JSON library.
-- [_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](https://neovim.io/doc/user/lua.html#vim.system()) single file.
+- [\_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](<https://neovim.io/doc/user/lua.html#vim.system()>) single file.
+- [lua-async-await.lua](https://github.com/ms-jpq/lua-async-await): Async Await in 90 lines of code.
 
 Please open [issue](https://github.com/linrongbin16/commons.nvim/issues)/[PR](https://github.com/linrongbin16/commons.nvim/pulls) for anything about commons.nvim.
 
 Likes commons.nvim? Consider
 
-[![Github Sponsor](https://img.shields.io/badge/-Sponsor%20Me%20on%20Github-magenta?logo=github&logoColor=white)](https://github.com/sponsors/linrongbin16)  [![Wechat Pay](https://img.shields.io/badge/-Tip%20Me%20on%20WeChat-brightgreen?logo=wechat&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor) [![Alipay](https://img.shields.io/badge/-Tip%20Me%20on%20Alipay-blue?logo=alipay&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor)
+[![Github Sponsor](https://img.shields.io/badge/-Sponsor%20Me%20on%20Github-magenta?logo=github&logoColor=white)](https://github.com/sponsors/linrongbin16) [![Wechat Pay](https://img.shields.io/badge/-Tip%20Me%20on%20WeChat-brightgreen?logo=wechat&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor) [![Alipay](https://img.shields.io/badge/-Tip%20Me%20on%20Alipay-blue?logo=alipay&logoColor=white)](https://github.com/linrongbin16/lin.nvim/wiki/Sponsor)
