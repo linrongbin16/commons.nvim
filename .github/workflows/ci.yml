@@ -70,7 +70,7 @@ jobs:
           commit_message: "chore(pr): auto-commit"
           push_options: "--force"
   unit_test:
-    name: Ubuntu Unit Test
+    name: Unit Test
     needs:
       - luacheck
     strategy:
@@ -96,16 +96,31 @@ jobs:
           luarocks install luacov
           luarocks install cluacov
           luarocks install vusted
-          vusted --coverage --shuffle ./test
-      - name: Generate coverage reports
+          vusted --shuffle ./test
+  code_coverage:
+    name: Code Coverage
+    needs:
+      - unit_test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: true
+          version: stable
+      - uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: "luajit-2.1.0-beta3"
+      - uses: leafo/gh-actions-luarocks@v4
+      - name: Generate Coverage Reports
         shell: bash
         run: |
-          echo "ls ."
-          ls -l .
-          echo "run luacov"
-          luacov
-          echo "ls ."
-          ls -l .
+          luarocks install luacheck
+          luarocks install luacov
+          luarocks install cluacov
+          luarocks install vusted
+          vusted --coverage --shuffle ./test
           echo "cat ./luacov.report.out"
           cat ./luacov.report.out
       - uses: codecov/codecov-action@v3
