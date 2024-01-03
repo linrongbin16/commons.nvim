@@ -27,6 +27,7 @@ describe("commons.fileios", function()
         buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
       end
       reader:close()
+      content = content:gsub("\r\n", "\n")
       assert_eq(strings.rtrim(buffer --[[@as string]]), content)
     end)
     it("readfile and readlines", function()
