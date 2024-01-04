@@ -1,5 +1,23 @@
 # Changelog
 
+## [5.0.0](https://github.com/linrongbin16/commons.nvim/compare/v4.0.0...v5.0.0) (2024-01-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **buffers:** remove deprecated 'buffers' module! ([#164](https://github.com/linrongbin16/commons.nvim/issues/164))
+* **windows:** remove deprecated 'windows' module! ([#164](https://github.com/linrongbin16/commons.nvim/issues/164))
+
+### Features
+
+* **promise:** add 'notomo/promise.nvim' as 'promise' module ([#164](https://github.com/linrongbin16/commons.nvim/issues/164)) ([753423b](https://github.com/linrongbin16/commons.nvim/commit/753423be244310b34a9d70e5930b32ac9ffa7164))
+
+
+### Break Changes
+
+* **buffers:** remove deprecated 'buffers' module! ([#164](https://github.com/linrongbin16/commons.nvim/issues/164)) ([753423b](https://github.com/linrongbin16/commons.nvim/commit/753423be244310b34a9d70e5930b32ac9ffa7164))
+* **windows:** remove deprecated 'windows' module! ([#164](https://github.com/linrongbin16/commons.nvim/issues/164)) ([753423b](https://github.com/linrongbin16/commons.nvim/commit/753423be244310b34a9d70e5930b32ac9ffa7164))
+
 ## [4.0.0](https://github.com/linrongbin16/commons.nvim/compare/v3.7.3...v4.0.0) (2024-01-04)
 
 
