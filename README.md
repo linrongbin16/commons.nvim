@@ -26,11 +26,13 @@ This lua library includes multiple modules:
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
-Embedded external libraries:
+## Embedded External Libraries
 
 - [json.lua](https://github.com/actboy168/json.lua): A pure Lua JSON library.
 - [\_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](<https://neovim.io/doc/user/lua.html#vim.system()>) single file.
-- [lua-async-await.lua](https://github.com/ms-jpq/lua-async-await): Async Await in 90 lines of code.
+- [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
+
+## Contribute
 
 Please open [issue](https://github.com/linrongbin16/commons.nvim/issues)/[PR](https://github.com/linrongbin16/commons.nvim/pulls) for anything about commons.nvim.
 
