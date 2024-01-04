@@ -7,7 +7,7 @@ The commons lua library for Neovim plugin project.
 </i></p>
 
 - [commons.apis](/commons_apis.md): Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](https://neovim.io/doc/user/api.html).
-- [commons.async](/commons_async.md): Embedded [ms-jpq/lua-async-await](https://github.com/ms-jpq/lua-async-await) library.
+- [commons.async](/commons_async.md): Embedded [lewis6991/async.nvim](https://github.com/lewis6991/async.nvim) library.
 - [commons.fileios](/commons_fileios.md): File sync/async IO operations.
 - [commons.jsons](/commons_jsons.md): Encode/decode between lua table/list and json string.
 - [commons.logging](/commons_logging.md): Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
