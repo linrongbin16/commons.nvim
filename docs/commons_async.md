@@ -2,4 +2,4 @@
 
 # [commons.async](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/async.lua)
 
-Embedded [ms-jpq/lua-async-await](https://github.com/ms-jpq/lua-async-await) library, please refer to the library's [documentation](https://github.com/ms-jpq/lua-async-await).
+Embedded [lewis6991/async.nvim](https://github.com/lewis6991/async.nvim) library, please refer to the library's documentation.
