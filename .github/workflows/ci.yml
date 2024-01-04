@@ -58,7 +58,7 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/notomo/promise.nvim.git ~/.promise
           rm -rf ./lua/commons/promise
-          cp -rf ~/.async/lua/promise ./lua/commons/promise
+          cp -rf ~/.promise/lua/promise ./lua/commons/promise
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
