@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.3](https://github.com/linrongbin16/commons.nvim/compare/v3.7.2...v3.7.3) (2024-01-03)
+
+
+### Performance
+
+* **uv:** drop off 'vim.fn.has' ([#159](https://github.com/linrongbin16/commons.nvim/issues/159)) ([946956a](https://github.com/linrongbin16/commons.nvim/commit/946956a6706d6017c3ac56fca6843a04a9148587))
+
 ## [3.7.2](https://github.com/linrongbin16/commons.nvim/compare/v3.7.1...v3.7.2) (2024-01-03)
 
 
