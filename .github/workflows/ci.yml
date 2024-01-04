@@ -57,8 +57,8 @@ jobs:
           echo "pwd"
           echo $PWD
           git clone --depth=1 https://github.com/notomo/promise.nvim.git ~/.promise
-          rm -rf ./lua/commons/promise
-          cp -rf ~/.promise/lua/promise ./lua/commons/promise
+          cp ~/.promise/lua/promise/init.lua ./lua/commons/promise/init.lua
+          sed -i '1s;^;---@diagnostic disable: undefined-field, deprecated\n;' ./lua/commons/promise/init.lua
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
