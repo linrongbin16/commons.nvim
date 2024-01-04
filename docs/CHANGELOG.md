@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/linrongbin16/commons.nvim/compare/v3.7.3...v4.0.0) (2024-01-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* **async:** use 'lewis6991/async.nvim' as 'async' module! ([#162](https://github.com/linrongbin16/commons.nvim/issues/162))
+
+### Features
+
+* **async:** use 'lewis6991/async.nvim' as 'async' module! ([#162](https://github.com/linrongbin16/commons.nvim/issues/162)) ([429e19d](https://github.com/linrongbin16/commons.nvim/commit/429e19d5ee90f8fd46e736a7dded1f3bcb455153))
+
 ## [3.7.3](https://github.com/linrongbin16/commons.nvim/compare/v3.7.2...v3.7.3) (2024-01-03)
 
 
