@@ -60,7 +60,7 @@ jobs:
           rm -rf ./lua/commons/promise
           mkdir -p ./lua/commons/promise
           cp ~/.promise/lua/promise/init.lua ./lua/commons/promise/init.lua
-          sed -i '1s;^;---@diagnostic disable: undefined-field, deprecated\n;' ./lua/commons/promise/init.lua
+          sed -i '1s;^;---@diagnostic disable: undefined-field, inject-field, deprecated\n;' ./lua/commons/promise/init.lua
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
