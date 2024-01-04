@@ -6,11 +6,13 @@
 - [Usage](/usage.md)
 - Modules
   - [commons.apis](commons_apis.md)
+  - [commons.async](commons_async.md)
   - [commons.fileios](commons_fileios.md)
   - [commons.jsons](commons_jsons.md)
   - [commons.logging](commons_logging.md)
   - [commons.numbers](commons_numbers.md)
   - [commons.paths](commons_paths.md)
+  - [commons.promise](commons_promise.md)
   - [commons.ringbuf](commons_ringbuf.md)
   - [commons.spawn](commons_spawn.md)
   - [commons.strings](commons_strings.md)
