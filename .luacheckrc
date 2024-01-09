@@ -8,4 +8,5 @@ exclude_files = {
   "lua/commons/_json.lua",
   "lua/commons/async.lua",
   "lua/commons/promise/*.lua",
+  "lua/commons/micro-async/*.lua",
 }
