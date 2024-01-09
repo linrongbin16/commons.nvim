@@ -59,7 +59,7 @@ jobs:
           git clone --depth=1 https://github.com/willothy/micro-async.nvim ~/.micro-async
           rm -rf ./lua/commons/micro-async
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/micro-async
-          find . -type f -name './lua/commons/micro-async/*.lua' -exec sed -i '1s;^;---@diagnostic disable: undefined-doc-name, deprecated\n;' {} \;
+          find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i '1s;^;---@diagnostic disable: undefined-doc-name, deprecated\n;' {} \;
       - name: Add promise.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         shell: bash
