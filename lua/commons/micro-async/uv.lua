@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-doc-name, deprecated
 ---@mod micro-async.uv
 
-local a = require("micro-async")
+local a = require("commons.micro-async")
 
 local yield, callback, scheduled_wrap = a.yield, a.callback, a.scheduled_wrap
 

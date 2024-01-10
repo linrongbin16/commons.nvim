@@ -140,7 +140,9 @@ function Async.block_on(fn, timeout_ms, ...)
   return done, result and unpack(result)
 end
 
----@text Wrap a callback-style function to be async.
+---@text Wrap a callback-style function to be async. Add an additional `callback` parameter at the
+---end of function, to yield value on its callback. And the `argc` parameter should be parameters
+---count + 1 (with an additional `callback` parameter).
 ---
 ---@param fn fun(...): ...any
 ---@param argc integer
@@ -203,7 +205,7 @@ end
 ---@param ... ...uv.aliases.threadargs
 ---@return ...uv.aliases.threadargs
 function Async.work(fn, ...)
-  local uv = require("micro-async.uv")
+  local uv = require("commons.micro-async.uv")
   return uv.queue_work(uv.new_work(fn), ...)
 end
 

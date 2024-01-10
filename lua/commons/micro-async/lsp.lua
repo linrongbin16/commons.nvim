@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-doc-name, deprecated
 ---@mod micro-async.lsp
 
-local wrap = require("micro-async").wrap
+local wrap = require("commons.micro-async").wrap
 
 ---Async wrapper for LSP requests
 local lsp = {}
