@@ -60,7 +60,7 @@ jobs:
           rm -rf ./lua/commons/micro-async
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/micro-async
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i '1s;^;---@diagnostic disable: undefined-doc-name, deprecated\n;' {} \;
-          find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i '1s;^;---@diagnostic disable: undefined-doc-name, deprecated\n;' {} \;
+          find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/require("micro-async/require("commons.micro-async/g' {} \;
       - name: Add promise.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         shell: bash
