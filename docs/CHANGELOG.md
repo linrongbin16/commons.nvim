@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.0](https://github.com/linrongbin16/commons.nvim/compare/v5.0.0...v5.1.0) (2024-01-10)
+
+
+### Features
+
+* **micro-async:** add 'micro-async' module ([#168](https://github.com/linrongbin16/commons.nvim/issues/168)) ([a7621a6](https://github.com/linrongbin16/commons.nvim/commit/a7621a66a546a5c4167dd4745e451e58d92eb71e))
+
 ## [5.0.0](https://github.com/linrongbin16/commons.nvim/compare/v4.0.0...v5.0.0) (2024-01-04)
 
 
