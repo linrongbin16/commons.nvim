@@ -31,6 +31,7 @@ Please check [documentation](https://linrongbin16.github.io/commons.nvim) for mo
 - [json.lua](https://github.com/actboy168/json.lua): A pure Lua JSON library.
 - [\_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](<https://neovim.io/doc/user/lua.html#vim.system()>) source file.
 - [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
+- [micro-async.lua](https://github.com/willothy/micro-async.nvim): Ultra-simple async library for Neovim, with cancellation support.
 - [promise.lua](https://github.com/notomo/promise.nvim): Promise implementation for neovim lua.
 
 ## Contribute
