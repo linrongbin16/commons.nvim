@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-doc-name, deprecated
 ---@mod commons.micro-async
 
 ---@alias commons.micro-async.SelectOpts { prompt: string?, format_item: nil|fun(item: any): string, kind: string? }

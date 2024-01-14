@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-field, inject-field, deprecated
 local vim = vim
 
 local PackedValue = {}

@@ -1,4 +1,3 @@
----@diagnostic disable: undefined-doc-name, deprecated
 ---@mod commons.micro-async.uv
 
 local a = require("commons.micro-async")
