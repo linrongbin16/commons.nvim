@@ -1,3 +1,17 @@
+local NVIM_080 = { 0, 8, 0 }
+local NVIM_GE_080 = vim.version.gt(vim.version(), NVIM_080)
+  or vim.version.eq(vim.version(), NVIM_080)
+
+local function ge_0_8()
+  if vim.version and vim.version.gt and vim.version.eq then
+    local NVIM_0_8_0 = { 0, 8, 0 }
+    return vim.version.gt(vim.version(), NVIM_0_8_0)
+      or vim.version.eq(vim.version(), NVIM_0_8_0)
+  else
+    return vim.fn.has("nvim-0.8") > 0
+  end
+end
+
 local M = {}
 
 -- buffer {
