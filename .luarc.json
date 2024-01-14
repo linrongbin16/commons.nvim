@@ -1,5 +1,6 @@
 {
   "diagnostics.globals": ["vim", "describe", "before_each", "it", "jit"],
   "diagnostics.disable": ["undefined-field","inject-field","deprecated"],
+  "runtime.version": "LuaJIT",
   "workspace.checkThirdParty": "Disable"
 }
