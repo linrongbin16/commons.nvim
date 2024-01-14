@@ -61,6 +61,17 @@ jobs:
           mkdir -p ./lua/commons/promise
           cp ~/.promise/lua/promise/init.lua ./lua/commons/promise/init.lua
           sed -i '1s;^;---@diagnostic disable: undefined-field, inject-field, deprecated\n;' ./lua/commons/promise/init.lua
+      - name: Add micro-async.lua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        shell: bash
+        run: |
+          echo "pwd"
+          echo $PWD
+          git clone --depth=1 https://github.com/willothy/micro-async.nvim ~/.micro-async
+          rm -rf ./lua/commons/micro-async
+          cp -rf ~/.micro-async/lua/micro-async ./lua/commons/micro-async
+          find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i '1s;^;---@diagnostic disable: undefined-doc-name, deprecated\n;' {} \;
+          find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/micro-async/commons.micro-async/g' {} \;
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
