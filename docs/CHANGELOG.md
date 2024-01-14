@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.0.0](https://github.com/linrongbin16/commons.nvim/compare/v5.1.0...v6.0.0) (2024-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **micro-async:** remove 'micro-async' module ([#170](https://github.com/linrongbin16/commons.nvim/issues/170))
+
+### Performance
+
+* **apis:** use 'vim.version' for 0.9+ ([#170](https://github.com/linrongbin16/commons.nvim/issues/170)) ([bda1658](https://github.com/linrongbin16/commons.nvim/commit/bda16583c2cefdd1a6b53bcb5922c684e7c89ddb))
+* **micro-async:** remove 'micro-async' module ([#170](https://github.com/linrongbin16/commons.nvim/issues/170)) ([bda1658](https://github.com/linrongbin16/commons.nvim/commit/bda16583c2cefdd1a6b53bcb5922c684e7c89ddb))
+
 ## [5.1.0](https://github.com/linrongbin16/commons.nvim/compare/v5.0.0...v5.1.0) (2024-01-10)
 
 
