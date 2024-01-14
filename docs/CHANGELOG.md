@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.0](https://github.com/linrongbin16/commons.nvim/compare/v6.0.0...v6.1.0) (2024-01-14)
+
+
+### Features
+
+* **micro-async:** add 'micro-async' back ([#172](https://github.com/linrongbin16/commons.nvim/issues/172)) ([a3d4fad](https://github.com/linrongbin16/commons.nvim/commit/a3d4fad3457f5113b516ea91dd03ff1d7558a82a))
+
 ## [6.0.0](https://github.com/linrongbin16/commons.nvim/compare/v5.1.0...v6.0.0) (2024-01-14)
 
 
