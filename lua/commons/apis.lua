@@ -1,7 +1,12 @@
 local NVIM_VERSION_0_8 = false
 
 do
-  if vim.version and vim.version.gt and vim.version.eq then
+  if
+    vim.is_callable(vim.version)
+    and type(vim.version) == "table"
+    and vim.is_callable(vim.version.gt)
+    and vim.is_callable(vim.version.eq)
+  then
     local _0_8 = { 0, 8, 0 }
     NVIM_VERSION_0_8 = vim.version.gt(vim.version(), _0_8)
       or vim.version.eq(vim.version(), _0_8)
