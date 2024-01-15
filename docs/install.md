@@ -2,7 +2,7 @@
 
 # Install
 
-!> Embedding source code to project is the recommend way to install this library, both [LuaRocks](https://luarocks.org/) and Neovim plugin managers cannot guarantee they handle the version confliction issue correctly, which brings potential exceptions in runtime. See below.
+!> Embedding source code is the recommend way to install this library, both [LuaRocks](https://luarocks.org/) and Neovim plugin managers cannot guarantee they handle the version confliction issue correctly, which brings potential exceptions in runtime. See below.
 
 ## The Version Confliction Issue
 
@@ -16,8 +16,8 @@ We expect `A` use `commons-v2.1.0` and `B` use `commons-v3.4.3`, but when `A` an
 
 ### Manual
 
-1. Copy/paste all `lua/commons/*.lua` into one of your plugin folders.
-2. Replace all prefix `require("commons` to `require("your.plugin.commons`.
+1. Copy/paste the `lua/commons` directory into one of your plugin folders.
+2. Replace all prefix `"commons.` to `"your.plugin.commons.`.
 
 ### [GitHub Actions](https://docs.github.com/en/actions)
 
@@ -41,11 +41,10 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/linrongbin16/commons.nvim.git ~/.commons.nvim
           rm -rf ./lua/your/plugins/commons
-          mkdir -p ./lua/your/plugin/commons
-          cp -rf ~/.commons.nvim/lua/commons/*.lua ./lua/your/plugin/commons
+          mkdir -p ./lua/your/plugin
+          cp -rf ~/.commons.nvim/lua/commons ./lua/your/plugin/
           cp ~/.commons.nvim/version.txt ./lua/your/plugin/commons/version.txt
-          cd ./lua/your/plugin/commons
-          find . -type f -name '*.lua' -exec sed -i 's/require("commons/require("your.plugin.commons/g' {} \;
+          find ./lua/your/plugin/commons -type f -name '*.lua' -exec sed -i 's/"commons./"your.plugin.commons./g' {} \;
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:

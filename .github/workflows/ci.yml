@@ -7,11 +7,11 @@ on:
     branches:
       - main
 concurrency:
-  group: ${{ github.ref }}-ci
+  group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
 jobs:
-  pr_conventional_commit:
-    name: PR Conventional Commit
+  conventional_commit:
+    name: Conventional Commit
     if: ${{ github.ref != 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +26,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Add _json.lua
         if: ${{ github.ref != 'refs/heads/main' }}
-        shell: bash
         run: |
           echo "pwd"
           echo $PWD
@@ -34,7 +33,6 @@ jobs:
           cp ~/.json.lua/json.lua ./lua/commons/_json.lua
       - name: Add _system.lua
         if: ${{ github.ref != 'refs/heads/main' }}
-        shell: bash
         run: |
           echo "pwd"
           echo $PWD
@@ -43,7 +41,6 @@ jobs:
           sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
-        shell: bash
         run: |
           echo "pwd"
           echo $PWD
@@ -51,29 +48,26 @@ jobs:
           cp ~/.async/lua/async.lua ./lua/commons/async.lua
       - name: Add promise.lua
         if: ${{ github.ref != 'refs/heads/main' }}
-        shell: bash
         run: |
           echo "pwd"
           echo $PWD
           git clone --depth=1 https://github.com/notomo/promise.nvim.git ~/.promise
           rm -rf ./lua/commons/promise
-          mkdir -p ./lua/commons/promise
-          cp ~/.promise/lua/promise/init.lua ./lua/commons/promise/init.lua
+          cp -rf ~/.promise/lua/promise ./lua/commons/
       - name: Add micro-async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
-        shell: bash
         run: |
           echo "pwd"
           echo $PWD
           git clone --depth=1 https://github.com/willothy/micro-async.nvim ~/.micro-async
           rm -rf ./lua/commons/micro-async
-          cp -rf ~/.micro-async/lua/micro-async ./lua/commons/micro-async
-          find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/micro-async/commons.micro-async/g' {} \;
+          cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
+          find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/"micro-async/"commons.micro-async/g' {} \;
       - uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
-          args: --config-path .stylua.toml ./lua ./test
+          args: --config-path .stylua.toml ./lua ./spec
       - uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc
@@ -89,7 +83,7 @@ jobs:
           commit_message: "chore(pr): auto-commit"
           push_options: "--force"
   windows_unit_test:
-    name: Windows Unit Test
+    name: Windows Test
     needs:
       - luacheck
     strategy:
@@ -108,9 +102,9 @@ jobs:
       - name: Run Test Cases
         run: |
           luarocks --lua-version=5.1 install vusted
-          vusted ./test
-  unit_test:
-    name: Unit Test
+          vusted ./spec
+  unix_unit_test:
+    name: Unxi Test
     needs:
       - luacheck
     strategy:
@@ -129,11 +123,12 @@ jobs:
       - name: Run Test Cases
         run: |
           luarocks --lua-version=5.1 install vusted
-          vusted --shuffle ./test
+          vusted --shuffle ./spec
   code_coverage:
     name: Code Coverage
     needs:
-      - unit_test
+      - windows_unit_test
+      - unix_unit_test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -152,7 +147,7 @@ jobs:
           luarocks install luacheck
           luarocks install luacov
           luarocks install vusted
-          vusted --coverage --shuffle ./test
+          vusted --coverage ./spec
       - name: Check Coverage Reports
         shell: bash
         run: |
@@ -173,7 +168,6 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
-      - unit_test
       - code_coverage
     runs-on: ubuntu-latest
     steps:

@@ -39,35 +39,35 @@ describe("commons.paths", function()
 
   describe("[exists/isfile/isdir/issymlink]", function()
     it("exists", function()
-      local expect1 = "test/commons/paths_spec.lua"
+      local expect1 = "spec/commons/paths_spec.lua"
       assert_true(paths.exists(expect1))
       local expect2 = "asdf-test1"
       assert_false(paths.exists(expect2))
-      local expect3 = "test/commons"
+      local expect3 = "spec/commons"
       assert_true(paths.exists(expect3))
     end)
     it("isfile", function()
-      local expect1 = "test/commons/paths_spec.lua"
+      local expect1 = "spec/commons/paths_spec.lua"
       assert_true(paths.isfile(expect1))
       local expect2 = "asdf-test2"
       assert_false(paths.isfile(expect2))
-      local expect3 = "test/commons"
+      local expect3 = "spec/commons"
       assert_false(paths.isfile(expect3))
     end)
     it("isdir", function()
-      local expect1 = "test/commons/paths_spec.lua"
+      local expect1 = "spec/commons/paths_spec.lua"
       assert_false(paths.isdir(expect1))
       local expect2 = "asdf-test3"
       assert_false(paths.isdir(expect2))
-      local expect3 = "test/commons"
+      local expect3 = "spec/commons"
       assert_true(paths.isdir(expect3))
     end)
     it("islink", function()
-      local expect1 = "test/commons/paths_spec.lua"
+      local expect1 = "spec/commons/paths_spec.lua"
       assert_false(paths.islink(expect1))
       local expect2 = "asdf-test4"
       assert_false(paths.islink(expect2))
-      local expect3 = "test/commons"
+      local expect3 = "spec/commons"
       assert_false(paths.islink(expect3))
 
       local expect41 = "test7.txt"
@@ -141,12 +141,12 @@ describe("commons.paths", function()
       print(string.format("normalize-relative-2:%s\n", vim.inspect(actual2)))
       assert_eq(actual2, expect2)
 
-      local expect3 = "./test/commons/paths_spec.lua"
+      local expect3 = "./spec/commons/paths_spec.lua"
       local actual3 = paths.normalize(expect3, { expand = true })
       print(string.format("normalize-relative-3:%s\n", vim.inspect(actual3)))
       assert_eq(actual3, expect3)
 
-      local expect4 = "./test/commons/paths_spec.lua"
+      local expect4 = "./spec/commons/paths_spec.lua"
       local actual4 =
         paths.normalize(expect4, { expand = true, resolve = true })
       print(string.format("normalize-relative-4:%s\n", vim.inspect(actual4)))
