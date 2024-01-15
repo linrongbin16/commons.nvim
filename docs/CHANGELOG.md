@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.1](https://github.com/linrongbin16/commons.nvim/compare/v6.1.0...v6.1.1) (2024-01-15)
+
+
+### Miscellaneous
+
+* **test:** rename 'test' to 'spec' ([#174](https://github.com/linrongbin16/commons.nvim/issues/174)) ([4aefbcb](https://github.com/linrongbin16/commons.nvim/commit/4aefbcb8023d12f7a6a10d4b342d3f1a3f8d5756))
+
 ## [6.1.0](https://github.com/linrongbin16/commons.nvim/compare/v6.0.0...v6.1.0) (2024-01-14)
 
 
