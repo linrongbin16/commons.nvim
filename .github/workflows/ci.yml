@@ -56,13 +56,12 @@ jobs:
           cp -rf ~/.promise/lua/promise ./lua/commons/
       - name: Add micro-async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
-        shell: bash
         run: |
           echo "pwd"
           echo $PWD
           git clone --depth=1 https://github.com/willothy/micro-async.nvim ~/.micro-async
           rm -rf ./lua/commons/micro-async
-          cp -rf ~/.micro-async/lua/micro-async ./lua/commons/micro-async
+          cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/micro-async/commons.micro-async/g' {} \;
       - uses: JohnnyMorganz/stylua-action@v3
         with:
