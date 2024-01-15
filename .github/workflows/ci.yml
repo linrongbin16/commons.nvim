@@ -127,6 +127,7 @@ jobs:
   code_coverage:
     name: Code Coverage
     needs:
+      - windows_unit_test
       - unix_unit_test
     runs-on: ubuntu-latest
     steps:
@@ -167,7 +168,6 @@ jobs:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
-      - unit_test
       - code_coverage
     runs-on: ubuntu-latest
     steps:
