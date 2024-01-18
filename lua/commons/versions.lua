@@ -1,21 +1,21 @@
-local HAS_VIM_VERSION = vim.is_callable(vim.version)
-local HAS_VIM_VERSION_EQ = HAS_VIM_VERSION
+local M = {}
+
+M.HAS_VIM_VERSION = vim.is_callable(vim.version)
+M.HAS_VIM_VERSION_EQ = M.HAS_VIM_VERSION
   and type(vim.version) == "table"
   and vim.is_callable(vim.version.eq)
-local HAS_VIM_VERSION_GT = HAS_VIM_VERSION
+M.HAS_VIM_VERSION_GT = M.HAS_VIM_VERSION
   and type(vim.version) == "table"
   and vim.is_callable(vim.version.gt)
-local HAS_VIM_VERSION_GE = HAS_VIM_VERSION
+M.HAS_VIM_VERSION_GE = M.HAS_VIM_VERSION
   and type(vim.version) == "table"
   and vim.is_callable(vim.version.ge)
-local HAS_VIM_VERSION_LT = HAS_VIM_VERSION
+M.HAS_VIM_VERSION_LT = M.HAS_VIM_VERSION
   and type(vim.version) == "table"
   and vim.is_callable(vim.version.lt)
-local HAS_VIM_VERSION_LE = HAS_VIM_VERSION
+M.HAS_VIM_VERSION_LE = M.HAS_VIM_VERSION
   and type(vim.version) == "table"
   and vim.is_callable(vim.version.le)
-
-local M = {}
 
 --- @param l integer[]
 --- @return string
@@ -43,7 +43,7 @@ end
 --- @param ver string|integer[]
 --- @return boolean
 M.lt = function(ver)
-  if HAS_VIM_VERSION and HAS_VIM_VERSION_LT then
+  if M.HAS_VIM_VERSION and M.HAS_VIM_VERSION_LT then
     if type(ver) == "string" then
       ver = M.to_list(ver)
     end
@@ -60,13 +60,13 @@ end
 --- @param ver string|integer[]
 --- @return boolean
 M.ge = function(ver)
-  if HAS_VIM_VERSION and HAS_VIM_VERSION_EQ and HAS_VIM_VERSION_GT then
+  if M.HAS_VIM_VERSION and M.HAS_VIM_VERSION_EQ and M.HAS_VIM_VERSION_GT then
     if type(ver) == "string" then
       ver = M.to_list(ver)
     end
     return vim.version.gt(vim.version(), ver)
       or vim.version.eq(vim.version(), ver)
-  elseif HAS_VIM_VERSION and HAS_VIM_VERSION_GE then
+  elseif M.HAS_VIM_VERSION and M.HAS_VIM_VERSION_GE then
     if type(ver) == "string" then
       ver = M.to_list(ver)
     end
