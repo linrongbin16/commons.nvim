@@ -1,5 +1,21 @@
 # Changelog
 
+## [7.0.0](https://github.com/linrongbin16/commons.nvim/compare/v6.2.0...v7.0.0) (2024-01-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **termcolors:** returns all 4 color codes in 'retrieve' api ([#178](https://github.com/linrongbin16/commons.nvim/issues/178))
+
+### Features
+
+* **apis:** add 'get_hl' api ([#178](https://github.com/linrongbin16/commons.nvim/issues/178)) ([898a2fb](https://github.com/linrongbin16/commons.nvim/commit/898a2fb66e18539bb855676a9da3d0f7338aaef9))
+
+
+### Performance
+
+* **termcolors:** returns all 4 color codes in 'retrieve' api ([#178](https://github.com/linrongbin16/commons.nvim/issues/178)) ([898a2fb](https://github.com/linrongbin16/commons.nvim/commit/898a2fb66e18539bb855676a9da3d0f7338aaef9))
+
 ## [6.2.0](https://github.com/linrongbin16/commons.nvim/compare/v6.1.1...v6.2.0) (2024-01-18)
 
 
