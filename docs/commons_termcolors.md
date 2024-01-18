@@ -121,17 +121,22 @@ Here're other colors:
 
 ### `retrieve`
 
-Retrieve ANSI/RGB color codes from vim's syntax highlighting group name.
+Retrieve ANSI(cterm)/RGB(gui) color codes from vim's syntax highlighting group.
 
 ```lua
-function retrieve(attr:"fg"|"bg", hl:string):string
+--- @param hl string
+--- @return {fg:string?,bg:string?,ctermfg:integer?,ctermbg:integer?}
+M.retrieve = function(hl)
 ```
 
 Parameters:
 
-- `attr`: Retrieve the foreground (`fg`) color or background (`bg`) color from vim highlighting group.
-- `hl`: Vim highlighting group name.
+- `hl`: Highlighting group name.
 
 Returns:
 
-- Returns ANSI color codes (`30`, `35`, etc) or RGB color codes (`#808080`, `#FF00FF`, etc).
+- Returns lua table with below fields:
+  - `fg`: RGB(gui) foreground css format color code such as `"#931741"`.
+  - `bg`: RGB(gui) background css format color code such as `"#931741"`.
+  - `ctermfg`: ANSI(cterm) foreground color code.
+  - `ctermbg`: ANSI(cterm) background color code.
