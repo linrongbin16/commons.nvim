@@ -40,7 +40,7 @@ M.to_list = function(s)
   return result
 end
 
---- @param ver string|string[]
+--- @param ver string|integer[]
 --- @return boolean
 M.lt = function(ver)
   if HAS_VIM_VERSION and HAS_VIM_VERSION_LT then
@@ -57,7 +57,7 @@ M.lt = function(ver)
   end
 end
 
---- @param ver string|string[]
+--- @param ver string|integer[]
 --- @return boolean
 M.ge = function(ver)
   if HAS_VIM_VERSION and HAS_VIM_VERSION_EQ and HAS_VIM_VERSION_GT then
