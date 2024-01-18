@@ -17,18 +17,27 @@ local HAS_VIM_VERSION_LE = HAS_VIM_VERSION
 
 local M = {}
 
---- @param l string[]
+--- @param l integer[]
 --- @return string
 M.to_string = function(l)
   assert(type(l) == "table")
-  return table.concat(l, ".")
+  local builder = {}
+  for _, v in ipairs(l) do
+    table.insert(builder, tostring(v))
+  end
+  return table.concat(builder, ".")
 end
 
 --- @param s string
---- @return string[]
+--- @return integer[]
 M.to_list = function(s)
   assert(type(s) == "string")
-  return vim.split(s, ".", { plain = true })
+  local splits = vim.split(s, ".", { plain = true })
+  local result = {}
+  for _, v in ipairs(splits) do
+    table.insert(result, tonumber(v))
+  end
+  return result
 end
 
 --- @param ver string|string[]

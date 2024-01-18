@@ -1,6 +1,7 @@
 local NVIM_VERSION_0_8 = false
 
 do
+  NVIM_VERSION_0_8 = require("commons.versions").ge({ 0, 8 })
   if
     vim.is_callable(vim.version)
     and type(vim.version) == "table"
