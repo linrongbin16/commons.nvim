@@ -67,3 +67,25 @@ Parameters:
 - `winnr`: The window number.
 - `name`: The option number.
 - `value`: The option value.
+
+### `get_hl`
+
+Get both ANSI(cterm)/RGB(gui) color codes from syntax highlighting group.
+
+```lua
+--- @param hl string
+--- @return {fg:integer?,bg:integer?,ctermfg:integer?,ctermbg:integer?}
+M.get_hl = function(hl)
+```
+
+Parameters:
+
+- `hl`: Highlighting group name.
+
+Returns:
+
+- Returns lua table with below fields:
+  - `fg`: RGB(gui) foreground color code, use `string.format("#%06x", fg)` to get the css color format such as `"#581720"`.
+  - `bg`: RGB(gui) background color code, use `string.format("#%06x", fg)` to get the css color format such as `"#581720"`.
+  - `ctermfg`: ANSI(cterm) terminal foreground color code.
+  - `ctermbg`: ANSI(cterm) terminal background color code.

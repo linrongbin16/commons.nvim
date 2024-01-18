@@ -12,6 +12,7 @@ describe("commons.termcolors", function()
   end)
 
   local termcolors = require("commons.termcolors")
+  local strings = require("commons.strings")
   describe("[retrieve]", function()
     local TEST_CASES = {
       "Special",
@@ -23,24 +24,21 @@ describe("commons.termcolors", function()
       "Label",
       "String",
     }
-    it("fg", function()
+    it("test", function()
       for _, hl in ipairs(TEST_CASES) do
-        local actual = termcolors.retrieve("fg", hl)
+        local actual = termcolors.retrieve(hl)
         print(string.format("hlcode(%s): %s\n", hl, vim.inspect(actual)))
-        assert_true(type(actual) == "string" or actual == nil)
-        if type(actual) == "string" then
-          assert_true(tonumber(actual) >= 0)
-        end
-      end
-    end)
-    it("bg", function()
-      for _, hl in ipairs(TEST_CASES) do
-        local actual = termcolors.retrieve("bg", hl)
-        print(string.format("hlcode(%s): %s\n", hl, vim.inspect(actual)))
-        assert_true(type(actual) == "string" or actual == nil)
-        if type(actual) == "string" then
-          assert_true(tonumber(actual) >= 0)
-        end
+        assert_true(type(actual) == "table")
+        assert_true(
+          (type(actual.fg) == "string" and strings.startswith(actual.fg, "#"))
+            or actual.fg == nil
+        )
+        assert_true(
+          (type(actual.bg) == "string" and strings.startswith(actual.bg, "#"))
+            or actual.bg == nil
+        )
+        assert_true(type(actual.ctermfg) == "number" or actual.ctermfg == nil)
+        assert_true(type(actual.ctermbg) == "number" or actual.ctermbg == nil)
       end
     end)
   end)
