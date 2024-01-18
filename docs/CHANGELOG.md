@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.2.0](https://github.com/linrongbin16/commons.nvim/compare/v6.1.1...v6.2.0) (2024-01-18)
+
+
+### Features
+
+* **versions:** add 'versions' module ([#176](https://github.com/linrongbin16/commons.nvim/issues/176)) ([e7b3293](https://github.com/linrongbin16/commons.nvim/commit/e7b3293a58f7de1151e5d475e52244f3e84d4bd4))
+
 ## [6.1.1](https://github.com/linrongbin16/commons.nvim/compare/v6.1.0...v6.1.1) (2024-01-15)
 
 
