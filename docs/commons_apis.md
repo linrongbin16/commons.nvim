@@ -87,7 +87,9 @@ Returns:
 - Returns lua table with below fields:
   - `fg`: RGB(gui) foreground color code.
   - `bg`: RGB(gui) background color code.
+  - Other GUI highlight args (see `:h highlight-args`) such as `bold`, `italic`, `underline`, etc.
   - `ctermfg`: ANSI(cterm) foreground color code.
   - `ctermbg`: ANSI(cterm) background color code.
+  - `cterm`: Other cterm highlight args such as `bold`, `italic`, `underline`, etc.
 
 ?> Use `string.format("#%06x", fg)` to convert RGB color code into CSS color format such as `"#581720"`.
