@@ -74,7 +74,7 @@ Get both ANSI(cterm)/RGB(gui) color codes from syntax highlighting group.
 
 ```lua
 --- @param hl string
---- @return {fg:integer?,bg:integer?,ctermfg:integer?,ctermbg:integer?,[string]:any}
+--- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:table}
 M.get_hl = function(hl)
 ```
 
