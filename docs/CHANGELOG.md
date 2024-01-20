@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.0.1](https://github.com/linrongbin16/commons.nvim/compare/v7.0.0...v7.0.1) (2024-01-20)
+
+
+### Bug Fixes
+
+* **apis:** keep compatible returned value for 'get_hl' in lower versions ([#180](https://github.com/linrongbin16/commons.nvim/issues/180)) ([bb746a3](https://github.com/linrongbin16/commons.nvim/commit/bb746a3353743238821a9f0d14b097ef4c6f974e))
+
 ## [7.0.0](https://github.com/linrongbin16/commons.nvim/compare/v6.2.0...v7.0.0) (2024-01-18)
 
 
