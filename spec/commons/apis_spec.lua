@@ -58,6 +58,24 @@ describe("commons.apis", function()
       for i, hl in ipairs(HL) do
         local hlvalues = apis.get_hl(hl)
         assert_eq(type(hlvalues), "table")
+        assert_true(
+          type(hlvalues.fg) == "number"
+            or hlvalues.fg == nil
+            or type(hlvalues.bg) == "number"
+            or hlvalues.bg == nil
+            or type(hlvalues.ctermfg) == "number"
+            or hlvalues.ctermfg == nil
+            or type(hlvalues.ctermbg) == "number"
+            or hlvalues.ctermbg == nil
+        )
+        assert_true(
+          type(hlvalues.bold) == "boolean"
+            or hlvalues.bold == nil
+            or type(hlvalues.italic) == "boolean"
+            or hlvalues.italic == nil
+            or type(hlvalues.underline) == "boolean"
+            or hlvalues.underline == nil
+        )
       end
     end)
   end)
