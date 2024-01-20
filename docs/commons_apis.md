@@ -85,7 +85,9 @@ Parameters:
 Returns:
 
 - Returns lua table with below fields:
-  - `fg`: RGB(gui) foreground color code, use `string.format("#%06x", fg)` to get the css color format such as `"#581720"`.
-  - `bg`: RGB(gui) background color code, use `string.format("#%06x", fg)` to get the css color format such as `"#581720"`.
+  - `fg`: RGB(gui) foreground color code.
+  - `bg`: RGB(gui) background color code.
   - `ctermfg`: ANSI(cterm) terminal foreground color code.
   - `ctermbg`: ANSI(cterm) terminal background color code.
+
+?> Use `string.format("#%06x", fg)` to convert RGB color code into CSS color format such as `"#581720"`.
