@@ -92,4 +92,4 @@ Returns:
   - `ctermbg`: ANSI(cterm) background color code.
   - `cterm`: Other cterm highlight args such as `bold`, `italic`, `underline`, etc.
 
-?> Use `string.format("#%06x", fg)` to convert RGB color code into CSS color format such as `"#581720"`.
+?> Use `string.format("#%06x", fg)` to convert integer RGB color code into CSS color format such as `"#581720"`.
