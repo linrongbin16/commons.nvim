@@ -42,4 +42,23 @@ describe("commons.apis", function()
       assert_false(s)
     end)
   end)
+
+  describe("[get_hl]", function()
+    local HL = {
+      "Special",
+      "Normal",
+      "LineNr",
+      "TabLine",
+      "Exception",
+      "Comment",
+      "Label",
+      "String",
+    }
+    it("test", function()
+      for i, hl in ipairs(HL) do
+        local hlvalues = apis.get_hl(hl)
+        assert_eq(type(hlvalues), "table")
+      end
+    end)
+  end)
 end)
