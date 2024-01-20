@@ -136,7 +136,7 @@ Parameters:
 Returns:
 
 - Returns lua table with below fields:
-  - `fg`: RGB(gui) foreground css format color code such as `"#931741"`.
-  - `bg`: RGB(gui) background css format color code such as `"#931741"`.
+  - `fg`: RGB(gui) foreground color code in css format (such as `"#931741"`).
+  - `bg`: RGB(gui) background color code in css format (such as `"#931741"`).
   - `ctermfg`: ANSI(cterm) foreground color code.
   - `ctermbg`: ANSI(cterm) background color code.
