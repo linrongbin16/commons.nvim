@@ -85,8 +85,8 @@ Parameters:
 Returns:
 
 - Returns lua table with below fields:
-  - `fg`: RGB(gui) foreground color code.
-  - `bg`: RGB(gui) background color code.
+  - `fg`: RGB(gui) foreground color code (integer).
+  - `bg`: RGB(gui) background color code (integer).
   - Other GUI highlight args (see `:h highlight-args`) such as `bold`, `italic`, `underline`, etc.
   - `ctermfg`: ANSI(cterm) foreground color code.
   - `ctermbg`: ANSI(cterm) background color code.
