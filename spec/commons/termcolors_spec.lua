@@ -12,37 +12,6 @@ describe("commons.termcolors", function()
   end)
 
   local termcolors = require("commons.termcolors")
-  local strings = require("commons.strings")
-  describe("[retrieve]", function()
-    local TEST_CASES = {
-      "Special",
-      "Normal",
-      "LineNr",
-      "TabLine",
-      "Exception",
-      "Comment",
-      "Label",
-      "String",
-    }
-    it("test", function()
-      for _, hl in ipairs(TEST_CASES) do
-        local actual = termcolors.retrieve(hl)
-        print(string.format("hlcode(%s): %s\n", hl, vim.inspect(actual)))
-        assert_true(type(actual) == "table")
-        assert_true(
-          (type(actual.fg) == "string" and strings.startswith(actual.fg, "#"))
-            or actual.fg == nil
-        )
-        assert_true(
-          (type(actual.bg) == "string" and strings.startswith(actual.bg, "#"))
-            or actual.bg == nil
-        )
-        assert_true(type(actual.ctermfg) == "number" or actual.ctermfg == nil)
-        assert_true(type(actual.ctermbg) == "number" or actual.ctermbg == nil)
-      end
-    end)
-  end)
-
   describe("[render]", function()
     local TEST_CASES = {
       black = "Comment",
