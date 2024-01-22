@@ -118,25 +118,3 @@ Here're other colors:
 - `function steelblue(text:string, hl:string?):string`
 
 ?> Also see: [COLOR_NAMES](#color_names).
-
-### `retrieve`
-
-Retrieve ANSI(cterm)/RGB(gui) color codes from vim's syntax highlighting group.
-
-```lua
---- @param hl string
---- @return {fg:string?,bg:string?,ctermfg:integer?,ctermbg:integer?}
-M.retrieve = function(hl)
-```
-
-Parameters:
-
-- `hl`: Highlighting group name.
-
-Returns:
-
-- Returns lua table with below fields:
-  - `fg`: RGB(gui) foreground color code in css format (such as `"#931741"`).
-  - `bg`: RGB(gui) background color code in css format (such as `"#931741"`).
-  - `ctermfg`: ANSI(cterm) foreground color code.
-  - `ctermbg`: ANSI(cterm) background color code.
