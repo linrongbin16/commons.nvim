@@ -54,22 +54,19 @@ describe("commons.apis", function()
     end)
   end)
 
-  local HIGHLIGHTS_MAP = vim.api.nvim_get_hl(0, {})
-  local HIGHLIGHTS = {}
-  for hl, _ in pairs(HIGHLIGHTS_MAP) do
-    table.insert(HIGHLIGHTS, hl)
-  end
-  table.sort(HIGHLIGHTS, function(a, b)
-    return a < b
-  end)
-
-  describe("[dump nvim_get_hl/nvim_get_hl_by_name]", function()
+  local HIGHLIGHTS = { "Special", "Normal", "LineNr", "TabLine" }
+  if versions.ge("0.9") then
+    local HIGHLIGHTS_MAP = vim.api.nvim_get_hl(0, {})
+    HIGHLIGHTS = {}
     for hl, _ in pairs(HIGHLIGHTS_MAP) do
       table.insert(HIGHLIGHTS, hl)
     end
     table.sort(HIGHLIGHTS, function(a, b)
       return a < b
     end)
+  end
+
+  describe("[dump nvim_get_hl/nvim_get_hl_by_name]", function()
     it("nvim_get_hl", function()
       local fp = io.open("nvim_get_hl.log", "w")
       for i, hl in ipairs(HIGHLIGHTS) do
