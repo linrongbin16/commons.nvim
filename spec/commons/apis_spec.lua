@@ -13,6 +13,7 @@ describe("commons.apis", function()
   end)
 
   local apis = require("commons.apis")
+  local versions = require("commons.versions")
 
   describe("[get_buf_option/set_buf_option]", function()
     it("get filetype", function()
@@ -44,18 +45,25 @@ describe("commons.apis", function()
     end)
   end)
 
+  local HIGHLIGHTS_MAP = vim.api.nvim_get_hl(0, {})
+  local HIGHLIGHTS = {}
+  for hl, _ in pairs(HIGHLIGHTS_MAP) do
+    table.insert(HIGHLIGHTS, hl)
+  end
+  table.sort(HIGHLIGHTS, function(a, b)
+    return a < b
+  end)
+
   describe("[dump nvim_get_hl/nvim_get_hl_by_name]", function()
-    local HL_MAP = vim.api.nvim_get_hl(0, {})
-    local ALL_HL = {}
-    for hl, _ in pairs(HL_MAP) do
-      table.insert(ALL_HL, hl)
+    for hl, _ in pairs(HIGHLIGHTS_MAP) do
+      table.insert(HIGHLIGHTS, hl)
     end
-    table.sort(ALL_HL, function(a, b)
+    table.sort(HIGHLIGHTS, function(a, b)
       return a < b
     end)
     it("nvim_get_hl", function()
       local fp = io.open("nvim_get_hl.log", "w")
-      for i, hl in ipairs(ALL_HL) do
+      for i, hl in ipairs(HIGHLIGHTS) do
         local link_payload = vim.api.nvim_get_hl(0, { name = hl })
         local no_link_payload =
           vim.api.nvim_get_hl(0, { name = hl, link = false })
@@ -69,7 +77,7 @@ describe("commons.apis", function()
     end)
     it("nvim_get_hl_by_name", function()
       local fp = io.open("nvim_get_hl_by_name_gui.log", "w")
-      for i, hl in ipairs(ALL_HL) do
+      for i, hl in ipairs(HIGHLIGHTS) do
         local payload = vim.api.nvim_get_hl_by_name(hl, true)
         fp:write(string.format("[%d] %s:\n", i, vim.inspect(hl)))
         fp:write(string.format("%s\n", vim.inspect(payload)))
@@ -77,7 +85,7 @@ describe("commons.apis", function()
       end
       fp:close()
       local fp = io.open("nvim_get_hl_by_name_cterm.log", "w")
-      for i, hl in ipairs(ALL_HL) do
+      for i, hl in ipairs(HIGHLIGHTS) do
         local payload = vim.api.nvim_get_hl_by_name(hl, false)
         fp:write(string.format("[%d] %s:\n", i, vim.inspect(hl)))
         fp:write(string.format("%s\n", vim.inspect(payload)))
@@ -87,38 +95,36 @@ describe("commons.apis", function()
     end)
   end)
   describe("[get_hl]", function()
-    local HL = {
-      "Special",
-      "Normal",
-      "LineNr",
-      "TabLine",
-      "Exception",
-      "Comment",
-      "Label",
-      "String",
-    }
     it("test", function()
-      for i, hl in ipairs(HL) do
-        local hlvalues = apis.get_hl(hl)
-        assert_eq(type(hlvalues), "table")
+      for i, hl in ipairs(HIGHLIGHTS) do
+        local hl_values = apis.get_hl(hl)
+        assert_eq(type(hl_values), "table")
         assert_true(
-          type(hlvalues.fg) == "number"
-            or hlvalues.fg == nil
-            or type(hlvalues.bg) == "number"
-            or hlvalues.bg == nil
-            or type(hlvalues.ctermfg) == "number"
-            or hlvalues.ctermfg == nil
-            or type(hlvalues.ctermbg) == "number"
-            or hlvalues.ctermbg == nil
+          type(hl_values.fg) == "number"
+            or hl_values.fg == nil
+            or type(hl_values.bg) == "number"
+            or hl_values.bg == nil
+            or type(hl_values.ctermfg) == "number"
+            or hl_values.ctermfg == nil
+            or type(hl_values.ctermbg) == "number"
+            or hl_values.ctermbg == nil
         )
         assert_true(
-          type(hlvalues.bold) == "boolean"
-            or hlvalues.bold == nil
-            or type(hlvalues.italic) == "boolean"
-            or hlvalues.italic == nil
-            or type(hlvalues.underline) == "boolean"
-            or hlvalues.underline == nil
+          type(hl_values.bold) == "boolean"
+            or hl_values.bold == nil
+            or type(hl_values.italic) == "boolean"
+            or hl_values.italic == nil
+            or type(hl_values.underline) == "boolean"
+            or hl_values.underline == nil
         )
+        if versions.ge({ 0, 9 }) and versions.lt({ 0, 10 }) then
+          local gui_values = vim.api.nvim_get_hl_by_name(hl, true)
+          local cterm_values = vim.api.nvim_get_hl_by_name(hl, false)
+          gui_values.fg = gui_values.foreground
+          gui_values.bg = gui_values.background
+          gui_values.foreground = nil
+          gui_values.background = nil
+        end
       end
     end)
   end)
