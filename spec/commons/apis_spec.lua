@@ -124,6 +124,37 @@ describe("commons.apis", function()
           gui_values.bg = gui_values.background
           gui_values.foreground = nil
           gui_values.background = nil
+          local hl_values_gui = vim.deepcopy(hl_values)
+          hl_values_gui.ctermfg = nil
+          hl_values_gui.ctermbg = nil
+          hl_values_gui.cterm = nil
+          print(
+            string.format(
+              "get_hl [%d] hl:%s, gui_values:%s, hl_values_gui:%s\n",
+              i,
+              vim.inspect(hl),
+              vim.inspect(gui_values),
+              vim.inspect(hl_values_gui)
+            )
+          )
+          assert_true(vim.deep_equal(gui_values, hl_values_gui))
+          cterm_values.fg = cterm_values.foreground
+          cterm_values.bg = cterm_values.background
+          cterm_values.foreground = nil
+          cterm_values.background = nil
+          local hl_values_cterm = vim.deepcopy(hl_values.cterm or {})
+          hl_values_cterm.fg = hl_values.ctermfg
+          hl_values_cterm.bg = hl_values.ctermbg
+          print(
+            string.format(
+              "get_hl [%d] hl:%s, cterm_values:%s, hl_values_cterm:%s\n",
+              i,
+              vim.inspect(hl),
+              vim.inspect(cterm_values),
+              vim.inspect(hl_values_cterm)
+            )
+          )
+          assert_true(vim.deep_equal(cterm_values, hl_values_cterm))
         end
       end
     end)
