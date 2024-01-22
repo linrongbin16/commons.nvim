@@ -1,5 +1,16 @@
 # Changelog
 
+## [8.0.0](https://github.com/linrongbin16/commons.nvim/compare/v7.0.2...v8.0.0) (2024-01-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **termcolors:** remove 'retrieve' api ([#184](https://github.com/linrongbin16/commons.nvim/issues/184))
+
+### Deprecated
+
+* **termcolors:** remove 'retrieve' api ([#184](https://github.com/linrongbin16/commons.nvim/issues/184)) ([2982d51](https://github.com/linrongbin16/commons.nvim/commit/2982d514a03cb1f5b6663955d9f6c31bfb0c47d6))
+
 ## [7.0.2](https://github.com/linrongbin16/commons.nvim/compare/v7.0.1...v7.0.2) (2024-01-22)
 
 
