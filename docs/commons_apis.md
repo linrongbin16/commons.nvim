@@ -91,7 +91,7 @@ Returns:
   - `fg`, `bg`, `sp`, `bold`, `underline`, etc.
   - `ctermfg`: ANSI(cterm) foreground color code.
   - `ctermbg`: ANSI(cterm) background color code.
-  - `cterm`: Other cterm highlight args such as `bold`, `italic`, `underline`, etc.
+  - `cterm`: Other ANSI(cterm) highlight args such as `bold`, `italic`, `underline`, etc.
 
 ?> The `ctermfg`, `ctermbg` and `cterm` are equal to the result of `nvim_get_hl_by_name(xxx, false)`: `{foreground=ctermfg, background=ctermbg, ...=unpack(cterm)}`
 
