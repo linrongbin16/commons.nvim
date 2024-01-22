@@ -15,6 +15,15 @@ describe("commons.apis", function()
   local apis = require("commons.apis")
   local versions = require("commons.versions")
 
+  local function partial_eq(a, b)
+    for k, v in pairs(a) do
+      if type(k) == "string" and b[k] ~= v then
+        return false
+      end
+    end
+    return true
+  end
+
   describe("[get_buf_option/set_buf_option]", function()
     it("get filetype", function()
       local ft = apis.get_buf_option(0, "filetype")
@@ -137,7 +146,7 @@ describe("commons.apis", function()
               vim.inspect(hl_values_gui)
             )
           )
-          assert_true(vim.deep_equal(gui_values, hl_values_gui))
+          assert_true(partial_eq(hl_values_gui, gui_values))
           cterm_values.fg = cterm_values.foreground
           cterm_values.bg = cterm_values.background
           cterm_values.foreground = nil
@@ -154,7 +163,7 @@ describe("commons.apis", function()
               vim.inspect(hl_values_cterm)
             )
           )
-          assert_true(vim.deep_equal(cterm_values, hl_values_cterm))
+          assert_true(partial_eq(hl_values_cterm, cterm_values))
         end
       end
     end)

@@ -78,6 +78,8 @@ M.get_hl = function(hl)
     })
     result.cterm.foreground = nil
     result.cterm.background = nil
+    result.sp = result.special
+    result.cterm.sp = result.cterm.special
     return result
   end
 end
