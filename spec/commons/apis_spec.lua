@@ -74,40 +74,42 @@ describe("commons.apis", function()
     end)
   end
 
-  describe("[dump nvim_get_hl/nvim_get_hl_by_name]", function()
-    it("nvim_get_hl", function()
-      local fp = io.open("nvim_get_hl.log", "w")
-      for i, hl in ipairs(HIGHLIGHTS) do
-        local link_payload = vim.api.nvim_get_hl(0, { name = hl })
-        local no_link_payload =
-          vim.api.nvim_get_hl(0, { name = hl, link = false })
-        fp:write(string.format("[%d] %s (link=true):\n", i, vim.inspect(hl)))
-        fp:write(string.format("%s\n", vim.inspect(link_payload)))
-        fp:write(string.format("[%d] %s (link=false):\n", i, vim.inspect(hl)))
-        fp:write(string.format("%s\n", vim.inspect(no_link_payload)))
-        fp:write("\n")
-      end
-      fp:close()
+  if versions.ge("0.9") then
+    describe("[dump nvim_get_hl/nvim_get_hl_by_name]", function()
+      it("nvim_get_hl", function()
+        local fp = io.open("nvim_get_hl.log", "w")
+        for i, hl in ipairs(HIGHLIGHTS) do
+          local link_payload = vim.api.nvim_get_hl(0, { name = hl })
+          local no_link_payload =
+            vim.api.nvim_get_hl(0, { name = hl, link = false })
+          fp:write(string.format("[%d] %s (link=true):\n", i, vim.inspect(hl)))
+          fp:write(string.format("%s\n", vim.inspect(link_payload)))
+          fp:write(string.format("[%d] %s (link=false):\n", i, vim.inspect(hl)))
+          fp:write(string.format("%s\n", vim.inspect(no_link_payload)))
+          fp:write("\n")
+        end
+        fp:close()
+      end)
+      it("nvim_get_hl_by_name", function()
+        local fp = io.open("nvim_get_hl_by_name_gui.log", "w")
+        for i, hl in ipairs(HIGHLIGHTS) do
+          local payload = vim.api.nvim_get_hl_by_name(hl, true)
+          fp:write(string.format("[%d] %s:\n", i, vim.inspect(hl)))
+          fp:write(string.format("%s\n", vim.inspect(payload)))
+          fp:write("\n")
+        end
+        fp:close()
+        local fp = io.open("nvim_get_hl_by_name_cterm.log", "w")
+        for i, hl in ipairs(HIGHLIGHTS) do
+          local payload = vim.api.nvim_get_hl_by_name(hl, false)
+          fp:write(string.format("[%d] %s:\n", i, vim.inspect(hl)))
+          fp:write(string.format("%s\n", vim.inspect(payload)))
+          fp:write("\n")
+        end
+        fp:close()
+      end)
     end)
-    it("nvim_get_hl_by_name", function()
-      local fp = io.open("nvim_get_hl_by_name_gui.log", "w")
-      for i, hl in ipairs(HIGHLIGHTS) do
-        local payload = vim.api.nvim_get_hl_by_name(hl, true)
-        fp:write(string.format("[%d] %s:\n", i, vim.inspect(hl)))
-        fp:write(string.format("%s\n", vim.inspect(payload)))
-        fp:write("\n")
-      end
-      fp:close()
-      local fp = io.open("nvim_get_hl_by_name_cterm.log", "w")
-      for i, hl in ipairs(HIGHLIGHTS) do
-        local payload = vim.api.nvim_get_hl_by_name(hl, false)
-        fp:write(string.format("[%d] %s:\n", i, vim.inspect(hl)))
-        fp:write(string.format("%s\n", vim.inspect(payload)))
-        fp:write("\n")
-      end
-      fp:close()
-    end)
-  end)
+  end
   describe("[get_hl]", function()
     it("test", function()
       for i, hl in ipairs(HIGHLIGHTS) do
