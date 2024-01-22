@@ -9,6 +9,7 @@ describe("commons.apis", function()
 
   before_each(function()
     vim.api.nvim_command("cd " .. cwd)
+    vim.api.nvim_command("colorscheme darkblue")
   end)
 
   local apis = require("commons.apis")
