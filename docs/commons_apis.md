@@ -88,10 +88,10 @@ Returns:
 
 - Returns lua table with all RGB(gui) highlight args (see [nvim_set_hl()](<https://neovim.io/doc/user/api.html#nvim_set_hl()>) 3rd parameters `{*val}`):
 
-  - `fg`, `bg`, `sp`, `bold`, `underline`, etc.
+  - `fg`, `bg`, `sp`, `bold`, `italic`, `underline`, etc.
   - `ctermfg`: ANSI(cterm) foreground color code.
   - `ctermbg`: ANSI(cterm) background color code.
-  - `cterm`: Other ANSI(cterm) highlight args such as `bold`, `italic`, `underline`, etc.
+  - `cterm`: Other ANSI(cterm) highlight args such as `sp`, `bold`, `italic`, `underline`, etc.
 
 ?> The `ctermfg`, `ctermbg` and `cterm` are equal to the result of `nvim_get_hl_by_name(xxx, false)`: `{foreground=ctermfg, background=ctermbg, ...=unpack(cterm)}`
 
