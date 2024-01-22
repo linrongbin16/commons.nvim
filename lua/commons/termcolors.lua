@@ -60,6 +60,7 @@ M.retrieve = function(hl)
   ---@diagnostic disable-next-line: assign-type-mismatch
   hldef.bg = type(hldef.bg) == "number" and string.format("#%06x", hldef.bg)
     or nil
+  ---@diagnostic disable-next-line: return-type-mismatch
   return hldef
 end
 
