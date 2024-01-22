@@ -72,6 +72,8 @@ Parameters:
 
 Get both ANSI(cterm)/RGB(gui) color codes from syntax highlighting group.
 
+!> This API behaves like `nvim_get_hl(0, {name=xxx, link=false})`, e.g. the legacy `nvim_get_hl_by_name`.
+
 ```lua
 --- @param hl string
 --- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:table}
