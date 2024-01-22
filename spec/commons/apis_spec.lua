@@ -54,7 +54,15 @@ describe("commons.apis", function()
     end)
   end)
 
-  local HIGHLIGHTS = { "Special", "Normal", "LineNr", "TabLine" }
+  local HIGHLIGHTS = {
+    "Special",
+    "Normal",
+    "LineNr",
+    "TabLine",
+    "StatusLine",
+    "Constant",
+    "Boolean",
+  }
   if versions.ge("0.9") then
     local HIGHLIGHTS_MAP = vim.api.nvim_get_hl(0, {})
     HIGHLIGHTS = {}
