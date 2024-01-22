@@ -50,16 +50,17 @@ local CSS_COLORS = {
 }
 
 --- @param hl string
---- @return {fg:string?,bg:string?,ctermfg:integer?,ctermbg:integer?}
+--- @return {fg:string?,bg:string?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:table}
 M.retrieve = function(hl)
   assert(type(hl) == "string")
   local hldef = require("commons.apis").get_hl(hl)
-  return {
-    fg = type(hldef.fg) == "number" and string.format("#%06x", hldef.fg) or nil,
-    bg = type(hldef.bg) == "number" and string.format("#%06x", hldef.bg) or nil,
-    ctermfg = hldef.ctermfg,
-    ctermbg = hldef.ctermbg,
-  }
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  hldef.fg = type(hldef.fg) == "number" and string.format("#%06x", hldef.fg)
+    or nil
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  hldef.bg = type(hldef.bg) == "number" and string.format("#%06x", hldef.bg)
+    or nil
+  return hldef
 end
 
 --- @param text string    the text content to be rendered
