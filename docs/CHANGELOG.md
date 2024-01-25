@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.1.0](https://github.com/linrongbin16/commons.nvim/compare/v8.0.0...v8.1.0) (2024-01-25)
+
+
+### Features
+
+* **fileios:** add 'asyncreadlines' api ([#186](https://github.com/linrongbin16/commons.nvim/issues/186)) ([2bffe4f](https://github.com/linrongbin16/commons.nvim/commit/2bffe4fe8b5be402b3a5c6acd85e8ab951ac3286))
+
 ## [8.0.0](https://github.com/linrongbin16/commons.nvim/compare/v7.0.2...v8.0.0) (2024-01-22)
 
 
