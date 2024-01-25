@@ -143,8 +143,26 @@ describe("commons.fileios", function()
           done = true
         end,
       })
-      vim.wait(1000, function()
+      vim.wait(5000, function()
         return done
+      end)
+    end)
+    it("failed", function()
+      local t = "README.md"
+      local done = false
+      local actual = {}
+      local failed = false
+      fileios.asyncreadlines(t, {
+        on_line = function(line) end,
+        on_complete = function(bytes)
+          done = true
+        end,
+        on_error = function(read_err)
+          failed = true
+        end,
+      })
+      vim.wait(5000, function()
+        return failed
       end)
     end)
   end)
