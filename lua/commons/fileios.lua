@@ -163,21 +163,22 @@ M.asyncreadfile = function(filename, on_complete, opts)
   opts = opts or { trim = false }
   opts.trim = type(opts.trim) == "boolean" and opts.trim or false
 
-  uv.fs_open(filename, "r", 438, function(open_err, fd)
-    if open_err then
-      error(
-        string.format(
-          "failed to open(r) file %s: %s",
-          vim.inspect(filename),
-          vim.inspect(open_err)
+  local open_result, open_err = uv.fs_open(
+    filename,
+    "r",
+    438,
+    function(open_err, fd)
+      if open_err then
+        error(
+          string.format(
+            "failed to open(r) file %s: %s",
+            vim.inspect(filename),
+            vim.inspect(open_err)
+          )
         )
-      )
-      return
-    end
-    uv.fs_fstat(
-      ---@diagnostic disable-next-line: param-type-mismatch
-      fd,
-      function(fstat_err, stat)
+        return
+      end
+      uv.fs_fstat(fd --[[@as integer]], function(fstat_err, stat)
         if fstat_err then
           error(
             string.format(
@@ -198,8 +199,7 @@ M.asyncreadfile = function(filename, on_complete, opts)
           )
           return
         end
-        ---@diagnostic disable-next-line: param-type-mismatch
-        uv.fs_read(fd, stat.size, 0, function(read_err, data)
+        uv.fs_read(fd --[[@as integer]], stat.size, 0, function(read_err, data)
           if read_err then
             error(
               string.format(
@@ -210,8 +210,7 @@ M.asyncreadfile = function(filename, on_complete, opts)
             )
             return
           end
-          ---@diagnostic disable-next-line: param-type-mismatch
-          uv.fs_close(fd, function(close_err)
+          uv.fs_close(fd --[[@as integer]], function(close_err)
             on_complete(
               (opts.trim and type(data) == "string") and vim.trim(data) or data
             )
@@ -226,9 +225,17 @@ M.asyncreadfile = function(filename, on_complete, opts)
             end
           end)
         end)
-      end
+      end)
+    end
+  )
+  assert(
+    open_result ~= nil,
+    string.format(
+      "failed to open(read) file: %s, error: %s",
+      vim.inspect(filename),
+      vim.inspect(open_err)
     )
-  end)
+  )
 end
 
 --- @param filename string
@@ -245,6 +252,119 @@ M.readlines = function(filename)
   reader:close()
   return results
 end
+
+--- @param filename string
+--- @param opts {on_line:fun(line:string):any,on_error:fun(err:string?):any,batchsize:integer?}
+M.asyncreadlines = function(filename, opts)
+  assert(type(opts) == "table")
+  assert(type(opts.on_line) == "function")
+  local batchsize = opts.batchsize or 4096
+
+  local function _handle_error(err, msg)
+    if type(opts.on_error) == "function" then
+      opts.on_error(err)
+    else
+      error(
+        string.format(
+          "failed to async read file(%s): %s, error: %s",
+          vim.inspect(msg),
+          vim.inspect(filename),
+          vim.inspect(err)
+        )
+      )
+    end
+  end
+
+  local uv = require("commons.uv")
+  local open_result, open_err = uv.fs_open(
+    filename,
+    "r",
+    438,
+    function(open_complete_err, fd)
+      if open_complete_err then
+        _handle_error(open_complete_err, "fs_open complete")
+        return
+      end
+      local fstat_result, fstat_err = uv.fs_fstat(
+        fd --[[@as integer]],
+        function(fstat_complete_err, stat)
+          if fstat_complete_err then
+            _handle_error(fstat_complete_err, "fs_fstat complete")
+            return
+          end
+          if stat == nil then
+            _handle_error("stat is nil", "fs_fstat complete")
+            return
+          end
+          local read_result, read_err = uv.fs_read(
+            fd --[[@as integer]],
+            stat.size,
+            0,
+            function(read_complete_err, data)
+              if read_complete_err then
+                _handle_error(read_complete_err, "fs_read")
+                return
+              end
+              uv.fs_close(fd --[[@as integer]], function(close_complete_err)
+                on_complete(
+                  (opts.trim and type(data) == "string") and vim.trim(data)
+                    or data
+                )
+                if close_complete_err then
+                  error(
+                    string.format(
+                      "failed to close file %s: %s",
+                      vim.inspect(filename),
+                      vim.inspect(close_complete_err)
+                    )
+                  )
+                end
+              end)
+            end
+          )
+          assert(
+            read_result ~= nil,
+            string.format(
+              "failed to start reading file: %s, error: %s",
+              vim.inspect(filename),
+              vim.inspect(read_err)
+            )
+          )
+        end
+      )
+
+      if fstat_result == nil then
+        _handle_error(fstat_err, "fs_fstat")
+      end
+    end
+  )
+  if open_result == nil then
+    _handle_error(open_err, "fs_open")
+  end
+
+  if type(handler) ~= "number" then
+    error(
+      string.format(
+        "|commons.fileios - AsyncFileLineReader:open| failed to fs_open file: %s",
+        vim.inspect(filename)
+      )
+    )
+    return nil
+  end
+  local fstat = uv.fs_fstat(handler) --[[@as table]]
+  if type(fstat) ~= "table" then
+    error(
+      string.format(
+        "|commons.fileios - FileLineReader:open| failed to fs_fstat file: %s",
+        vim.inspect(filename)
+      )
+    )
+    uv.fs_close(handler)
+    return nil
+  end
+end
+
+-- AsyncFileLineReader }
 
 --- @param filename string  file name.
 --- @param content string   file content.
