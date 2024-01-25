@@ -83,6 +83,7 @@ describe("commons.fileios", function()
     it("write", function()
       local t = "asyncwritefile-test.txt"
       local content = "hello world, goodbye world!"
+      local done = false
       fileios.asyncwritefile(t, content, function(bytes)
         assert_eq(bytes, #content)
         vim.schedule(function()
@@ -91,15 +92,76 @@ describe("commons.fileios", function()
             { on_stdout = function() end, on_stderr = function() end }
           )
           vim.fn.jobwait({ j })
+          done = true
         end)
+      end)
+      vim.wait(1000, function()
+        return done
       end)
     end)
   end)
   describe("[asyncreadfile]", function()
-    it("read", function()
+    it("test", function()
       local t = "README.md"
+      local done = false
       fileios.asyncreadfile(t, function(content)
         assert_true(string.len(content) > 0)
+        done = true
+      end)
+      vim.wait(1000, function()
+        return done
+      end)
+    end)
+  end)
+  describe("[asyncreadlines]", function()
+    it("test", function()
+      local t = "README.md"
+      local done = false
+      local actual = {}
+      fileios.asyncreadlines(t, {
+        on_line = function(line)
+          assert_eq(type(line), "string")
+          assert_true(string.len(line) >= 0)
+          table.insert(actual, line)
+        end,
+        on_complete = function(bytes)
+          assert_true(bytes > 0)
+          local expect = fileios.readlines(t)
+          assert_eq(#actual, #expect)
+          for i = 1, #actual do
+            local la = actual[i]
+            local le = expect[i]
+            assert_eq(la, le)
+            print(
+              string.format(
+                "asyncreadlines-%s: %s\n",
+                vim.inspect(i),
+                vim.inspect(la)
+              )
+            )
+          end
+          done = true
+        end,
+      })
+      vim.wait(1000, function()
+        return done
+      end)
+    end)
+    it("failed", function()
+      local t = "asyncreadlines_not_exists.txt"
+      local done = false
+      local failed = false
+      fileios.asyncreadlines(t, {
+        on_line = function(line) end,
+        on_complete = function(bytes)
+          done = true
+        end,
+        on_error = function(read_err)
+          failed = true
+        end,
+      })
+      vim.wait(1000, function()
+        return failed and done
       end)
     end)
   end)
