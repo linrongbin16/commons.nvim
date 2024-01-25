@@ -143,7 +143,7 @@ describe("commons.fileios", function()
           done = true
         end,
       })
-      vim.wait(5000, function()
+      vim.wait(1000, function()
         return done
       end)
     end)
@@ -161,7 +161,7 @@ describe("commons.fileios", function()
           failed = true
         end,
       })
-      vim.wait(5000, function()
+      vim.wait(1000, function()
         return failed
       end)
     end)
