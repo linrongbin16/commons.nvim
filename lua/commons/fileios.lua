@@ -254,7 +254,7 @@ M.readlines = function(filename)
 end
 
 --- @param filename string
---- @param opts {on_line:fun(line:string):any,on_complete:fun():any,on_error:fun(err:string?):any,batchsize:integer?}
+--- @param opts {on_line:fun(line:string):any,on_complete:fun(bytes:integer):any,on_error:fun(err:string?):any,batchsize:integer?}
 M.asyncreadlines = function(filename, opts)
   assert(type(opts) == "table")
   assert(type(opts.on_line) == "function")
@@ -297,7 +297,7 @@ M.asyncreadlines = function(filename, opts)
             return
           end
 
-          local total_fsize = stat.size
+          local fsize = stat.size
           local offset = 0
           local buffer = nil
 
@@ -358,7 +358,7 @@ M.asyncreadlines = function(filename, opts)
                         _handle_error(close_complete_err, "fs_close complete")
                       end
                       if type(opts.on_complete) == "function" then
-                        opts.on_complete()
+                        opts.on_complete(fsize)
                       end
                     end
                   )

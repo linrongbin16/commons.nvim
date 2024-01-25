@@ -122,7 +122,8 @@ describe("commons.fileios", function()
           assert_eq(type(line), "string")
           assert_true(string.len(line) >= 0)
         end,
-        on_complete = function()
+        on_complete = function(bytes)
+          assert_true(bytes > 0)
           done = true
         end,
       })
