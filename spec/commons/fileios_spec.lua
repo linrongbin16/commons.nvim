@@ -83,6 +83,7 @@ describe("commons.fileios", function()
     it("write", function()
       local t = "asyncwritefile-test.txt"
       local content = "hello world, goodbye world!"
+      local done = false
       fileios.asyncwritefile(t, content, function(bytes)
         assert_eq(bytes, #content)
         vim.schedule(function()
@@ -91,15 +92,42 @@ describe("commons.fileios", function()
             { on_stdout = function() end, on_stderr = function() end }
           )
           vim.fn.jobwait({ j })
+          done = true
         end)
+      end)
+      vim.wait(1000, function()
+        return done
       end)
     end)
   end)
   describe("[asyncreadfile]", function()
-    it("read", function()
+    it("test", function()
       local t = "README.md"
+      local done = false
       fileios.asyncreadfile(t, function(content)
         assert_true(string.len(content) > 0)
+        done = true
+      end)
+      vim.wait(1000, function()
+        return done
+      end)
+    end)
+  end)
+  describe("[asyncreadlines]", function()
+    it("test", function()
+      local t = "README.md"
+      local done = false
+      fileios.asyncreadlines(t, {
+        on_line = function(line)
+          assert_eq(type(line), "string")
+          assert_true(string.len(line) >= 0)
+        end,
+        on_complete = function()
+          done = true
+        end,
+      })
+      vim.wait(1000, function()
+        return done
       end)
     end)
   end)

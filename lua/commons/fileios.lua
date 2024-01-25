@@ -254,7 +254,7 @@ M.readlines = function(filename)
 end
 
 --- @param filename string
---- @param opts {on_line:fun(line:string):any,on_error:fun(err:string?):any,batchsize:integer?}
+--- @param opts {on_line:fun(line:string):any,on_complete:fun():any,on_error:fun(err:string?):any,batchsize:integer?}
 M.asyncreadlines = function(filename, opts)
   assert(type(opts) == "table")
   assert(type(opts.on_line) == "function")
@@ -356,6 +356,9 @@ M.asyncreadlines = function(filename, opts)
                     function(close_complete_err)
                       if close_complete_err then
                         _handle_error(close_complete_err, "fs_close complete")
+                      end
+                      if type(opts.on_complete) == "function" then
+                        opts.on_complete()
                       end
                     end
                   )
