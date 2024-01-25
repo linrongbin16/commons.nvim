@@ -150,7 +150,6 @@ describe("commons.fileios", function()
     it("failed", function()
       local t = "asyncreadlines_not_exists.txt"
       local done = false
-      local actual = {}
       local failed = false
       fileios.asyncreadlines(t, {
         on_line = function(line) end,
@@ -162,7 +161,7 @@ describe("commons.fileios", function()
         end,
       })
       vim.wait(1000, function()
-        return failed
+        return failed and done
       end)
     end)
   end)
