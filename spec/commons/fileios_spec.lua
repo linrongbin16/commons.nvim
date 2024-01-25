@@ -148,7 +148,7 @@ describe("commons.fileios", function()
       end)
     end)
     it("failed", function()
-      local t = "README.md"
+      local t = "asyncreadlines_not_exists.txt"
       local done = false
       local actual = {}
       local failed = false
