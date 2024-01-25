@@ -153,11 +153,9 @@ M.readfile = function(filename, opts)
   return opts.trim and vim.trim(content) or content
 end
 
---- @param filename string                    file name.
---- @param on_complete fun(data:string?):nil  callback on read complete.
----                                             1. `data`: the file content.
---- @param opts {trim:boolean?}?              options:
----                                             1. `trim`: whether to trim whitespaces around text content, by default `false`.
+--- @param filename string
+--- @param on_complete fun(data:string?):any
+--- @param opts {trim:boolean?}?
 M.asyncreadfile = function(filename, on_complete, opts)
   local uv = require("commons.uv")
   opts = opts or { trim = false }

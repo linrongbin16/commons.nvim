@@ -67,7 +67,7 @@ function FileLineReader:close():nil
 
 ### `readfile`
 
-Read all the content from a file.
+Read file.
 
 ```lua
 function readfile(filename:string, opts:{trim:boolean?}?):string?
@@ -84,9 +84,35 @@ Returns:
 - If success, returns file content.
 - If failed to open, returns `nil`.
 
+### `asyncreadfile`
+
+Async read file, invoke callback function on read complete.
+
+```lua
+--- @param filename string
+--- @param on_complete fun(data:string?):any
+--- @param opts {trim:boolean?}?
+M.asyncreadfile = function(filename, on_complete, opts)
+```
+
+Parameters:
+
+- `filename`: File name.
+- `on_complete`: Callback function that will be invoked after read complete, with signature:
+
+  ```lua
+  function on_complete(data:string?):any
+  ```
+
+  - Parameters:
+    - `data`: File content.
+
+- `opts`: Options.
+  - `trim`: Whether to trim whitespaces around file content, by default `false`.
+
 ### `readlines`
 
-Read all the file content into lines (strings list).
+Read file by lines (strings list).
 
 ```lua
 function readlines(filename:string):string[]|nil
@@ -100,28 +126,50 @@ Returns:
 
 - If failed to open, returns `nil`.
 
-### `asyncreadfile`
+### `asyncreadlines`
 
-Async read all the content from a file, invoke callback function on read complete.
+Async read file by lines, invoke callback functions on each line and after complete.
 
 ```lua
-function asyncreadfile(filename:string, on_complete:fun(data:string?):any, opts:{trim:boolean?}?):nil
+--- @param filename string
+--- @param opts {on_line:fun(line:string):any,on_complete:fun(bytes:integer):any,on_error:fun(err:string?):any,batchsize:integer?}
+M.asyncreadlines = function(filename, opts)
 ```
 
 Parameters:
 
 - `filename`: File name.
-- `on_complete`: Callback function that will be invoked on read complete, with signature:
-
-  ```lua
-  function on_complete(data:string?):any
-  ```
-
-  - Parameters:
-    - `data`: read file content
-
 - `opts`: Options.
-  - `trim`: Whether to trim whitespaces around file content, by default `false`.
+
+  - `on_line`: Callback function that will be invoked on each line, with signature:
+
+    ```lua
+    function on_line(line:string):any
+    ```
+
+    - Parameters:
+
+      - `line`: Each line of the file content.
+
+  - `on_complete`: Callback function that will be invoked on read complete, with signature:
+
+    ```lua
+    function on_complete(bytes:integer):any
+    ```
+
+    - Parameters:
+      - `bytes`: File content bytes.
+
+  - `on_error`: Callback function that will be invoked on error, with signature:
+
+    ```lua
+    function on_error(err:string?):any
+    ```
+
+    - Parameters:
+      - `err`: Error message.
+
+  - `batchsize`: Internal chunk size on each disk read operation, by default is `4096`.
 
 ### `writefile`
 
