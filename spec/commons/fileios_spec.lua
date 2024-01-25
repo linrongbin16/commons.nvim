@@ -117,13 +117,29 @@ describe("commons.fileios", function()
     it("test", function()
       local t = "README.md"
       local done = false
+      local actual = {}
       fileios.asyncreadlines(t, {
         on_line = function(line)
           assert_eq(type(line), "string")
           assert_true(string.len(line) >= 0)
+          table.insert(actual, line)
         end,
         on_complete = function(bytes)
           assert_true(bytes > 0)
+          local expect = fileios.readlines(t)
+          assert_eq(#actual, #expect)
+          for i = 1, #actual do
+            local la = actual[i]
+            local le = expect[i]
+            assert_eq(la, le)
+            print(
+              string.format(
+                "asyncreadlines-%s: %s\n",
+                vim.inspect(i),
+                vim.inspect(la)
+              )
+            )
+          end
           done = true
         end,
       })
