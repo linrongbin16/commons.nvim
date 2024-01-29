@@ -179,7 +179,7 @@ Replace pattern `p` with replacement `r` in string `s`.
 --- @param s string
 --- @param p string
 --- @param r string
---- @return string, boolean
+--- @return string, integer
 M.replace = function(s, p, r)
 ```
 
@@ -191,7 +191,8 @@ Parameters:
 
 Returns:
 
-- Returns original `s` and `false` if failed to replace.
+- Returns original `s` and `0` if failed to match any pattern `p`.
+- Returns replaced value and replaced count if succeed to match pattern `p`.
 
 ### `isspace`
 
