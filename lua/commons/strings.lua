@@ -175,20 +175,29 @@ end
 --- @param s string
 --- @param p string
 --- @param r string
---- @return string, boolean
+--- @return string, integer
 M.replace = function(s, p, r)
   assert(type(s) == "string")
   assert(type(p) == "string")
   assert(type(r) == "string")
 
-  local ppos = M.find(s, p)
-  if type(ppos) ~= "number" or ppos < 1 then
-    return s, false
+  local sn = string.len(s)
+  local pn = string.len(p)
+  local pos = 1
+  local matched = 0
+  local result = s
+
+  while pos <= sn do
+    pos = M.find(result, p, pos) --[[@as integer]]
+    if type(pos) ~= "number" then
+      break
+    end
+    result = string.sub(result, 1, pos - 1) .. r .. string.sub(result, pos + pn)
+    pos = pos + pn
+    matched = matched + 1
   end
-  local result = string.sub(s, 1, ppos - 1)
-    .. r
-    .. string.sub(s, ppos + string.len(p))
-  return result, true
+
+  return result, matched
 end
 
 --- @param c string

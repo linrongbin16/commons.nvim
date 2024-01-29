@@ -171,6 +171,28 @@ Parameters:
 
   - `ignorecase`: Whether to ignore case when comparing strings, by default is `false`.
 
+### `replace`
+
+Replace pattern `p` with replacement `r` in string `s`.
+
+```lua
+--- @param s string
+--- @param p string
+--- @param r string
+--- @return string, boolean
+M.replace = function(s, p, r)
+```
+
+Parameters:
+
+- `s`: String.
+- `p`: Pattern.
+- `r`: Replacement.
+
+Returns:
+
+- Returns original `s` and `false` if failed to replace.
+
 ### `isspace`
 
 Whether character `c` is whitespace.
