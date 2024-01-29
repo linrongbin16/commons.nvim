@@ -173,7 +173,7 @@ Parameters:
 
 ### `replace`
 
-Replace pattern `p` with replacement `r` in string `s`.
+Replace pattern `p` with replacement `r` in string `s`, without lua pattern (regex) escape.
 
 ```lua
 --- @param s string
