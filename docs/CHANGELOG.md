@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.2.0](https://github.com/linrongbin16/commons.nvim/compare/v8.1.0...v8.2.0) (2024-01-29)
+
+
+### Features
+
+* **strings:** add 'replace' api ([#188](https://github.com/linrongbin16/commons.nvim/issues/188)) ([f234654](https://github.com/linrongbin16/commons.nvim/commit/f234654f96ccd933cda01bade1add182c0a6206e))
+
 ## [8.1.0](https://github.com/linrongbin16/commons.nvim/compare/v8.0.0...v8.1.0) (2024-01-25)
 
 
