@@ -171,6 +171,29 @@ Parameters:
 
   - `ignorecase`: Whether to ignore case when comparing strings, by default is `false`.
 
+### `replace`
+
+Replace pattern `p` with replacement `r` in string `s`, without lua pattern/regex escape (unlike `string.gsub`).
+
+```lua
+--- @param s string
+--- @param p string
+--- @param r string
+--- @return string, integer
+M.replace = function(s, p, r)
+```
+
+Parameters:
+
+- `s`: String.
+- `p`: Pattern.
+- `r`: Replacement.
+
+Returns:
+
+- Returns original `s` and `0` if failed to match any pattern `p`.
+- Returns replaced value and replaced count if succeed to match pattern `p`.
+
 ### `isspace`
 
 Whether character `c` is whitespace.
