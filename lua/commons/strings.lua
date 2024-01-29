@@ -172,6 +172,25 @@ M.endswith = function(s, t, opts)
   end
 end
 
+--- @param s string
+--- @param p string
+--- @param r string
+--- @return string, boolean
+M.replace = function(s, p, r)
+  assert(type(s) == "string")
+  assert(type(p) == "string")
+  assert(type(r) == "string")
+
+  local ppos = M.find(s, p)
+  if type(ppos) ~= "number" or ppos < 1 then
+    return s, false
+  end
+  local result = string.sub(s, 1, ppos - 1)
+    .. r
+    .. string.sub(s, ppos + string.len(p))
+  return result, true
+end
+
 --- @param c string
 --- @return boolean
 M.isspace = function(c)
