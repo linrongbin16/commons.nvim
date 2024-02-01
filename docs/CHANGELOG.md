@@ -1,5 +1,12 @@
 # Changelog
 
+## [8.3.0](https://github.com/linrongbin16/commons.nvim/compare/v8.2.0...v8.3.0) (2024-02-01)
+
+
+### Features
+
+* **platforms:** add 'platforms' module ([#190](https://github.com/linrongbin16/commons.nvim/issues/190)) ([4c6b9d4](https://github.com/linrongbin16/commons.nvim/commit/4c6b9d4b67eb3dafaced41601b12635065456e1e))
+
 ## [8.2.0](https://github.com/linrongbin16/commons.nvim/compare/v8.1.0...v8.2.0) (2024-01-29)
 
 
