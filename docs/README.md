@@ -14,6 +14,7 @@ The commons lua library for Neovim plugin project.
 - [commons.micro-async](/commons_micro_async.md): Embedded [willothy/micro-async.nvim](https://github.com/willothy/micro-async.nvim) library.
 - [commons.numbers](/commons_numbers.md): Numbers utilities, with type check.
 - [commons.paths](/commons_paths.md): File and directory path utilities.
+- [commons.platforms](/commons_platforms.md): OS and platforms utilities.
 - [commons.promise](/commons_promise.md): Embedded [notomo/promise.nvim](https://github.com/notomo/promise.nvim) library.
 - [commons.ringbuf](/commons_ringbuf.md): Drop-in [vim.ringbuf](<https://neovim.io/doc/user/lua.html#vim.ringbuf()>) replacement data structure with iterator support.
 - [commons.spawn](/commons_spawn.md): Run child-process with friendly line-wise callbacks to handle stdout/stderr output, a wrapper on [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>).
