@@ -12,9 +12,16 @@ describe("commons.platforms", function()
   end)
 
   local platforms = require("commons.platforms")
+  describe("[OS_NAME]", function()
+    it("test", function()
+      assert_true(string.len(platforms.OS_NAME) > 0)
+    end)
+  end)
   describe("[IS_XXX]", function()
     it("test", function()
-      if not platforms.IS_WINDOWS then
+      if vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0 then
+        assert_true(platforms.IS_WINDOWS)
+      else
         assert_true(platforms.IS_LINUX or platforms.IS_MAC)
       end
     end)
