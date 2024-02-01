@@ -7,3 +7,5 @@ M.IS_LINUX = (vim.fn.has("linux") > 0 or vim.fn.has("unix") > 0)
   and not M.IS_WINDOWS
   and not M.IS_MAC
   and not M.IS_BSD
+
+return M
