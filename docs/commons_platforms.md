@@ -6,6 +6,14 @@ OS and platforms utilities.
 
 ## Constants
 
+### `OS_NAME`
+
+OS name.
+
+```lua
+--- @type string
+```
+
 ### `IS_WINDOWS`
 
 Whether OS is Windows.
