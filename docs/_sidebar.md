@@ -12,6 +12,7 @@
   - [commons.logging](commons_logging.md)
   - [commons.numbers](commons_numbers.md)
   - [commons.paths](commons_paths.md)
+  - [commons.platforms](commons_platforms.md)
   - [commons.promise](commons_promise.md)
   - [commons.ringbuf](commons_ringbuf.md)
   - [commons.spawn](commons_spawn.md)
