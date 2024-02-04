@@ -70,7 +70,7 @@ Parameters:
 
 ### `get_hl`
 
-Get both ANSI(cterm)/RGB(gui) color codes from syntax highlighting group.
+Get both ANSI(cterm)/RGB(gui) color codes from syntax highlight group.
 
 !> This API behaves like `nvim_get_hl(0, {name=xxx, link=false})`, e.g. the legacy `nvim_get_hl_by_name`.
 
@@ -98,3 +98,30 @@ Returns:
 - Returns `vim.empty_dict()` if `hl` not found.
 
 ?> Use `string.format("#%06x", fg)` to convert integer RGB color code into CSS color format such as `"#581720"`.
+
+### `get_hl_with_fallback`
+
+A wrapper on [`get_hl`](#get_hl), it accepts multiple highlight groups, returns the first existed one.
+
+```lua
+--- @param ... string?
+--- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:{fg:integer?,bg:integer?,[string]:any}?}, integer, string?
+M.get_hl_with_fallback = function(...)
+```
+
+Parameters:
+
+- `...`: Multiple highlight groups.
+
+Returns:
+
+- Returns 3 values for the first found highlight:
+
+  1. The highlight value (lua table) of the hl.
+  2. The index of the hl.
+  3. The name of the hl.
+
+- Returns 3 values if all highlight groups not found:
+  1. `vim.empty_dict()`.
+  2. `-1`.
+  3. `nil`.
