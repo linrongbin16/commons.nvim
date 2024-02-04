@@ -179,4 +179,72 @@ describe("commons.apis", function()
       end
     end)
   end)
+  describe("[get_hl_with_fallback]", function()
+    it("test", function()
+      local input_highlights = { "NotExistHl", "@comment", "Comment" }
+      local hl_values = apis.get_hl_with_fallback(unpack(input_highlights))
+      assert_eq(type(hl_values), "table")
+      assert_true(
+        type(hl_values.fg) == "number"
+          or hl_values.fg == nil
+          or type(hl_values.bg) == "number"
+          or hl_values.bg == nil
+          or type(hl_values.ctermfg) == "number"
+          or hl_values.ctermfg == nil
+          or type(hl_values.ctermbg) == "number"
+          or hl_values.ctermbg == nil
+      )
+      assert_true(
+        type(hl_values.bold) == "boolean"
+          or hl_values.bold == nil
+          or type(hl_values.italic) == "boolean"
+          or hl_values.italic == nil
+          or type(hl_values.underline) == "boolean"
+          or hl_values.underline == nil
+      )
+      if versions.ge({ 0, 9 }) and versions.lt({ 0, 10 }) then
+        local gui_values = vim.api.nvim_get_hl_by_name(hl, true)
+        local cterm_values = vim.api.nvim_get_hl_by_name(hl, false)
+        gui_values.fg = gui_values.foreground
+        gui_values.bg = gui_values.background
+        gui_values.sp = gui_values.special
+        gui_values.foreground = nil
+        gui_values.background = nil
+        gui_values.special = nil
+        local hl_values_gui = vim.deepcopy(hl_values)
+        hl_values_gui.ctermfg = nil
+        hl_values_gui.ctermbg = nil
+        hl_values_gui.cterm = nil
+        print(
+          string.format(
+            "get_hl [%d] hl:%s, gui_values:%s, hl_values_gui:%s\n",
+            i,
+            vim.inspect(hl),
+            vim.inspect(gui_values),
+            vim.inspect(hl_values_gui)
+          )
+        )
+        assert_true(partial_eq(hl_values_gui, gui_values))
+        cterm_values.fg = cterm_values.foreground
+        cterm_values.bg = cterm_values.background
+        cterm_values.sp = cterm_values.special
+        cterm_values.foreground = nil
+        cterm_values.background = nil
+        cterm_values.special = nil
+        local hl_values_cterm = vim.deepcopy(hl_values.cterm or {})
+        hl_values_cterm.fg = hl_values.ctermfg
+        hl_values_cterm.bg = hl_values.ctermbg
+        print(
+          string.format(
+            "get_hl [%d] hl:%s, cterm_values:%s, hl_values_cterm:%s\n",
+            i,
+            vim.inspect(hl),
+            vim.inspect(cterm_values),
+            vim.inspect(hl_values_cterm)
+          )
+        )
+        assert_true(partial_eq(hl_values_cterm, cterm_values))
+      end
+    end)
+  end)
 end)

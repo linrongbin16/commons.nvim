@@ -76,7 +76,7 @@ Get both ANSI(cterm)/RGB(gui) color codes from syntax highlighting group.
 
 ```lua
 --- @param hl string
---- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:{fg:integer?,bg:integer?,[string]:any}}
+--- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:{fg:integer?,bg:integer?,[string]:any}?}
 M.get_hl = function(hl)
 ```
 
@@ -86,13 +86,15 @@ Parameters:
 
 Returns:
 
-- Returns lua table with all RGB(gui) highlight args (see [nvim_set_hl()](<https://neovim.io/doc/user/api.html#nvim_set_hl()>) 3rd parameters `{*val}`):
+- Returns lua table with all RGB(gui) highlight args (see [nvim_set_hl()](<https://neovim.io/doc/user/api.html#nvim_set_hl()>) 3rd parameters `{*val}`) if `hl` exists:
 
   - `fg`, `bg`, `sp`, `bold`, `italic`, `underline`, etc.
   - `ctermfg`: ANSI(cterm) foreground color code.
   - `ctermbg`: ANSI(cterm) background color code.
   - `cterm`: Other ANSI(cterm) highlight args such as `sp`, `bold`, `italic`, `underline`, etc.
 
-?> The `ctermfg`, `ctermbg` and `cterm` are equal to the result of `nvim_get_hl_by_name(xxx, false)`: `{foreground=ctermfg, background=ctermbg, ...=unpack(cterm)}`
+  ?> The `ctermfg`, `ctermbg` and `cterm` are equal to the result of `nvim_get_hl_by_name(xxx, false)`: `{foreground=ctermfg, background=ctermbg, ...=unpack(cterm)}`
+
+- Returns `vim.empty_dict()` if `hl` not found.
 
 ?> Use `string.format("#%06x", fg)` to convert integer RGB color code into CSS color format such as `"#581720"`.
