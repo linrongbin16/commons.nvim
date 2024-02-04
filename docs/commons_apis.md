@@ -118,7 +118,7 @@ Returns:
 - Returns 3 values for the first found highlight:
 
   1. The highlight value (lua table) of the hl.
-  2. The index of the hl.
+  2. The index (in the parameter list) of the hl.
   3. The name of the hl.
 
 - Returns 3 values if all highlight groups not found:
