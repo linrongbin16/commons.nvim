@@ -64,7 +64,7 @@ end
 -- highlight {
 
 --- @param hl string
---- @return {fg:integer?,bg:integer?,ctermfg:integer?,ctermbg:integer?}
+--- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:{fg:integer?,bg:integer?,[string]:any}}
 M.get_hl = function(hl)
   if NVIM_VERSION_0_9 then
     return vim.api.nvim_get_hl(0, { name = hl, link = false })
@@ -85,6 +85,10 @@ M.get_hl = function(hl)
     return result
   end
 end
+
+--- @param hl string|string[]
+--- @return {fg:integer?,bg:integer?,ctermfg:integer?,ctermbg:integer?}
+M.get_hl_with_fallback = function(hl) end
 
 -- highlight }
 
