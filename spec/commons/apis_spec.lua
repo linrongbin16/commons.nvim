@@ -179,4 +179,12 @@ describe("commons.apis", function()
       end
     end)
   end)
+  describe("[get_hl_with_fallback]", function()
+    it("test", function()
+      local hl_with_fallback = { "NotExistHl", "@comment", "Comment" }
+      local actual1 = apis.get_hl_with_fallback(unpack(hl_with_fallback))
+      local actual2 = apis.get_hl("Comment")
+      assert_true(vim.deep_equal(actual1, actual2))
+    end)
+  end)
 end)
