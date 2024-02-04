@@ -1,5 +1,17 @@
 # Changelog
 
+## [8.4.0](https://github.com/linrongbin16/commons.nvim/compare/v8.3.0...v8.4.0) (2024-02-04)
+
+
+### Features
+
+* **apis:** add 'get_hl_with_fallback' api ([#192](https://github.com/linrongbin16/commons.nvim/issues/192)) ([126d92a](https://github.com/linrongbin16/commons.nvim/commit/126d92a6d07f672059e83df31abb1e36f92002e1))
+
+
+### Bug Fixes
+
+* **apis:** fix 'get_hl_with_fallback' for lower-versions ([#193](https://github.com/linrongbin16/commons.nvim/issues/193)) ([f1d65ec](https://github.com/linrongbin16/commons.nvim/commit/f1d65ec7325e3bcac204086bdd6b03b654b1f6b0))
+
 ## [8.3.0](https://github.com/linrongbin16/commons.nvim/compare/v8.2.0...v8.3.0) (2024-02-01)
 
 
