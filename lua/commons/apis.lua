@@ -76,10 +76,10 @@ M.get_hl = function(hl)
       ctermbg = cterm_hldef.background,
       cterm = cterm_hldef,
     })
-    result.cterm.foreground = nil
-    result.cterm.background = nil
     result.sp = result.special
     result.special = nil
+    result.cterm.foreground = nil
+    result.cterm.background = nil
     result.cterm.sp = result.cterm.special
     result.cterm.special = nil
     return result
