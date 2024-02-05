@@ -68,10 +68,8 @@ describe("commons.colors.hl", function()
         local expect3 = versions.ge("0.9")
             and vim.api.nvim_get_hl(0, { name = "Constant", link = false })
           or vim.api.nvim_get_hl_by_name("Constant", true)
-        assert_eq(
-          string.format("#%06x", expect3.foreground or expect3.fg),
-          actual3
-        )
+        expect3 = versions.ge("0.9") and expect3.fg or expect3.foreground
+        assert_eq(string.format("#%06x", expect3), actual3)
       end
 
       local actual4 =
