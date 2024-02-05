@@ -24,6 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --config-path .stylua.toml ./lua ./spec
       - name: Add _json.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -31,11 +36,6 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
           cp ~/.json.lua/json.lua ./lua/commons/_json.lua
-      - uses: JohnnyMorganz/stylua-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --config-path .stylua.toml ./lua ./spec
       - name: Add _system.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
