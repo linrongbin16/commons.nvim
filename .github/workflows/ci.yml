@@ -77,6 +77,10 @@ jobs:
           tar zxf ~/.colors.tar.gz
           echo 'ls -lh'
           ls -lh
+          rm -rf ./lua/commons/colors/hsl.lua
+          cp -rf ~/.colors-8.05.26/lua/colors.lua ./lua/commons/colors/hsl.lua
+          rm -rf ~/.colors.tar.gz
+          rm -rf ~/.colors-8.05.26
       - uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc
