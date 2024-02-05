@@ -1,5 +1,22 @@
 # Changelog
 
+## [9.0.0](https://github.com/linrongbin16/commons.nvim/compare/v8.4.0...v9.0.0) (2024-02-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* **colors.term:** rename 'termcolors' to 'colors.term'! ([#195](https://github.com/linrongbin16/commons.nvim/issues/195))
+
+### Features
+
+* **colors.hl:** add 'colors.hl' module ([#195](https://github.com/linrongbin16/commons.nvim/issues/195)) ([19994dc](https://github.com/linrongbin16/commons.nvim/commit/19994dccb13e0f5429b8789d53fa535c87e1f795))
+* **colors.term:** rename 'termcolors' to 'colors.term'! ([#195](https://github.com/linrongbin16/commons.nvim/issues/195)) ([19994dc](https://github.com/linrongbin16/commons.nvim/commit/19994dccb13e0f5429b8789d53fa535c87e1f795))
+
+
+### Bug Fixes
+
+* **apis:** fix 'get_hl' for lower versions ([#195](https://github.com/linrongbin16/commons.nvim/issues/195)) ([19994dc](https://github.com/linrongbin16/commons.nvim/commit/19994dccb13e0f5429b8789d53fa535c87e1f795))
+
 ## [8.4.0](https://github.com/linrongbin16/commons.nvim/compare/v8.3.0...v8.4.0) (2024-02-04)
 
 
