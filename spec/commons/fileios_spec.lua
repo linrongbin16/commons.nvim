@@ -132,13 +132,7 @@ describe("commons.fileios", function()
             local la = actual[i]
             local le = expect[i]
             assert_eq(la, le)
-            print(
-              string.format(
-                "asyncreadlines-%s: %s\n",
-                vim.inspect(i),
-                vim.inspect(la)
-              )
-            )
+            print(string.format("asyncreadlines-%s: %s\n", vim.inspect(i), vim.inspect(la)))
           end
           done = true
         end,

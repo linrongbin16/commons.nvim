@@ -170,11 +170,7 @@ describe("commons.strings", function()
       end
     end)
     it("splits rg options-3", function()
-      local actual = strings.split(
-        "  -w -g *.md  ",
-        " ",
-        { plain = false, trimempty = false }
-      )
+      local actual = strings.split("  -w -g *.md  ", " ", { plain = false, trimempty = false })
       local expect = { "", "", "-w", "-g", "*.md", "", "" }
       print(string.format("splits rg3, actual:%s\n", vim.inspect(actual)))
       print(string.format("splits rg3, expect:%s\n", vim.inspect(expect)))
@@ -190,12 +186,8 @@ describe("commons.strings", function()
       assert_false(strings.startswith("hello world", "ello"))
     end)
     it("test case ignored", function()
-      assert_true(
-        strings.startswith("HEllo world", "hello", { ignorecase = true })
-      )
-      assert_false(
-        strings.startswith("HEllo world", "ello", { ignorecase = true })
-      )
+      assert_true(strings.startswith("HEllo world", "hello", { ignorecase = true }))
+      assert_false(strings.startswith("HEllo world", "ello", { ignorecase = true }))
     end)
   end)
   describe("[endswith]", function()
@@ -204,12 +196,8 @@ describe("commons.strings", function()
       assert_false(strings.endswith("hello world", "hello"))
     end)
     it("test case ignored", function()
-      assert_true(
-        strings.endswith("hello WORLD", "world", { ignorecase = true })
-      )
-      assert_false(
-        strings.endswith("hello WORLD", "hello", { ignorecase = true })
-      )
+      assert_true(strings.endswith("hello WORLD", "world", { ignorecase = true }))
+      assert_false(strings.endswith("hello WORLD", "hello", { ignorecase = true }))
     end)
   end)
   describe("[replace]", function()
@@ -220,8 +208,7 @@ describe("commons.strings", function()
       assert_eq(actual2, "goodbye world")
       local actual3 = strings.replace("hellonihao", "oni", "goodbye")
       assert_eq(actual3, "hellgoodbyehao")
-      local actual4, ok4 =
-        strings.replace("hellohellohello", "hello", "goodbye")
+      local actual4, ok4 = strings.replace("hellohellohello", "hello", "goodbye")
       assert_eq(actual4, "goodbyegoodbyegoodbye")
     end)
   end)
@@ -250,10 +237,7 @@ describe("commons.strings", function()
       local whitespaces = "\r\n \t"
       local char_codes = { 11, 12 }
       for i = 1, 255 do
-        if
-          _contains_char(whitespaces, string.char(i))
-          or _contains_code(char_codes, i)
-        then
+        if _contains_char(whitespaces, string.char(i)) or _contains_code(char_codes, i) then
           assert_true(strings.isspace(string.char(i)))
         else
           -- print(
@@ -375,12 +359,7 @@ describe("commons.strings", function()
   end)
   describe("[tochars]", function()
     it("test", function()
-      assert_true(
-        vim.deep_equal(
-          strings.tochars("abcdefg"),
-          { "a", "b", "c", "d", "e", "f", "g" }
-        )
-      )
+      assert_true(vim.deep_equal(strings.tochars("abcdefg"), { "a", "b", "c", "d", "e", "f", "g" }))
       assert_true(vim.deep_equal(strings.tochars(""), {}))
     end)
   end)

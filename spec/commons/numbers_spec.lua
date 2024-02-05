@@ -73,9 +73,7 @@ describe("commons.numbers", function()
       assert_eq(id2, id1 + 1)
       local id3 = numbers.auto_incremental_id()
       assert_eq(id3, id2 + 1)
-      assert_true(
-        numbers.auto_incremental_id() == numbers.auto_incremental_id() - 1
-      )
+      assert_true(numbers.auto_incremental_id() == numbers.auto_incremental_id() - 1)
     end)
     it("mod", function()
       assert_eq(numbers.mod(2, 7), 2)
@@ -96,35 +94,17 @@ describe("commons.numbers", function()
     it("random", function()
       for i = 1, 50 do
         local actual1 = numbers.random()
-        print(
-          string.format(
-            "random-1(%s):%s\n",
-            vim.inspect(type(actual1)),
-            vim.inspect(actual1)
-          )
-        )
+        print(string.format("random-1(%s):%s\n", vim.inspect(type(actual1)), vim.inspect(actual1)))
         assert_true(actual1 >= 0 and actual1 < 1)
       end
       for i = 1, 50 do
         local actual2 = numbers.random(10)
-        print(
-          string.format(
-            "random-2(%s):%s\n",
-            vim.inspect(type(actual2)),
-            vim.inspect(actual2)
-          )
-        )
+        print(string.format("random-2(%s):%s\n", vim.inspect(type(actual2)), vim.inspect(actual2)))
         assert_true(actual2 >= 1 and actual2 <= 10)
       end
       for i = 1, 50 do
         local actual3 = numbers.random(10, 100)
-        print(
-          string.format(
-            "random-3(%s):%s\n",
-            vim.inspect(type(actual3)),
-            vim.inspect(actual3)
-          )
-        )
+        print(string.format("random-3(%s):%s\n", vim.inspect(type(actual3)), vim.inspect(actual3)))
         assert_true(actual3 >= 10 and actual3 <= 100)
       end
     end)

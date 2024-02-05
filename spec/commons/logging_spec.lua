@@ -31,13 +31,7 @@ describe("commons.logging", function()
       logging.log(LogLevels.DEBUG, "debug without parameters")
       logging.log("INFO", "info with 1 parameters: %s", "a")
       logging.log("WARN", "warn with 2 parameters: %s, %d", "a", 1)
-      logging.log(
-        LogLevels.ERROR,
-        "error with 3 parameters: %s, %d, %f",
-        "a",
-        1,
-        3.12
-      )
+      logging.log(LogLevels.ERROR, "error with 3 parameters: %s, %d, %f", "a", 1, 3.12)
       local ok, err = pcall(logging.log, "ERROR", "error message with pcall")
       assert_true(ok)
     end)
@@ -70,26 +64,17 @@ describe("commons.logging", function()
       logging.ensure(true, "ensure with 1 parameters: %s", "a")
       logging.ensure(true, "ensure with 2 parameters: %s, %d", "a", 1)
       logging.ensure(true, "ensure with 3 parameters: %s, %d, %f", "a", 1, 3.12)
-      local ok1, err1 =
-        pcall(logging.ensure, false, "ensure without parameters")
+      local ok1, err1 = pcall(logging.ensure, false, "ensure without parameters")
       print(vim.inspect(err1) .. "\n")
       assert_false(ok1)
-      local ok2, err2 =
-        pcall(logging.ensure, false, "ensure with 1 parameters: %s", "a")
+      local ok2, err2 = pcall(logging.ensure, false, "ensure with 1 parameters: %s", "a")
       print(vim.inspect(err2) .. "\n")
       assert_false(ok2)
-      local ok3, err3 =
-        pcall(logging.ensure, false, "ensure with 2 parameters: %s, %d", "a", 1)
+      local ok3, err3 = pcall(logging.ensure, false, "ensure with 2 parameters: %s, %d", "a", 1)
       print(vim.inspect(err3) .. "\n")
       assert_false(ok3)
-      local ok4, err4 = pcall(
-        logging.ensure,
-        false,
-        "ensure with 3 parameters: %s, %d, %f",
-        "a",
-        1,
-        3.12
-      )
+      local ok4, err4 =
+        pcall(logging.ensure, false, "ensure with 3 parameters: %s, %d, %f", "a", 1, 3.12)
       print(vim.inspect(err4) .. "\n")
       assert_false(ok4)
     end)
@@ -100,8 +85,7 @@ describe("commons.logging", function()
       local ok2, msg2 = pcall(logging.throw, "throw with 1 params: %s", "a")
       assert_false(ok2)
       assert_eq(type(msg2), "string")
-      local ok3, msg3 =
-        pcall(logging.throw, "throw with 2 params: %s, %d", "a", 2)
+      local ok3, msg3 = pcall(logging.throw, "throw with 2 params: %s, %d", "a", 2)
       assert_false(ok3)
       assert_eq(type(msg3), "string")
     end)
@@ -132,37 +116,24 @@ describe("commons.logging", function()
     })
     it("log", function()
       logging.get("test_logger"):log("DEBUG", "debug without parameters")
-      logging
-        .get("test_logger")
-        :log(LogLevels.INFO, "info with 1 parameters: %s", "a")
-      logging
-        .get("test_logger")
-        :log(LogLevels.WARN, "warn with 2 parameters: %s, %d", "a", 1)
-      logging
-        .get("test_logger")
-        :log("ERROR", "error with 3 parameters: %s, %d, %f", "a", 1, 3.12)
+      logging.get("test_logger"):log(LogLevels.INFO, "info with 1 parameters: %s", "a")
+      logging.get("test_logger"):log(LogLevels.WARN, "warn with 2 parameters: %s, %d", "a", 1)
+      logging.get("test_logger"):log("ERROR", "error with 3 parameters: %s, %d, %f", "a", 1, 3.12)
       local logger = logging.get("test_logger") --[[@as commons.logging.Logger]]
-      local ok, err =
-        pcall(logger.log, logger, "ERROR", "error message with pcall")
+      local ok, err = pcall(logger.log, logger, "ERROR", "error message with pcall")
       assert_true(ok)
     end)
     it("debug", function()
       logging.get("test_logger"):debug("debug without parameters")
       logging.get("test_logger"):debug("debug with 1 parameters: %s", "a")
-      logging
-        .get("test_logger")
-        :debug("debug with 2 parameters: %s, %d", "a", 1)
-      logging
-        .get("test_logger")
-        :debug("debug with 3 parameters: %s, %d, %f", "a", 1, 3.12)
+      logging.get("test_logger"):debug("debug with 2 parameters: %s, %d", "a", 1)
+      logging.get("test_logger"):debug("debug with 3 parameters: %s, %d, %f", "a", 1, 3.12)
     end)
     it("info", function()
       logging.get("test_logger"):info("info without parameters")
       logging.get("test_logger"):info("info with 1 parameters: %s", "a")
       logging.get("test_logger"):info("info with 2 parameters: %s, %d", "a", 1)
-      logging
-        .get("test_logger")
-        :info("info with 3 parameters: %s, %d, %f", "a", 1, 3.12)
+      logging.get("test_logger"):info("info with 3 parameters: %s, %d, %f", "a", 1, 3.12)
     end)
   end)
 end)

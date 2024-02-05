@@ -37,16 +37,10 @@ describe("commons.tables", function()
     it("tbl_contains", function()
       assert_true(tables.tbl_contains({ a = 1, b = 2, c = 3, d = 4 }, 1))
       assert_true(
-        tables.tbl_contains(
-          { a = 1, b = { 1, 2 }, c = 3, d = 4 },
-          { 1, 2 },
-          vim.deep_equal
-        )
+        tables.tbl_contains({ a = 1, b = { 1, 2 }, c = 3, d = 4 }, { 1, 2 }, vim.deep_equal)
       )
       assert_false(tables.tbl_contains({ a = 1, b = 2, c = 3, d = 4 }, "a"))
-      assert_false(
-        tables.tbl_contains({ a = 1, b = { 1, 2 }, c = 3, d = 4 }, { 1, 2 })
-      )
+      assert_false(tables.tbl_contains({ a = 1, b = { 1, 2 }, c = 3, d = 4 }, { 1, 2 }))
     end)
     it("list", function()
       assert_true(tables.list_empty(nil))
@@ -74,9 +68,7 @@ describe("commons.tables", function()
     end)
     it("list_contains", function()
       assert_true(tables.list_contains({ 1, 2, 3, 4 }, 1))
-      assert_true(
-        tables.list_contains({ 1, { 1, 2 }, 3, 4 }, { 1, 2 }, vim.deep_equal)
-      )
+      assert_true(tables.list_contains({ 1, { 1, 2 }, 3, 4 }, { 1, 2 }, vim.deep_equal))
       assert_false(tables.list_contains({ 1, 2, 3, 4 }, "a"))
       assert_false(tables.list_contains({ 1, { 1, 2 }, 3, 4 }, { 1, 2 }))
     end)
