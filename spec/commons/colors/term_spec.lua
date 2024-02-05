@@ -1,6 +1,6 @@
 local cwd = vim.fn.getcwd()
 
-describe("commons.termcolors", function()
+describe("commons.colors.term", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
   local assert_false = assert.is_false
@@ -11,7 +11,7 @@ describe("commons.termcolors", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
-  local termcolors = require("commons.termcolors")
+  local term_colors = require("commons.colors.term")
   describe("[render]", function()
     local TEST_CASES = {
       black = "Comment",
@@ -69,7 +69,7 @@ describe("commons.termcolors", function()
     it("fg", function()
       for color, hl in pairs(TEST_CASES) do
         print(string.format("fg-1: %s-%s\n", color, hl))
-        local actual = termcolors.render("fg", color, hl)
+        local actual = term_colors.render("fg", color, hl)
         print(
           string.format("fg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
         )
@@ -79,7 +79,7 @@ describe("commons.termcolors", function()
     it("bg", function()
       for color, hl in pairs(TEST_CASES) do
         print(string.format("bg-1: %s-%s\n", color, hl))
-        local actual = termcolors.render("bg", color, hl)
+        local actual = term_colors.render("bg", color, hl)
         print(
           string.format("bg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
         )
@@ -88,45 +88,45 @@ describe("commons.termcolors", function()
     end)
     it("print builtin", function()
       print(
-        "builtin-1 grey:" .. termcolors.render("Grey Color", "grey") .. "\n"
+        "builtin-1 grey:" .. term_colors.render("Grey Color", "grey") .. "\n"
       )
       print(
         "builtin-2 magenta:"
-          .. termcolors.render("Magenta Color", "magenta")
+          .. term_colors.render("Magenta Color", "magenta")
           .. "\n"
       )
       print(
         "builtin-3 chocolate:"
-          .. termcolors.render("Chocolate Color", "chocolate")
+          .. term_colors.render("Chocolate Color", "chocolate")
           .. "\n"
       )
       print(
-        "builtin-4 teal:" .. termcolors.render("Teal Color", "teal") .. "\n"
+        "builtin-4 teal:" .. term_colors.render("Teal Color", "teal") .. "\n"
       )
     end)
     it("print RGB", function()
       print(
-        "RGB-1 #808080:" .. termcolors.render("Grey Color", "#808080") .. "\n"
+        "RGB-1 #808080:" .. term_colors.render("Grey Color", "#808080") .. "\n"
       )
       print(
         "RGB-2 fuchsia:"
-          .. termcolors.render("Fuchsia Color", "#FF00FF")
+          .. term_colors.render("Fuchsia Color", "#FF00FF")
           .. "\n"
       )
       print(
-        "RGB-3 olive:" .. termcolors.render("Olive Color", "#808000") .. "\n"
+        "RGB-3 olive:" .. term_colors.render("Olive Color", "#808000") .. "\n"
       )
     end)
   end)
   describe("[erase]", function()
     it("no change", function()
-      assert_eq("hello world", termcolors.erase("hello world"))
-      assert_eq("let's go", termcolors.erase("let's go"))
+      assert_eq("hello world", term_colors.erase("hello world"))
+      assert_eq("let's go", term_colors.erase("let's go"))
     end)
     it("erase", function()
-      assert_eq("hello world", termcolors.erase("\x1b[38mhello world\x1b[0m"))
-      assert_eq("let's go", termcolors.erase("\x1b[38mlet's go\x1b[0m"))
-      assert_eq("let's go", termcolors.erase("\x1b[38mlet's go\x1b[m"))
+      assert_eq("hello world", term_colors.erase("\x1b[38mhello world\x1b[0m"))
+      assert_eq("let's go", term_colors.erase("\x1b[38mlet's go\x1b[0m"))
+      assert_eq("let's go", term_colors.erase("\x1b[38mlet's go\x1b[m"))
     end)
   end)
 end)

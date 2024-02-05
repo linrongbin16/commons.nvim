@@ -31,6 +31,11 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
           cp ~/.json.lua/json.lua ./lua/commons/_json.lua
+      - uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --config-path .stylua.toml ./lua ./spec
       - name: Add _system.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -63,11 +68,15 @@ jobs:
           rm -rf ./lua/commons/micro-async
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/"micro-async/"commons.micro-async/g' {} \;
-      - uses: JohnnyMorganz/stylua-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --config-path .stylua.toml ./lua ./spec
+      - name: Add colors.hsl.lua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          echo "pwd"
+          echo $PWD
+          curl -o http://sputnik.freewisdom.org/files/colors-8.05.26.tar.gz ~/.colors.tar.gz
+          tar zxf ~/.colors.tar.gz
+          echo 'ls -lh'
+          ls -lh
       - uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc
