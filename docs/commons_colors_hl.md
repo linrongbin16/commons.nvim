@@ -1,8 +1,8 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.colors.term](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/colors/term.lua)
+# [commons.colors.hl](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/colors/hl.lua)
 
-RGB color utilities about nvim syntax highlights.
+RGB color & nvim syntax highlight utilities.
 
 !> This module requires terminal support RGB colors and Neovim enables `termguicolors`.
 
