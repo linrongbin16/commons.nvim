@@ -7,6 +7,10 @@
 - Modules
   - [commons.apis](commons_apis.md)
   - [commons.async](commons_async.md)
+  - commons.colors
+    - [commons.colors.hl](commons_colors_hl.md)
+    - [commons.colors.hsl](commons_colors_hsl.md)
+    - [commons.colors.term](commons_colors_term.md)
   - [commons.fileios](commons_fileios.md)
   - [commons.jsons](commons_jsons.md)
   - [commons.logging](commons_logging.md)
@@ -18,7 +22,6 @@
   - [commons.spawn](commons_spawn.md)
   - [commons.strings](commons_strings.md)
   - [commons.tables](commons_tables.md)
-  - [commons.termcolors](commons_termcolors.md)
   - [commons.uv](commons_uv.md)
 - [Changelog](/CHANGELOG.md)
 - [Development](/development.md)

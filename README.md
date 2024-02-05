@@ -21,7 +21,7 @@ This lua library includes multiple modules:
 - Run child-process and handle line-wise output from stdout/stderr.
 - Async/await with lua coroutine.
 - Logging system with python-logging like features.
-- Terminal ANSI/RGB color renderings.
+- Colors HSL calculation & terminal rendering.
 - Compatible APIs support Neovim versions from v0.6 to nightly.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
@@ -33,6 +33,7 @@ Please check [documentation](https://linrongbin16.github.io/commons.nvim) for mo
 - [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
 - [micro-async.lua](https://github.com/willothy/micro-async.nvim): Ultra-simple async library for Neovim, with cancellation support.
 - [promise.lua](https://github.com/notomo/promise.nvim): Promise implementation for neovim lua.
+- [colors.lua](http://sputnik.freewisdom.org/lib/colors/): HSL Color Theory Computation in Lua.
 
 ## Contribute
 

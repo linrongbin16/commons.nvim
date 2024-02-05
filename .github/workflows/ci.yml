@@ -24,6 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --config-path .stylua.toml ./lua ./spec
       - name: Add _json.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -63,11 +68,18 @@ jobs:
           rm -rf ./lua/commons/micro-async
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/"micro-async/"commons.micro-async/g' {} \;
-      - uses: JohnnyMorganz/stylua-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --config-path .stylua.toml ./lua ./spec
+      - name: Add colors.hsl.lua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          echo "pwd"
+          echo $PWD
+          curl -k -L http://sputnik.freewisdom.org/files/colors-8.05.26.tar.gz -o ~/.colors.tar.gz
+          tar zxf ~/.colors.tar.gz
+          echo 'ls -lh'
+          ls -lh
+          rm -rf ./lua/commons/colors/hsl.lua
+          cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/colors/hsl.lua
+          rm -rf ./colors-8.05.26
       - uses: lunarmodules/luacheck@v1
         with:
           args: lua --config .luacheckrc

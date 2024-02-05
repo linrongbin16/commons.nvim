@@ -1,10 +1,10 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.termcolors](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/termcolors.lua)
+# [commons.colors.term](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/colors/term.lua)
 
 Terminal ANSI/RGB color rendering utilities.
 
-!> This module requires terminal support true color and Neovim enables `termguicolors` for the best display.
+!> This module requires terminal support RGB colors and Neovim enables `termguicolors`.
 
 ## Constants
 
