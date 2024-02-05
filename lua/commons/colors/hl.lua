@@ -1,7 +1,7 @@
 local M = {}
 
 --- @param highlights string|string[]
---- @param attr "fg"|"bg"|"sp"
+--- @param attr "fg"|"bg"|string
 --- @param fallback_color string?
 --- @return string?, integer, string?
 M.get_color_with_fallback = function(highlights, attr, fallback_color)
@@ -19,3 +19,5 @@ M.get_color_with_fallback = function(highlights, attr, fallback_color)
 
   return fallback_color, -1, nil
 end
+
+return M

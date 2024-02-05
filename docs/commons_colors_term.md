@@ -4,7 +4,7 @@
 
 Terminal ANSI/RGB color rendering utilities.
 
-!> This module requires terminal support true color and Neovim enables `termguicolors` for the best display.
+!> This module requires terminal support RGB colors and Neovim enables `termguicolors`.
 
 ## Constants
 
