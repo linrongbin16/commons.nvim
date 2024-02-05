@@ -33,6 +33,7 @@ Please check [documentation](https://linrongbin16.github.io/commons.nvim) for mo
 - [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
 - [micro-async.lua](https://github.com/willothy/micro-async.nvim): Ultra-simple async library for Neovim, with cancellation support.
 - [promise.lua](https://github.com/notomo/promise.nvim): Promise implementation for neovim lua.
+- [colors.lua](http://sputnik.freewisdom.org/lib/colors/): HSL Color Theory Computation in Lua.
 
 ## Contribute
 
