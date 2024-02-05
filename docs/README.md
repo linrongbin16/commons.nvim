@@ -11,7 +11,7 @@ The commons lua library for Neovim plugin project.
 - [commons.async](/commons_async.md): Embedded [lewis6991/async.nvim](https://github.com/lewis6991/async.nvim) library.
 - commons.colors
   - [commons.colors.term](/commons_colors_term.md): Terminal ANSI/RGB color rendering utilities.
-  - [commons.colors.hsl](/commons_colors_hsl.md): HSL colors calculation.
+  - [commons.colors.hsl](/commons_colors_hsl.md): Embedded [sputnik's colors](http://sputnik.freewisdom.org/lib/colors/) library.
 - [commons.fileios](/commons_fileios.md): File sync/async IO operations.
 - [commons.jsons](/commons_jsons.md): Encode/decode between lua table/list and json string.
 - [commons.logging](/commons_logging.md): Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
