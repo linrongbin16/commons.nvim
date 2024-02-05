@@ -9,7 +9,7 @@ describe("commons.colors.hl", function()
 
   before_each(function()
     vim.api.nvim_command("cd " .. cwd)
-    vim.api.nvim_command("colorscheme darkblue")
+    vim.api.nvim_command("colorscheme default")
   end)
 
   local hl_colors = require("commons.colors.hl")
