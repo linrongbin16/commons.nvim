@@ -53,7 +53,7 @@ Returns:
 
   - The RGB color code in 6-bit hex format with `#` prefix, such as `#837104`, `#ab82c9`.
   - The index in the `highlights` parameters list, indicate which highlight is been found if `highlights` contains multiple highlight names.
-  - The name of the `highlight` been found.
+  - The name of the highlight been found.
 
 - Returns 3 values if failed to get the color:
   - The `fallback_color`.
