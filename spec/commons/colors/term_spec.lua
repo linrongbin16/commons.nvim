@@ -70,9 +70,7 @@ describe("commons.colors.term", function()
       for color, hl in pairs(TEST_CASES) do
         print(string.format("fg-1: %s-%s\n", color, hl))
         local actual = term_colors.render("fg", color, hl)
-        print(
-          string.format("fg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
-        )
+        print(string.format("fg-2(%s-%s): %s\n", color, hl, vim.inspect(actual)))
         test_render(actual)
       end
     end)
@@ -80,42 +78,20 @@ describe("commons.colors.term", function()
       for color, hl in pairs(TEST_CASES) do
         print(string.format("bg-1: %s-%s\n", color, hl))
         local actual = term_colors.render("bg", color, hl)
-        print(
-          string.format("bg-2(%s-%s): %s\n", color, hl, vim.inspect(actual))
-        )
+        print(string.format("bg-2(%s-%s): %s\n", color, hl, vim.inspect(actual)))
         test_render(actual)
       end
     end)
     it("print builtin", function()
-      print(
-        "builtin-1 grey:" .. term_colors.render("Grey Color", "grey") .. "\n"
-      )
-      print(
-        "builtin-2 magenta:"
-          .. term_colors.render("Magenta Color", "magenta")
-          .. "\n"
-      )
-      print(
-        "builtin-3 chocolate:"
-          .. term_colors.render("Chocolate Color", "chocolate")
-          .. "\n"
-      )
-      print(
-        "builtin-4 teal:" .. term_colors.render("Teal Color", "teal") .. "\n"
-      )
+      print("builtin-1 grey:" .. term_colors.render("Grey Color", "grey") .. "\n")
+      print("builtin-2 magenta:" .. term_colors.render("Magenta Color", "magenta") .. "\n")
+      print("builtin-3 chocolate:" .. term_colors.render("Chocolate Color", "chocolate") .. "\n")
+      print("builtin-4 teal:" .. term_colors.render("Teal Color", "teal") .. "\n")
     end)
     it("print RGB", function()
-      print(
-        "RGB-1 #808080:" .. term_colors.render("Grey Color", "#808080") .. "\n"
-      )
-      print(
-        "RGB-2 fuchsia:"
-          .. term_colors.render("Fuchsia Color", "#FF00FF")
-          .. "\n"
-      )
-      print(
-        "RGB-3 olive:" .. term_colors.render("Olive Color", "#808000") .. "\n"
-      )
+      print("RGB-1 #808080:" .. term_colors.render("Grey Color", "#808080") .. "\n")
+      print("RGB-2 fuchsia:" .. term_colors.render("Fuchsia Color", "#FF00FF") .. "\n")
+      print("RGB-3 olive:" .. term_colors.render("Olive Color", "#808000") .. "\n")
     end)
   end)
   describe("[erase]", function()

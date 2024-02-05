@@ -80,8 +80,7 @@ describe("commons.apis", function()
         local fp = io.open("nvim_get_hl.log", "w")
         for i, hl in ipairs(HIGHLIGHTS) do
           local link_payload = vim.api.nvim_get_hl(0, { name = hl })
-          local no_link_payload =
-            vim.api.nvim_get_hl(0, { name = hl, link = false })
+          local no_link_payload = vim.api.nvim_get_hl(0, { name = hl, link = false })
           fp:write(string.format("[%d] %s (link=true):\n", i, vim.inspect(hl)))
           fp:write(string.format("%s\n", vim.inspect(link_payload)))
           fp:write(string.format("[%d] %s (link=false):\n", i, vim.inspect(hl)))

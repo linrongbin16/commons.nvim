@@ -114,8 +114,7 @@ describe("commons.paths", function()
         local expect41 = "~/test141.txt"
         local expect42 = "~/test142.txt"
         create_symlink(expect41, expect42)
-        local actual4 =
-          paths.normalize(expect42, { expand = true, resolve = true })
+        local actual4 = paths.normalize(expect42, { expand = true, resolve = true })
         print(string.format("normalize-user.home-4:%s\n", vim.inspect(actual4)))
         assert_true(strings.endswith(actual4, string.sub(expect41, 2)))
         assert_true(strings.startswith(actual4, uv.os_homedir()))
@@ -147,8 +146,7 @@ describe("commons.paths", function()
       assert_eq(actual3, expect3)
 
       local expect4 = "./spec/commons/paths_spec.lua"
-      local actual4 =
-        paths.normalize(expect4, { expand = true, resolve = true })
+      local actual4 = paths.normalize(expect4, { expand = true, resolve = true })
       print(string.format("normalize-relative-4:%s\n", vim.inspect(actual4)))
       assert_eq(actual4, expect4)
 
@@ -171,41 +169,35 @@ describe("commons.paths", function()
       remove_file(expect62)
 
       local expect7 = "github/linrongbin16/fzfx.nvim/lua/tests"
-      local actual7 =
-        paths.normalize(expect1, { expand = true, resolve = true })
+      local actual7 = paths.normalize(expect1, { expand = true, resolve = true })
       print(string.format("normalize-relative-7:%s\n", vim.inspect(actual7)))
       assert_eq(actual7, expect7)
     end)
     it("windows", function()
-      local actual1 = paths.normalize(
-        [[C:\Users\linrongbin\github\linrongbin16\fzfx.nvim\lua\tests]]
-      )
-      local expect1 =
-        [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests]]
+      local actual1 =
+        paths.normalize([[C:\Users\linrongbin\github\linrongbin16\fzfx.nvim\lua\tests]])
+      local expect1 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests]]
       assert_eq(actual1, expect1)
 
       local actual2 = paths.normalize(
         [[C:\Users\linrongbin\github\linrongbin16\fzfx.nvim\lua\tests]],
         { double_backslash = true }
       )
-      local expect2 =
-        [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests]]
+      local expect2 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests]]
       assert_eq(actual2, expect2)
 
       local actual3 = paths.normalize(
         [[C:\\Users\\linrongbin\\github\\linrongbin16\\fzfx.nvim\\lua\\tests\test_path.lua]],
         { double_backslash = true }
       )
-      local expect3 =
-        [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua]]
+      local expect3 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua]]
       assert_eq(actual3, expect3)
 
       local actual4 = paths.normalize(
         [[C:\\Users\\linrongbin\\github\\linrongbin16\\fzfx.nvim\\lua\\tests\\test_path.lua]],
         { double_backslash = true }
       )
-      local expect4 =
-        [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua]]
+      local expect4 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua]]
       assert_eq(actual4, expect4)
     end)
   end)

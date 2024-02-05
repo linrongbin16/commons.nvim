@@ -49,17 +49,12 @@ describe("commons.colors.hl", function()
       assert_eq(actual13, nil)
 
       local input2 = { "NotExistHl" }
-      local actual21, actual22, actual23 =
-        hl_colors.get_color_with_fallback(input2, "bg")
+      local actual21, actual22, actual23 = hl_colors.get_color_with_fallback(input2, "bg")
       assert_eq(actual21, nil)
       assert_eq(actual22, -1)
       assert_eq(actual23, nil)
 
-      local actual3 = hl_colors.get_color_with_fallback(
-        { "Constant", "Visual" },
-        "fg",
-        "#123456"
-      )
+      local actual3 = hl_colors.get_color_with_fallback({ "Constant", "Visual" }, "fg", "#123456")
       if actual3 then
         assert_eq(type(actual3), "string")
         assert_true(strings.startswith(actual3, "#"))
@@ -72,8 +67,7 @@ describe("commons.colors.hl", function()
         assert_eq(string.format("#%06x", expect3), actual3)
       end
 
-      local actual4 =
-        hl_colors.get_color_with_fallback("Visual", "bg", "#123456")
+      local actual4 = hl_colors.get_color_with_fallback("Visual", "bg", "#123456")
       if actual4 then
         assert_eq(type(actual4), "string")
         assert_true(strings.startswith(actual4, "#"))
