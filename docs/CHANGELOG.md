@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.0.1](https://github.com/linrongbin16/commons.nvim/compare/v9.0.0...v9.0.1) (2024-02-05)
+
+
+### Bug Fixes
+
+* **tables:** use 'type' in 'tbl_get' ([#199](https://github.com/linrongbin16/commons.nvim/issues/199)) ([805dce9](https://github.com/linrongbin16/commons.nvim/commit/805dce9702f546276ac62637b3ded1154156f1c2))
+
 ## [9.0.0](https://github.com/linrongbin16/commons.nvim/compare/v8.4.0...v9.0.0) (2024-02-05)
 
 
