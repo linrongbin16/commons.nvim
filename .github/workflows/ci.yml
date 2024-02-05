@@ -73,7 +73,7 @@ jobs:
         run: |
           echo "pwd"
           echo $PWD
-          curl -o http://sputnik.freewisdom.org/files/colors-8.05.26.tar.gz ~/.colors.tar.gz
+          curl -k -L http://sputnik.freewisdom.org/files/colors-8.05.26.tar.gz -o ~/.colors.tar.gz
           tar zxf ~/.colors.tar.gz
           echo 'ls -lh'
           ls -lh
