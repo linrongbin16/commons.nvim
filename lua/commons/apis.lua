@@ -69,18 +69,18 @@ M.get_hl = function(hl)
   if NVIM_VERSION_0_9 then
     return vim.api.nvim_get_hl(0, { name = hl, link = false })
   else
-    local ok1, rgb_hldef = pcall(vim.api.nvim_get_hl_by_name, hl, true)
+    local ok1, rgb_value = pcall(vim.api.nvim_get_hl_by_name, hl, true)
     if not ok1 then
       return vim.empty_dict()
     end
-    local ok2, cterm_hldef = pcall(vim.api.nvim_get_hl_by_name, hl, false)
+    local ok2, cterm_value = pcall(vim.api.nvim_get_hl_by_name, hl, false)
     if not ok2 then
       return vim.empty_dict()
     end
-    local result = vim.tbl_deep_extend("force", rgb_hldef, {
-      ctermfg = cterm_hldef.foreground,
-      ctermbg = cterm_hldef.background,
-      cterm = cterm_hldef,
+    local result = vim.tbl_deep_extend("force", rgb_value, {
+      ctermfg = cterm_value.foreground,
+      ctermbg = cterm_value.background,
+      cterm = cterm_value,
     })
     result.sp = result.special
     result.cterm.fg = result.cterm.foreground
