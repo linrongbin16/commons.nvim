@@ -21,7 +21,7 @@ This lua library includes multiple modules:
 - Run child-process and handle line-wise output from stdout/stderr.
 - Async/await with lua coroutine.
 - Logging system with python-logging like features.
-- Colors HSL calculation & terminal rendering.
+- Colors & syntax highlight utilities, HSL calculation & terminal rendering.
 - Compatible APIs support Neovim versions from v0.6 to nightly.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
