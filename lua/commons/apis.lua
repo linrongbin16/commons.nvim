@@ -82,6 +82,8 @@ M.get_hl = function(hl)
       ctermbg = cterm_value.background,
       cterm = cterm_value,
     })
+    result.fg = result.foreground
+    result.bg = result.background
     result.sp = result.special
     result.cterm.fg = result.cterm.foreground
     result.cterm.bg = result.cterm.background
