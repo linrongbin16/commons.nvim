@@ -8,9 +8,30 @@ RGB color utilities about nvim syntax highlights.
 
 ## Functions
 
+### `get_color`
+
+Get RGB color code from nvim syntax highlight.
+
+```lua
+--- @param highlight string
+--- @param attr "fg"|"bg"|string
+--- @return string?
+M.get_color = function(highlight, attr)
+```
+
+Parameters:
+
+- `highlight`: Syntax highlight name.
+- `attr`: Specify which field (usually `fg`, `bg`) to retrieve the RGB color from.
+
+Returns:
+
+- Returns RGB color code (in 6-bit hex format with `#` prefix, such as `#837104`, `#ab82c9`) if successful get the color.
+- Returns `nil` if failed to found the `highlight` with specified `attr`.
+
 ### `get_color_with_fallback`
 
-Get RGB color codes, accepts multiple syntax highlights, with a fallback RGB color code.
+Get (the first if multiple highlights are provided) RGB color code, accepts multiple syntax highlights, with a fallback RGB color code.
 
 ```lua
 --- @param highlights string|string[]
@@ -32,7 +53,7 @@ Returns:
 
   - The RGB color code in 6-bit hex format with `#` prefix, such as `#837104`, `#ab82c9`.
   - The index in the `highlights` parameters list, indicate which highlight is been found if `highlights` contains multiple highlight names.
-  - The name of the highlight been found.
+  - The name of the `highlight` been found.
 
 - Returns 3 values if failed to get the color:
   - The `fallback_color`.
