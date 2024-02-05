@@ -9,4 +9,5 @@ exclude_files = {
   "lua/commons/async.lua",
   "lua/commons/promise/*.lua",
   "lua/commons/micro-async/*.lua",
+  "lua/commons/colors/hsl.lua",
 }
