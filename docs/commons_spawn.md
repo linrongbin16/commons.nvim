@@ -45,3 +45,7 @@ Sync/blocking and async/non-blocking:
 
 - To run child process in sync/blocking way, set `on_exit` to `nil`, and invoke `wait()` on the returned object to wait for spawn exit.
 - To run child process in async/non-blocking way, set `on_exit` to lua function and don't invoke `wait()` on the returned object to don't wait.
+
+### `system`
+
+Same function with the [vim.system()](<https://neovim.io/doc/user/lua.html#vim.system()>) since 0.10.
