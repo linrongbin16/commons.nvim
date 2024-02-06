@@ -93,13 +93,18 @@ end
 local List = {}
 
 --- @param l any[]
-function List:new(l)
+function List:wrap(l)
   assert(type(l) == "table")
 
   local o = { _data = l }
   setmetatable(o, self)
   self.__index = self
   return o
+end
+
+--- @param ... any
+function List:of(...)
+  return List:wrap({...})
 end
 
 function List:data()
@@ -119,7 +124,7 @@ function List:concat(other)
   for i, v in ipairs(other._data) do
     table.insert(l, v)
   end
-  return List:new(l)
+  return List:wrap(l)
 end
 
 function List:allOf(f)
@@ -160,7 +165,7 @@ function List:filter(f)
       table.insert(l, v)
     end
   end
-  return List:new(l)
+  return List:wrap(l)
 end
 
 M.List = List
