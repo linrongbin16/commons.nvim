@@ -200,6 +200,8 @@ function List:find(f)
   return nil, -1
 end
 
+--- @param f fun(value:any, index:integer):boolean
+--- @return any?, integer
 function List:findLast(f)
   assert(type(f) == "function")
   local n = #self._data
