@@ -88,39 +88,43 @@ M.list_contains = function(l, v, compare)
   return false
 end
 
---- @class commons.ListStream
+--- @class commons.List
 --- @field _data any[]
-local ListStream = {}
+local List = {}
 
 --- @param l any[]
-function ListStream:new(l)
+function List:new(l)
   assert(type(l) == "table")
 
   local o = { _data = l }
+  setmetatable(o, self)
+  self.__index = self
   return o
 end
 
-M.ListStream = ListStream
-
-M.list_stream = function(l)
-  return ListStream:new(l)
+function List:data()
+  return self._data
 end
 
---- @class commons.HashMapStream
-local HashMapStream = {}
+function List:at(index)
+  return self._data[index]
+end
+
+M.List = List
+
+--- @class commons.HashMap
+local HashMap = {}
 
 --- @param t table
-function HashMapStream:new(t)
+function HashMap:new(t)
   assert(type(t) == "table")
 
   local o = { _data = t }
+  setmetatable(o, self)
+  self.__index = self
   return o
 end
 
-M.HashMapStream = HashMapStream
-
-M.tbl_stream = function(t)
-  return HashMapStream:new(t)
-end
+M.HashMap = HashMap
 
 return M
