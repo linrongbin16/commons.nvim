@@ -168,6 +168,29 @@ function List:filter(f)
   return List:wrap(l)
 end
 
+function List:find(f)
+  assert(type(f) == "function")
+  for i, v in ipairs(self._data) do
+    if f(v, i) then
+      return v, i
+    end
+  end 
+  return nil, -1
+end
+
+function List:findLast(f)
+  assert(type(f) == "function")
+  local n = #self._data
+
+  for i =n,1,-1 do
+    local v=self._data[i]
+    if f(v, i) then
+      return v, i
+    end
+  end 
+  return nil, -1
+end
+  
 M.List = List
 
 M.is_list = function(o)
