@@ -123,7 +123,7 @@ function List:concat(other)
 end
 
 function List:allOf(f)
-  assert(type(f) == 'function')
+  assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if not f(v, i) then
       return false
@@ -133,7 +133,7 @@ function List:allOf(f)
 end
 
 function List:anyOf(f)
-    assert(type(f) == 'function')
+  assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then
       return true
@@ -143,7 +143,7 @@ function List:anyOf(f)
 end
 
 function List:noneOf(f)
-    assert(type(f) == 'function')
+  assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then
       return false
@@ -153,7 +153,7 @@ function List:noneOf(f)
 end
 
 function List:filter(f)
-  assert(type(f) == 'function')
+  assert(type(f) == "function")
   local l = {}
   for i, v in ipairs(self._data) do
     if f(v, i) then
