@@ -189,7 +189,7 @@ function List:filter(f)
 end
 
 --- @param f fun(value:any, index:integer):boolean
---- @return any, integer
+--- @return any?, integer
 function List:find(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
