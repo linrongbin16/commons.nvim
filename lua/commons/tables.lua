@@ -141,7 +141,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:allOf(f)
+function List:every(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if not f(v, i) then
@@ -153,7 +153,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:anyOf(f)
+function List:some(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then
@@ -165,7 +165,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:noneOf(f)
+function List:none(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then
@@ -230,6 +230,14 @@ end
 --- @param comparator (fun(a:any,b:any):boolean)|nil
 --- @return boolean
 function List:includes(value, start, comparator)
+  return self:indexOf(value, start, comparator) >= 1
+end
+
+--- @param value any
+--- @param start integer?
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return integer?
+function List:indexOf(value, start, comparator)
   assert(type(comparator) == "function" or comparator == nil)
   start = start or 1
   local n = self:length()
@@ -238,16 +246,52 @@ function List:includes(value, start, comparator)
     local v = self._data[i]
     if type(comparator) == "function" then
       if comparator(v, value) then
-        return true
+        return i
       end
     else
       if v == value then
-        return true
+        return i
       end
     end
   end
 
-  return false
+  return -1
+end
+
+--- @param value any
+--- @param rstart integer?
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return integer?
+function List:lastIndexOf(value, rstart, comparator)
+  assert(type(comparator) == "function" or comparator == nil)
+  local n = self:length()
+  rstart = rstart or n
+
+  for i = rstart, 1, -1 do
+    local v = self._data[i]
+    if type(comparator) == "function" then
+      if comparator(v, value) then
+        return i
+      end
+    else
+      if v == value then
+        return i
+      end
+    end
+  end
+
+  return -1
+end
+
+--- @param f fun(value:any,index:integer):any
+--- @return commons.List
+function List:map(f)
+  assert(type(f) == "function")
+  local l = {}
+  for i, v in ipairs(self._data) do
+    table.insert(l, f(v, i))
+  end
+  return List:wrap(l)
 end
 
 M.List = List
