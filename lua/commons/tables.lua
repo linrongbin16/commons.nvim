@@ -204,7 +204,7 @@ end
 --- @return any?, integer
 function List:findLast(f)
   assert(type(f) == "function")
-  local n = #self._data
+  local n = self:length()
 
   for i = n, 1, -1 do
     local v = self._data[i]
@@ -218,10 +218,9 @@ end
 --- @param f fun(value:any, index:integer):nil
 function List:forEach(f)
   assert(type(f) == "function")
-  local n = #self._data
+  local n = self:length()
 
-  for i = n, 1, -1 do
-    local v = self._data[i]
+  for i, v in ipairs(self._data) do
     f(v, i)
   end
 end
