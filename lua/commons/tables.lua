@@ -110,7 +110,17 @@ function List:at(index)
   return self._data[index]
 end
 
-function List:concat(other) end
+function List:concat(other)
+  assert(M.is_list(other))
+  local l = {}
+  for i, v in ipairs(self._data) do
+    table.insert(l, v)
+  end
+  for i, v in ipairs(other._data) do
+    table.insert(l, v)
+  end
+  return List:new(l)
+end
 
 M.List = List
 
