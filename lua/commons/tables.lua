@@ -122,7 +122,7 @@ end
 --- @return any
 function List:at(index)
   local normalized_index = M.list_index(index, self:length())
-  return self._data[index]
+  return self._data[normalized_index]
 end
 
 function List:concat(other)
