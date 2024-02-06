@@ -104,7 +104,7 @@ end
 
 --- @param ... any
 function List:of(...)
-  return List:wrap({...})
+  return List:wrap({ ... })
 end
 
 function List:data()
