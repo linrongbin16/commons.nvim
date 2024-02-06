@@ -93,6 +93,7 @@ end
 local List = {}
 
 --- @param l any[]
+--- @return commons.List
 function List:wrap(l)
   assert(type(l) == "table")
 
@@ -103,15 +104,24 @@ function List:wrap(l)
 end
 
 --- @param ... any
+--- @return commons.List
 function List:of(...)
   return List:wrap({ ... })
 end
 
+--- @return any[]
 function List:data()
   return self._data
 end
 
+--- @return integer
+function List:length()
+  return #self._data
+end
+
+--- @return any
 function List:at(index)
+  local normalized_index = M.list_index(index, self:length())
   return self._data[index]
 end
 
