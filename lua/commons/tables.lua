@@ -89,9 +89,15 @@ M.list_contains = function(l, v, compare)
 end
 
 --- @class commons.ListStream
+--- @field _data any[]
 local ListStream = {}
 
-function ListStream:new()
+--- @param l any[]
+function ListStream:new(l)
+  assert(type(l) == 'table')
+
+  local o = { _data = l}
+  return o
 end
 
 M.ListStream = ListStream
@@ -103,7 +109,13 @@ end
 --- @class commons.HashMapStream
 local HashMapStream = {}
 
-function HashMapStream:new()
+
+--- @param t table
+function HashMapStream:new(t)
+    assert(type(t) == 'table')
+
+  local o = { _data = t}
+  return o
 end
 
 M.HashMapStream = HashMapStream
