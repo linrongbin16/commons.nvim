@@ -88,4 +88,28 @@ M.list_contains = function(l, v, compare)
   return false
 end
 
+--- @class commons.ListStream
+local ListStream = {}
+
+function ListStream:new()
+end
+
+M.ListStream = ListStream
+
+M.list_stream = function(l)
+  returns ListStream:new(l)
+end
+
+--- @class commons.HashMapStream
+local HashMapStream = {}
+
+function HashMapStream:new()
+end
+
+M.HashMapStream = HashMapStream
+
+M.tbl_stream = function(t)
+  returns HashMapStream:new(t)
+end
+
 return M
