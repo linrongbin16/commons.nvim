@@ -122,6 +122,47 @@ function List:concat(other)
   return List:new(l)
 end
 
+function List:allOf(f)
+  assert(type(f) == 'function')
+  for i, v in ipairs(self._data) do
+    if not f(v, i) then
+      return false
+    end
+  end
+  return true
+end
+
+function List:anyOf(f)
+    assert(type(f) == 'function')
+  for i, v in ipairs(self._data) do
+    if f(v, i) then
+      return true
+    end
+  end
+  return false
+end
+
+function List:noneOf(f)
+    assert(type(f) == 'function')
+  for i, v in ipairs(self._data) do
+    if f(v, i) then
+      return false
+    end
+  end
+  return true
+end
+
+function List:filter(f)
+  assert(type(f) == 'function')
+  local l = {}
+  for i, v in ipairs(self._data) do
+    if f(v, i) then
+      table.insert(l, v)
+    end
+  end
+  return List:new(l)
+end
+
 M.List = List
 
 M.is_list = function(o)
