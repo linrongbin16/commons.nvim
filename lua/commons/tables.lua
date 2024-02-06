@@ -125,6 +125,8 @@ function List:at(index)
   return self._data[normalized_index]
 end
 
+--- @param other commons.List
+--- @return commons.List
 function List:concat(other)
   assert(M.is_list(other))
   local l = {}
@@ -137,6 +139,8 @@ function List:concat(other)
   return List:wrap(l)
 end
 
+--- @param f fun(value:any, index:integer):boolean
+--- @return boolean
 function List:allOf(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
@@ -147,6 +151,8 @@ function List:allOf(f)
   return true
 end
 
+--- @param f fun(value:any, index:integer):boolean
+--- @return boolean
 function List:anyOf(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
@@ -157,6 +163,8 @@ function List:anyOf(f)
   return false
 end
 
+--- @param f fun(value:any, index:integer):boolean
+--- @return boolean
 function List:noneOf(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
@@ -167,6 +175,8 @@ function List:noneOf(f)
   return true
 end
 
+--- @param f fun(value:any, index:integer):boolean
+--- @return commons.List
 function List:filter(f)
   assert(type(f) == "function")
   local l = {}
@@ -178,6 +188,8 @@ function List:filter(f)
   return List:wrap(l)
 end
 
+--- @param f fun(value:any, index:integer):boolean
+--- @return any, integer
 function List:find(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
