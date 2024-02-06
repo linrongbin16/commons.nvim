@@ -94,9 +94,9 @@ local ListStream = {}
 
 --- @param l any[]
 function ListStream:new(l)
-  assert(type(l) == 'table')
+  assert(type(l) == "table")
 
-  local o = { _data = l}
+  local o = { _data = l }
   return o
 end
 
@@ -109,12 +109,11 @@ end
 --- @class commons.HashMapStream
 local HashMapStream = {}
 
-
 --- @param t table
 function HashMapStream:new(t)
-    assert(type(t) == 'table')
+  assert(type(t) == "table")
 
-  local o = { _data = t}
+  local o = { _data = t }
   return o
 end
 
