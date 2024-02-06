@@ -110,13 +110,12 @@ function List:at(index)
   return self._data[index]
 end
 
-function List:concat(other)
-end
+function List:concat(other) end
 
 M.List = List
 
 M.is_list = function(o)
-  return type(o) == 'table' and o.__index == List and getmetatable(o) == List 
+  return type(o) == "table" and o.__index == List and getmetatable(o) == List
 end
 
 --- @class commons.HashMap
@@ -135,7 +134,7 @@ end
 M.HashMap = HashMap
 
 M.is_hashmap = function(o)
-  return type(o) == 'table' and o.__index == HashMap and getmetatable(o) == HashMap
+  return type(o) == "table" and o.__index == HashMap and getmetatable(o) == HashMap
 end
 
 return M
