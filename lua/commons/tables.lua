@@ -215,6 +215,17 @@ function List:findLast(f)
   return nil, -1
 end
 
+--- @param f fun(value:any, index:integer):nil
+function List:forEach(f)
+  assert(type(f) == "function")
+  local n = #self._data
+
+  for i = n, 1, -1 do
+    local v = self._data[i]
+    f(v, i)
+  end
+end
+
 M.List = List
 
 M.is_list = function(o)
