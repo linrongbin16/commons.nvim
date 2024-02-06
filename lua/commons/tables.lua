@@ -225,6 +225,31 @@ function List:forEach(f)
   end
 end
 
+--- @param value any
+--- @param start integer?
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return boolean
+function List:includes(value, start, comparator)
+  assert(type(comparator) == "function" or comparator == nil)
+  start = start or 1
+  local n = self:length()
+
+  for i = start, n do
+    local v = self._data[i]
+    if type(comparator) == "function" then
+      if comparator(v, value) then
+        return true
+      end
+    else
+      if v == value then
+        return true
+      end
+    end
+  end
+
+  return false
+end
+
 M.List = List
 
 M.is_list = function(o)
