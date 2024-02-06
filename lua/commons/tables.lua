@@ -103,7 +103,7 @@ end
 M.ListStream = ListStream
 
 M.list_stream = function(l)
-  returns ListStream:new(l)
+  return ListStream:new(l)
 end
 
 --- @class commons.HashMapStream
@@ -121,7 +121,7 @@ end
 M.HashMapStream = HashMapStream
 
 M.tbl_stream = function(t)
-  returns HashMapStream:new(t)
+  return HashMapStream:new(t)
 end
 
 return M
