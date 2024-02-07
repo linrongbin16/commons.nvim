@@ -388,6 +388,14 @@ function List:slice(start_index, end_index)
   local n = self:length()
   start_index = start_index and M.list_index(start_index, n) or 1
   end_index = end_index and M.list_index(end_index, n) or n
+
+  local l = {}
+  for i = start_index, end_index do
+    if i >= 1 and i <= n then
+      table.insert(l, self._data[i])
+    end
+  end
+  return List:wrap(l)
 end
 
 M.List = List
