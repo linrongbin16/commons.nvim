@@ -124,6 +124,7 @@ function List:empty()
   return #self._data == 0
 end
 
+--- @param index integer
 --- @return any
 function List:at(index)
   local normalized_index = M.list_index(index, self:length())
@@ -376,6 +377,18 @@ function List:reverse()
     i = i - 1
   end
   return List:wrap(l)
+end
+
+--- @param start_index integer?
+--- @param end_index integer?
+--- @return commons.List
+function List:slice(start_index, end_index)
+  assert(type(start_index) == "number" or start_index == nil)
+  assert(type(end_index) == "number" or end_index == nil)
+
+  local n = self:length()
+  start_index = start_index and M.list_index(start_index, n) or 1
+  end_index = end_index and M.list_index(end_index, n) or n
 end
 
 M.List = List
