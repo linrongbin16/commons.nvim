@@ -307,6 +307,11 @@ function List:pop()
   return table.remove(self._data, self:length()), true
 end
 
+--- @param value any
+function List:push(value)
+  table.insert(self._data, value)
+end
+
 --- @return any?, boolean
 function List:shift()
   if self:empty() then
@@ -315,9 +320,11 @@ function List:shift()
   return table.remove(self._data, 1), true
 end
 
---- @param value any
-function List:push(value)
-  table.insert(self._data, value)
+--- @param ... any
+function List:unshift(...)
+  for i, v in ipairs({ ... }) do
+    table.insert(self._data, 1, v)
+  end
 end
 
 --- @param f fun(accumulator:any,currentValue:any,currentIndex:integer):any
@@ -395,6 +402,28 @@ function List:slice(start_index, end_index)
       table.insert(l, self._data[i])
     end
   end
+  return List:wrap(l)
+end
+
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return commons.List
+function List:sort(comparator)
+  local l = {}
+  for i, v in ipairs(self._data) do
+    table.insert(l, v)
+  end
+  table.sort(l, comparator)
+  return List:wrap(l)
+end
+
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return commons.List
+function List:sort(comparator)
+  local l = {}
+  for i, v in ipairs(self._data) do
+    table.insert(l, v)
+  end
+  table.sort(l, comparator)
   return List:wrap(l)
 end
 
