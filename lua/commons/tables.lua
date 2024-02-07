@@ -312,6 +312,20 @@ function List:push(value)
   table.insert(self._data, value)
 end
 
+--- @param f fun(accumulator:any,currentValue:any,currentIndex:integer):any
+--- @param initialValue any?
+--- @return any
+function List:reduce(f, initialValue)
+  assert(type(f) == "function")
+  local startIndex = initialValue or self._data[1]
+  local accumulator = initialValue and 1 or 2
+  local n = self:length()
+  for i = startIndex, n do
+    accumulator = f(accumulator, self._data[i], i)
+  end
+  return accumulator
+end
+
 M.List = List
 
 M.is_list = function(o)
