@@ -346,10 +346,11 @@ function List:reduceRight(f, initialValue)
   local n = self:length()
   local startIndex = initialValue and n or self:length() - 1
   local accumulator = initialValue or self._data[n]
+
   local i = startIndex
-  while i <= n do
+  while i >= 1 do
     accumulator = f(accumulator, self._data[i], i)
-    i = i + 1
+    i = i - 1
   end
   return accumulator
 end
