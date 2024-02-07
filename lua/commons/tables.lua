@@ -405,16 +405,11 @@ function List:slice(start_index, end_index)
   return List:wrap(l)
 end
 
---- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @param start integer
+--- @param delete integer
+--- @param ... any
 --- @return commons.List
-function List:sort(comparator)
-  local l = {}
-  for i, v in ipairs(self._data) do
-    table.insert(l, v)
-  end
-  table.sort(l, comparator)
-  return List:wrap(l)
-end
+function List:splice(start, delete, ...) end
 
 --- @param comparator (fun(a:any,b:any):boolean)|nil
 --- @return commons.List
