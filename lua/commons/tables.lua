@@ -299,12 +299,21 @@ function List:map(f)
   return List:wrap(l)
 end
 
---- @return boolean, any?
+--- @return any?, boolean
 function List:pop()
   if self:empty() then
-    return false, nil
+    return nil, false
   end
-  return true, table.remove(self._data, self:length())
+  return table.remove(self._data, self:length()), true
+end
+
+--- @return any?, boolean
+function List:shift()
+  if self:empty() then
+    return nil, false
+  end
+
+  return table.remove(self._data, 1), true
 end
 
 --- @param value any
@@ -353,6 +362,21 @@ function List:reduceRight(f, initialValue)
     i = i - 1
   end
   return accumulator
+end
+
+--- @return commons.List
+function List:reverse()
+  if self:empty() then
+    return List:wrap({})
+  end
+
+  local l = {}
+  local i = self:length()
+  while i >= 1 do
+    table.insert(l, self._data[i])
+    i = i - 1
+  end
+  return List:wrap(l)
 end
 
 M.List = List
