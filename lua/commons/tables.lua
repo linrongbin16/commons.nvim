@@ -312,7 +312,6 @@ function List:shift()
   if self:empty() then
     return nil, false
   end
-
   return table.remove(self._data, 1), true
 end
 
