@@ -119,6 +119,11 @@ function List:length()
   return #self._data
 end
 
+--- @return boolean
+function List:empty()
+  return #self._data == 0
+end
+
 --- @return any
 function List:at(index)
   local normalized_index = M.list_index(index, self:length())
@@ -292,6 +297,19 @@ function List:map(f)
     table.insert(l, f(v, i))
   end
   return List:wrap(l)
+end
+
+--- @return any?, boolean
+function List:pop()
+  if self:empty() then
+    return nil, false
+  end
+  return table.remove(self._data, self:length()), true
+end
+
+--- @param value any
+function List:push(value)
+  table.insert(self._data, value)
 end
 
 M.List = List
