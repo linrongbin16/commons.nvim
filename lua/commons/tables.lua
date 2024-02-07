@@ -63,8 +63,7 @@ end
 --- @param n integer
 --- @return integer
 M.list_index = function(i, n)
-  assert(n > 0)
-  assert((i >= 1 and i <= n) or (i <= -1 and i >= -n))
+  assert(n >= 0)
   return i > 0 and i or (n + i + 1)
 end
 
