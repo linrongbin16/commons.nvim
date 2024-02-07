@@ -317,11 +317,39 @@ end
 --- @return any
 function List:reduce(f, initialValue)
   assert(type(f) == "function")
-  local startIndex = initialValue or self._data[1]
-  local accumulator = initialValue and 1 or 2
+
+  if self:empty() then
+    return initialValue
+  end
+
+  local startIndex = initialValue and 1 or 2
+  local accumulator = initialValue or self._data[1]
   local n = self:length()
-  for i = startIndex, n do
+  local i = startIndex
+  while i <= n do
     accumulator = f(accumulator, self._data[i], i)
+    i = i + 1
+  end
+  return accumulator
+end
+
+--- @param f fun(accumulator:any,currentValue:any,currentIndex:integer):any
+--- @param initialValue any?
+--- @return any
+function List:reduceRight(f, initialValue)
+  assert(type(f) == "function")
+
+  if self:empty() then
+    return initialValue
+  end
+
+  local n = self:length()
+  local startIndex = initialValue and n or self:length() - 1
+  local accumulator = initialValue or self._data[n]
+  local i = startIndex
+  while i <= n do
+    accumulator = f(accumulator, self._data[i], i)
+    i = i + 1
   end
   return accumulator
 end
