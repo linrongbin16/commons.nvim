@@ -299,12 +299,12 @@ function List:map(f)
   return List:wrap(l)
 end
 
---- @return any?, boolean
+--- @return boolean, any?
 function List:pop()
   if self:empty() then
-    return nil, false
+    return false, nil
   end
-  return table.remove(self._data, self:length()), true
+  return true, table.remove(self._data, self:length())
 end
 
 --- @param value any
