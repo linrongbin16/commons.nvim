@@ -507,6 +507,14 @@ function HashMap:set(key, value)
   self._data[key] = value
 end
 
+--- @param key any
+function HashMap:unset(key)
+  if self._data[key] ~= nil then
+    self._size = self._size - 1
+  end
+  self._data[key] = nil
+end
+
 --- @param ... any
 --- @return any
 function HashMap:get(...)
@@ -617,6 +625,15 @@ function HashMap:find(f)
   return nil, nil
 end
 
+--- @param f fun(key:any,value:any):nil
+function HashMap:forEach(f)
+  assert(type(f) == "function")
+
+  for k, v in pairs(self._data) do
+    f(k, v)
+  end
+end
+
 --- @return commons.HashMap
 function HashMap:invert()
   local t = {}
@@ -657,13 +674,48 @@ function HashMap:mapValues(f)
   return HashMap:_wrap(t, s)
 end
 
+--- @return any[]
+function HashMap:keys()
+  local keys = {}
+  for k, _ in pairs(self._data) do
+    table.insert(keys, k)
+  end
+  return keys
+end
+
+--- @return any[]
+function HashMap:values()
+  local values = {}
+  for _, v in pairs(self._data) do
+    table.insert(values, v)
+  end
+  return values
+end
+
 --- @return {[1]:any,[2]:any}[]
-function HashMap:toPairs()
+function HashMap:pairs()
   local p = {}
   for k, v in pairs(self._data) do
     table.insert(p, { k, v })
   end
   return p
+end
+
+--- @param f fun(accumulator:any,key:any,value:any):any
+--- @param initialValue any
+--- @return any
+function HashMap:reduce(f, initialValue)
+  assert(type(f) == "function")
+
+  if self:empty() then
+    return initialValue
+  end
+
+  local accumulator = initialValue
+  for k, v in pairs(self._data) do
+    accumulator = f(accumulator, k, v)
+  end
+  return accumulator
 end
 
 M.HashMap = HashMap
