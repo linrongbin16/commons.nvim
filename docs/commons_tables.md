@@ -114,6 +114,24 @@ Returns:
 - Returns `true` if list `l` contains value `v`.
 - Returns `false` if list `l` doesn't contain value `v`.
 
+### `is_list`
+
+Whether the parameter is an instance of the `List` class.
+
+```lua
+--- @param o any
+--- @return boolean
+M.is_list = function(o)
+```
+
+Parameters:
+
+- `o`: An object.
+
+Returns:
+
+- Returns `true` if `o` is an instance of the `List` class, returns `false` if not.
+
 ## Classes
 
 ### `List`
@@ -174,3 +192,29 @@ function List:data()
 Returns:
 
 - Returns the internal lua table.
+
+##### `length`
+
+Get the length of the list.
+
+```lua
+--- @return integer
+function List:length()
+```
+
+Returns:
+
+- Returns the length of the list.
+
+##### `empty`
+
+Whether the list is empty or not.
+
+```lua
+--- @return boolean
+function List:empty()
+```
+
+Returns:
+
+- Returns `true` if the list is empty (e.g. the length &gt; 0), returns `false` if not (e.g. the length = 0).
