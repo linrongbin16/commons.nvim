@@ -146,7 +146,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:every(f)
+function List:allOf(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if not f(v, i) then
@@ -158,7 +158,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:some(f)
+function List:anyOf(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then
@@ -170,7 +170,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:none(f)
+function List:noneOf(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then
@@ -218,24 +218,6 @@ function List:findLast(f)
     end
   end
   return nil, -1
-end
-
---- @param f fun(value:any, index:integer):nil
-function List:forEach(f)
-  assert(type(f) == "function")
-  local n = self:length()
-
-  for i, v in ipairs(self._data) do
-    f(v, i)
-  end
-end
-
---- @param value any
---- @param start integer?
---- @param comparator (fun(a:any,b:any):boolean)|nil
---- @return boolean
-function List:includes(value, start, comparator)
-  return self:indexOf(value, start, comparator) >= 1
 end
 
 --- @param value any
@@ -286,6 +268,24 @@ function List:lastIndexOf(value, rstart, comparator)
   end
 
   return -1
+end
+
+--- @param f fun(value:any, index:integer):nil
+function List:forEach(f)
+  assert(type(f) == "function")
+  local n = self:length()
+
+  for i, v in ipairs(self._data) do
+    f(v, i)
+  end
+end
+
+--- @param value any
+--- @param start integer?
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return boolean
+function List:includes(value, start, comparator)
+  return self:indexOf(value, start, comparator) >= 1
 end
 
 --- @param f fun(value:any,index:integer):any
@@ -397,7 +397,7 @@ function List:slice(start_index, end_index)
   end_index = end_index and M.list_index(end_index, n) or n
 
   local l = {}
-  for i = start_index, end_index do
+  for i = start_index, end_index + 1 do
     if i >= 1 and i <= n then
       table.insert(l, self._data[i])
     end
