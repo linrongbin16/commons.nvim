@@ -133,5 +133,32 @@ describe("commons.tables", function()
         return v == i
       end))
     end)
+    it("filter", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      assert_true(vim.deep_equal(
+        l1:filter(function(v)
+          return v > 5
+        end):data(),
+        { 6, 7, 8, 9, 10 }
+      ))
+      assert_true(vim.deep_equal(
+        l1:filter(function(v)
+          return v <= 5
+        end):data(),
+        { 1, 2, 3, 4, 5 }
+      ))
+      assert_true(vim.deep_equal(
+        l1:filter(function(v, i)
+          return i % 2 == 0
+        end):data(),
+        { 2, 4, 6, 8, 10 }
+      ))
+      assert_true(vim.deep_equal(
+        l1:filter(function(v, i)
+          return i % 2 == 0 and v > 5
+        end):data(),
+        { 6, 8, 10 }
+      ))
+    end)
   end)
 end)
