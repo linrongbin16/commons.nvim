@@ -894,3 +894,18 @@ function HashMap:data()
 Returns:
 
 - Returns the internal lua table of the hash map.
+
+##### `size`
+
+Get the size of hash map.
+
+```lua
+--- @return integer
+function HashMap:size()
+```
+
+Returns:
+
+- Returns the size of hash map.
+
+!> This method requires `O(n)` time complexity, where `n` is the size of hash map.
