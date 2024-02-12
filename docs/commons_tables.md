@@ -539,3 +539,60 @@ Returns:
 
 - Returns the last index of the element that equals to `value`, if found.
 - Returns `nil`, if not found.
+
+##### `forEach`
+
+Visit every element of the list, and invoke a lua function.
+
+```lua
+--- @param f fun(value:any, index:integer):nil
+function List:forEach(f)
+```
+
+Parameters:
+
+- `f`: The lua function to be invoke on every element, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):nil
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+##### `includes`
+
+Whether the list includes the given value.
+
+```lua
+--- @param value any
+--- @param start integer?
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return boolean
+function List:includes(value, start, comparator)
+```
+
+Parameters:
+
+- `value`: The value to be detect.
+- `start`: Start searching index, by default is `1`.
+- `comparator`: Binary function to compare two elements, by default is `nil`. It use below signature:
+
+  ```lua
+  function comparator(a:any, b:any):boolean
+  ```
+
+  Parameters:
+
+  - `a`: An element.
+  - `b`: Another element.
+
+  Returns:
+
+  - Returns `true` if two elements are equal, `false` if not.
+
+Returns:
+
+- Returns `true` if the `value` is been found, `false` if not.
