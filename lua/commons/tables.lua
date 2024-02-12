@@ -516,7 +516,51 @@ end
 --- @param other commons.HashMap
 --- @return commons.HashMap
 function HashMap:merge(other)
-  return self._data[key]
+  assert(M.is_hashmap(other))
+  local t = {}
+  for k, v in pairs(self._data) do
+    t[k] = v
+  end
+  for k, v in pairs(other._data) do
+    t[k] = v
+  end
+  return HashMap:wrap(t)
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:every(f)
+  assert(type(f) == "function")
+  for k, v in pairs(self._data) do
+    if not f(k, v) then
+      return false
+    end
+  end
+  return true
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:some(f)
+  assert(type(f) == "function")
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      return true
+    end
+  end
+  return false
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:none(f)
+  assert(type(f) == "function")
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      return false
+    end
+  end
+  return true
 end
 
 M.HashMap = HashMap
