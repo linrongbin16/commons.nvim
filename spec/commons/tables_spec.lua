@@ -12,6 +12,7 @@ describe("commons.tables", function()
   local tables = require("commons.tables")
   local List = tables.List
   local HashMap = tables.HashMap
+  local strings = require("commons.strings")
 
   describe("strings", function()
     it("tbl_empty/tbl_not_empty", function()
@@ -481,6 +482,24 @@ describe("commons.tables", function()
       end)
       assert_eq(actual21, "c")
       assert_eq(actual22, 3)
+    end)
+    it("forEach", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local m1 = HashMap:wrap(t1)
+      local n = 0
+      m1:forEach(function()
+        n = n + 1
+      end)
+      assert_eq(n, m1:size())
+      local k1 = ""
+      local v1 = 0
+      m1:forEach(function(k, v)
+        k1 = k1 .. k
+        v1 = v1 .. v
+      end)
+      local k2 = strings.tochars(k1)
+      table.sort(k2)
+      assert_eq(table.concat(k2), "abc")
     end)
   end)
 end)
