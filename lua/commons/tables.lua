@@ -152,7 +152,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:allOf(f)
+function List:every(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if not f(v, i) then
@@ -164,7 +164,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:anyOf(f)
+function List:some(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then
@@ -176,7 +176,7 @@ end
 
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
-function List:noneOf(f)
+function List:none(f)
   assert(type(f) == "function")
   for i, v in ipairs(self._data) do
     if f(v, i) then

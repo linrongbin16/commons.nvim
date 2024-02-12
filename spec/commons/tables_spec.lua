@@ -112,24 +112,24 @@ describe("commons.tables", function()
       assert_eq(l3:join(), "1 2 3 a b c")
       assert_eq(l3:join(","), "1,2,3,a,b,c")
     end)
-    it("allOf/anyOf/noneOf", function()
+    it("every/some/none", function()
       local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-      assert_true(l1:allOf(function(v)
+      assert_true(l1:every(function(v)
         return v > 0
       end))
-      assert_true(l1:allOf(function(v)
+      assert_true(l1:every(function(v)
         return v <= 10
       end))
-      assert_true(l1:allOf(function(v, i)
+      assert_true(l1:every(function(v, i)
         return v == i
       end))
-      assert_true(l1:anyOf(function(v, i)
+      assert_true(l1:some(function(v, i)
         return v == 1
       end))
-      assert_true(l1:anyOf(function(v, i)
+      assert_true(l1:some(function(v, i)
         return v == 10
       end))
-      assert_true(l1:anyOf(function(v, i)
+      assert_true(l1:some(function(v, i)
         return v == i
       end))
     end)
