@@ -261,15 +261,114 @@ Returns:
 Join elements of current list into a string.
 
 ```lua
---- @param other commons.List
---- @return commons.List
-function List:concat(other)
+--- @param separator string?
+--- @return string
+function List:join(separator)
 ```
 
 Parameters:
 
-- `other`: Another list.
+- `separator`: Separator string between two elements, by default is a whitespace `" "`.
 
 Returns:
 
-- Returns a new list.
+- Returns joined string.
+
+##### `every`
+
+Whether all elements are satisfied with an unary detect function.
+
+?> This API usually can be named to `allOf`, `allMatch` in other programming languages.
+
+```lua
+--- @param f fun(value:any, index:integer):boolean
+--- @return boolean
+function List:every(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if all elements are satisfied, `false` if not.
+
+##### `some`
+
+Whether any elements (at least 1) are satisfied with an unary detect function.
+
+?> This API usually can be named to `anyOf`, `anyMatch` in other programming languages.
+
+```lua
+--- @param f fun(value:any, index:integer):boolean
+--- @return boolean
+function List:some(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if any elements (at least 1) are satisfied, `false` otherwise.
+
+##### `none`
+
+Whether no element is satisfied (e.g. all elements are not satisfied) with an unary detect function.
+
+?> This API usually can be named to `noneOf`, `noneMatch` in other programming languages.
+
+```lua
+--- @param f fun(value:any, index:integer):boolean
+--- @return boolean
+function List:none(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if no element is satisfied (e.g. all elements are not satisfied), `false` otherwise.

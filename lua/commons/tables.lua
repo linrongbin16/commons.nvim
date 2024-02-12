@@ -145,6 +145,7 @@ function List:concat(other)
 end
 
 --- @param separator string?
+--- @return string
 function List:join(separator)
   separator = separator or " "
   return table.concat(self._data, separator)
