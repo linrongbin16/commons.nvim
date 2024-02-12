@@ -628,6 +628,36 @@ function HashMap:invert()
   return HashMap:_wrap(t, s)
 end
 
+--- @param f fun(key:any, value:any):any
+--- @return commons.HashMap
+function HashMap:mapKeys(f)
+  assert(type(f) == "function")
+  local t = {}
+  local s = 0
+  for k, v in pairs(self._data) do
+    local new_k = f(k, v)
+    if t[new_k] == nil then
+      s = s + 1
+    end
+    t[new_k] = v
+  end
+  return HashMap:_wrap(t, s)
+end
+
+--- @param f fun(key:any, value:any):any
+--- @return commons.HashMap
+function HashMap:mapValues(f)
+  assert(type(f) == "function")
+  local t = {}
+  local s = 0
+  for k, v in pairs(self._data) do
+    local new_v = f(k, v)
+    s = s + 1
+    t[k] = new_v
+  end
+  return HashMap:_wrap(t, s)
+end
+
 M.HashMap = HashMap
 
 M.is_hashmap = function(o)
