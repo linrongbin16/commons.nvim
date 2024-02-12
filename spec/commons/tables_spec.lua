@@ -432,6 +432,29 @@ describe("commons.tables", function()
       assert_true(m1:every(function(k, v)
         return v > 0
       end))
+      assert_false(m1:every(function(k, v)
+        return k < "c"
+      end))
+    end)
+    it("some", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local m1 = HashMap:wrap(t1)
+      assert_true(m1:some(function(k, v)
+        return v > 2
+      end))
+      assert_false(m1:some(function(k, v)
+        return k < "a"
+      end))
+    end)
+    it("none", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local m1 = HashMap:wrap(t1)
+      assert_true(m1:none(function(k, v)
+        return v > 2
+      end))
+      assert_false(m1:none(function(k, v)
+        return k < "a"
+      end))
     end)
   end)
 end)
