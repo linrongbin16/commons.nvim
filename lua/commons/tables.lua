@@ -441,23 +441,23 @@ M.is_list = function(o)
   return type(o) == "table" and o.__index == List and getmetatable(o) == List
 end
 
--- --- @class commons.HashMap
--- local HashMap = {}
---
--- --- @param t table
--- function HashMap:new(t)
---   assert(type(t) == "table")
---
---   local o = { _data = t }
---   setmetatable(o, self)
---   self.__index = self
---   return o
--- end
---
--- M.HashMap = HashMap
---
--- M.is_hashmap = function(o)
---   return type(o) == "table" and o.__index == HashMap and getmetatable(o) == HashMap
--- end
+--- @class commons.HashMap
+local HashMap = {}
+
+--- @param t table
+function HashMap:new(t)
+  assert(type(t) == "table")
+
+  local o = { _data = t }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+M.HashMap = HashMap
+
+M.is_hashmap = function(o)
+  return type(o) == "table" and o.__index == HashMap and getmetatable(o) == HashMap
+end
 
 return M
