@@ -121,3 +121,56 @@ Returns:
 High-level list/array data structure, provide a set of APIs highly close to [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 ?> The API signatures are heavily influenced by Javascript Array, but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
+
+#### Methods
+
+##### `wrap`
+
+Create a list by wrap a lua table list.
+
+```lua
+--- @param l any[]
+--- @return commons.List
+function List:wrap(l)
+```
+
+Parameters:
+
+- `l`: The lua table used to create the list.
+
+  !> The ownership of the memory/resource/data of the lua table will be moved to the created list. You should never use the parameter `l` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
+
+Returns:
+
+- Returns the created list.
+
+##### `of`
+
+Create a list from 0 or more elements.
+
+```lua
+--- @param ... any
+--- @return commons.List
+function List:of(...)
+```
+
+Parameters:
+
+- `...`: Variadic elements that used to create the list.
+
+Returns:
+
+- Returns the created list.
+
+##### `data`
+
+The internal lua table of the list.
+
+```lua
+--- @return any[]
+function List:data()
+```
+
+Returns:
+
+- Returns the internal lua table.
