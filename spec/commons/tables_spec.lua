@@ -331,5 +331,28 @@ describe("commons.tables", function()
         )
       )
     end)
+    it("sort", function()
+      assert_true(
+        vim.deep_equal(
+          { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 3, 5, 7, 9, 2, 4, 6, 8, 10):sort():data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):sort():data()
+        )
+      )
+      assert_true(vim.deep_equal(
+        { "e", "d", "c", "b", "a" },
+        tables.List
+          :of("a", "b", "c", "d", "e")
+          :sort(function(a, b)
+            return b < a
+          end)
+          :data()
+      ))
+    end)
   end)
 end)
