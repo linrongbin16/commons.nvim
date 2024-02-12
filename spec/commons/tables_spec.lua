@@ -526,5 +526,37 @@ describe("commons.tables", function()
       local t1 = { a = 1, b = 2, c = 3 }
       assert_true(vim.deep_equal({ "a", "b", "c" }, HashMap:wrap(t1):invert():data()))
     end)
+    it("mapKeys/mapValues", function()
+      local t1 = { a = 1, b = 2, c = 3, d = 4, e = 5 }
+      assert_true(
+        vim.deep_equal(
+          { a1 = "a11", b2 = "b22", c3 = "c33", d4 = "d44", e5 = "e55" },
+          HashMap:wrap(t1)
+            :mapKeys(function(k, v)
+              return k .. v
+            end)
+            :mapValues(function(k, v)
+              return k .. v
+            end)
+            :data()
+        )
+      )
+    end)
+    it("keys/values/entries", function()
+      local t1 = { a = 1, b = 2, c = 3, d = 4, e = 5 }
+      local keys = HashMap:wrap(t1):keys()
+      table.sort(keys)
+      assert_true(vim.deep_equal({ "a", "b", "c", "d", "e" }, keys))
+      local values = HashMap:wrap(t1):values()
+      table.sort(values)
+      assert_true(vim.deep_equal({ 1, 2, 3, 4, 5 }, values))
+      local entries = HashMap:wrap(t1):entries()
+      table.sort(entries, function(a, b)
+        return a[1] < b[1]
+      end)
+      assert_true(
+        vim.deep_equal({ { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 }, { "e", 5 } }, entries)
+      )
+    end)
   end)
 end)
