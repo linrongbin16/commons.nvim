@@ -707,3 +707,30 @@ function List:unshift(...)
 Parameters:
 
 - `...`: The new elements to be insert.
+
+##### `reduce`
+
+Aggregate the list.
+
+```lua
+--- @return any?, boolean
+function List:shift()
+```
+
+Returns:
+
+- Returns the first element and `true` if successfully removed.
+- Returns `nil` and `false` if failed, e.g. the list is empty.
+
+##### `unshift`
+
+Insert 0 or more elements into the list in the head.
+
+```lua
+--- @param ... any
+function List:unshift(...)
+```
+
+Parameters:
+
+- `...`: The new elements to be insert.
