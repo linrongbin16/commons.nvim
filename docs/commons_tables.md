@@ -132,6 +132,24 @@ Returns:
 
 - Returns `true` if `o` is an instance of the `List` class, returns `false` if not.
 
+### `is_hashmap`
+
+Whether the parameter is an instance of the `HashMap` class.
+
+```lua
+--- @param o any?
+--- @return boolean
+M.is_hashmap = function(o)
+```
+
+Parameters:
+
+- `o`: An object.
+
+Returns:
+
+- Returns `true` if `o` is an instance of the `HashMap` class, returns `false` if not.
+
 ## Classes
 
 ### `List`

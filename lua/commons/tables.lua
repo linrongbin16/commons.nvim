@@ -720,6 +720,8 @@ end
 
 M.HashMap = HashMap
 
+--- @param o any?
+--- @return boolean
 M.is_hashmap = function(o)
   return type(o) == "table" and o.__index == HashMap and getmetatable(o) == HashMap
 end
