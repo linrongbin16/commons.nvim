@@ -563,6 +563,50 @@ function HashMap:none(f)
   return true
 end
 
+--- @param f fun(key:any, value:any):boolean
+--- @return commons.HashMap
+function HashMap:filter(f)
+  assert(type(f) == "function")
+  local t = {}
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      t[k] = v
+    end
+  end
+  return HashMap:wrap(t)
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return any, any
+function HashMap:find(f)
+  assert(type(f) == "function")
+  local t = {}
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      return k, v
+    end
+  end
+  return nil, nil
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return any, any
+function HashMap:findLast(f)
+  assert(type(f) == "function")
+  local results = {}
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      table.insert(results, { k, v })
+    end
+  end
+  if #results > 0 then
+    local last = results[#results]
+    return last[1], last[2]
+  else
+    return nil, nil
+  end
+end
+
 M.HashMap = HashMap
 
 M.is_hashmap = function(o)
