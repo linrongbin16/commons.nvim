@@ -1024,3 +1024,21 @@ Parameters:
 Returns:
 
 - Returns `true` if contains the value, returns `false` if not.
+
+##### `merge`
+
+Merge two hash map into a new hash map.
+
+```lua
+--- @param other commons.HashMap
+--- @return commons.HashMap
+function HashMap:merge(other)
+```
+
+Parameters:
+
+- `other`: Hash map been merged, the duplicated keys from `other` will override the keys from current hash map.
+
+Returns:
+
+- Returns a new hash map.
