@@ -218,3 +218,22 @@ function List:empty()
 Returns:
 
 - Returns `true` if the list is empty (e.g. the length &gt; 0), returns `false` if not (e.g. the length = 0).
+
+##### `at`
+
+Get the element at specific index.
+
+```lua
+--- @param index integer
+--- @return any
+function List:at(index)
+```
+
+Parameters:
+
+- `index`: The index of the list, this parameter accepts negative integers.
+  - When `index` &lt; 0, `-1` is the last element, `-length()` is the first element. Internal logic is close to `self._data[#self._data + index + 1]`.
+
+Returns:
+
+- Returns the element at `index`.
