@@ -651,9 +651,8 @@ function HashMap:mapValues(f)
   local t = {}
   local s = 0
   for k, v in pairs(self._data) do
-    local new_v = f(k, v)
+    t[k] = f(k, v)
     s = s + 1
-    t[k] = new_v
   end
   return HashMap:_wrap(t, s)
 end
