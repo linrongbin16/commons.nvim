@@ -290,5 +290,19 @@ describe("commons.tables", function()
       end, 0)
       assert_eq(actual2, 40)
     end)
+    it("reverse", function()
+      assert_true(
+        vim.deep_equal(
+          { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):reverse():data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { "a", "b", "c", "d", "e" },
+          tables.List:of("e", "d", "c", "b", "a"):reverse():data()
+        )
+      )
+    end)
   end)
 end)
