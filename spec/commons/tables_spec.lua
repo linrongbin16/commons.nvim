@@ -304,5 +304,32 @@ describe("commons.tables", function()
         )
       )
     end)
+    it("slice", function()
+      assert_true(
+        vim.deep_equal(
+          { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):slice():data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):slice(5):data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { "a", "b", "c" },
+          tables.List:of("a", "b", "c", "d", "e"):slice(1, 3):data()
+        )
+      )
+      assert_true(vim.deep_equal({}, tables.List:of("e", "d", "c", "b", "a"):slice(9):data()))
+      assert_true(
+        vim.deep_equal(
+          { "c", "b", "a" },
+          tables.List:of("e", "d", "c", "b", "a"):slice(3, 10):data()
+        )
+      )
+    end)
   end)
 end)
