@@ -87,5 +87,13 @@ describe("commons.tables", function()
       assert_true(vim.deep_equal(l2, actual3._data))
       assert_true(vim.deep_equal(l2, actual4:data()))
     end)
+    it("length/empty", function()
+      local l1 = tables.List:of()
+      assert_true(l1:empty())
+      for i = 1, 10 do
+        l1:push(i)
+        assert_eq(l1:length(), i)
+      end
+    end)
   end)
 end)
