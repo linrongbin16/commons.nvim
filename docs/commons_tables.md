@@ -372,3 +372,65 @@ Parameters:
 Returns:
 
 - Returns `true` if no element is satisfied (e.g. all elements are not satisfied), `false` otherwise.
+
+##### `filter`
+
+Filter the list and create a new list.
+
+```lua
+--- @param f fun(value:any, index:integer):boolean
+--- @return commons.List
+function List:filter(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns a new list that all elements are satisfied, those unsatisfied elements are been filtered.
+
+##### `find`
+
+Filter the list and create a new list.
+
+```lua
+--- @param f fun(value:any, index:integer):boolean
+--- @return commons.List
+function List:filter(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns a new list that all elements are satisfied, those unsatisfied elements are been filtered.
