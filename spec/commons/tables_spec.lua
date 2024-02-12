@@ -160,5 +160,18 @@ describe("commons.tables", function()
         { 6, 8, 10 }
       ))
     end)
+    it("find", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual11, actual12 = l1:find(function(v, i)
+        return v > 5 and i > 6
+      end)
+      assert_eq(actual11, 7)
+      assert_eq(actual12, 7)
+      local actual21, actual22 = l1:find(function(v, i)
+        return v < 1 and i > 6
+      end)
+      assert_eq(actual21, nil)
+      assert_eq(actual22, -1)
+    end)
   end)
 end)
