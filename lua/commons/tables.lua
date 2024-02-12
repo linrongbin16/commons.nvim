@@ -456,30 +456,21 @@ end
 
 --- @param hasher (fun(k:any):integer|string)|nil
 --- @param t table
---- @param s integer
 --- @return commons.HashMap
-function HashMap:_wrap(hasher, t, s)
+function HashMap:wrap(hasher, t)
   assert(type(hasher) == "function" or hasher == nil)
   assert(type(t) == "table")
-  assert(type(s) == "integer")
 
-  local o = { _hasher = hasher, _data = t, _size = s }
+  local d = {}
+  local s = 0
+  for k, v in pairs(t) do
+    s = s + 1
+    d[_hash(hasher, k)] = v
+  end
+  local o = { _hasher = hasher, _data = d, _size = s }
   setmetatable(o, self)
   self.__index = self
   return o
-end
-
---- @param hasher (fun(k:any):integer|string)|nil
---- @param t table
---- @return commons.HashMap
-function HashMap:wrap(hasher, t)
-  assert(type(t) == "table")
-
-  local s = 0
-  for _, _ in pairs(t) do
-    s = s + 1
-  end
-  return HashMap:_wrap(hasher, t, s)
 end
 
 --- @param hasher (fun(k:any):integer|string)|nil
@@ -487,13 +478,13 @@ end
 function HashMap:of(hasher, ...)
   assert(type(hasher) == "function" or hasher == nil)
 
-  local t = {}
+  local d = {}
   local s = 0
   for i, v in ipairs({ ... }) do
-    t[v[1]] = v[2]
+    d[_hash(hasher, v[1])] = v[2]
     s = s + 1
   end
-  return HashMap:_wrap(hasher, t, s)
+  return HashMap:_wrap(hasher, d, s)
 end
 
 --- @return integer
