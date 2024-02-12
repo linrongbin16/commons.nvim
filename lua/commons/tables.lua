@@ -442,33 +442,64 @@ M.is_list = function(o)
 end
 
 --- @class commons.HashMap
+--- @field _hasher (fun(k:any):integer|string)|nil
 --- @field _data table
---- @field _hash (fun(k:any):integer|string)|nil
+--- @field _size integer
 local HashMap = {}
 
+--- @param hasher (fun(k:any):integer|string)|nil
 --- @param t table
---- @param hash (fun(k:any):integer|string)|nil
+--- @param s integer
 --- @return commons.HashMap
-function HashMap:wrap(t, hash)
+function HashMap:_wrap(hasher, t, s)
+  assert(type(hasher) == "function" or hasher == nil)
   assert(type(t) == "table")
-  assert(type(hash) == "function" or hash == nil)
+  assert(type(s) == "integer")
 
-  local o = { _data = t, _hash = hash }
+  local o = { _hasher = hasher, _data = t, _size = s }
   setmetatable(o, self)
   self.__index = self
   return o
 end
 
---- @param hash (fun(k:any):integer|string)|nil
+--- @param hasher (fun(k:any):integer|string)|nil
+--- @param t table
+--- @return commons.HashMap
+function HashMap:wrap(hasher, t)
+  assert(type(t) == "table")
+
+  local s = 0
+  for _, _ in pairs(t) do
+    s = s + 1
+  end
+  return HashMap:_wrap(hasher, t, s)
+end
+
+--- @param hasher (fun(k:any):integer|string)|nil
 --- @param ... {[1]:any,[2]:any}
-function HashMap:of(hash, ...)
-  assert(type(hash) == "function" or hash == nil)
+function HashMap:of(hasher, ...)
+  assert(type(hasher) == "function" or hasher == nil)
 
   local t = {}
   for i, v in ipairs({ ... }) do
+    t[v[1]] = v[2]
   end
-  return HashMap:wrap(t, hash)
+  return HashMap:wrap(hasher, t)
 end
+
+--- @return integer
+function HashMap:size() end
+
+--- @return integer
+function HashMap:size() end
+
+--- @param key any
+--- @param value any
+function HashMap:set(key, value) end
+
+--- @param key any
+--- @param value any
+function HashMap:assign(key, value) end
 
 M.HashMap = HashMap
 
