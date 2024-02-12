@@ -634,6 +634,11 @@ function HashMap:forEach(f)
   end
 end
 
+--- @return any, any
+function HashMap:next()
+  return next(self._data)
+end
+
 --- @return commons.HashMap
 function HashMap:invert()
   local t = {}
