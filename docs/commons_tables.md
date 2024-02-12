@@ -848,4 +848,49 @@ Hash map data structure.
 
 ##### `wrap`
 
-Create a list by wrap a lua table list.
+Create a hash map by wrap a lua table.
+
+```lua
+--- @param t table
+--- @return commons.HashMap
+function HashMap:wrap(t)
+```
+
+Parameters:
+
+- `t`: The lua table used to create the hash map.
+
+Returns:
+
+- Returns the created hash map.
+
+##### `of`
+
+Create a hash map from entries.
+
+```lua
+--- @param ... {[1]:any,[2]:any}
+--- @return commons.HashMap
+function HashMap:of(...)
+```
+
+Parameters:
+
+- `...`: The entries used to create the hash map. In each entry, the first is the key, the second is the value.
+
+Returns:
+
+- Returns the created hash map.
+
+##### `data`
+
+Get the internal lua table of the hash map.
+
+```lua
+--- @return table
+function HashMap:data()
+```
+
+Returns:
+
+- Returns the internal lua table of the hash map.
