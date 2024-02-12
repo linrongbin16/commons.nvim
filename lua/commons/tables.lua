@@ -398,7 +398,7 @@ function List:slice(start_index, end_index)
 
   local n = self:length()
   start_index = start_index or 1
-  end_index = end_index or (n + 1)
+  end_index = end_index or n
 
   local l = {}
   local i = start_index
