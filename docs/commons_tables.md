@@ -908,4 +908,4 @@ Returns:
 
 - Returns the size of hash map.
 
-!> This method requires `O(n)` time complexity, where `n` is the size of hash map.
+!> This method uses `O(n)` time complexity, where `n` is the size of hash map.
