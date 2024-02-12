@@ -481,10 +481,12 @@ function HashMap:of(hasher, ...)
   assert(type(hasher) == "function" or hasher == nil)
 
   local t = {}
+  local s = 0
   for i, v in ipairs({ ... }) do
     t[v[1]] = v[2]
+    s = s + 1
   end
-  return HashMap:wrap(hasher, t)
+  return HashMap:_wrap(hasher, t, s)
 end
 
 --- @return integer
