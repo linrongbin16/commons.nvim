@@ -510,7 +510,7 @@ Parameters:
 
 - `value`: The value to be found.
 - `start`: Start searching index, by default is `1`.
-- `comparator`: Binary function to compare two elements, by default is `nil`. It use below signature:
+- `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
   function comparator(a:any, b:any):boolean
@@ -546,7 +546,7 @@ Parameters:
 
 - `value`: The value to be found.
 - `rstart`: Start searching index, by default is the last element index, e.g. `length()`.
-- `comparator`: Binary function to compare two elements, by default is `nil`. It use below signature:
+- `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
   function comparator(a:any, b:any):boolean
@@ -604,7 +604,7 @@ Parameters:
 
 - `value`: The value to be detect.
 - `start`: Start searching index, by default is `1`.
-- `comparator`: Binary function to compare two elements, by default is `nil`. It use below signature:
+- `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
   function comparator(a:any, b:any):boolean
@@ -656,7 +656,7 @@ Returns:
 
 ##### `pop`
 
-Remove the last element from the list from tail.
+Remove the last element from the list from tail, just like `table.remove`.
 
 ```lua
 --- @return any?, boolean
@@ -670,7 +670,7 @@ Returns:
 
 ##### `push`
 
-Insert 0 or more elements into the list in the tail.
+Insert 0 or more elements into the list in the tail, just like `table.insert`.
 
 ```lua
 --- @param ... any
@@ -683,7 +683,7 @@ Parameters:
 
 ##### `shift`
 
-Remove the first element from the list in the head.
+Remove the first element from the list in the head, just like `table.remove`.
 
 ```lua
 --- @return any?, boolean
@@ -697,7 +697,7 @@ Returns:
 
 ##### `unshift`
 
-Insert 0 or more elements into the list in the head.
+Insert 0 or more elements into the list in the head, just like `table.insert`.
 
 ```lua
 --- @param ... any
@@ -786,3 +786,36 @@ Parameters:
 Returns:
 
 - Returns a new list that contains part of the current list.
+
+##### `sort`
+
+Sort the list, just like `table.sort`.
+
+!> This method will not modify the current list, but create a new list.
+
+```lua
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return commons.List
+function List:sort(comparator)
+```
+
+Parameters:
+
+- `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
+
+  ```lua
+  function comparator(a:any, b:any):boolean
+  ```
+
+  Parameters:
+
+  - `a`: An element.
+  - `b`: Another element.
+
+  Returns:
+
+  - Returns `true` if two elements are equal, `false` if not.
+
+Returns:
+
+- Returns a new list that been sorted.
