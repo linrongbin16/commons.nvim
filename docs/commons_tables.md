@@ -237,3 +237,39 @@ Parameters:
 Returns:
 
 - Returns the element at `index`, or `nil` if not found.
+
+##### `concat`
+
+Concat two list (current list and another list) into a new list.
+
+```lua
+--- @param other commons.List
+--- @return commons.List
+function List:concat(other)
+```
+
+Parameters:
+
+- `other`: Another list.
+
+Returns:
+
+- Returns a new list.
+
+##### `join`
+
+Join elements of current list into a string.
+
+```lua
+--- @param other commons.List
+--- @return commons.List
+function List:concat(other)
+```
+
+Parameters:
+
+- `other`: Another list.
+
+Returns:
+
+- Returns a new list.
