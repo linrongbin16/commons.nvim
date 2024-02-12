@@ -483,6 +483,11 @@ function HashMap:of(...)
   return HashMap:_wrap(t, s)
 end
 
+--- @return table
+function HashMap:data()
+  return self._data
+end
+
 --- @return integer
 function HashMap:size()
   return self._size
@@ -503,6 +508,7 @@ function HashMap:set(key, value)
 end
 
 --- @param key any
+--- @return any
 function HashMap:get(key)
   return self._data[key]
 end
