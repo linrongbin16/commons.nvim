@@ -241,5 +241,18 @@ describe("commons.tables", function()
       assert_false(actual6)
       assert_false(actual7)
     end)
+    it("map", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual1 = l1:map(function(v)
+        return v * 2
+      end)
+        :map(function(v)
+          return v + 1
+        end)
+        :reduce(function(accumulator, v)
+          return accumulator + v
+        end, 0)
+      assert_eq(actual1, 120)
+    end)
   end)
 end)
