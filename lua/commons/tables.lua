@@ -447,6 +447,19 @@ end
 local HashMap = {}
 
 --- @param t table
+--- @param s integer
+--- @return commons.HashMap
+function HashMap:_wrap(t, s)
+  assert(type(t) == "table")
+  assert(type(s) == "number")
+
+  local o = { _data = t, _size = s }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+--- @param t table
 --- @return commons.HashMap
 function HashMap:wrap(t)
   assert(type(t) == "table")
@@ -455,10 +468,7 @@ function HashMap:wrap(t)
   for _, _ in pairs(t) do
     s = s + 1
   end
-  local o = { _data = t, _size = s }
-  setmetatable(o, self)
-  self.__index = self
-  return o
+  return HashMap:_wrap(t, s)
 end
 
 --- @param ... {[1]:any,[2]:any}
@@ -470,7 +480,7 @@ function HashMap:of(...)
     t[v[1]] = v[2]
     s = s + 1
   end
-  return HashMap:wrap(t)
+  return HashMap:_wrap(t, s)
 end
 
 --- @return integer
