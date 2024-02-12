@@ -400,5 +400,31 @@ describe("commons.tables", function()
       assert_eq(hm2:get("x"), 100)
       assert_eq(hm2:get("asdf", "qwer", "zxcv"), "jkhl")
     end)
+    it("hasKey/hasValue", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local t2 = { d = 4, e = 5, f = 6 }
+      local hm1 = HashMap:wrap(t1)
+      local hm2 = HashMap:wrap(t2)
+      for k, v in pairs(t1) do
+        assert_true(hm1:hasKey(k))
+        assert_true(hm1:hasValue(v))
+      end
+      for k, v in pairs(t2) do
+        assert_true(hm2:hasKey(k))
+        assert_true(hm2:hasValue(v))
+      end
+    end)
+    it("merge", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local t2 = { c = -1, d = 4, e = 5, f = 6 }
+      local actual = HashMap:wrap(t1):merge(HashMap:wrap(t2))
+      assert_eq(actual:get("a"), 1)
+      assert_eq(actual:get("b"), 2)
+      assert_eq(actual:get("c"), -1)
+      assert_eq(actual:get("d"), 4)
+      assert_eq(actual:get("e"), 5)
+      assert_eq(actual:get("f"), 6)
+      assert_eq(actual:get("g"), nil)
+    end)
   end)
 end)

@@ -536,20 +536,13 @@ end
 function HashMap:merge(other)
   assert(M.is_hashmap(other))
   local t = {}
-  local s = 0
   for k, v in pairs(self._data) do
-    if t[k] == nil then
-      s = s + 1
-    end
     t[k] = v
   end
   for k, v in pairs(other._data) do
-    if t[k] == nil then
-      s = s + 1
-    end
     t[k] = v
   end
-  return HashMap:_wrap(t, s)
+  return HashMap:wrap(t)
 end
 
 --- @param f fun(key:any, value:any):boolean
