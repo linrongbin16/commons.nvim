@@ -402,11 +402,10 @@ function List:slice(start_index, end_index)
 
   local l = {}
   local i = start_index
-  while i < end_index do
+  for i = start_index, end_index do
     if i >= 1 and i <= n then
       table.insert(l, self._data[i])
     end
-    i = i + 1
   end
   return List:wrap(l)
 end
