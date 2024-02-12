@@ -200,5 +200,18 @@ describe("commons.tables", function()
       local actual2 = l1:lastIndexOf(6)
       assert_eq(actual2, 10)
     end)
+    it("forEach", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual1 = 0
+      l1:forEach(function(v)
+        actual1 = actual1 + v
+      end)
+      assert_eq(actual1, 55)
+      local actual2 = 0
+      l1:forEach(function(v, i)
+        actual2 = actual2 + v + i
+      end)
+      assert_eq(actual2, 110)
+    end)
   end)
 end)
