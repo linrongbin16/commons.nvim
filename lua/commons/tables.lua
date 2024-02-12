@@ -507,10 +507,10 @@ function HashMap:set(key, value)
   self._data[key] = value
 end
 
---- @param key any
+--- @param ... any
 --- @return any
-function HashMap:get(key)
-  return self._data[key]
+function HashMap:get(...)
+  return M.tbl_get(self._data, ...)
 end
 
 --- @param key any
@@ -655,6 +655,15 @@ function HashMap:mapValues(f)
     s = s + 1
   end
   return HashMap:_wrap(t, s)
+end
+
+--- @return {[1]:any,[2]:any}[]
+function HashMap:toPairs()
+  local p = {}
+  for k, v in pairs(self._data) do
+    table.insert(p, { k, v })
+  end
+  return p
 end
 
 M.HashMap = HashMap
