@@ -367,7 +367,13 @@ describe("commons.tables", function()
     end)
   end)
   describe("[HashMap]", function()
-    it("wrap/of", function()
+    it("wrap/of/data", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local t2 = { d = 4, e = 5, f = 6 }
+      assert_true(vim.deep_equal(t1, tables.HashMap:of({ "a", 1 }, { "b", 2 }, { "c", 3 }):data()))
+      assert_true(vim.deep_equal(t2, tables.HashMap:of({ "d", 4 }, { "e", 5 }, { "f", 6 }):data()))
+    end)
+    it("size/empty", function()
       local t1 = { a = 1, b = 2, c = 3 }
       local t2 = { d = 4, e = 5, f = 6 }
       assert_true(vim.deep_equal(t1, tables.HashMap:of({ "a", 1 }, { "b", 2 }, { "c", 3 }):data()))

@@ -443,21 +443,7 @@ end
 
 --- @class commons.HashMap
 --- @field _data table
---- @field _size integer
 local HashMap = {}
-
---- @param t table
---- @param s integer
---- @return commons.HashMap
-function HashMap:_wrap(t, s)
-  assert(type(t) == "table")
-  assert(type(s) == "number")
-
-  local o = { _data = t, _size = s }
-  setmetatable(o, self)
-  self.__index = self
-  return o
-end
 
 --- @param t table
 --- @return commons.HashMap
@@ -468,7 +454,10 @@ function HashMap:wrap(t)
   for _, _ in pairs(t) do
     s = s + 1
   end
-  return HashMap:_wrap(t, s)
+  local o = { _data = t }
+  setmetatable(o, self)
+  self.__index = self
+  return o
 end
 
 --- @param ... {[1]:any,[2]:any}
@@ -480,7 +469,10 @@ function HashMap:of(...)
     t[v[1]] = v[2]
     s = s + 1
   end
-  return HashMap:_wrap(t, s)
+  local o = { _data = t }
+  setmetatable(o, self)
+  self.__index = self
+  return o
 end
 
 --- @return table
@@ -490,28 +482,26 @@ end
 
 --- @return integer
 function HashMap:size()
-  return self._size
+  local s = 0
+  for _, _ in pairs(self._data) do
+    s = s + 1
+  end
+  return s
 end
 
 --- @return boolean
 function HashMap:empty()
-  return self._size == 0
+  return next(self._data) == nil
 end
 
 --- @param key any
 --- @param value any
 function HashMap:set(key, value)
-  if self._data[key] == nil then
-    self._size = self._size + 1
-  end
   self._data[key] = value
 end
 
 --- @param key any
 function HashMap:unset(key)
-  if self._data[key] ~= nil then
-    self._size = self._size - 1
-  end
   self._data[key] = nil
 end
 
@@ -697,17 +687,8 @@ function HashMap:values()
   return values
 end
 
---- @return {key:any,value:any}[]
-function HashMap:entries()
-  local entries = {}
-  for k, v in pairs(self._data) do
-    table.insert(entries, { key = k, value = v })
-  end
-  return entries
-end
-
 --- @return {[1]:any,[2]:any}[]
-function HashMap:pairs()
+function HashMap:entries()
   local p = {}
   for k, v in pairs(self._data) do
     table.insert(p, { k, v })
