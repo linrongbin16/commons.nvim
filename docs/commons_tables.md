@@ -406,7 +406,7 @@ Returns:
 
 ##### `find`
 
-Find the first element that satisfied the unary detect function, e.g. search from index 1 to `length()`.
+Find the first element that satisfied the unary detect function, e.g. search by index from 1 to `length()`.
 
 ```lua
 --- @param f fun(value:any, index:integer):boolean
@@ -438,7 +438,7 @@ Returns:
 
 ##### `findLast`
 
-Find the last element that satisfied the unary detect function, e.g. search by index `length()` to 1.
+Find the last element that satisfied the unary detect function, e.g. search by index from `length()` to 1.
 
 ```lua
 --- @param f fun(value:any, index:integer):boolean
@@ -467,3 +467,75 @@ Returns:
 
 - Returns the last element that satisfied the unary function `f` and its index, if found.
 - Returns `nil` and `-1`, if not found.
+
+##### `indexOf`
+
+Find the first index of the element that equals to the given value, e.g. search by index from 1 to `length()`.
+
+```lua
+--- @param value any
+--- @param start integer?
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return integer?
+function List:indexOf(value, start, comparator)
+```
+
+Parameters:
+
+- `value`: The value to be found.
+- `start`: Start searching index, by default is `1`.
+- `comparator`: Binary function to compare two elements, by default is `nil`. It use below signature:
+
+  ```lua
+  function comparator(a:any, b:any):boolean
+  ```
+
+  Parameters:
+
+  - `a`: An element.
+  - `b`: Another element.
+
+  Returns:
+
+  - Returns `true` if two elements are equal, `false` if not.
+
+Returns:
+
+- Returns the first index of the element that equals to `value`, if found.
+- Returns `nil`, if not found.
+
+##### `lastIndexOf`
+
+Find the last index of the element that equals to the given value, e.g. search by index from `length()` to 1.
+
+```lua
+--- @param value any
+--- @param rstart integer?
+--- @param comparator (fun(a:any,b:any):boolean)|nil
+--- @return integer?
+function List:lastIndexOf(value, rstart, comparator)
+```
+
+Parameters:
+
+- `value`: The value to be found.
+- `rstart`: Start searching index, by default is the last element index, e.g. `length()`.
+- `comparator`: Binary function to compare two elements, by default is `nil`. It use below signature:
+
+  ```lua
+  function comparator(a:any, b:any):boolean
+  ```
+
+  Parameters:
+
+  - `a`: An element.
+  - `b`: Another element.
+
+  Returns:
+
+  - Returns `true` if two elements are equal, `false` if not.
+
+Returns:
+
+- Returns the last index of the element that equals to `value`, if found.
+- Returns `nil`, if not found.
