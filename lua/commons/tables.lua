@@ -615,9 +615,32 @@ function HashMap:forEach(f)
   end
 end
 
+--- @class commons._HashMapIterator
+--- @field _hmap commons.HashMap
+local _HashMapIterator = {}
+
+--- @param hmap commons.HashMap
+function _HashMapIterator:new(hmap)
+  local o = { _hmap = hmap }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
 --- @return any, any
-function HashMap:next()
-  return next(self._data)
+function _HashMapIterator:next()
+  return next(self._hmap._data)
+end
+
+--- @return any, any
+function HashMap:iterator()
+  return _HashMapIterator:new(self)
+end
+
+--- @param key any?
+--- @return any, any
+function HashMap:next(key)
+  return next(self._data, key)
 end
 
 --- @return commons.HashMap

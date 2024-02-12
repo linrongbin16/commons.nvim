@@ -502,5 +502,25 @@ describe("commons.tables", function()
       assert_eq(table.concat(k2), "abc")
       assert_eq(v1, 6)
     end)
+    it("next", function()
+      local k1 = ""
+      local v1 = 0
+      local t1 = { a = 1, b = 2, c = 3 }
+      local m1 = HashMap:wrap(t1)
+      local key
+      local val
+      while true do
+        key, val = m1:next(key)
+        if not key then
+          break
+        end
+        k1 = k1 .. key
+        v1 = v1 + val
+      end
+      local k2 = strings.tochars(k1)
+      table.sort(k2)
+      assert_eq(table.concat(k2), "abc")
+      assert_eq(v1, 6)
+    end)
   end)
 end)
