@@ -401,7 +401,6 @@ function List:slice(start_index, end_index)
   end_index = end_index or n
 
   local l = {}
-  local i = start_index
   for i = start_index, end_index do
     if i >= 1 and i <= n then
       table.insert(l, self._data[i])
