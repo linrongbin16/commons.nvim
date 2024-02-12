@@ -426,5 +426,12 @@ describe("commons.tables", function()
       assert_eq(actual:get("f"), 6)
       assert_eq(actual:get("g"), nil)
     end)
+    it("every", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local m1 = HashMap:wrap(t1)
+      assert_true(m1:every(function(k, v)
+        return v > 0
+      end))
+    end)
   end)
 end)
