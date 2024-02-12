@@ -496,21 +496,15 @@ end
 --- @param key any
 --- @param value any
 function HashMap:set(key, value)
-  local hashed_key = type(self._hasher) == "function" and self._hasher(key) or key
-  if self._data[hashed_key] == nil then
+  if self._data[key] == nil then
     self._size = self._size + 1
   end
-  self._data[hashed_key] = value
+  self._data[key] = value
 end
 
 --- @param key any
---- @param fallback_value any?
-function HashMap:get(key, fallback_value)
-  local hashed_key = type(self._hasher) == "function" and self._hasher(key) or key
-  if self._data[hashed_key] == nil then
-    self._size = self._size + 1
-  end
-  self._data[hashed_key] = value
+function HashMap:get(key)
+  return self._data[key]
 end
 
 M.HashMap = HashMap
