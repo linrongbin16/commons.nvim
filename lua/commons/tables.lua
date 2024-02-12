@@ -279,7 +279,6 @@ end
 --- @param f fun(value:any, index:integer):nil
 function List:forEach(f)
   assert(type(f) == "function")
-  local n = self:length()
 
   for i, v in ipairs(self._data) do
     f(v, i)
