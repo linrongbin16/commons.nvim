@@ -538,13 +538,20 @@ end
 function HashMap:merge(other)
   assert(M.is_hashmap(other))
   local t = {}
+  local s = 0
   for k, v in pairs(self._data) do
+    if t[k] == nil then
+      s = s + 1
+    end
     t[k] = v
   end
   for k, v in pairs(other._data) do
+    if t[k] == nil then
+      s = s + 1
+    end
     t[k] = v
   end
-  return HashMap:wrap(t)
+  return HashMap:_wrap(t, s)
 end
 
 --- @param f fun(key:any, value:any):boolean
@@ -588,19 +595,20 @@ end
 function HashMap:filter(f)
   assert(type(f) == "function")
   local t = {}
+  local s = 0
   for k, v in pairs(self._data) do
     if f(k, v) then
       t[k] = v
+      s = s + 1
     end
   end
-  return HashMap:wrap(t)
+  return HashMap:_wrap(t, s)
 end
 
 --- @param f fun(key:any, value:any):boolean
 --- @return any, any
 function HashMap:find(f)
   assert(type(f) == "function")
-  local t = {}
   for k, v in pairs(self._data) do
     if f(k, v) then
       return k, v
@@ -609,17 +617,15 @@ function HashMap:find(f)
   return nil, nil
 end
 
---- @param f fun(key:any, value:any):boolean
---- @return any, any
-function HashMap:find(f)
-  assert(type(f) == "function")
+--- @return commons.HashMap
+function HashMap:invert()
   local t = {}
+  local s = 0
   for k, v in pairs(self._data) do
-    if f(k, v) then
-      return k, v
-    end
+    t[v] = k
+    s = s + 1
   end
-  return nil, nil
+  return HashMap:_wrap(t, s)
 end
 
 M.HashMap = HashMap
