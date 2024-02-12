@@ -447,6 +447,13 @@ end
 --- @field _size integer
 local HashMap = {}
 
+--- @param h (fun(k:any):integer|string)|nil
+--- @param k any
+--- @return integer|string
+local function _hash(h, k)
+  return type(h) == "function" and h(k) or k
+end
+
 --- @param hasher (fun(k:any):integer|string)|nil
 --- @param t table
 --- @param s integer
@@ -490,18 +497,34 @@ function HashMap:of(hasher, ...)
 end
 
 --- @return integer
-function HashMap:size() end
+function HashMap:size()
+  return self._size
+end
 
---- @return integer
-function HashMap:size() end
+--- @return boolean
+function HashMap:empty()
+  return self._size == 0
+end
 
 --- @param key any
 --- @param value any
-function HashMap:set(key, value) end
+function HashMap:set(key, value)
+  local hashed_key = type(self._hasher) == "function" and self._hasher(key) or key
+  if self._data[hashed_key] == nil then
+    self._size = self._size + 1
+  end
+  self._data[hashed_key] = value
+end
 
 --- @param key any
---- @param value any
-function HashMap:assign(key, value) end
+--- @param fallback_value any?
+function HashMap:get(key, fallback_value)
+  local hashed_key = type(self._hasher) == "function" and self._hasher(key) or key
+  if self._data[hashed_key] == nil then
+    self._size = self._size + 1
+  end
+  self._data[hashed_key] = value
+end
 
 M.HashMap = HashMap
 
