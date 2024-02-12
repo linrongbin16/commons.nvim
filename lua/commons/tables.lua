@@ -442,16 +442,32 @@ M.is_list = function(o)
 end
 
 --- @class commons.HashMap
+--- @field _data table
+--- @field _hash (fun(k:any):integer|string)|nil
 local HashMap = {}
 
 --- @param t table
-function HashMap:new(t)
+--- @param hash (fun(k:any):integer|string)|nil
+--- @return commons.HashMap
+function HashMap:wrap(t, hash)
   assert(type(t) == "table")
+  assert(type(hash) == "function" or hash == nil)
 
-  local o = { _data = t }
+  local o = { _data = t, _hash = hash }
   setmetatable(o, self)
   self.__index = self
   return o
+end
+
+--- @param hash (fun(k:any):integer|string)|nil
+--- @param ... {[1]:any,[2]:any}
+function HashMap:of(hash, ...)
+  assert(type(hash) == "function" or hash == nil)
+
+  local t = {}
+  for i, v in ipairs({ ... }) do
+  end
+  return HashMap:wrap(t, hash)
 end
 
 M.HashMap = HashMap
