@@ -973,3 +973,54 @@ Parameters:
 Returns:
 
 - Returns the value.
+
+##### `hasKey`
+
+Whether hash map contains a key, equivalent to `HashMap:get(key) ~= nil`.
+
+```lua
+--- @param key any
+--- @return boolean
+function HashMap:hasKey(key)
+```
+
+Parameters:
+
+- `key`: Entry key.
+
+Returns:
+
+- Returns `true` if contains the key, returns `false` if not.
+
+##### `hasValue`
+
+Whether hash map contains a value.
+
+```lua
+--- @param value any
+--- @param comparator (fun(a:any, b:any):boolean)|nil
+--- @return boolean
+function HashMap:hasValue(value, comparator)
+```
+
+Parameters:
+
+- `value`: Entry value.
+- `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
+
+  ```lua
+  function comparator(a:any, b:any):boolean
+  ```
+
+  Parameters:
+
+  - `a`: An element.
+  - `b`: Another element.
+
+  Returns:
+
+  - Returns `true` if two elements are equal, `false` if not.
+
+Returns:
+
+- Returns `true` if contains the value, returns `false` if not.
