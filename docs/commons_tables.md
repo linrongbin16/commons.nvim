@@ -1042,3 +1042,34 @@ Parameters:
 Returns:
 
 - Returns a new hash map.
+
+##### `every`
+
+Whether all entries are satisfied the unary detect function.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:every(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if all entries are satisfied, returns `false` if not.
