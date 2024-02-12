@@ -596,3 +596,48 @@ Parameters:
 Returns:
 
 - Returns `true` if the `value` is been found, `false` if not.
+
+##### `map`
+
+Transform the list and create a new list.
+
+```lua
+--- @param f fun(value:any,index:integer):any
+--- @return commons.List
+function List:map(f)
+```
+
+Parameters:
+
+- `f`: The transform function, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):any
+  ```
+
+  Parameters:
+
+  - `value`: The element of current list.
+  - `index`: The index of the element.
+
+  Returns:
+
+  - Returns transformed element.
+
+Returns:
+
+- Returns the new list.
+
+##### `pop`
+
+Pop up the last element in the list.
+
+```lua
+--- @return any?, boolean
+function List:pop()
+```
+
+Returns:
+
+- Returns the last element and `true` if successfully pop up.
+- Returns `nil` and `false` if failed, e.g. the list is empty.
