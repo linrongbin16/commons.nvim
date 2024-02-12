@@ -729,13 +729,12 @@ Parameters:
 
   Parameters:
 
-  - `accumulator`: The accumulated value.
+  - `accumulator`: The accumulated value returned from previous `f`.
   - `value`: The element of the list.
   - `index`: The index of the element.
 
-- `initialValue`: The initial value, by default is `nil`, and the first element will be used as the initial value.
+- `initialValue`: The initial value, by default is `nil`. When `nil`, the first element will be used as the initial value, and reduce will start from the second element.
 
 Returns:
 
-- Returns the first element and `true` if successfully removed.
-- Returns `nil` and `false` if failed, e.g. the list is empty.
+- Returns the final accumulator value.
