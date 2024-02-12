@@ -236,4 +236,4 @@ Parameters:
 
 Returns:
 
-- Returns the element at `index`.
+- Returns the element at `index`, or `nil` if not found.
