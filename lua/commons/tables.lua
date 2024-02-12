@@ -586,14 +586,12 @@ end
 function HashMap:filter(f)
   assert(type(f) == "function")
   local t = {}
-  local s = 0
   for k, v in pairs(self._data) do
     if f(k, v) then
       t[k] = v
-      s = s + 1
     end
   end
-  return HashMap:_wrap(t, s)
+  return HashMap:wrap(t)
 end
 
 --- @param f fun(key:any, value:any):boolean
@@ -625,12 +623,10 @@ end
 --- @return commons.HashMap
 function HashMap:invert()
   local t = {}
-  local s = 0
   for k, v in pairs(self._data) do
     t[v] = k
-    s = s + 1
   end
-  return HashMap:_wrap(t, s)
+  return HashMap:wrap(t)
 end
 
 --- @param f fun(key:any, value:any):any
@@ -638,15 +634,10 @@ end
 function HashMap:mapKeys(f)
   assert(type(f) == "function")
   local t = {}
-  local s = 0
   for k, v in pairs(self._data) do
-    local new_k = f(k, v)
-    if t[new_k] == nil then
-      s = s + 1
-    end
-    t[new_k] = v
+    t[f(k, v)] = v
   end
-  return HashMap:_wrap(t, s)
+  return HashMap:wrap(t)
 end
 
 --- @param f fun(key:any, value:any):any
@@ -654,12 +645,10 @@ end
 function HashMap:mapValues(f)
   assert(type(f) == "function")
   local t = {}
-  local s = 0
   for k, v in pairs(self._data) do
     t[k] = f(k, v)
-    s = s + 1
   end
-  return HashMap:_wrap(t, s)
+  return HashMap:wrap(t)
 end
 
 --- @return any[]

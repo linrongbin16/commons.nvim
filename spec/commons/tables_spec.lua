@@ -450,11 +450,23 @@ describe("commons.tables", function()
       local t1 = { a = 1, b = 2, c = 3 }
       local m1 = HashMap:wrap(t1)
       assert_true(m1:none(function(k, v)
-        return v > 2
+        return v > 5
       end))
       assert_false(m1:none(function(k, v)
-        return k < "a"
+        return k > "a"
       end))
+    end)
+    it("filter", function()
+      local t1 = { a = 1, b = 2, c = 3 }
+      local m1 = HashMap:wrap(t1)
+      local m2 = m1:filter(function(k, v)
+        return v > 2
+      end)
+      local m3 = m1:filter(function(k, v)
+        return k > "a"
+      end)
+      assert_true(vim.deep_equal({ c = 3 }, m2:data()))
+      assert_true(vim.deep_equal({ b = 2, c = 3 }, m3:data()))
     end)
   end)
 end)
