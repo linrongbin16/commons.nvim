@@ -399,8 +399,8 @@ function List:slice(start_index, end_index)
   assert(type(end_index) == "number" or end_index == nil)
 
   local n = self:length()
-  start_index = start_index and M.list_index(start_index, n) or 1
-  end_index = end_index and M.list_index(end_index, n) or (n + 1)
+  start_index = start_index or 1
+  end_index = end_index or (n + 1)
 
   local l = {}
   local i = start_index
