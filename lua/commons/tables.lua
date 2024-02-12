@@ -144,6 +144,12 @@ function List:concat(other)
   return List:wrap(l)
 end
 
+--- @param separator string?
+function List:join(separator)
+  separator = separator or " "
+  return table.concat(self._data, separator)
+end
+
 --- @param f fun(value:any, index:integer):boolean
 --- @return boolean
 function List:allOf(f)

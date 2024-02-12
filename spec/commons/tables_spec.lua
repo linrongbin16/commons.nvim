@@ -87,13 +87,51 @@ describe("commons.tables", function()
       assert_true(vim.deep_equal(l2, actual3._data))
       assert_true(vim.deep_equal(l2, actual4:data()))
     end)
-    it("length/empty", function()
+    it("length/empty/at", function()
       local l1 = tables.List:of()
       assert_true(l1:empty())
       for i = 1, 10 do
         l1:push(i)
         assert_eq(l1:length(), i)
+        assert_eq(l1:at(i), i)
+        assert_false(l1:empty())
       end
+      for i = -10, -1, -1 do
+        assert_eq(l1:at(i), -i)
+      end
+    end)
+    it("concat/join", function()
+      local l1 = tables.List:of()
+      assert_true(l1:empty())
+      local l2 = l1:concat(tables.List:of(1, 2, 3))
+      assert_eq(l2:length(), 3)
+      assert_eq(l2:join(), "1 2 3")
+      assert_eq(l2:join(","), "1,2,3")
+      local l3 = l2:concat(tables.List:of("a", "b", "c"))
+      assert_eq(l3:length(), 6)
+      assert_eq(l3:join(), "1 2 3 a b c")
+      assert_eq(l3:join(","), "1,2,3,a,b,c")
+    end)
+    it("allOf/anyOf/noneOf", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      assert_true(l1:allOf(function(v)
+        return v > 0
+      end))
+      assert_true(l1:allOf(function(v)
+        return v <= 10
+      end))
+      assert_true(l1:allOf(function(v, i)
+        return v == i
+      end))
+      assert_true(l1:anyOf(function(v, i)
+        return v == 1
+      end))
+      assert_true(l1:anyOf(function(v, i)
+        return v == 10
+      end))
+      assert_true(l1:anyOf(function(v, i)
+        return v == i
+      end))
     end)
   end)
 end)
