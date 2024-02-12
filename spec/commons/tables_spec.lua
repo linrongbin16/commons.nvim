@@ -75,6 +75,12 @@ describe("commons.tables", function()
   end)
 
   describe("[List]", function()
+    it("is_list", function()
+      local l1 = { 1, 2, 3 }
+      local l2 = tables.List:wrap(l1)
+      assert_false(tables.is_list(l1))
+      assert_true(tables.is_list(l2))
+    end)
     it("wrap/of/data", function()
       local l1 = { 1, 2, 3 }
       local actual1 = tables.List:wrap(l1)
