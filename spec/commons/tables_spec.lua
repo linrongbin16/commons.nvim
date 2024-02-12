@@ -73,4 +73,297 @@ describe("commons.tables", function()
       assert_false(tables.list_contains({ 1, { 1, 2 }, 3, 4 }, { 1, 2 }))
     end)
   end)
+
+  describe("[List]", function()
+    it("is_list", function()
+      local l1 = { 1, 2, 3 }
+      local l2 = tables.List:wrap(l1)
+      assert_false(tables.is_list(l1))
+      assert_true(tables.is_list(l2))
+    end)
+    it("wrap/of/data", function()
+      local l1 = { 1, 2, 3 }
+      local actual1 = tables.List:wrap(l1)
+      local actual2 = tables.List:of(1, 2, 3)
+      assert_true(vim.deep_equal(l1, actual1._data))
+      assert_true(vim.deep_equal(l1, actual2:data()))
+      local l2 = { "a", "b", "c" }
+      local actual3 = tables.List:wrap(l2)
+      local actual4 = tables.List:of("a", "b", "c")
+      assert_true(vim.deep_equal(l2, actual3._data))
+      assert_true(vim.deep_equal(l2, actual4:data()))
+    end)
+    it("length/empty/at/first/last", function()
+      local l1 = tables.List:of()
+      assert_true(l1:empty())
+      for i = 1, 10 do
+        l1:push(i)
+        assert_eq(l1:length(), i)
+        assert_eq(l1:at(i), i)
+        assert_false(l1:empty())
+      end
+      for i = -10, -1, -1 do
+        assert_eq(l1:at(i), -i)
+      end
+      assert_eq(l1:first(), 1)
+      assert_eq(l1:last(), 10)
+      local l2 = tables.List:of()
+      assert_eq(l2:first(), nil)
+      assert_eq(l2:last(), nil)
+    end)
+    it("concat/join", function()
+      local l1 = tables.List:of()
+      assert_true(l1:empty())
+      local l2 = l1:concat(tables.List:of(1, 2, 3))
+      assert_eq(l2:length(), 3)
+      assert_eq(l2:join(), "1 2 3")
+      assert_eq(l2:join(","), "1,2,3")
+      local l3 = l2:concat(tables.List:of("a", "b", "c"))
+      assert_eq(l3:length(), 6)
+      assert_eq(l3:join(), "1 2 3 a b c")
+      assert_eq(l3:join(","), "1,2,3,a,b,c")
+    end)
+    it("every/some/none", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      assert_true(l1:every(function(v)
+        return v > 0
+      end))
+      assert_true(l1:every(function(v)
+        return v <= 10
+      end))
+      assert_true(l1:every(function(v, i)
+        return v == i
+      end))
+      assert_true(l1:some(function(v, i)
+        return v == 1
+      end))
+      assert_true(l1:some(function(v, i)
+        return v == 10
+      end))
+      assert_true(l1:some(function(v, i)
+        return v == i
+      end))
+    end)
+    it("filter", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      assert_true(vim.deep_equal(
+        l1:filter(function(v)
+          return v > 5
+        end):data(),
+        { 6, 7, 8, 9, 10 }
+      ))
+      assert_true(vim.deep_equal(
+        l1:filter(function(v)
+          return v <= 5
+        end):data(),
+        { 1, 2, 3, 4, 5 }
+      ))
+      assert_true(vim.deep_equal(
+        l1:filter(function(v, i)
+          return i % 2 == 0
+        end):data(),
+        { 2, 4, 6, 8, 10 }
+      ))
+      assert_true(vim.deep_equal(
+        l1:filter(function(v, i)
+          return i % 2 == 0 and v > 5
+        end):data(),
+        { 6, 8, 10 }
+      ))
+    end)
+    it("find", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual11, actual12 = l1:find(function(v, i)
+        return v > 5 and i > 6
+      end)
+      assert_eq(actual11, 7)
+      assert_eq(actual12, 7)
+      local actual21, actual22 = l1:find(function(v, i)
+        return v < 1 and i > 6
+      end)
+      assert_eq(actual21, nil)
+      assert_eq(actual22, -1)
+    end)
+    it("findLast", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual11, actual12 = l1:findLast(function(v, i)
+        return v > 5 and i > 6
+      end)
+      assert_eq(actual11, 10)
+      assert_eq(actual12, 10)
+      local actual21, actual22 = l1:findLast(function(v, i)
+        return v < 1 and i > 6
+      end)
+      assert_eq(actual21, nil)
+      assert_eq(actual22, -1)
+    end)
+    it("indexOf", function()
+      local l1 = tables.List:of(1, 1, 1, 1, 1, 6, 6, 6, 6, 6)
+      local actual1 = l1:indexOf(6, 8)
+      assert_eq(actual1, 8)
+      local actual2 = l1:indexOf(6)
+      assert_eq(actual2, 6)
+      local l2 = tables.List:of({ 1, 2 }, { "a", "b" }, { tables.List, tables.HashMap })
+      local actual3 = l2:indexOf({ 1, 2 }, 1, vim.deep_equal)
+      local actual4 = l2:indexOf({ "a", "b" }, 3, vim.deep_equal)
+      assert_eq(actual3, 1)
+      assert_eq(actual4, -1)
+    end)
+    it("lastIndexOf", function()
+      local l1 = tables.List:of(1, 1, 1, 1, 1, 6, 6, 6, 6, 6)
+      local actual1 = l1:lastIndexOf(6, 3)
+      assert_eq(actual1, -1)
+      local actual2 = l1:lastIndexOf(6)
+      assert_eq(actual2, 10)
+      local l2 = tables.List:of({ 1, 2 }, { "a", "b" }, { tables.List, tables.HashMap })
+      local actual3 = l2:indexOf({ tables.List, tables.HashMap }, 1, vim.deep_equal)
+      local actual4 = l2:indexOf({ "a", "b" }, 1, vim.deep_equal)
+      assert_eq(actual3, 3)
+      assert_eq(actual4, 2)
+    end)
+    it("forEach", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual1 = 0
+      l1:forEach(function(v)
+        actual1 = actual1 + v
+      end)
+      assert_eq(actual1, 55)
+      local actual2 = 0
+      l1:forEach(function(v, i)
+        actual2 = actual2 + v + i
+      end)
+      assert_eq(actual2, 110)
+    end)
+    it("includes", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual1 = l1:includes(1)
+      local actual2 = l1:includes(10)
+      local actual3 = l1:includes(-1)
+      local actual4 = l1:includes(11)
+      assert_true(actual1)
+      assert_true(actual2)
+      assert_false(actual3)
+      assert_false(actual4)
+      local l2 = tables.List:of({ 1, 2 }, { "a", "b" }, { tables.List, tables.HashMap })
+      local actual5 = l2:includes({ 1, 2 }, 1, vim.deep_equal)
+      local actual6 = l2:includes({ "a", "b" })
+      local actual7 = l2:includes({ "a", "b" }, 3, vim.deep_equal)
+      assert_true(actual5)
+      assert_false(actual6)
+      assert_false(actual7)
+    end)
+    it("map", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual1 = l1:map(function(v)
+        return v * 2
+      end)
+        :map(function(v)
+          return v + 1
+        end)
+        :reduce(function(accumulator, v)
+          return accumulator + v
+        end, 0)
+      assert_eq(actual1, 120)
+      local actual2 = l1:map(function(v, i)
+        return tostring(i)
+      end)
+        :map(function(v, i)
+          return string.len(v)
+        end)
+        :reduce(function(accumulator, v, i)
+          return accumulator + v + i
+        end, 0)
+      assert_eq(actual2, 66)
+    end)
+    it("reduce", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local actual1 = l1:reduce(function(accumulator, v)
+        return accumulator + v
+      end)
+      assert_eq(actual1, 55)
+      local actual2 = l1:reduce(function(accumulator, v, i)
+        return accumulator + i + v
+      end)
+      assert_eq(actual2, 109)
+    end)
+    it("reduceRight", function()
+      local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      local count = 0
+      local actual1 = l1:reduceRight(function(accumulator, v, i)
+        count = count + 1
+        return count <= 5 and accumulator + v or accumulator
+      end)
+      assert_eq(actual1, 45)
+      count = 0
+      local actual2 = l1:reduceRight(function(accumulator, v, i)
+        count = count + 1
+        return count <= 5 and accumulator + i or accumulator
+      end, 0)
+      assert_eq(actual2, 40)
+    end)
+    it("reverse", function()
+      assert_true(
+        vim.deep_equal(
+          { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):reverse():data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { "a", "b", "c", "d", "e" },
+          tables.List:of("e", "d", "c", "b", "a"):reverse():data()
+        )
+      )
+    end)
+    it("slice", function()
+      assert_true(
+        vim.deep_equal(
+          { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):slice():data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):slice(5):data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { "a", "b", "c" },
+          tables.List:of("a", "b", "c", "d", "e"):slice(1, 3):data()
+        )
+      )
+      assert_true(vim.deep_equal({}, tables.List:of("e", "d", "c", "b", "a"):slice(9):data()))
+      assert_true(
+        vim.deep_equal(
+          { "c", "b", "a" },
+          tables.List:of("e", "d", "c", "b", "a"):slice(3, 10):data()
+        )
+      )
+    end)
+    it("sort", function()
+      assert_true(
+        vim.deep_equal(
+          { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 3, 5, 7, 9, 2, 4, 6, 8, 10):sort():data()
+        )
+      )
+      assert_true(
+        vim.deep_equal(
+          { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+          tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10):sort():data()
+        )
+      )
+      assert_true(vim.deep_equal(
+        { "e", "d", "c", "b", "a" },
+        tables.List
+          :of("a", "b", "c", "d", "e")
+          :sort(function(a, b)
+            return b < a
+          end)
+          :data()
+      ))
+    end)
+  end)
 end)
