@@ -495,11 +495,12 @@ describe("commons.tables", function()
       local v1 = 0
       m1:forEach(function(k, v)
         k1 = k1 .. k
-        v1 = v1 .. v
+        v1 = v1 + v
       end)
       local k2 = strings.tochars(k1)
       table.sort(k2)
       assert_eq(table.concat(k2), "abc")
+      assert_eq(v1, 6)
     end)
   end)
 end)
