@@ -113,3 +113,11 @@ Returns:
 
 - Returns `true` if list `l` contains value `v`.
 - Returns `false` if list `l` doesn't contain value `v`.
+
+## Classes
+
+### `List`
+
+High-level list/array data structure, provide a set of APIs highly close to [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
+?> The API signatures are heavily influenced by Javascript Array, but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
