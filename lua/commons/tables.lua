@@ -513,6 +513,26 @@ function HashMap:get(key)
   return self._data[key]
 end
 
+--- @param key any
+--- @return boolean
+function HashMap:hasKey(key)
+  return self._data[key] ~= nil
+end
+
+--- @param value any
+--- @param comparator (fun(a:any, b:any):boolean)|nil
+--- @return boolean
+function HashMap:hasValue(value, comparator)
+  for k, v in pairs(self._data) do
+    if type(comparator) == "function" and comparator(v, value) then
+      return true
+    elseif v == value then
+      return true
+    end
+  end
+  return false
+end
+
 --- @param other commons.HashMap
 --- @return commons.HashMap
 function HashMap:merge(other)
@@ -591,20 +611,15 @@ end
 
 --- @param f fun(key:any, value:any):boolean
 --- @return any, any
-function HashMap:findLast(f)
+function HashMap:find(f)
   assert(type(f) == "function")
-  local results = {}
+  local t = {}
   for k, v in pairs(self._data) do
     if f(k, v) then
-      table.insert(results, { k, v })
+      return k, v
     end
   end
-  if #results > 0 then
-    local last = results[#results]
-    return last[1], last[2]
-  else
-    return nil, nil
-  end
+  return nil, nil
 end
 
 M.HashMap = HashMap
