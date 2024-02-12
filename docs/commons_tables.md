@@ -1141,3 +1141,13 @@ Parameters:
 Returns:
 
 - Returns `true` if no entry is satisfied (e.g. all entries are not satisfied), returns `false` if not.
+
+##### `filter`
+
+Filter the hash map and create a new hash map.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return commons.HashMap
+function HashMap:filter(f)
+```
