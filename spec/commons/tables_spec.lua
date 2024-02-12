@@ -273,18 +273,22 @@ describe("commons.tables", function()
       local actual2 = l1:reduce(function(accumulator, v, i)
         return accumulator + i + v
       end)
-      assert_eq(actual2, 110)
+      assert_eq(actual2, 109)
     end)
     it("reduceRight", function()
       local l1 = tables.List:of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-      local actual1 = l1:reduceRight(function(accumulator, v)
-        return accumulator + v
+      local count = 0
+      local actual1 = l1:reduceRight(function(accumulator, v, i)
+        count = count + 1
+        return count <= 5 and accumulator + v or accumulator
       end)
-      assert_eq(actual1, 55)
+      assert_eq(actual1, 45)
+      count = 0
       local actual2 = l1:reduceRight(function(accumulator, v, i)
-        return accumulator + v
-      end)
-      assert_eq(actual2, 55)
+        count = count + 1
+        return count <= 5 and accumulator + i or accumulator
+      end, 0)
+      assert_eq(actual2, 40)
     end)
   end)
 end)
