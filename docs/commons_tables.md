@@ -406,12 +406,12 @@ Returns:
 
 ##### `find`
 
-Filter the list and create a new list.
+Find the first element that satisfied the unary detect function, e.g. search from index 1 to `length()`.
 
 ```lua
 --- @param f fun(value:any, index:integer):boolean
---- @return commons.List
-function List:filter(f)
+--- @return any?, integer
+function List:find(f)
 ```
 
 Parameters:
@@ -433,4 +433,37 @@ Parameters:
 
 Returns:
 
-- Returns a new list that all elements are satisfied, those unsatisfied elements are been filtered.
+- Returns the first element that satisfied the unary function `f` and its index, if found.
+- Returns `nil` and `-1`, if not found.
+
+##### `findLast`
+
+Find the last element that satisfied the unary detect function, e.g. search by index `length()` to 1.
+
+```lua
+--- @param f fun(value:any, index:integer):boolean
+--- @return any?, integer
+function List:findLast(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns the last element that satisfied the unary function `f` and its index, if found.
+- Returns `nil` and `-1`, if not found.
