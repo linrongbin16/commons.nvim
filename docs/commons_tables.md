@@ -1047,6 +1047,8 @@ Returns:
 
 Whether all entries are satisfied the unary detect function.
 
+?> This API usually can be named to `allOf`, `allMatch` in other programming languages.
+
 ```lua
 --- @param f fun(key:any, value:any):boolean
 --- @return boolean
@@ -1073,3 +1075,69 @@ Parameters:
 Returns:
 
 - Returns `true` if all entries are satisfied, returns `false` if not.
+
+##### `some`
+
+Whether any entries are satisfied the unary detect function.
+
+?> This API usually can be named to `anyOf`, `anyMatch` in other programming languages.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:some(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if any entries are satisfied, returns `false` if not.
+
+##### `none`
+
+Whether no entry is satisfied the unary detect function, e.g. all entries are not satisfied.
+
+?> This API usually can be named to `noneOf`, `noneMatch` in other programming languages.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:none(f)
+```
+
+Parameters:
+
+- `f`: Unary detect function, it use below signature:
+
+  ```lua
+  function f(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if no entry is satisfied (e.g. all entries are not satisfied), returns `false` if not.
