@@ -73,4 +73,15 @@ describe("commons.tables", function()
       assert_false(tables.list_contains({ 1, { 1, 2 }, 3, 4 }, { 1, 2 }))
     end)
   end)
+
+  describe("[List]", function()
+    it("wrap", function()
+      local l1 = { 1, 2, 3 }
+      local actual1 = tables.List:wrap(l1)
+      assert_true(vim.deep_equal(l1, actual1._data))
+      local l2 = { "a", "b", "c" }
+      local actual2 = tables.List:wrap(l2)
+      assert_true(vim.deep_equal(l2, actual2._data))
+    end)
+  end)
 end)
