@@ -156,7 +156,7 @@ Returns:
 
 High-level list/array data structure.
 
-?> The API design is heavily influenced by [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [lodash](https://lodash.com/docs), but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
+?> The API design is heavily influenced by [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [lodash](https://lodash.com/docs), but some APIs are different, because lua is not javascript anyway, and `List` is designed to be purely functional programming without side-effect.
 
 #### Methods
 
@@ -842,7 +842,7 @@ Returns:
 
 High-level hash map data structure, provide a set of APIs highly close to [Javascript Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
-?> The API signatures are heavily influenced by Javascript Array, but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
+?> The API design is heavily influenced by [Javascript Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) and [lodash](https://lodash.com/docs), but some APIs are different, because lua is not javascript anyway, and `HashMap` is designed to be purely functional programming without side-effect.
 
 #### Methods
 
