@@ -93,7 +93,7 @@ describe("commons.tables", function()
       assert_true(vim.deep_equal(l2, actual3._data))
       assert_true(vim.deep_equal(l2, actual4:data()))
     end)
-    it("length/empty/at", function()
+    it("length/empty/at/first/last", function()
       local l1 = tables.List:of()
       assert_true(l1:empty())
       for i = 1, 10 do
@@ -105,6 +105,8 @@ describe("commons.tables", function()
       for i = -10, -1, -1 do
         assert_eq(l1:at(i), -i)
       end
+      assert_eq(l1:first(), 1)
+      assert_eq(l1:last(), 10)
     end)
     it("concat/join", function()
       local l1 = tables.List:of()
