@@ -344,7 +344,7 @@ function List:unshift(...)
   end
 end
 
---- @param f fun(accumulator:any,currentValue:any,currentIndex:integer):any
+--- @param f fun(accumulator:any,value:any,index:integer):any
 --- @param initialValue any?
 --- @return any
 function List:reduce(f, initialValue)
@@ -365,7 +365,7 @@ function List:reduce(f, initialValue)
   return accumulator
 end
 
---- @param f fun(accumulator:any,currentValue:any,currentIndex:integer):any
+--- @param f fun(accumulator:any,value:any,index:integer):any
 --- @param initialValue any?
 --- @return any
 function List:reduceRight(f, initialValue)

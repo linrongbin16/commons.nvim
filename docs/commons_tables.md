@@ -713,24 +713,29 @@ Parameters:
 Aggregate the list.
 
 ```lua
---- @return any?, boolean
-function List:shift()
+--- @param f fun(accumulator:any, value:any, index:integer):any
+--- @param initialValue any?
+--- @return any
+function List:reduce(f, initialValue)
 ```
+
+Parameters:
+
+- `f`: The aggregate function, it use below signature:
+
+  ```lua
+  function f(accumulator:any, value:any, index:integer):any
+  ```
+
+  Parameters:
+
+  - `accumulator`: The accumulated value.
+  - `value`: The element of the list.
+  - `index`: The index of the element.
+
+- `initialValue`: The initial value, by default is `nil`, and the first element will be used as the initial value.
 
 Returns:
 
 - Returns the first element and `true` if successfully removed.
 - Returns `nil` and `false` if failed, e.g. the list is empty.
-
-##### `unshift`
-
-Insert 0 or more elements into the list in the head.
-
-```lua
---- @param ... any
-function List:unshift(...)
-```
-
-Parameters:
-
-- `...`: The new elements to be insert.
