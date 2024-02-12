@@ -710,7 +710,7 @@ Parameters:
 
 ##### `reduce`
 
-Aggregate the list.
+Aggregate the list from first element to last.
 
 ```lua
 --- @param f fun(accumulator:any, value:any, index:integer):any
@@ -738,3 +738,51 @@ Parameters:
 Returns:
 
 - Returns the final accumulator value.
+
+##### `reduceRight`
+
+Aggregate the list exactly like `reduce`, except it's from last element to first.
+
+```lua
+--- @param f fun(accumulator:any,value:any,index:integer):any
+--- @param initialValue any?
+--- @return any
+function List:reduceRight(f, initialValue)
+```
+
+##### `reverse`
+
+Reverse the list.
+
+!> This method will not modify the current list, but create a new list.
+
+```lua
+--- @return commons.List
+function List:reverse()
+```
+
+Returns:
+
+- Returns a new list that reverse all the elements.
+
+##### `slice`
+
+Get part of the list, just like `string.sub`.
+
+!> This method will not modify the current list, but create a new list.
+
+```lua
+--- @param startIndex integer?
+--- @param endIndex integer?
+--- @return commons.List
+function List:slice(startIndex, endIndex)
+```
+
+Parameters:
+
+- `startIndex`: First element of the part, by default is `1`.
+- `endIndex`: Last element of the part, inclusive, by default is `length()`.
+
+Returns:
+
+- Returns a new list that contains part of the current list.

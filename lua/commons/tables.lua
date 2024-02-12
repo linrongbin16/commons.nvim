@@ -402,19 +402,19 @@ function List:reverse()
   return List:wrap(l)
 end
 
---- @param start_index integer?
---- @param end_index integer?
+--- @param startIndex integer?
+--- @param endIndex integer?
 --- @return commons.List
-function List:slice(start_index, end_index)
-  assert(type(start_index) == "number" or start_index == nil)
-  assert(type(end_index) == "number" or end_index == nil)
+function List:slice(startIndex, endIndex)
+  assert(type(startIndex) == "number" or startIndex == nil)
+  assert(type(endIndex) == "number" or endIndex == nil)
 
   local n = self:length()
-  start_index = start_index or 1
-  end_index = end_index or n
+  startIndex = startIndex or 1
+  endIndex = endIndex or n
 
   local l = {}
-  for i = start_index, end_index do
+  for i = startIndex, endIndex do
     if i >= 1 and i <= n then
       table.insert(l, self._data[i])
     end
