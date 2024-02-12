@@ -513,6 +513,12 @@ function HashMap:get(key)
   return self._data[key]
 end
 
+--- @param other commons.HashMap
+--- @return commons.HashMap
+function HashMap:merge(other)
+  return self._data[key]
+end
+
 M.HashMap = HashMap
 
 M.is_hashmap = function(o)
