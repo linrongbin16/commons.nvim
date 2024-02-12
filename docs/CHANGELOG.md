@@ -1,5 +1,12 @@
 # Changelog
 
+## [9.1.0](https://github.com/linrongbin16/commons.nvim/compare/v9.0.1...v9.1.0) (2024-02-12)
+
+
+### Features
+
+* **tables:** add 'List' ([#202](https://github.com/linrongbin16/commons.nvim/issues/202)) ([25d03c3](https://github.com/linrongbin16/commons.nvim/commit/25d03c38562085a17e2b127fe8ead050543ea993))
+
 ## [9.0.1](https://github.com/linrongbin16/commons.nvim/compare/v9.0.0...v9.0.1) (2024-02-05)
 
 
