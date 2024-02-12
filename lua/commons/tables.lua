@@ -130,6 +130,16 @@ function List:at(index)
   return self._data[normalized_index]
 end
 
+--- @return any
+function List:first()
+  return self:at(1)
+end
+
+--- @return any
+function List:last()
+  return self:at(self:length())
+end
+
 --- @param other commons.List
 --- @return commons.List
 function List:concat(other)
@@ -312,9 +322,11 @@ function List:pop()
   return table.remove(self._data, self:length()), true
 end
 
---- @param value any
-function List:push(value)
-  table.insert(self._data, value)
+--- @param ... any
+function List:push(...)
+  for i, v in ipairs({ ... }) do
+    table.insert(self._data, v)
+  end
 end
 
 --- @return any?, boolean

@@ -238,6 +238,32 @@ Returns:
 
 - Returns the element at `index`, or `nil` if not found.
 
+##### `first`
+
+Get the first element at head.
+
+```lua
+--- @return any
+function List:first()
+```
+
+Returns:
+
+- Returns the first element if exists, returns `nil` if empty.
+
+##### `last`
+
+Get the last element at head.
+
+```lua
+--- @return any
+function List:last()
+```
+
+Returns:
+
+- Returns the last element if exists, returns `nil` if empty.
+
 ##### `concat`
 
 Concat two list (current list and another list) into a new list.
@@ -630,7 +656,7 @@ Returns:
 
 ##### `pop`
 
-Pop up the last element in the list.
+Remove the last element from the list from tail.
 
 ```lua
 --- @return any?, boolean
@@ -639,5 +665,45 @@ function List:pop()
 
 Returns:
 
-- Returns the last element and `true` if successfully pop up.
+- Returns the last element and `true` if successfully removed.
 - Returns `nil` and `false` if failed, e.g. the list is empty.
+
+##### `push`
+
+Insert 0 or more elements into the list in the tail.
+
+```lua
+--- @param ... any
+function List:push(...)
+```
+
+Parameters:
+
+- `...`: The new elements to be insert.
+
+##### `shift`
+
+Remove the first element from the list in the head.
+
+```lua
+--- @return any?, boolean
+function List:shift()
+```
+
+Returns:
+
+- Returns the first element and `true` if successfully removed.
+- Returns `nil` and `false` if failed, e.g. the list is empty.
+
+##### `unshift`
+
+Insert 0 or more elements into the list in the head.
+
+```lua
+--- @param ... any
+function List:unshift(...)
+```
+
+Parameters:
+
+- `...`: The new elements to be insert.
