@@ -955,3 +955,21 @@ Parameters:
 Returns:
 
 - Returns the old value been removed, or `nil` if nothing been removed.
+
+##### `get`
+
+Get value by the specific key.
+
+```lua
+--- @param ... any
+--- @return any
+function HashMap:get(...)
+```
+
+Parameters:
+
+- `...`: Entry key, the parameters are same with [tbl_get](#tbl_get).
+
+Returns:
+
+- Returns the value.
