@@ -154,9 +154,9 @@ Returns:
 
 ### `List`
 
-High-level list/array data structure, provide a set of APIs highly close to [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+High-level list/array data structure.
 
-?> The API signatures are heavily influenced by Javascript Array, but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
+?> The API design is heavily influenced by [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [lodash](https://lodash.com/docs), but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
 
 #### Methods
 
@@ -837,3 +837,15 @@ Parameters:
 Returns:
 
 - Returns a new list that been sorted.
+
+### `HashMap`
+
+High-level hash map data structure, provide a set of APIs highly close to [Javascript Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
+?> The API signatures are heavily influenced by Javascript Array, but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
+
+#### Methods
+
+##### `wrap`
+
+Create a list by wrap a lua table list.
