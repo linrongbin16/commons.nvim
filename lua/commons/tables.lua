@@ -407,12 +407,6 @@ function List:slice(start_index, end_index)
   return List:wrap(l)
 end
 
---- @param start integer
---- @param delete integer
---- @param ... any
---- @return commons.List
-function List:splice(start, delete, ...) end
-
 --- @param comparator (fun(a:any,b:any):boolean)|nil
 --- @return commons.List
 function List:sort(comparator)
