@@ -501,8 +501,11 @@ function HashMap:set(key, value)
 end
 
 --- @param key any
+--- @return any?
 function HashMap:unset(key)
+  local old = self._data[key]
   self._data[key] = nil
+  return old
 end
 
 --- @param ... any

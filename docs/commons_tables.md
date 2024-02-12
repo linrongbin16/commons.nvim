@@ -909,3 +909,49 @@ Returns:
 - Returns the size of hash map.
 
 !> This method uses `O(n)` time complexity, where `n` is the size of hash map.
+
+##### `empty`
+
+Whether the hash map is empty.
+
+```lua
+--- @return boolean
+function HashMap:empty()
+```
+
+Returns:
+
+- Returns `true` if the hash map is empty, returns `false` if not.
+
+##### `set`
+
+Add an entry into the hash map.
+
+```lua
+--- @param key any
+--- @param value any
+function HashMap:set(key, value)
+```
+
+Parameters:
+
+- `key`: Entry key.
+- `value`: Entry value.
+
+##### `unset`
+
+Remove an entry from the hash map.
+
+```lua
+--- @param key any
+--- @return any?
+function HashMap:unset(key)
+```
+
+Parameters:
+
+- `key`: Entry key.
+
+Returns:
+
+- Returns the old value been removed, or `nil` if nothing been removed.
