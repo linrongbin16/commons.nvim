@@ -697,6 +697,15 @@ function HashMap:values()
   return values
 end
 
+--- @return {key:any,value:any}[]
+function HashMap:entries()
+  local entries = {}
+  for k, v in pairs(self._data) do
+    table.insert(entries, { key = k, value = v })
+  end
+  return entries
+end
+
 --- @return {[1]:any,[2]:any}[]
 function HashMap:pairs()
   local p = {}
