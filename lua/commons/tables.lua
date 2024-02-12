@@ -442,49 +442,35 @@ M.is_list = function(o)
 end
 
 --- @class commons.HashMap
---- @field _hasher (fun(k:any):integer|string)|nil
 --- @field _data table
 --- @field _size integer
 local HashMap = {}
 
---- @param h (fun(k:any):integer|string)|nil
---- @param k any
---- @return integer|string
-local function _hash(h, k)
-  return type(h) == "function" and h(k) or k
-end
-
---- @param hasher (fun(k:any):integer|string)|nil
 --- @param t table
 --- @return commons.HashMap
-function HashMap:wrap(hasher, t)
-  assert(type(hasher) == "function" or hasher == nil)
+function HashMap:wrap(t)
   assert(type(t) == "table")
 
-  local d = {}
   local s = 0
-  for k, v in pairs(t) do
+  for _, _ in pairs(t) do
     s = s + 1
-    d[_hash(hasher, k)] = v
   end
-  local o = { _hasher = hasher, _data = d, _size = s }
+  local o = { _data = t, _size = s }
   setmetatable(o, self)
   self.__index = self
   return o
 end
 
---- @param hasher (fun(k:any):integer|string)|nil
 --- @param ... {[1]:any,[2]:any}
-function HashMap:of(hasher, ...)
-  assert(type(hasher) == "function" or hasher == nil)
-
-  local d = {}
+--- @return commons.HashMap
+function HashMap:of(...)
+  local t = {}
   local s = 0
   for i, v in ipairs({ ... }) do
-    d[_hash(hasher, v[1])] = v[2]
+    t[v[1]] = v[2]
     s = s + 1
   end
-  return HashMap:_wrap(hasher, d, s)
+  return HashMap:wrap(t)
 end
 
 --- @return integer
