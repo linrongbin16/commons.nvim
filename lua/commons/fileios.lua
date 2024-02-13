@@ -136,6 +136,27 @@ M.FileLineReader = FileLineReader
 
 -- FileLineReader }
 
+-- CachedFileReader {
+
+--- @class commons.CachedFileReader
+--- @field filename string
+--- @field cache string
+local CachedFileReader = {}
+
+--- @param filename string
+--- @return commons.CachedFileReader
+function CachedFileReader:open(filename)
+  local o = {
+    filename = filename,
+    cache = nil,
+  }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+-- CachedFileReader }
+
 --- @param filename string
 --- @param opts {trim:boolean?}?
 --- @return string?
