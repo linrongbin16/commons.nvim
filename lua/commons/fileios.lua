@@ -227,8 +227,8 @@ end
 --- @param filename string
 --- @return string[]|nil
 M.readlines = function(filename)
-  local reader = M.FileLineReader:open(filename) --[[@as commons.FileLineReader]]
-  if not reader then
+  local ok, reader = pcall(M.FileLineReader.open, M.FileLineReader, filename) --[[@as commons.FileLineReader]]
+  if not ok or reader == nil then
     return nil
   end
   local results = {}
