@@ -102,6 +102,18 @@ function List:move(l)
   return o
 end
 
+--- @param l any[]
+--- @return commons.List
+function List:copy(l)
+  assert(type(l) == "table")
+
+  local new_l = {}
+  for i, v in ipairs(l) do
+    table.insert(new_l, v)
+  end
+  return List:move(new_l)
+end
+
 --- @param ... any
 --- @return commons.List
 function List:of(...)
@@ -450,14 +462,22 @@ local HashMap = {}
 function HashMap:move(t)
   assert(type(t) == "table")
 
-  local s = 0
-  for _, _ in pairs(t) do
-    s = s + 1
-  end
   local o = { _data = t }
   setmetatable(o, self)
   self.__index = self
   return o
+end
+
+--- @param t table
+--- @return commons.HashMap
+function HashMap:copy(t)
+  assert(type(t) == "table")
+
+  local new_t = {}
+  for k, v in pairs(t) do
+    new_t[k] = v
+  end
+  return HashMap:move(new_t)
 end
 
 --- @param ... {[1]:any,[2]:any}
