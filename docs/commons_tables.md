@@ -1293,4 +1293,4 @@ Parameters:
 
 Returns:
 
-- Returns the new list.
+- Returns the new hash map.
