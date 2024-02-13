@@ -26,7 +26,7 @@ describe("commons.fileios", function()
       local ok, reader = pcall(fileios.readfile, "asdf.md")
       assert_eq(type(reader), "string")
       assert_false(ok)
-    end) 
+    end)
     it("readfile and FileLineReader", function()
       local content = fileios.readfile("README.md", { trim = true })
       local reader = fileios.FileLineReader:open("README.md") --[[@as commons.FileLineReader]]
