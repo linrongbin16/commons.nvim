@@ -1250,3 +1250,16 @@ Returns:
 
 - Returns the entry key and value, if there's next entry.
 - Returns `nil` and `nil`, if there's no more entries.
+
+##### `invert`
+
+Invert the hash map, use keys as values, use values as keys.
+
+```lua
+--- @return commons.HashMap
+function HashMap:invert()
+```
+
+Returns:
+
+- Returns a new create hash map, use current hash map's keys as values, values as keys.
