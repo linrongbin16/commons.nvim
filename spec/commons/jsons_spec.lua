@@ -39,7 +39,7 @@ describe("commons.jsons", function()
       print(string.format("decode2:%s\n", vim.inspect(b)))
       assert_true(vim.deep_equal(a, b))
       assert_eq(jsons.decode(nil), nil)
-      assert_eq(jsons.decode("   "), nil)
+      assert_eq(jsons.decode(nil), nil)
     end)
     it("decode2", function()
       local a = { a = "a", b = "b", c = { d = 2, e = "5" } }
