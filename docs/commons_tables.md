@@ -320,7 +320,7 @@ Returns:
 
 ##### `every`
 
-Whether all elements are satisfied with an unary detect function.
+Whether all elements are satisfied with a predicate function.
 
 ?> This API usually can be named to `allOf`, `allMatch` in other programming languages.
 
@@ -332,10 +332,10 @@ function List:every(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -353,7 +353,7 @@ Returns:
 
 ##### `some`
 
-Whether any elements (at least 1) are satisfied with an unary detect function.
+Whether any elements (at least 1) are satisfied with a predicate function.
 
 ?> This API usually can be named to `anyOf`, `anyMatch` in other programming languages.
 
@@ -365,10 +365,10 @@ function List:some(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -386,7 +386,7 @@ Returns:
 
 ##### `none`
 
-Whether no element is satisfied (e.g. all elements are not satisfied) with an unary detect function.
+Whether no element is satisfied (e.g. all elements are not satisfied) with a predicate function.
 
 ?> This API usually can be named to `noneOf`, `noneMatch` in other programming languages.
 
@@ -398,10 +398,10 @@ function List:none(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -429,10 +429,10 @@ function List:filter(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -450,7 +450,7 @@ Returns:
 
 ##### `find`
 
-Find the first element that satisfied the unary detect function, e.g. search by index from 1 to `length()`.
+Find the first element that satisfied the predicate function, e.g. search by index from 1 to `length()`.
 
 ```lua
 --- @param f fun(value:any, index:integer):boolean
@@ -460,10 +460,10 @@ function List:find(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -477,12 +477,12 @@ Parameters:
 
 Returns:
 
-- Returns the first element that satisfied the unary function `f` and its index, if found.
+- Returns the first element that satisfied the predicate function `f` and its index, if found.
 - Returns `nil` and `-1`, if not found.
 
 ##### `findLast`
 
-Find the last element that satisfied the unary detect function, e.g. search by index from `length()` to 1.
+Find the last element that satisfied the predicate function, e.g. search by index from `length()` to 1.
 
 ```lua
 --- @param f fun(value:any, index:integer):boolean
@@ -492,10 +492,10 @@ function List:findLast(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -509,7 +509,7 @@ Parameters:
 
 Returns:
 
-- Returns the last element that satisfied the unary function `f` and its index, if found.
+- Returns the last element that satisfied the predicate function `f` and its index, if found.
 - Returns `nil` and `-1`, if not found.
 
 ##### `indexOf`
@@ -531,7 +531,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -567,7 +567,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -598,7 +598,7 @@ Parameters:
 - `f`: The lua function to be invoke on every element, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):nil
+  function(value:any, index:integer):nil
   ```
 
   Parameters:
@@ -625,7 +625,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -656,7 +656,7 @@ Parameters:
 - `f`: The transform function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):any
+  function(value:any, index:integer):any
   ```
 
   Parameters:
@@ -742,7 +742,7 @@ Parameters:
 - `f`: The aggregate function, it use below signature:
 
   ```lua
-  function f(accumulator:any, value:any, index:integer):any
+  function(accumulator:any, value:any, index:integer):any
   ```
 
   Parameters:
@@ -822,7 +822,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -1009,7 +1009,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -1045,7 +1045,7 @@ Returns:
 
 ##### `every`
 
-Whether all entries are satisfied the unary detect function.
+Whether all entries are satisfied the predicate function.
 
 ?> This API usually can be named to `allOf`, `allMatch` in other programming languages.
 
@@ -1057,10 +1057,10 @@ function HashMap:every(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(key:any, value:any):boolean
+  function(key:any, value:any):boolean
   ```
 
   Parameters:
@@ -1078,7 +1078,7 @@ Returns:
 
 ##### `some`
 
-Whether any entries are satisfied the unary detect function.
+Whether any entries are satisfied the predicate function.
 
 ?> This API usually can be named to `anyOf`, `anyMatch` in other programming languages.
 
@@ -1090,10 +1090,10 @@ function HashMap:some(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(key:any, value:any):boolean
+  function(key:any, value:any):boolean
   ```
 
   Parameters:
@@ -1111,7 +1111,7 @@ Returns:
 
 ##### `none`
 
-Whether no entry is satisfied the unary detect function, e.g. all entries are not satisfied.
+Whether no entry is satisfied the predicate function, e.g. all entries are not satisfied.
 
 ?> This API usually can be named to `noneOf`, `noneMatch` in other programming languages.
 
@@ -1123,10 +1123,10 @@ function HashMap:none(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(key:any, value:any):boolean
+  function(key:any, value:any):boolean
   ```
 
   Parameters:
@@ -1151,3 +1151,24 @@ Filter the hash map and create a new hash map.
 --- @return commons.HashMap
 function HashMap:filter(f)
 ```
+
+Parameters:
+
+- `f`: Predicate function, it use below signature:
+
+  ```lua
+  function(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns a new list that all elements are satisfied, those unsatisfied elements are been filtered.
