@@ -586,7 +586,7 @@ Returns:
 
 ##### `forEach`
 
-Visit every element of the list, and invoke a lua function.
+Visit all elements of the list, and invoke a lua function on them.
 
 ```lua
 --- @param f fun(value:any, index:integer):nil
@@ -1206,3 +1206,25 @@ Returns:
 
 - Returns entry key and entry value if successfully found.
 - Returns `nil` and `nil` if not found.
+
+##### `forEach`
+
+Visit all entries of the hash map, and invoke a lua function on them.
+
+```lua
+--- @param f fun(value:any, index:integer):nil
+function List:forEach(f)
+```
+
+Parameters:
+
+- `f`: The lua function to be invoke on every element, it use below signature:
+
+  ```lua
+  function(value:any, index:integer):nil
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
