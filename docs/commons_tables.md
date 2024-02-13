@@ -1212,8 +1212,8 @@ Returns:
 Visit all entries of the hash map, and invoke a lua function on them.
 
 ```lua
---- @param f fun(value:any, index:integer):nil
-function List:forEach(f)
+--- @param f fun(key:any,value:any):nil
+function HashMap:forEach(f)
 ```
 
 Parameters:
@@ -1221,10 +1221,10 @@ Parameters:
 - `f`: The lua function to be invoke on every element, it use below signature:
 
   ```lua
-  function(value:any, index:integer):nil
+  function(key:any, value:any):nil
   ```
 
   Parameters:
 
-  - `value`: An element of current list.
-  - `index`: The index of the element in current list.
+  - `key`: Entry key.
+  - `value`: Entry value.
