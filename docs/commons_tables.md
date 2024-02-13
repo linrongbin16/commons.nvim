@@ -1244,3 +1244,9 @@ Parameters:
 - `iterator`: The iterator, e.g. the entry key used to iterate the hash map.
 
   - When first invoke this method, set the parameter to `nil`.
+  - In following invokes, set the parameter to the previous returned entry key.
+
+Returns:
+
+- Returns the entry key and value, if there's next entry.
+- Returns `nil` and `nil`, if there's no more entries.
