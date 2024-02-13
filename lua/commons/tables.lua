@@ -93,7 +93,7 @@ local List = {}
 
 --- @param l any[]
 --- @return commons.List
-function List:wrap(l)
+function List:move(l)
   assert(type(l) == "table")
 
   local o = { _data = l }
