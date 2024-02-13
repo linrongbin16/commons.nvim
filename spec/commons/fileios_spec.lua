@@ -16,7 +16,7 @@ describe("commons.fileios", function()
 
 describe("[FileLineReader]", function()
     it("failed to open", function()
-      local ok, reader = pcall(fileios.FileLineReader:open, "asdf.md") --[[@as commons.FileLineReader]]
+      local ok, reader = pcall(fileios.FileLineReader:open, "asdf.md")
       assert_eq(reader, nil)
       assert_false(ok)
     end)
