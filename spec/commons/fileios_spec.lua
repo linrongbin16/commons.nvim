@@ -14,6 +14,13 @@ describe("commons.fileios", function()
   local strings = require("commons.strings")
   local fileios = require("commons.fileios")
 
+describe("[FileLineReader]", function()
+    it("failed to open", function()
+      local ok, reader = pcall(fileios.FileLineReader:open, "asdf.md") --[[@as commons.FileLineReader]]
+      assert_eq(reader, nil)
+      assert_false(ok)
+    end)
+  end)
   describe("[readfile/readlines]", function()
     it("readfile and FileLineReader", function()
       local content = fileios.readfile("README.md", { trim = true })
