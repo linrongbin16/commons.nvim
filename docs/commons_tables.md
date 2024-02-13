@@ -180,6 +180,24 @@ Returns:
 
 - Returns the created list.
 
+##### `copy`
+
+Create a list by copy a lua table list.
+
+```lua
+--- @param l any[]
+--- @return commons.List
+function List:copy(l)
+```
+
+Parameters:
+
+- `l`: The lua table used to create the list.
+
+Returns:
+
+- Returns the created list.
+
 ##### `of`
 
 Create a list from 0 or more elements.
@@ -857,6 +875,24 @@ function HashMap:move(t)
 ```
 
 !> The ownership of the memory/resource/data of the lua table will be moved to the created hash map. You should never use the parameter `t` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
+
+Parameters:
+
+- `t`: The lua table used to create the hash map.
+
+Returns:
+
+- Returns the created hash map.
+
+##### `copy`
+
+Create a hash map by copy a lua table.
+
+```lua
+--- @param t table
+--- @return commons.HashMap
+function HashMap:copy(t)
+```
 
 Parameters:
 
