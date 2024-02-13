@@ -1,5 +1,36 @@
 # Changelog
 
+## [10.0.0](https://github.com/linrongbin16/commons.nvim/compare/v9.1.0...v10.0.0) (2024-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tables:** rename 'List:wrap' to 'List:move'! ([#204](https://github.com/linrongbin16/commons.nvim/issues/204))
+* **fileios:** return `nil` if failed to read lines for `readlines`! ([#204](https://github.com/linrongbin16/commons.nvim/issues/204))
+
+### Features
+
+* **fileios:** add 'CachedFileReader' ([#206](https://github.com/linrongbin16/commons.nvim/issues/206)) ([1965799](https://github.com/linrongbin16/commons.nvim/commit/19657995da7d8e7600e5c564088277c33f4d588c))
+* **tables:** add 'HashMap' ([#204](https://github.com/linrongbin16/commons.nvim/issues/204)) ([90a8837](https://github.com/linrongbin16/commons.nvim/commit/90a88371b8e43287d4f2efe6c8380c657ebbab73))
+
+
+### Bug Fixes
+
+* **fileios:** return `nil` if failed to read lines for `readlines`! ([#204](https://github.com/linrongbin16/commons.nvim/issues/204)) ([90a8837](https://github.com/linrongbin16/commons.nvim/commit/90a88371b8e43287d4f2efe6c8380c657ebbab73))
+
+
+### Performance
+
+* **numbers:** remove 'random' fallback ([#204](https://github.com/linrongbin16/commons.nvim/issues/204)) ([90a8837](https://github.com/linrongbin16/commons.nvim/commit/90a88371b8e43287d4f2efe6c8380c657ebbab73))
+
+
+### Miscellaneous
+
+* **fileios:** improve test cases ([#204](https://github.com/linrongbin16/commons.nvim/issues/204)) ([90a8837](https://github.com/linrongbin16/commons.nvim/commit/90a88371b8e43287d4f2efe6c8380c657ebbab73))
+* **jsons:** improve test cases ([#204](https://github.com/linrongbin16/commons.nvim/issues/204)) ([90a8837](https://github.com/linrongbin16/commons.nvim/commit/90a88371b8e43287d4f2efe6c8380c657ebbab73))
+* **numbers:** improve test cases ([#204](https://github.com/linrongbin16/commons.nvim/issues/204)) ([90a8837](https://github.com/linrongbin16/commons.nvim/commit/90a88371b8e43287d4f2efe6c8380c657ebbab73))
+* **tables:** rename 'List:wrap' to 'List:move'! ([#204](https://github.com/linrongbin16/commons.nvim/issues/204)) ([90a8837](https://github.com/linrongbin16/commons.nvim/commit/90a88371b8e43287d4f2efe6c8380c657ebbab73))
+
 ## [9.1.0](https://github.com/linrongbin16/commons.nvim/compare/v9.0.1...v9.1.0) (2024-02-12)
 
 
