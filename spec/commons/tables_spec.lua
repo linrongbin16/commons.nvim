@@ -84,12 +84,13 @@ describe("commons.tables", function()
       assert_false(tables.is_list(l1))
       assert_true(tables.is_list(l2))
     end)
-    it("move/of/data", function()
+    it("move/copy/of/data", function()
       local l1 = { 1, 2, 3 }
       local actual1 = List:move(l1)
       local actual2 = List:of(1, 2, 3)
       assert_true(vim.deep_equal(l1, actual1._data))
       assert_true(vim.deep_equal(l1, actual2:data()))
+      assert_true(vim.deep_equal(l1, List:copy(l1):data()))
       local l2 = { "a", "b", "c" }
       local actual3 = List:move(l2)
       local actual4 = List:of("a", "b", "c")
@@ -363,10 +364,11 @@ describe("commons.tables", function()
     end)
   end)
   describe("[HashMap]", function()
-    it("move/of/data", function()
+    it("move/copy/of/data", function()
       local t1 = { a = 1, b = 2, c = 3 }
       local t2 = { d = 4, e = 5, f = 6 }
       assert_true(vim.deep_equal(HashMap:move(t1), HashMap:of({ "a", 1 }, { "b", 2 }, { "c", 3 })))
+      assert_true(vim.deep_equal(HashMap:copy(t1), HashMap:of({ "a", 1 }, { "b", 2 }, { "c", 3 })))
       assert_true(
         vim.deep_equal(
           HashMap:move(t2):data(),
