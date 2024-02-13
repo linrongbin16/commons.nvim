@@ -1364,3 +1364,34 @@ function HashMap:entries()
 Returns:
 
 - Returns entries as a pairs of list. In each entry, the first is entry key, the second is entry value.
+
+##### `reduce`
+
+Aggregate the hash map.
+
+```lua
+--- @param f fun(accumulator:any,key:any,value:any):any
+--- @param initialValue any
+--- @return any
+function HashMap:reduce(f, initialValue)
+```
+
+Parameters:
+
+- `f`: The aggregate function, it use below signature:
+
+  ```lua
+  function(accumulator:any, key:any, value:any):any
+  ```
+
+  Parameters:
+
+  - `accumulator`: The accumulated value returned from previous `f`.
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+- `initialValue`: The initial value.
+
+Returns:
+
+- Returns the final accumulator value.
