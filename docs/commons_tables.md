@@ -1157,13 +1157,13 @@ Parameters:
 - `f`: Predicate function, it use below signature:
 
   ```lua
-  function(value:any, index:integer):boolean
+  function(key:any, value:any):boolean
   ```
 
   Parameters:
 
-  - `value`: An element of current list.
-  - `index`: The index of the element in current list.
+  - `key`: Entry key.
+  - `value`: Entry value.
 
   Returns:
 
@@ -1175,14 +1175,14 @@ Returns:
 
 ##### `find`
 
-Find the first element that satisfied the predicate function, e.g. search by index from 1 to `length()`.
+Find the first element that satisfied the predicate function.
 
 !> Iteration on a hash map is un-ordered.
 
 ```lua
 --- @param f fun(key:any, value:any):boolean
---- @return commons.HashMap
-function HashMap:filter(f)
+--- @return any, any
+function HashMap:find(f)
 ```
 
 Parameters:
@@ -1190,13 +1190,13 @@ Parameters:
 - `f`: Predicate function, it use below signature:
 
   ```lua
-  function(value:any, index:integer):boolean
+  function(key:any, value:any):boolean
   ```
 
   Parameters:
 
-  - `value`: An element of current list.
-  - `index`: The index of the element in current list.
+  - `key`: Entry key.
+  - `value`: Entry value.
 
   Returns:
 
@@ -1204,4 +1204,5 @@ Parameters:
 
 Returns:
 
-- Returns a new hash map that all entries are satisfied, those unsatisfied elements are been filtered.
+- Returns entry key and entry value if successfully found.
+- Returns `nil` and `nil` if not found.
