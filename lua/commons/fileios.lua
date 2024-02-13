@@ -140,7 +140,7 @@ M.FileLineReader = FileLineReader
 
 --- @class commons.CachedFileReader
 --- @field filename string
---- @field cache string
+--- @field cache string?
 local CachedFileReader = {}
 
 --- @param filename string
@@ -153,6 +153,20 @@ function CachedFileReader:open(filename)
   setmetatable(o, self)
   self.__index = self
   return o
+end
+
+--- @param opts {trim:boolean?}?
+function CachedFileReader:read(opts)
+  opts = opts or {}
+  opts.trim = type(opts.trim) == "boolean" and opts.trim or false
+
+  if self.cache == nil then
+    self.cache = M.readfile(self.filename)
+  end
+  if self.cache == nil then
+    return self.cache
+  end
+  return opts.trim and vim.trim(self.cache) or self.cache
 end
 
 -- CachedFileReader }
