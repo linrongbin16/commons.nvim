@@ -1325,3 +1325,34 @@ Parameters:
 Returns:
 
 - Returns the new hash map.
+
+##### `keys`
+
+Get the entry keys as a list.
+
+```lua
+--- @param f fun(key:any, value:any):any
+--- @return commons.HashMap
+function HashMap:mapValues(f)
+```
+
+Parameters:
+
+- `f`: The transform function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):any
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns transformed entry value.
+
+Returns:
+
+- Returns the new hash map.
