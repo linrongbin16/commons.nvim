@@ -618,10 +618,10 @@ function HashMap:forEach(f)
   end
 end
 
---- @param key any?
+--- @param iterator any?
 --- @return any, any
-function HashMap:next(key)
-  return next(self._data, key)
+function HashMap:next(iterator)
+  return next(self._data, iterator)
 end
 
 --- @return commons.HashMap
