@@ -1228,3 +1228,19 @@ Parameters:
 
   - `key`: Entry key.
   - `value`: Entry value.
+
+##### `next`
+
+Iterate the hash map.
+
+```lua
+--- @param iterator any?
+--- @return any, any
+function HashMap:next(iterator)
+```
+
+Parameters:
+
+- `iterator`: The iterator, e.g. the entry key used to iterate the hash map.
+
+  - When first invoke this method, set the parameter to `nil`.
