@@ -124,6 +124,7 @@ end
 M.random = function(m, n)
   local rand_result, rand_err = require("commons.uv").random(4)
   assert(rand_result ~= nil, rand_err)
+
   local bytes = {
     string.byte(rand_result --[[@as string]], 1, -1),
   }
