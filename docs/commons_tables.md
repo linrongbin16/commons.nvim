@@ -1172,3 +1172,36 @@ Parameters:
 Returns:
 
 - Returns a new hash map that all entries are satisfied, those unsatisfied elements are been filtered.
+
+##### `find`
+
+Find the first element that satisfied the predicate function, e.g. search by index from 1 to `length()`.
+
+!> Iteration on a hash map is un-ordered.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return commons.HashMap
+function HashMap:filter(f)
+```
+
+Parameters:
+
+- `f`: Predicate function, it use below signature:
+
+  ```lua
+  function(value:any, index:integer):boolean
+  ```
+
+  Parameters:
+
+  - `value`: An element of current list.
+  - `index`: The index of the element in current list.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns a new hash map that all entries are satisfied, those unsatisfied elements are been filtered.
