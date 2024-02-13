@@ -1171,4 +1171,4 @@ Parameters:
 
 Returns:
 
-- Returns a new list that all elements are satisfied, those unsatisfied elements are been filtered.
+- Returns a new hash map that all entries are satisfied, those unsatisfied elements are been filtered.
