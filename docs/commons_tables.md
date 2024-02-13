@@ -1363,4 +1363,4 @@ function HashMap:entries()
 
 Returns:
 
-- Returns entries as a pairs of list, in each entry, the first is entry key, the second is entry value.
+- Returns entries as a pairs of list. In each entry, the first is entry key, the second is entry value.
