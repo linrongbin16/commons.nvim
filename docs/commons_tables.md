@@ -160,21 +160,21 @@ List/array data structure.
 
 #### Methods
 
-##### `wrap`
+##### `move`
 
-Create a list by wrap a lua table list.
+Create a list by take a lua table list's ownership.
+
+!> The ownership of the memory/resource/data of the lua table will be moved to the created list. You should never use the parameter `l` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
 
 ```lua
 --- @param l any[]
 --- @return commons.List
-function List:wrap(l)
+function List:move(l)
 ```
 
 Parameters:
 
 - `l`: The lua table used to create the list.
-
-  !> The ownership of the memory/resource/data of the lua table will be moved to the created list. You should never use the parameter `l` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
 
 Returns:
 
@@ -846,15 +846,17 @@ Hash map data structure.
 
 #### Methods
 
-##### `wrap`
+##### `move`
 
-Create a hash map by wrap a lua table.
+Create a hash map by take a lua table's ownership.
 
 ```lua
 --- @param t table
 --- @return commons.HashMap
-function HashMap:wrap(t)
+function HashMap:move(t)
 ```
+
+!> The ownership of the memory/resource/data of the lua table will be moved to the created hash map. You should never use the parameter `t` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
 
 Parameters:
 

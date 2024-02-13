@@ -93,7 +93,7 @@ local List = {}
 
 --- @param l any[]
 --- @return commons.List
-function List:wrap(l)
+function List:move(l)
   assert(type(l) == "table")
 
   local o = { _data = l }
@@ -105,7 +105,7 @@ end
 --- @param ... any
 --- @return commons.List
 function List:of(...)
-  return List:wrap({ ... })
+  return List:move({ ... })
 end
 
 --- @return any[]
@@ -151,7 +151,7 @@ function List:concat(other)
   for i, v in ipairs(other._data) do
     table.insert(l, v)
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param separator string?
@@ -207,7 +207,7 @@ function List:filter(f)
       table.insert(l, v)
     end
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param f fun(value:any, index:integer):boolean
@@ -311,7 +311,7 @@ function List:map(f)
   for i, v in ipairs(self._data) do
     table.insert(l, f(v, i))
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @return any?, boolean
@@ -390,7 +390,7 @@ end
 --- @return commons.List
 function List:reverse()
   if self:empty() then
-    return List:wrap({})
+    return List:move({})
   end
 
   local l = {}
@@ -399,7 +399,7 @@ function List:reverse()
     table.insert(l, self._data[i])
     i = i - 1
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param startIndex integer?
@@ -419,7 +419,7 @@ function List:slice(startIndex, endIndex)
       table.insert(l, self._data[i])
     end
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param comparator (fun(a:any,b:any):boolean)|nil
@@ -430,7 +430,7 @@ function List:sort(comparator)
     table.insert(l, v)
   end
   table.sort(l, comparator)
-  return List:wrap(l)
+  return List:move(l)
 end
 
 M.List = List
@@ -447,7 +447,7 @@ local HashMap = {}
 
 --- @param t table
 --- @return commons.HashMap
-function HashMap:wrap(t)
+function HashMap:move(t)
   assert(type(t) == "table")
 
   local s = 0
@@ -545,7 +545,7 @@ function HashMap:merge(other)
   for k, v in pairs(other._data) do
     t[k] = v
   end
-  return HashMap:wrap(t)
+  return HashMap:move(t)
 end
 
 --- @param f fun(key:any, value:any):boolean
@@ -594,7 +594,7 @@ function HashMap:filter(f)
       t[k] = v
     end
   end
-  return HashMap:wrap(t)
+  return HashMap:move(t)
 end
 
 --- @param f fun(key:any, value:any):boolean
@@ -630,7 +630,7 @@ function HashMap:invert()
   for k, v in pairs(self._data) do
     t[v] = k
   end
-  return HashMap:wrap(t)
+  return HashMap:move(t)
 end
 
 --- @param f fun(key:any, value:any):any
@@ -641,7 +641,7 @@ function HashMap:mapKeys(f)
   for k, v in pairs(self._data) do
     t[f(k, v)] = v
   end
-  return HashMap:wrap(t)
+  return HashMap:move(t)
 end
 
 --- @param f fun(key:any, value:any):any
@@ -652,7 +652,7 @@ function HashMap:mapValues(f)
   for k, v in pairs(self._data) do
     t[k] = f(k, v)
   end
-  return HashMap:wrap(t)
+  return HashMap:move(t)
 end
 
 --- @return any[]

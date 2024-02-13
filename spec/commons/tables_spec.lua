@@ -80,18 +80,18 @@ describe("commons.tables", function()
   describe("[List]", function()
     it("is_list", function()
       local l1 = { 1, 2, 3 }
-      local l2 = List:wrap(l1)
+      local l2 = List:move(l1)
       assert_false(tables.is_list(l1))
       assert_true(tables.is_list(l2))
     end)
-    it("wrap/of/data", function()
+    it("move/of/data", function()
       local l1 = { 1, 2, 3 }
-      local actual1 = List:wrap(l1)
+      local actual1 = List:move(l1)
       local actual2 = List:of(1, 2, 3)
       assert_true(vim.deep_equal(l1, actual1._data))
       assert_true(vim.deep_equal(l1, actual2:data()))
       local l2 = { "a", "b", "c" }
-      local actual3 = List:wrap(l2)
+      local actual3 = List:move(l2)
       local actual4 = List:of("a", "b", "c")
       assert_true(vim.deep_equal(l2, actual3._data))
       assert_true(vim.deep_equal(l2, actual4:data()))
@@ -363,13 +363,13 @@ describe("commons.tables", function()
     end)
   end)
   describe("[HashMap]", function()
-    it("wrap/of/data", function()
+    it("move/of/data", function()
       local t1 = { a = 1, b = 2, c = 3 }
       local t2 = { d = 4, e = 5, f = 6 }
-      assert_true(vim.deep_equal(HashMap:wrap(t1), HashMap:of({ "a", 1 }, { "b", 2 }, { "c", 3 })))
+      assert_true(vim.deep_equal(HashMap:move(t1), HashMap:of({ "a", 1 }, { "b", 2 }, { "c", 3 })))
       assert_true(
         vim.deep_equal(
-          HashMap:wrap(t2):data(),
+          HashMap:move(t2):data(),
           HashMap:of({ "d", 4 }, { "e", 5 }, { "f", 6 }):data()
         )
       )
@@ -379,8 +379,8 @@ describe("commons.tables", function()
       assert_eq(HashMap:of():size(), 0)
       local t1 = { a = 1, b = 2, c = 3 }
       local t2 = { d = 4, e = 5, f = 6 }
-      local hm1 = HashMap:wrap(t1)
-      local hm2 = HashMap:wrap(t2)
+      local hm1 = HashMap:move(t1)
+      local hm2 = HashMap:move(t2)
       assert_eq(hm1:size(), 3)
       assert_eq(hm2:size(), 3)
       hm1:set("d", 4)
@@ -404,8 +404,8 @@ describe("commons.tables", function()
     it("hasKey/hasValue", function()
       local t1 = { a = 1, b = 2, c = 3 }
       local t2 = { d = 4, e = 5, f = 6 }
-      local hm1 = HashMap:wrap(t1)
-      local hm2 = HashMap:wrap(t2)
+      local hm1 = HashMap:move(t1)
+      local hm2 = HashMap:move(t2)
       for k, v in pairs(t1) do
         assert_true(hm1:hasKey(k))
         assert_true(hm1:hasValue(v))
@@ -418,7 +418,7 @@ describe("commons.tables", function()
     it("merge", function()
       local t1 = { a = 1, b = 2, c = 3 }
       local t2 = { c = -1, d = 4, e = 5, f = 6 }
-      local actual = HashMap:wrap(t1):merge(HashMap:wrap(t2))
+      local actual = HashMap:move(t1):merge(HashMap:move(t2))
       assert_eq(actual:get("a"), 1)
       assert_eq(actual:get("b"), 2)
       assert_eq(actual:get("c"), -1)
@@ -429,7 +429,7 @@ describe("commons.tables", function()
     end)
     it("every", function()
       local t1 = { a = 1, b = 2, c = 3 }
-      local m1 = HashMap:wrap(t1)
+      local m1 = HashMap:move(t1)
       assert_true(m1:every(function(k, v)
         return v > 0
       end))
@@ -439,7 +439,7 @@ describe("commons.tables", function()
     end)
     it("some", function()
       local t1 = { a = 1, b = 2, c = 3 }
-      local m1 = HashMap:wrap(t1)
+      local m1 = HashMap:move(t1)
       assert_true(m1:some(function(k, v)
         return v > 2
       end))
@@ -449,7 +449,7 @@ describe("commons.tables", function()
     end)
     it("none", function()
       local t1 = { a = 1, b = 2, c = 3 }
-      local m1 = HashMap:wrap(t1)
+      local m1 = HashMap:move(t1)
       assert_true(m1:none(function(k, v)
         return v > 5
       end))
@@ -459,7 +459,7 @@ describe("commons.tables", function()
     end)
     it("filter", function()
       local t1 = { a = 1, b = 2, c = 3 }
-      local m1 = HashMap:wrap(t1)
+      local m1 = HashMap:move(t1)
       local m2 = m1:filter(function(k, v)
         return v > 2
       end)
@@ -471,7 +471,7 @@ describe("commons.tables", function()
     end)
     it("find", function()
       local t1 = { a = 1, b = 2, c = 3 }
-      local m1 = HashMap:wrap(t1)
+      local m1 = HashMap:move(t1)
       local actual11, actual12 = m1:find(function(k, v)
         return v == 1
       end)
@@ -485,7 +485,7 @@ describe("commons.tables", function()
     end)
     it("forEach", function()
       local t1 = { a = 1, b = 2, c = 3 }
-      local m1 = HashMap:wrap(t1)
+      local m1 = HashMap:move(t1)
       local n = 0
       m1:forEach(function()
         n = n + 1
@@ -506,7 +506,7 @@ describe("commons.tables", function()
       local k1 = ""
       local v1 = 0
       local t1 = { a = 1, b = 2, c = 3 }
-      local m1 = HashMap:wrap(t1)
+      local m1 = HashMap:move(t1)
       local key
       local val
       while true do
@@ -524,14 +524,14 @@ describe("commons.tables", function()
     end)
     it("invert", function()
       local t1 = { a = 1, b = 2, c = 3 }
-      assert_true(vim.deep_equal({ "a", "b", "c" }, HashMap:wrap(t1):invert():data()))
+      assert_true(vim.deep_equal({ "a", "b", "c" }, HashMap:move(t1):invert():data()))
     end)
     it("mapKeys/mapValues", function()
       local t1 = { a = 1, b = 2, c = 3, d = 4, e = 5 }
       assert_true(
         vim.deep_equal(
           { a1 = "a11", b2 = "b22", c3 = "c33", d4 = "d44", e5 = "e55" },
-          HashMap:wrap(t1)
+          HashMap:move(t1)
             :mapKeys(function(k, v)
               return k .. v
             end)
@@ -544,13 +544,13 @@ describe("commons.tables", function()
     end)
     it("keys/values/entries", function()
       local t1 = { a = 1, b = 2, c = 3, d = 4, e = 5 }
-      local keys = HashMap:wrap(t1):keys()
+      local keys = HashMap:move(t1):keys()
       table.sort(keys)
       assert_true(vim.deep_equal({ "a", "b", "c", "d", "e" }, keys))
-      local values = HashMap:wrap(t1):values()
+      local values = HashMap:move(t1):values()
       table.sort(values)
       assert_true(vim.deep_equal({ 1, 2, 3, 4, 5 }, values))
-      local entries = HashMap:wrap(t1):entries()
+      local entries = HashMap:move(t1):entries()
       table.sort(entries, function(a, b)
         return a[1] < b[1]
       end)
@@ -560,7 +560,7 @@ describe("commons.tables", function()
     end)
     it("reduce", function()
       local t1 = { a = 1, b = 2, c = 3, d = 4, e = 5 }
-      local hm = HashMap:wrap(t1)
+      local hm = HashMap:move(t1)
       local actual1 = hm:reduce(function(accumulator, k, v)
         return accumulator + v
       end, 0)
@@ -574,7 +574,7 @@ describe("commons.tables", function()
     end)
     it("is_hashmap", function()
       local hm1 = { 1, 2, 3 }
-      local hm2 = HashMap:wrap({ a = 1, b = 2 })
+      local hm2 = HashMap:move({ a = 1, b = 2 })
       assert_false(tables.is_hashmap(hm1))
       assert_true(tables.is_hashmap(hm2))
     end)
