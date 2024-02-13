@@ -14,7 +14,7 @@ describe("commons.fileios", function()
   local strings = require("commons.strings")
   local fileios = require("commons.fileios")
 
-describe("[FileLineReader]", function()
+  describe("[FileLineReader]", function()
     it("failed to open", function()
       local ok, reader = pcall(fileios.FileLineReader.open, fileios.FileLineReader, "asdf.md")
       assert_eq(reader, nil)
