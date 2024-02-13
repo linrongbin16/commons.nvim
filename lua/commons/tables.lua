@@ -93,7 +93,7 @@ local List = {}
 
 --- @param l any[]
 --- @return commons.List
-function List:wrap(l)
+function List:move(l)
   assert(type(l) == "table")
 
   local o = { _data = l }
@@ -102,10 +102,22 @@ function List:wrap(l)
   return o
 end
 
+--- @param l any[]
+--- @return commons.List
+function List:copy(l)
+  assert(type(l) == "table")
+
+  local new_l = {}
+  for i, v in ipairs(l) do
+    table.insert(new_l, v)
+  end
+  return List:move(new_l)
+end
+
 --- @param ... any
 --- @return commons.List
 function List:of(...)
-  return List:wrap({ ... })
+  return List:move({ ... })
 end
 
 --- @return any[]
@@ -151,7 +163,7 @@ function List:concat(other)
   for i, v in ipairs(other._data) do
     table.insert(l, v)
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param separator string?
@@ -207,7 +219,7 @@ function List:filter(f)
       table.insert(l, v)
     end
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param f fun(value:any, index:integer):boolean
@@ -311,7 +323,7 @@ function List:map(f)
   for i, v in ipairs(self._data) do
     table.insert(l, f(v, i))
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @return any?, boolean
@@ -390,7 +402,7 @@ end
 --- @return commons.List
 function List:reverse()
   if self:empty() then
-    return List:wrap({})
+    return List:move({})
   end
 
   local l = {}
@@ -399,7 +411,7 @@ function List:reverse()
     table.insert(l, self._data[i])
     i = i - 1
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param startIndex integer?
@@ -419,7 +431,7 @@ function List:slice(startIndex, endIndex)
       table.insert(l, self._data[i])
     end
   end
-  return List:wrap(l)
+  return List:move(l)
 end
 
 --- @param comparator (fun(a:any,b:any):boolean)|nil
@@ -430,7 +442,7 @@ function List:sort(comparator)
     table.insert(l, v)
   end
   table.sort(l, comparator)
-  return List:wrap(l)
+  return List:move(l)
 end
 
 M.List = List
@@ -441,23 +453,278 @@ M.is_list = function(o)
   return type(o) == "table" and o.__index == List and getmetatable(o) == List
 end
 
--- --- @class commons.HashMap
--- local HashMap = {}
---
--- --- @param t table
--- function HashMap:new(t)
---   assert(type(t) == "table")
---
---   local o = { _data = t }
---   setmetatable(o, self)
---   self.__index = self
---   return o
--- end
---
--- M.HashMap = HashMap
---
--- M.is_hashmap = function(o)
---   return type(o) == "table" and o.__index == HashMap and getmetatable(o) == HashMap
--- end
+--- @class commons.HashMap
+--- @field _data table
+local HashMap = {}
+
+--- @param t table
+--- @return commons.HashMap
+function HashMap:move(t)
+  assert(type(t) == "table")
+
+  local o = { _data = t }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+--- @param t table
+--- @return commons.HashMap
+function HashMap:copy(t)
+  assert(type(t) == "table")
+
+  local new_t = {}
+  for k, v in pairs(t) do
+    new_t[k] = v
+  end
+  return HashMap:move(new_t)
+end
+
+--- @param ... {[1]:any,[2]:any}
+--- @return commons.HashMap
+function HashMap:of(...)
+  local t = {}
+  local s = 0
+  for i, v in ipairs({ ... }) do
+    t[v[1]] = v[2]
+    s = s + 1
+  end
+  local o = { _data = t }
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+--- @return table
+function HashMap:data()
+  return self._data
+end
+
+--- @return integer
+function HashMap:size()
+  local s = 0
+  for _, _ in pairs(self._data) do
+    s = s + 1
+  end
+  return s
+end
+
+--- @return boolean
+function HashMap:empty()
+  return next(self._data) == nil
+end
+
+--- @param key any
+--- @param value any
+function HashMap:set(key, value)
+  self._data[key] = value
+end
+
+--- @param key any
+--- @return any?
+function HashMap:unset(key)
+  local old = self._data[key]
+  self._data[key] = nil
+  return old
+end
+
+--- @param ... any
+--- @return any
+function HashMap:get(...)
+  return M.tbl_get(self._data, ...)
+end
+
+--- @param key any
+--- @return boolean
+function HashMap:hasKey(key)
+  return self._data[key] ~= nil
+end
+
+--- @param value any
+--- @param comparator (fun(a:any, b:any):boolean)|nil
+--- @return boolean
+function HashMap:hasValue(value, comparator)
+  for k, v in pairs(self._data) do
+    if type(comparator) == "function" and comparator(v, value) then
+      return true
+    elseif v == value then
+      return true
+    end
+  end
+  return false
+end
+
+--- @param other commons.HashMap
+--- @return commons.HashMap
+function HashMap:merge(other)
+  assert(M.is_hashmap(other))
+  local t = {}
+  for k, v in pairs(self._data) do
+    t[k] = v
+  end
+  for k, v in pairs(other._data) do
+    t[k] = v
+  end
+  return HashMap:move(t)
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:every(f)
+  assert(type(f) == "function")
+  for k, v in pairs(self._data) do
+    if not f(k, v) then
+      return false
+    end
+  end
+  return true
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:some(f)
+  assert(type(f) == "function")
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      return true
+    end
+  end
+  return false
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:none(f)
+  assert(type(f) == "function")
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      return false
+    end
+  end
+  return true
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return commons.HashMap
+function HashMap:filter(f)
+  assert(type(f) == "function")
+  local t = {}
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      t[k] = v
+    end
+  end
+  return HashMap:move(t)
+end
+
+--- @param f fun(key:any, value:any):boolean
+--- @return any, any
+function HashMap:find(f)
+  assert(type(f) == "function")
+  for k, v in pairs(self._data) do
+    if f(k, v) then
+      return k, v
+    end
+  end
+  return nil, nil
+end
+
+--- @param f fun(key:any,value:any):nil
+function HashMap:forEach(f)
+  assert(type(f) == "function")
+
+  for k, v in pairs(self._data) do
+    f(k, v)
+  end
+end
+
+--- @param iterator any?
+--- @return any, any
+function HashMap:next(iterator)
+  return next(self._data, iterator)
+end
+
+--- @return commons.HashMap
+function HashMap:invert()
+  local t = {}
+  for k, v in pairs(self._data) do
+    t[v] = k
+  end
+  return HashMap:move(t)
+end
+
+--- @param f fun(key:any, value:any):any
+--- @return commons.HashMap
+function HashMap:mapKeys(f)
+  assert(type(f) == "function")
+  local t = {}
+  for k, v in pairs(self._data) do
+    t[f(k, v)] = v
+  end
+  return HashMap:move(t)
+end
+
+--- @param f fun(key:any, value:any):any
+--- @return commons.HashMap
+function HashMap:mapValues(f)
+  assert(type(f) == "function")
+  local t = {}
+  for k, v in pairs(self._data) do
+    t[k] = f(k, v)
+  end
+  return HashMap:move(t)
+end
+
+--- @return any[]
+function HashMap:keys()
+  local keys = {}
+  for k, _ in pairs(self._data) do
+    table.insert(keys, k)
+  end
+  return keys
+end
+
+--- @return any[]
+function HashMap:values()
+  local values = {}
+  for _, v in pairs(self._data) do
+    table.insert(values, v)
+  end
+  return values
+end
+
+--- @return {[1]:any,[2]:any}[]
+function HashMap:entries()
+  local p = {}
+  for k, v in pairs(self._data) do
+    table.insert(p, { k, v })
+  end
+  return p
+end
+
+--- @param f fun(accumulator:any,key:any,value:any):any
+--- @param initialValue any
+--- @return any
+function HashMap:reduce(f, initialValue)
+  assert(type(f) == "function")
+
+  if self:empty() then
+    return initialValue
+  end
+
+  local accumulator = initialValue
+  for k, v in pairs(self._data) do
+    accumulator = f(accumulator, k, v)
+  end
+  return accumulator
+end
+
+M.HashMap = HashMap
+
+--- @param o any?
+--- @return boolean
+M.is_hashmap = function(o)
+  return type(o) == "table" and o.__index == HashMap and getmetatable(o) == HashMap
+end
 
 return M

@@ -132,31 +132,67 @@ Returns:
 
 - Returns `true` if `o` is an instance of the `List` class, returns `false` if not.
 
+### `is_hashmap`
+
+Whether the parameter is an instance of the `HashMap` class.
+
+```lua
+--- @param o any?
+--- @return boolean
+M.is_hashmap = function(o)
+```
+
+Parameters:
+
+- `o`: An object.
+
+Returns:
+
+- Returns `true` if `o` is an instance of the `HashMap` class, returns `false` if not.
+
 ## Classes
 
 ### `List`
 
-High-level list/array data structure, provide a set of APIs highly close to [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+List/array data structure.
 
-?> The API signatures are heavily influenced by Javascript Array, but some APIs are different because: anyway lua is not javascript, it's designed to be purely functional programming without side-effect.
+?> The API design is heavily influenced by [Javascript Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) and [lodash](https://lodash.com/docs), but some APIs are different, because lua is not javascript anyway, and `List` is designed to be purely functional programming without side-effect.
 
 #### Methods
 
-##### `wrap`
+##### `move`
 
-Create a list by wrap a lua table list.
+Create a list by take a lua table list's ownership.
+
+!> The ownership of the memory/resource/data of the lua table will be moved to the created list. You should never use the parameter `l` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
 
 ```lua
 --- @param l any[]
 --- @return commons.List
-function List:wrap(l)
+function List:move(l)
 ```
 
 Parameters:
 
 - `l`: The lua table used to create the list.
 
-  !> The ownership of the memory/resource/data of the lua table will be moved to the created list. You should never use the parameter `l` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
+Returns:
+
+- Returns the created list.
+
+##### `copy`
+
+Create a list by copy a lua table list.
+
+```lua
+--- @param l any[]
+--- @return commons.List
+function List:copy(l)
+```
+
+Parameters:
+
+- `l`: The lua table used to create the list.
 
 Returns:
 
@@ -302,7 +338,7 @@ Returns:
 
 ##### `every`
 
-Whether all elements are satisfied with an unary detect function.
+Whether all elements are satisfied with a predicate function.
 
 ?> This API usually can be named to `allOf`, `allMatch` in other programming languages.
 
@@ -314,10 +350,10 @@ function List:every(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -335,7 +371,7 @@ Returns:
 
 ##### `some`
 
-Whether any elements (at least 1) are satisfied with an unary detect function.
+Whether any elements (at least 1) are satisfied with a predicate function.
 
 ?> This API usually can be named to `anyOf`, `anyMatch` in other programming languages.
 
@@ -347,10 +383,10 @@ function List:some(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -368,7 +404,7 @@ Returns:
 
 ##### `none`
 
-Whether no element is satisfied (e.g. all elements are not satisfied) with an unary detect function.
+Whether no element is satisfied (e.g. all elements are not satisfied) with a predicate function.
 
 ?> This API usually can be named to `noneOf`, `noneMatch` in other programming languages.
 
@@ -380,10 +416,10 @@ function List:none(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -411,10 +447,10 @@ function List:filter(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -432,7 +468,7 @@ Returns:
 
 ##### `find`
 
-Find the first element that satisfied the unary detect function, e.g. search by index from 1 to `length()`.
+Find the first element that satisfied the predicate function, e.g. search by index from 1 to `length()`.
 
 ```lua
 --- @param f fun(value:any, index:integer):boolean
@@ -442,10 +478,10 @@ function List:find(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -459,12 +495,12 @@ Parameters:
 
 Returns:
 
-- Returns the first element that satisfied the unary function `f` and its index, if found.
+- Returns the first element that satisfied the predicate function `f` and its index, if found.
 - Returns `nil` and `-1`, if not found.
 
 ##### `findLast`
 
-Find the last element that satisfied the unary detect function, e.g. search by index from `length()` to 1.
+Find the last element that satisfied the predicate function, e.g. search by index from `length()` to 1.
 
 ```lua
 --- @param f fun(value:any, index:integer):boolean
@@ -474,10 +510,10 @@ function List:findLast(f)
 
 Parameters:
 
-- `f`: Unary detect function, it use below signature:
+- `f`: Predicate function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):boolean
+  function(value:any, index:integer):boolean
   ```
 
   Parameters:
@@ -491,7 +527,7 @@ Parameters:
 
 Returns:
 
-- Returns the last element that satisfied the unary function `f` and its index, if found.
+- Returns the last element that satisfied the predicate function `f` and its index, if found.
 - Returns `nil` and `-1`, if not found.
 
 ##### `indexOf`
@@ -513,7 +549,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -549,7 +585,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -568,7 +604,7 @@ Returns:
 
 ##### `forEach`
 
-Visit every element of the list, and invoke a lua function.
+Visit all elements of the list, and invoke a lua function on them.
 
 ```lua
 --- @param f fun(value:any, index:integer):nil
@@ -580,7 +616,7 @@ Parameters:
 - `f`: The lua function to be invoke on every element, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):nil
+  function(value:any, index:integer):nil
   ```
 
   Parameters:
@@ -607,7 +643,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -638,7 +674,7 @@ Parameters:
 - `f`: The transform function, it use below signature:
 
   ```lua
-  function f(value:any, index:integer):any
+  function(value:any, index:integer):any
   ```
 
   Parameters:
@@ -724,7 +760,7 @@ Parameters:
 - `f`: The aggregate function, it use below signature:
 
   ```lua
-  function f(accumulator:any, value:any, index:integer):any
+  function(accumulator:any, value:any, index:integer):any
   ```
 
   Parameters:
@@ -804,7 +840,7 @@ Parameters:
 - `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
 
   ```lua
-  function comparator(a:any, b:any):boolean
+  function(a:any, b:any):boolean
   ```
 
   Parameters:
@@ -819,3 +855,581 @@ Parameters:
 Returns:
 
 - Returns a new list that been sorted.
+
+### `HashMap`
+
+Hash map data structure.
+
+?> The API design is heavily influenced by [Javascript Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) and [lodash](https://lodash.com/docs), but some APIs are different, because lua is not javascript anyway, and `HashMap` is designed to be purely functional programming without side-effect.
+
+#### Methods
+
+##### `move`
+
+Create a hash map by take a lua table's ownership.
+
+```lua
+--- @param t table
+--- @return commons.HashMap
+function HashMap:move(t)
+```
+
+!> The ownership of the memory/resource/data of the lua table will be moved to the created hash map. You should never use the parameter `t` any more. This is very likely to the C++ `move` API, or the Rust data ownership.
+
+Parameters:
+
+- `t`: The lua table used to create the hash map.
+
+Returns:
+
+- Returns the created hash map.
+
+##### `copy`
+
+Create a hash map by copy a lua table.
+
+```lua
+--- @param t table
+--- @return commons.HashMap
+function HashMap:copy(t)
+```
+
+Parameters:
+
+- `t`: The lua table used to create the hash map.
+
+Returns:
+
+- Returns the created hash map.
+
+##### `of`
+
+Create a hash map from entries.
+
+```lua
+--- @param ... {[1]:any,[2]:any}
+--- @return commons.HashMap
+function HashMap:of(...)
+```
+
+Parameters:
+
+- `...`: The entries used to create the hash map. In each entry, the first is the key, the second is the value.
+
+Returns:
+
+- Returns the created hash map.
+
+##### `data`
+
+Get the internal lua table of the hash map.
+
+```lua
+--- @return table
+function HashMap:data()
+```
+
+Returns:
+
+- Returns the internal lua table of the hash map.
+
+##### `size`
+
+Get the size of hash map.
+
+```lua
+--- @return integer
+function HashMap:size()
+```
+
+Returns:
+
+- Returns the size of hash map.
+
+!> This method uses `O(n)` time complexity, where `n` is the size of hash map.
+
+##### `empty`
+
+Whether the hash map is empty.
+
+```lua
+--- @return boolean
+function HashMap:empty()
+```
+
+Returns:
+
+- Returns `true` if the hash map is empty, returns `false` if not.
+
+##### `set`
+
+Add an entry into the hash map.
+
+```lua
+--- @param key any
+--- @param value any
+function HashMap:set(key, value)
+```
+
+Parameters:
+
+- `key`: Entry key.
+- `value`: Entry value.
+
+##### `unset`
+
+Remove an entry from the hash map.
+
+```lua
+--- @param key any
+--- @return any?
+function HashMap:unset(key)
+```
+
+Parameters:
+
+- `key`: Entry key.
+
+Returns:
+
+- Returns the old value been removed, or `nil` if nothing been removed.
+
+##### `get`
+
+Get value by the specific key.
+
+```lua
+--- @param ... any
+--- @return any
+function HashMap:get(...)
+```
+
+Parameters:
+
+- `...`: Entry key, the parameters are same with [tbl_get](#tbl_get).
+
+Returns:
+
+- Returns the value.
+
+##### `hasKey`
+
+Whether hash map contains a key, equivalent to `HashMap:get(key) ~= nil`.
+
+```lua
+--- @param key any
+--- @return boolean
+function HashMap:hasKey(key)
+```
+
+Parameters:
+
+- `key`: Entry key.
+
+Returns:
+
+- Returns `true` if contains the key, returns `false` if not.
+
+##### `hasValue`
+
+Whether hash map contains a value.
+
+```lua
+--- @param value any
+--- @param comparator (fun(a:any, b:any):boolean)|nil
+--- @return boolean
+function HashMap:hasValue(value, comparator)
+```
+
+Parameters:
+
+- `value`: Entry value.
+- `comparator`: Binary function to compare two elements, by default is `nil`. When `nil` use simply `=` to compare two elements. It use below signature:
+
+  ```lua
+  function(a:any, b:any):boolean
+  ```
+
+  Parameters:
+
+  - `a`: An element.
+  - `b`: Another element.
+
+  Returns:
+
+  - Returns `true` if two elements are equal, `false` if not.
+
+Returns:
+
+- Returns `true` if contains the value, returns `false` if not.
+
+##### `merge`
+
+Merge two hash map into a new hash map.
+
+```lua
+--- @param other commons.HashMap
+--- @return commons.HashMap
+function HashMap:merge(other)
+```
+
+Parameters:
+
+- `other`: Hash map been merged, the duplicated keys from `other` will override the keys from current hash map.
+
+Returns:
+
+- Returns a new hash map.
+
+##### `every`
+
+Whether all entries are satisfied the predicate function.
+
+?> This API usually can be named to `allOf`, `allMatch` in other programming languages.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:every(f)
+```
+
+Parameters:
+
+- `f`: Predicate function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if all entries are satisfied, returns `false` if not.
+
+##### `some`
+
+Whether any entries are satisfied the predicate function.
+
+?> This API usually can be named to `anyOf`, `anyMatch` in other programming languages.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:some(f)
+```
+
+Parameters:
+
+- `f`: Predicate function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if any entries are satisfied, returns `false` if not.
+
+##### `none`
+
+Whether no entry is satisfied the predicate function, e.g. all entries are not satisfied.
+
+?> This API usually can be named to `noneOf`, `noneMatch` in other programming languages.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return boolean
+function HashMap:none(f)
+```
+
+Parameters:
+
+- `f`: Predicate function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns `true` if no entry is satisfied (e.g. all entries are not satisfied), returns `false` if not.
+
+##### `filter`
+
+Filter the hash map and create a new hash map.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return commons.HashMap
+function HashMap:filter(f)
+```
+
+Parameters:
+
+- `f`: Predicate function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns a new hash map that all entries are satisfied, those unsatisfied elements are been filtered.
+
+##### `find`
+
+Find the first element that satisfied the predicate function.
+
+!> Iteration on a hash map is un-ordered.
+
+```lua
+--- @param f fun(key:any, value:any):boolean
+--- @return any, any
+function HashMap:find(f)
+```
+
+Parameters:
+
+- `f`: Predicate function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):boolean
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns `true` if satisfied, `false` if not.
+
+Returns:
+
+- Returns entry key and entry value if successfully found.
+- Returns `nil` and `nil` if not found.
+
+##### `forEach`
+
+Visit all entries of the hash map, and invoke a lua function on them.
+
+```lua
+--- @param f fun(key:any,value:any):nil
+function HashMap:forEach(f)
+```
+
+Parameters:
+
+- `f`: The lua function to be invoke on every element, it use below signature:
+
+  ```lua
+  function(key:any, value:any):nil
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+##### `next`
+
+Iterate the hash map.
+
+```lua
+--- @param iterator any?
+--- @return any, any
+function HashMap:next(iterator)
+```
+
+Parameters:
+
+- `iterator`: The iterator, e.g. the entry key used to iterate the hash map.
+
+  - When first invoke this method, set the parameter to `nil`.
+  - In following invokes, set the parameter to the previous returned entry key.
+
+Returns:
+
+- Returns the entry key and value, if there's next entry.
+- Returns `nil` and `nil`, if there's no more entries.
+
+##### `invert`
+
+Invert the hash map, use keys as values, use values as keys.
+
+```lua
+--- @return commons.HashMap
+function HashMap:invert()
+```
+
+Returns:
+
+- Returns a new create hash map, use current hash map's keys as values, values as keys.
+
+##### `mapKeys`
+
+Transform the hash map keys and create a new hash map.
+
+```lua
+--- @param f fun(key:any, value:any):any
+--- @return commons.HashMap
+function HashMap:mapKeys(f)
+```
+
+Parameters:
+
+- `f`: The transform function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):any
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns transformed entry key.
+
+Returns:
+
+- Returns the new hash map.
+
+##### `mapValues`
+
+Transform the hash map values and create a new hash map.
+
+```lua
+--- @param f fun(key:any, value:any):any
+--- @return commons.HashMap
+function HashMap:mapValues(f)
+```
+
+Parameters:
+
+- `f`: The transform function, it use below signature:
+
+  ```lua
+  function(key:any, value:any):any
+  ```
+
+  Parameters:
+
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+  Returns:
+
+  - Returns transformed entry value.
+
+Returns:
+
+- Returns the new hash map.
+
+##### `keys`
+
+Get the entry keys as a list.
+
+```lua
+--- @return any[]
+function HashMap:keys()
+```
+
+Returns:
+
+- Returns entry keys as a list.
+
+##### `values`
+
+Get the entry values as a list.
+
+```lua
+--- @return any[]
+function HashMap:values()
+```
+
+Returns:
+
+- Returns entry values as a list.
+
+##### `entries`
+
+Get the entries as a pairs of list.
+
+```lua
+--- @return {[1]:any,[2]:any}[]
+function HashMap:entries()
+```
+
+Returns:
+
+- Returns entries as a pairs of list. In each entry, the first is entry key, the second is entry value.
+
+##### `reduce`
+
+Aggregate the hash map.
+
+```lua
+--- @param f fun(accumulator:any,key:any,value:any):any
+--- @param initialValue any
+--- @return any
+function HashMap:reduce(f, initialValue)
+```
+
+Parameters:
+
+- `f`: The aggregate function, it use below signature:
+
+  ```lua
+  function(accumulator:any, key:any, value:any):any
+  ```
+
+  Parameters:
+
+  - `accumulator`: The accumulated value returned from previous `f`.
+  - `key`: Entry key.
+  - `value`: Entry value.
+
+- `initialValue`: The initial value.
+
+Returns:
+
+- Returns the final accumulator value.

@@ -13,8 +13,23 @@ describe("commons.fileios", function()
 
   local strings = require("commons.strings")
   local fileios = require("commons.fileios")
+  local platforms = require("commons.platforms")
 
+  describe("[FileLineReader]", function()
+    it("failed to open", function()
+      local ok, reader = pcall(fileios.FileLineReader.open, fileios.FileLineReader, "asdf.md")
+      assert_false(ok)
+    end)
+  end)
   describe("[readfile/readlines]", function()
+    it("failed to open", function()
+      local ok1, reader1 = pcall(fileios.readfile, "asdf.md")
+      assert_eq(reader1, nil)
+      assert_true(ok1)
+      local ok2, reader2 = pcall(fileios.readlines, "asdf.md")
+      assert_eq(reader2, nil)
+      assert_true(ok2)
+    end)
     it("readfile and FileLineReader", function()
       local content = fileios.readfile("README.md", { trim = true })
       local reader = fileios.FileLineReader:open("README.md") --[[@as commons.FileLineReader]]
@@ -46,6 +61,15 @@ describe("commons.fileios", function()
     end)
   end)
   describe("[writefile/writelines]", function()
+    if not platforms.IS_WINDOWS then
+      it("failed to open", function()
+        local ok1, reader1 = pcall(fileios.writefile, "a\\  '' :?!#+_-sdf.md")
+        assert_false(ok1)
+        local ok2, reader2 = pcall(fileios.writelines, "a\\  '' :?!#+_-sdf.md")
+        assert_false(ok2)
+      end)
+    end
+
     it("writefile and writelines", function()
       local content = fileios.readfile("README.md") --[[@as string]]
       local lines = fileios.readlines("README.md") --[[@as table]]
