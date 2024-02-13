@@ -156,6 +156,7 @@ function CachedFileReader:open(filename)
 end
 
 --- @param opts {trim:boolean?}?
+--- @return string?
 function CachedFileReader:read(opts)
   opts = opts or {}
   opts.trim = type(opts.trim) == "boolean" and opts.trim or false

@@ -63,6 +63,66 @@ Close the file reader.
 function FileLineReader:close():nil
 ```
 
+### `CachedFileReader`
+
+Cached file reader, always returns cached content until reset.
+
+```lua
+--- @class commons.CachedFileReader
+```
+
+#### Methods
+
+##### `open`
+
+Create a cached file reader with a file name.
+
+```lua
+--- @param filename string
+--- @return commons.CachedFileReader
+function CachedFileReader:open(filename)
+```
+
+Parameters:
+
+- `filename`: File name to read.
+
+Returns:
+
+- Returns the cached file reader.
+
+##### `read`
+
+Read the file, use cached content if available.
+
+```lua
+--- @param opts {trim:boolean?}?
+--- @return string?
+function CachedFileReader:read(opts)
+```
+
+Parameters:
+
+- `opts`: Options.
+  - `trim`: Whether to trim whitespaces around file content, by default is `false`.
+
+Returns:
+
+- Returns file content if read success, returns `nil` if failed to read file.
+
+##### `reset`
+
+Reset the internal cache.
+
+```lua
+--- @return string?
+function CachedFileReader:reset()
+```
+
+Returns:
+
+- Returns the old cache.
+
 ## Functions
 
 ### `readfile`
@@ -77,7 +137,7 @@ Parameters:
 
 - `filename`: File name.
 - `opts`: Options.
-  - `trim`: Whether to trim whitespaces around file content, by default `false`.
+  - `trim`: Whether to trim whitespaces around file content, by default is `false`.
 
 Returns:
 
