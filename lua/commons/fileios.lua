@@ -169,6 +169,15 @@ function CachedFileReader:read(opts)
   return opts.trim and vim.trim(self.cache) or self.cache
 end
 
+--- @return string?
+function CachedFileReader:reset()
+  local saved = self.cache
+  self.cache = nil
+  return saved
+end
+
+M.CachedFileReader = CachedFileReader
+
 -- CachedFileReader }
 
 --- @param filename string
