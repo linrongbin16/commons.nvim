@@ -4,7 +4,8 @@ local M = {}
 M.INT32_MAX = 2147483647
 M.INT32_MIN = -2147483648
 
-M._FLOATING_PRECISION = 1e-09
+M._RELATIVE_PRECISION = 1e-09
+M._ABSOLUTE_PRECISION = 0.0
 
 -- https://github.com/scikit-hep/scikit-hep/blob/e0c433e53677ebf1ac690d7962e0eca6ce57ed63/skhep/math/isclose.py
 --
@@ -22,8 +23,8 @@ M.eq = function(a, b, rel_tol, abs_tol, method)
     return true
   end
 
-  rel_tol = rel_tol or M._FLOATING_PRECISION
-  abs_tol = abs_tol or M._FLOATING_PRECISION
+  rel_tol = rel_tol or M._RELATIVE_PRECISION
+  abs_tol = abs_tol or M._ABSOLUTE_PRECISION
   method = method or "weak"
 
   local diff = math.abs(a - b)
