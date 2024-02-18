@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.1.0](https://github.com/linrongbin16/commons.nvim/compare/v10.0.0...v10.1.0) (2024-02-18)
+
+
+### Features
+
+* **numbers:** approximate float number compare ([#207](https://github.com/linrongbin16/commons.nvim/issues/207)) ([0d0b4f9](https://github.com/linrongbin16/commons.nvim/commit/0d0b4f9aac54a4c21e3072071691849a2d9b0598))
+
 ## [10.0.0](https://github.com/linrongbin16/commons.nvim/compare/v9.1.0...v10.0.0) (2024-02-13)
 
 
