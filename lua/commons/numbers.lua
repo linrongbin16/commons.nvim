@@ -43,37 +43,58 @@ end
 
 --- @param a number?
 --- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.ne = function(a, b)
-  return not M.eq(a, b)
+M.ne = function(a, b, rel_tol, abs_tol, method)
+  return not M.eq(a, b, rel_tol, abs_tol, method)
 end
 
 --- @param a number?
 --- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.gt = function(a, b)
-  return type(a) == "number" and type(b) == "number" and a > b
+M.gt = function(a, b, rel_tol, abs_tol, method)
+  if type(a) ~= "number" or type(b) ~= "number" then
+    return false
+  end
+  return M.ne(a, b, rel_tol, abs_tol, method) and a > b
 end
 
 --- @param a number?
 --- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.ge = function(a, b)
-  return M.gt(a, b) or M.eq(a, b)
+M.ge = function(a, b, rel_tol, abs_tol, method)
+  return M.gt(a, b, rel_tol, abs_tol, method) or M.eq(a, b, rel_tol, abs_tol, method)
 end
 
 --- @param a number?
 --- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.lt = function(a, b)
-  return type(a) == "number" and type(b) == "number" and a < b
+M.lt = function(a, b, rel_tol, abs_tol, method)
+  if type(a) ~= "number" or type(b) ~= "number" then
+    return false
+  end
+  return M.ne(a, b, rel_tol, abs_tol, method) and a < b
 end
 
 --- @param a number?
 --- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.le = function(a, b)
-  return M.lt(a, b) or M.eq(a, b)
+M.le = function(a, b, rel_tol, abs_tol, method)
+  return M.lt(a, b, rel_tol, abs_tol, method) or M.eq(a, b, rel_tol, abs_tol, method)
 end
 
 --- @param value number
