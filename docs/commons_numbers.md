@@ -2,7 +2,7 @@
 
 # [commons.numbers](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/numbers.lua)
 
-Numbers utilities, with type check.
+Numbers utilities, with type check and approximate float compare.
 
 ## Constants
 
