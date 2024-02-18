@@ -44,6 +44,10 @@ Parameters:
 - `rel_tol`: Relative tolerance, by default is `1e-09`.
 - `abs_tol`: Absolute tolerance, by default is `0.0`.
 
+Returns:
+
+- Returns `true` if `a` equals to `b`, returns `false` otherwise.
+
 ### `ne`
 
 Whether `a` is not equals to `b`, with type check.
