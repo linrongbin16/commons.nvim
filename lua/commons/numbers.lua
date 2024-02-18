@@ -7,7 +7,7 @@ M.INT32_MIN = -2147483648
 M._RELATIVE_PRECISION = 1e-09
 M._ABSOLUTE_PRECISION = 0.0
 
--- https://github.com/scikit-hep/scikit-hep/blob/e0c433e53677ebf1ac690d7962e0eca6ce57ed63/skhep/math/isclose.py
+-- https://docs.python.org/3/library/math.html#math.isclose
 --
 --- @param a number?
 --- @param b number?
