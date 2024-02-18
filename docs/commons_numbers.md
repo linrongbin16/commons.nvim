@@ -47,7 +47,7 @@ Parameters:
 Returns:
 
 - Returns `true` if `a` equals to `b` when both are integers.
-- Returns `true` if `a` equals to `b` when either of them are floats, using approximate float compare method: `math.abs(a - b) <= math.max(rel_tol * math.max(math.abs(a), math.abs(b)), abs_tol)`, which comes from python3's [math.isclose()](https://docs.python.org/3/library/math.html#math.isclose).
+- Returns `true` if `a` equals to `b` when either of them are floats, using approximate float compare method `math.abs(a - b) <= math.max(rel_tol * math.max(math.abs(a), math.abs(b)), abs_tol)` (which comes from python3's [math.isclose()](https://docs.python.org/3/library/math.html#math.isclose)).
 - Returns `false` otherwise.
 
 ### `ne`
