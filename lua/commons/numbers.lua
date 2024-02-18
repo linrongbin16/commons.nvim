@@ -38,6 +38,7 @@ M.eq = function(a, b, rel_tol, abs_tol, method)
     return (diff <= math.abs(rel_tol * (a + b) / 2)) or (diff <= abs_tol)
   else
     assert(false)
+    ---@diagnostic disable-next-line: missing-return
   end
 end
 
