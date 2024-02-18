@@ -26,7 +26,7 @@ Numbers utilities, with type check and approximate float compare.
 
 ### `eq`
 
-Whether `a` is equals to `b`, with type check and approximate float compare.
+Whether `a` is equals to `b`.
 
 ```lua
 --- @param a number?
@@ -46,46 +46,73 @@ Parameters:
 
 Returns:
 
-- Returns `true` if `a` equals to `b`, returns `false` otherwise.
+- Returns `true` if `a` equals to `b` when both are integers.
+- Returns `true` if `a` equals to `b` when either of them are floats, using approximate float compare method: `math.abs(a - b) <= math.max(rel_tol * math.max(math.abs(a), math.abs(b)), abs_tol)`, which comes from python3's [math.isclose()](https://docs.python.org/3/library/math.html#math.isclose).
+- Returns `false` otherwise.
 
 ### `ne`
 
-Whether `a` is not equals to `b`, with type check.
+Whether `a` is not equals to `b`.
 
 ```lua
-function ne(a:number?, b:number?):boolean
+--- @param a number?
+--- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @return boolean
+M.ne = function(a, b, rel_tol, abs_tol)
 ```
 
 ### `lt`
 
-Whether `a` is less than (&lt;) `b`, with type check.
+Whether `a` is less than (&lt;) `b`.
 
 ```lua
-function lt(a:number?, b:number?):boolean
+--- @param a number?
+--- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @return boolean
+M.lt = function(a, b, rel_tol, abs_tol)
 ```
 
 ### `le`
 
-Whether `a` is less than or equals to (&le;) `b`, with type check.
+Whether `a` is less than or equals to (&le;) `b`.
 
 ```lua
-function le(a:number?, b:number?):boolean
+--- @param a number?
+--- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @return boolean
+M.le = function(a, b, rel_tol, abs_tol)
 ```
 
 ### `gt`
 
-Whether `a` is greater than (&gt;) `b`, with type check.
+Whether `a` is greater than (&gt;) `b`.
 
 ```lua
-function gt(a:number?, b:number?):boolean
+--- @param a number?
+--- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @return boolean
+M.gt = function(a, b, rel_tol, abs_tol)
 ```
 
 ### `ge`
 
-Whether `a` is greater than or equals to (&ge;) `b`, with type check.
+Whether `a` is greater than or equals to (&ge;) `b`.
 
 ```lua
-function ge(a:number?, b:number?):boolean
+--- @param a number?
+--- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @return boolean
+M.ge = function(a, b, rel_tol, abs_tol)
 ```
 
 ### `mod`

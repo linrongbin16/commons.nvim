@@ -32,56 +32,51 @@ end
 --- @param b number?
 --- @param rel_tol number?
 --- @param abs_tol number?
---- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.ne = function(a, b, rel_tol, abs_tol, method)
-  return not M.eq(a, b, rel_tol, abs_tol, method)
+M.ne = function(a, b, rel_tol, abs_tol)
+  return not M.eq(a, b, rel_tol, abs_tol)
 end
 
 --- @param a number?
 --- @param b number?
 --- @param rel_tol number?
 --- @param abs_tol number?
---- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.gt = function(a, b, rel_tol, abs_tol, method)
+M.gt = function(a, b, rel_tol, abs_tol)
   if type(a) ~= "number" or type(b) ~= "number" then
     return false
   end
-  return M.ne(a, b, rel_tol, abs_tol, method) and a > b
+  return M.ne(a, b, rel_tol, abs_tol) and a > b
 end
 
 --- @param a number?
 --- @param b number?
 --- @param rel_tol number?
 --- @param abs_tol number?
---- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.ge = function(a, b, rel_tol, abs_tol, method)
-  return M.gt(a, b, rel_tol, abs_tol, method) or M.eq(a, b, rel_tol, abs_tol, method)
+M.ge = function(a, b, rel_tol, abs_tol)
+  return M.gt(a, b, rel_tol, abs_tol) or M.eq(a, b, rel_tol, abs_tol)
 end
 
 --- @param a number?
 --- @param b number?
 --- @param rel_tol number?
 --- @param abs_tol number?
---- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.lt = function(a, b, rel_tol, abs_tol, method)
+M.lt = function(a, b, rel_tol, abs_tol)
   if type(a) ~= "number" or type(b) ~= "number" then
     return false
   end
-  return M.ne(a, b, rel_tol, abs_tol, method) and a < b
+  return M.ne(a, b, rel_tol, abs_tol) and a < b
 end
 
 --- @param a number?
 --- @param b number?
 --- @param rel_tol number?
 --- @param abs_tol number?
---- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.le = function(a, b, rel_tol, abs_tol, method)
-  return M.lt(a, b, rel_tol, abs_tol, method) or M.eq(a, b, rel_tol, abs_tol, method)
+M.le = function(a, b, rel_tol, abs_tol)
+  return M.lt(a, b, rel_tol, abs_tol) or M.eq(a, b, rel_tol, abs_tol)
 end
 
 --- @param value number
