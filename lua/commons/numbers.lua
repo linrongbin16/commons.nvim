@@ -13,9 +13,8 @@ M._ABSOLUTE_PRECISION = 0.0
 --- @param b number?
 --- @param rel_tol number?
 --- @param abs_tol number?
---- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.eq = function(a, b, rel_tol, abs_tol, method)
+M.eq = function(a, b, rel_tol, abs_tol)
   if type(a) ~= "number" or type(b) ~= "number" then
     return false
   end
@@ -25,22 +24,8 @@ M.eq = function(a, b, rel_tol, abs_tol, method)
 
   rel_tol = rel_tol or M._RELATIVE_PRECISION
   abs_tol = abs_tol or M._ABSOLUTE_PRECISION
-  method = method or "weak"
 
-  local diff = math.abs(a - b)
-  if method == "asymmetric" then
-    return (diff <= math.abs(rel_tol * b)) or (diff <= abs_tol)
-  elseif method == "strong" then
-    return ((diff <= math.abs(rel_tol * b)) and (diff <= math.abs(rel_tol * a)))
-      or (diff <= abs_tol)
-  elseif method == "weak" then
-    return (diff <= math.abs(rel_tol * b)) or (diff <= math.abs(rel_tol * a)) or (diff <= abs_tol)
-  elseif method == "average" then
-    return (diff <= math.abs(rel_tol * (a + b) / 2)) or (diff <= abs_tol)
-  else
-    assert(false)
-    ---@diagnostic disable-next-line: missing-return
-  end
+  return math.abs(a - b) <= math.max(rel_tol * math.max(math.abs(a), math.abs(b)), abs_tol)
 end
 
 --- @param a number?

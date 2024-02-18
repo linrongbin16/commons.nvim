@@ -26,11 +26,23 @@ Numbers utilities, with type check.
 
 ### `eq`
 
-Whether `a` is equals to `b`, with type check.
+Whether `a` is equals to `b`, with type check and approximate float compare.
 
 ```lua
-function eq(a:number?, b:number?):boolean
+--- @param a number?
+--- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @return boolean
+M.eq = function(a, b, rel_tol, abs_tol)
 ```
+
+Parameters:
+
+- `a`: First number.
+- `b`: Second number.
+- `rel_tol`: Relative tolerance, by default is `1e-09`.
+- `abs_tol`: Absolute tolerance, by default is `0.0`.
 
 ### `ne`
 
