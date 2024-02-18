@@ -4,11 +4,41 @@ local M = {}
 M.INT32_MAX = 2147483647
 M.INT32_MIN = -2147483648
 
+M._FLOATING_PRECISION = 1e-09
+
+-- https://github.com/scikit-hep/scikit-hep/blob/e0c433e53677ebf1ac690d7962e0eca6ce57ed63/skhep/math/isclose.py
+--
 --- @param a number?
 --- @param b number?
+--- @param rel_tol number?
+--- @param abs_tol number?
+--- @param method "asymmetric"|"strong"|"weak"|"average"|nil
 --- @return boolean
-M.eq = function(a, b)
-  return type(a) == "number" and type(b) == "number" and a == b
+M.eq = function(a, b, rel_tol, abs_tol, method)
+  if type(a) ~= "number" or type(b) ~= "number" then
+    return false
+  end
+  if a == b then
+    return true
+  end
+
+  rel_tol = rel_tol or M._FLOATING_PRECISION
+  abs_tol = abs_tol or M._FLOATING_PRECISION
+  method = method or "weak"
+
+  local diff = math.abs(a - b)
+  if method == "asymmetric" then
+    return (diff <= math.abs(rel_tol * b)) or (diff <= abs_tol)
+  elseif method == "strong" then
+    return ((diff <= math.abs(rel_tol * b)) and (diff <= math.abs(rel_tol * a)))
+      or (diff <= abs_tol)
+  elseif method == "weak" then
+    return (diff <= math.abs(rel_tol * b)) or (diff <= math.abs(rel_tol * a)) or (diff <= abs_tol)
+  elseif method == "average" then
+    return (diff <= math.abs(rel_tol * (a + b) / 2)) or (diff <= abs_tol)
+  else
+    assert(false)
+  end
 end
 
 --- @param a number?
