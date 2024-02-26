@@ -19,8 +19,8 @@ jobs:
       - uses: ytanikin/PRConventionalCommits@1.1.0
         with:
           task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert","break","drop","deprecate"]'
-  luacheck:
-    name: Lua Check
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -80,9 +80,11 @@ jobs:
           rm -rf ./lua/commons/colors/hsl.lua
           cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/colors/hsl.lua
           rm -rf ./colors-8.05.26
-      - uses: lunarmodules/luacheck@v1
-        with:
-          args: lua --config .luacheckrc
+      - uses: cargo-bins/cargo-binstall@main
+      - name: Selene
+        run: |
+          cargo binstall --no-confirm selene
+          selene --config selene.toml ./lua
       - uses: stevearc/nvim-typecheck-action@v1
         with:
           path: lua
@@ -97,7 +99,7 @@ jobs:
   windows_unit_test:
     name: Windows Test
     needs:
-      - luacheck
+      - lint
     strategy:
       matrix:
         nvim_version: [stable]
@@ -118,7 +120,7 @@ jobs:
   unix_unit_test:
     name: Unxi Test
     needs:
-      - luacheck
+      - lint
     strategy:
       matrix:
         nvim_version: [stable, nightly, v0.6.0, v0.7.0]
@@ -137,13 +139,12 @@ jobs:
       - uses: leafo/gh-actions-luarocks@v4
       - name: Run Test Cases
         run: |
-          luarocks install luacheck
           luarocks install vusted
           vusted --shuffle ./spec
   code_coverage:
     name: Code Coverage
     needs:
-      - luacheck
+      - lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -159,7 +160,6 @@ jobs:
       - name: Generate Coverage Reports
         shell: bash
         run: |
-          luarocks install luacheck
           luarocks install luacov
           luarocks install vusted
           vusted --coverage ./spec
