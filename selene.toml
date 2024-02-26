@@ -1,0 +1,18 @@
+std = "vim"
+
+exclude = [
+  "lua/commons/_json.lua",
+  "lua/commons/_system.lua",
+  "lua/commons/_system_types.lua",
+  "lua/commons/micro-async/*.lua",
+  "lua/commons/promise/*.lua",
+  "lua/commons/promise/*/*.lua",
+]
+
+[lints]
+mixed_table = "allow"
+unused_variable = "allow"
+incorrect_standard_library_use = "allow"
+global_usage = "allow"
+if_same_then_else = "allow"
+
