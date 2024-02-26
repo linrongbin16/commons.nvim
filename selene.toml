@@ -15,4 +15,4 @@ unused_variable = "allow"
 incorrect_standard_library_use = "allow"
 global_usage = "allow"
 if_same_then_else = "allow"
-
+bad_string_escape = "allow"
