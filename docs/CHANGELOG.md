@@ -1,5 +1,12 @@
 # Changelog
 
+## [10.2.0](https://github.com/linrongbin16/commons.nvim/compare/v10.1.0...v10.2.0) (2024-02-29)
+
+
+### Features
+
+* **msgpack:** add 'msgpack' ([#210](https://github.com/linrongbin16/commons.nvim/issues/210)) ([e9dc2dc](https://github.com/linrongbin16/commons.nvim/commit/e9dc2dcd9dca3aacc7278c246fa04155282dc99e))
+
 ## [10.1.0](https://github.com/linrongbin16/commons.nvim/compare/v10.0.0...v10.1.0) (2024-02-18)
 
 
