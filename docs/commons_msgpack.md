@@ -2,7 +2,7 @@
 
 # [commons.msgpack](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/msgpack)
 
-Pack/unpack between lua table/list and msgpack bytes.
+Pack/unpack between lua table and msgpack bytes.
 
 ?> Just a wrapper on [lua-MessagePack](https://fperrad.frama.io/lua-MessagePack).
 

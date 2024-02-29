@@ -2,7 +2,7 @@
 
 # [commons.jsons](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/jsons.lua)
 
-Encode/decode between lua table/list and json string.
+Encode/decode between lua table and json string.
 
 ?> Just a wrapper on [actboy168/json.lua](https://github.com/actboy168/json.lua).
 
