@@ -4,7 +4,7 @@
 
 Pack/unpack between lua table and msgpack bytes.
 
-?> Just a wrapper on [lua-MessagePack](https://fperrad.frama.io/lua-MessagePack).
+?> Just a wrapper on [fperrad/lua-MessagePack](https://fperrad.frama.io/lua-MessagePack).
 
 ## Functions
 
