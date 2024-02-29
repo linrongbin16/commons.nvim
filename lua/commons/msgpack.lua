@@ -1,7 +1,7 @@
 local M = {}
 
 --- @param t table?
---- @return integer[]|nil
+--- @return any
 M.encode = function(t)
   if t == nil then
     return nil
@@ -9,7 +9,7 @@ M.encode = function(t)
   return require("commons._MessagePack").encode(t)
 end
 
---- @param d integer[]|nil
+--- @param d any
 --- @return table?
 M.decode = function(d)
   if d == nil then
