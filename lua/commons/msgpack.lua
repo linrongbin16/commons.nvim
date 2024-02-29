@@ -1,21 +1,21 @@
 local M = {}
 
 --- @param t table?
---- @return any
-M.encode = function(t)
+--- @return string?
+M.pack = function(t)
   if t == nil then
     return nil
   end
-  return require("commons._MessagePack").encode(t)
+  return require("commons._MessagePack").pack(t)
 end
 
---- @param d any
+--- @param m string?
 --- @return table?
-M.decode = function(d)
-  if d == nil then
+M.unpack = function(m)
+  if m == nil then
     return nil
   end
-  return require("commons._MessagePack").decode(d)
+  return require("commons._MessagePack").unpack(m)
 end
 
 return M
