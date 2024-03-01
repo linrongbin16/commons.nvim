@@ -117,7 +117,7 @@ describe("commons.paths", function()
       local actual4 = paths.normalize(expect42, { expand = true, resolve = true })
       print(string.format("normalize-user.home-4:%s\n", vim.inspect(actual4)))
       -- assert_true(strings.endswith(actual4, string.sub(expect41, 2)))
-      assert_true(strings.startswith(actual4, uv.os_homedir()))
+      assert_true(strings.startswith(actual4, paths.normalize(uv.os_homedir())))
       -- remove_file(expect41)
       -- remove_file(expect42)
       -- end
