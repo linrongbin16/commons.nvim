@@ -391,7 +391,9 @@ M.asyncreadlines = function(filename, opts)
                     if close_complete_err then
                       _handle_error(close_complete_err, "fs_close complete")
                     end
+                    ---@diagnostic disable-next-line: undefined-field
                     if type(opts.on_complete) == "function" then
+                      ---@diagnostic disable-next-line: undefined-field
                       opts.on_complete(fsize)
                     end
                   end
