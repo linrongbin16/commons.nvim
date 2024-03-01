@@ -89,6 +89,7 @@ jobs:
           rm -rf ./lua/commons/colors/hsl.lua
           cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/colors/hsl.lua
           rm -rf ./colors-8.05.26
+          sed -i '1 i\---@diagnostic disable: lowercase-global' ./lua/commons/colors/hsl.lua
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
