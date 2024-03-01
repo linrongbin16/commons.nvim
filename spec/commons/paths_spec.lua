@@ -108,7 +108,7 @@ describe("commons.paths", function()
       local actual3 = paths.normalize(expect3, { expand = true })
       print(string.format("normalize-user.home-3:%s\n", vim.inspect(actual3)))
       assert_true(strings.endswith(actual3, string.sub(expect3, 2)))
-      assert_true(strings.startswith(actual3, uv.os_homedir()))
+      assert_true(strings.startswith(actual3, paths.normalize(uv.os_homedir())))
 
       -- if not IS_WINDOWS then
       local expect41 = "~/test141.txt"
