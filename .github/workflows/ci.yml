@@ -68,6 +68,7 @@ jobs:
           git clone --depth=1 https://github.com/notomo/promise.nvim.git ~/.promise
           rm -rf ./lua/commons/promise
           cp -rf ~/.promise/lua/promise ./lua/commons/
+          sed -i '1 i\---@diagnostic disable: inject-field' ./lua/commons/promise/init.lua
       - name: Add micro-async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
