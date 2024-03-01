@@ -113,6 +113,13 @@ describe("commons.paths", function()
       -- if not IS_WINDOWS then
       local expect41 = IS_WINDOWS and "%HOME%\\test141.txt" or "~/test141.txt"
       local expect42 = IS_WINDOWS and "%HOME%\\test142.txt" or "~/test142.txt"
+      print(
+        string.format(
+          "normalize-user.home-4, expect41:%s, expect42:%s\n",
+          vim.inspect(expect41),
+          vim.inspect(expect42)
+        )
+      )
       create_symlink(expect41, expect42)
       local actual4 = paths.normalize(expect42, { expand = true, resolve = true })
       print(string.format("normalize-user.home-4:%s\n", vim.inspect(actual4)))
