@@ -1,5 +1,17 @@
 # Changelog
 
+## [10.2.2](https://github.com/linrongbin16/commons.nvim/compare/v10.2.1...v10.2.2) (2024-03-01)
+
+
+### Bug Fixes
+
+* **paths:** fix 'normalize' path on Windows ([#216](https://github.com/linrongbin16/commons.nvim/issues/216)) ([610eb58](https://github.com/linrongbin16/commons.nvim/commit/610eb581a13677d41044f308b6736e688f7bed71))
+
+
+### Miscellaneous
+
+* **paths:** fix windows 'normalize' test ([#216](https://github.com/linrongbin16/commons.nvim/issues/216)) ([610eb58](https://github.com/linrongbin16/commons.nvim/commit/610eb581a13677d41044f308b6736e688f7bed71))
+
 ## [10.2.1](https://github.com/linrongbin16/commons.nvim/compare/v10.2.0...v10.2.1) (2024-03-01)
 
 
