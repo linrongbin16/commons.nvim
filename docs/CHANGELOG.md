@@ -1,5 +1,13 @@
 # Changelog
 
+## [10.2.1](https://github.com/linrongbin16/commons.nvim/compare/v10.2.0...v10.2.1) (2024-03-01)
+
+
+### Continuously Integration
+
+* **lint:** suppress luals warnings/errors ([#213](https://github.com/linrongbin16/commons.nvim/issues/213)) ([b8a7cd9](https://github.com/linrongbin16/commons.nvim/commit/b8a7cd98265af6bc76cf12fac0cc3da3af7de781))
+* **release:** add 'ci' release type ([#214](https://github.com/linrongbin16/commons.nvim/issues/214)) ([fadccd1](https://github.com/linrongbin16/commons.nvim/commit/fadccd1df9a5f977adf5b6909fbcd41aed589a89))
+
 ## [10.2.0](https://github.com/linrongbin16/commons.nvim/compare/v10.1.0...v10.2.0) (2024-02-29)
 
 
