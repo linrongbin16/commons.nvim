@@ -59,7 +59,7 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/lewis6991/async.nvim.git ~/.async
           cp ~/.async/lua/async.lua ./lua/commons/async.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name' ./lua/commons/async.lua
+          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/async.lua
       - name: Add promise.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
