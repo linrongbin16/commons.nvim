@@ -17,7 +17,7 @@ This lua library includes multiple modules:
 
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
-- JSON & MessagePack serializations.
+- JSON serializations.
 - Run child-process and handle line-wise output from stdout/stderr.
 - Async/await with lua coroutine.
 - Logging system with python-logging like features.
