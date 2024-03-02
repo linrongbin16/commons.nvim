@@ -17,7 +17,6 @@ The commons lua library for Neovim plugin project.
 - [commons.jsons](/commons_jsons.md): Encode/decode between lua table and json string.
 - [commons.logging](/commons_logging.md): Logging system with [python-logging](https://docs.python.org/3/library/logging.html) like features.
 - [commons.micro-async](/commons_micro_async.md): Embedded [willothy/micro-async.nvim](https://github.com/willothy/micro-async.nvim) library.
-- [commons.msgpack](/commons_msgpack.md): Pack/unpack between lua table and msgpack bytes.
 - [commons.numbers](/commons_numbers.md): Numbers utilities, with type check and approximate float compare.
 - [commons.paths](/commons_paths.md): File and directory path utilities.
 - [commons.platforms](/commons_platforms.md): OS and platforms utilities.
