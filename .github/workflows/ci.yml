@@ -36,14 +36,6 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
           cp ~/.json.lua/json.lua ./lua/commons/_json.lua
-      - name: Add _MessagePack.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          echo "pwd"
-          echo $PWD
-          git clone --depth=1 https://framagit.org/fperrad/lua-MessagePack.git ~/.lua-MessagePack
-          cp ~/.lua-MessagePack/src/MessagePack.lua ./lua/commons/_MessagePack.lua
-          sed -i '1 i\---@diagnostic disable: cast-local-type, deprecated, param-type-mismatch' ./lua/commons/_MessagePack.lua
       - name: Add _system.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
