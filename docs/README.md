@@ -9,6 +9,7 @@ The commons lua library for Neovim plugin project.
 
 - [Requirements](requirements.md)
 - [Install](install.md)
+- [Usage](usage.md)
 - Modules
   - [commons.apis](/commons_apis.md): Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](https://neovim.io/doc/user/api.html).
   - [commons.async](/commons_async.md): Embedded [lewis6991/async.nvim](https://github.com/lewis6991/async.nvim) library.
