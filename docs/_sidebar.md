@@ -12,7 +12,7 @@
     - [commons.colors.hsl](commons_colors_hsl.md)
     - [commons.colors.term](commons_colors_term.md)
   - [commons.fileios](commons_fileios.md)
-  - [commons.jsons](commons_jsons.md)
+  - [commons.json](commons_json.md)
   - [commons.logging](commons_logging.md)
   - [commons.micro-async](commons_micro_async.md)
   - [commons.numbers](commons_numbers.md)
