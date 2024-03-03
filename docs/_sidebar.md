@@ -15,7 +15,6 @@
   - [commons.jsons](commons_jsons.md)
   - [commons.logging](commons_logging.md)
   - [commons.micro-async](commons_micro_async.md)
-  - [commons.msgpack](commons_msgpack.md)
   - [commons.numbers](commons_numbers.md)
   - [commons.paths](commons_paths.md)
   - [commons.platforms](commons_platforms.md)
