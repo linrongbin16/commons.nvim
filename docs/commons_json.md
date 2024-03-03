@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
 
-# [commons.jsons](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/jsons.lua)
+# [commons.json](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/json.lua)
 
 Encode/decode between lua table and json string.
 
