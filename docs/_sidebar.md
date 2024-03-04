@@ -17,7 +17,7 @@
   - [commons.micro-async](commons_micro_async.md)
   - [commons.numbers](commons_numbers.md)
   - [commons.path](commons_path.md)
-  - [commons.platforms](commons_platforms.md)
+  - [commons.platform](commons_platform.md)
   - [commons.promise](commons_promise.md)
   - [commons.ringbuf](commons_ringbuf.md)
   - [commons.spawn](commons_spawn.md)
