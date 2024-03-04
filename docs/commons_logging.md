@@ -118,7 +118,7 @@ Which is actually different from what user input in the logging APIs. That is wh
 Here's an example of customizing logging formatters:
 
 ```lua
-local paths = require("commons.paths")
+local path = require("commons.path")
 local logging = require("commons.logging")
 
 -- Step-1: Create a simple console handler that print to nvim's messages.
@@ -140,7 +140,7 @@ local file_formatter = logging.Formatter:new(
 local file_path = string.format(
   "%s%s%s",
   vim.fn.stdpath("data"),
-  paths.SEPARATOR,
+  path.SEPARATOR,
   "your_plugin.log"
 )
 

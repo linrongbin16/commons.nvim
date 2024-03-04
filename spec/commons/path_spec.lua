@@ -39,7 +39,7 @@ describe("commons.path", function()
 
   describe("[exists/isfile/isdir/issymlink]", function()
     it("exists", function()
-      local expect1 = "spec/commons/paths_spec.lua"
+      local expect1 = "spec/commons/path_spec.lua"
       assert_true(path.exists(expect1))
       local expect2 = "asdf-test1"
       assert_false(path.exists(expect2))
@@ -47,7 +47,7 @@ describe("commons.path", function()
       assert_true(path.exists(expect3))
     end)
     it("isfile", function()
-      local expect1 = "spec/commons/paths_spec.lua"
+      local expect1 = "spec/commons/path_spec.lua"
       assert_true(path.isfile(expect1))
       local expect2 = "asdf-test2"
       assert_false(path.isfile(expect2))
@@ -55,7 +55,7 @@ describe("commons.path", function()
       assert_false(path.isfile(expect3))
     end)
     it("isdir", function()
-      local expect1 = "spec/commons/paths_spec.lua"
+      local expect1 = "spec/commons/path_spec.lua"
       assert_false(path.isdir(expect1))
       local expect2 = "asdf-test3"
       assert_false(path.isdir(expect2))
@@ -63,7 +63,7 @@ describe("commons.path", function()
       assert_true(path.isdir(expect3))
     end)
     it("islink", function()
-      local expect1 = "spec/commons/paths_spec.lua"
+      local expect1 = "spec/commons/path_spec.lua"
       assert_false(path.islink(expect1))
       local expect2 = "asdf-test4"
       assert_false(path.islink(expect2))
@@ -140,12 +140,12 @@ describe("commons.path", function()
       print(string.format("normalize-relative-2:%s\n", vim.inspect(actual2)))
       assert_eq(actual2, expect2)
 
-      local expect3 = "./spec/commons/paths_spec.lua"
+      local expect3 = "./spec/commons/path_spec.lua"
       local actual3 = path.normalize(expect3, { expand = true })
       print(string.format("normalize-relative-3:%s\n", vim.inspect(actual3)))
       assert_eq(actual3, expect3)
 
-      local expect4 = "./spec/commons/paths_spec.lua"
+      local expect4 = "./spec/commons/path_spec.lua"
       local actual4 = path.normalize(expect4, { expand = true, resolve = true })
       print(string.format("normalize-relative-4:%s\n", vim.inspect(actual4)))
       assert_eq(actual4, expect4)
