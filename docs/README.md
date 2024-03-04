@@ -15,7 +15,7 @@ The commons lua library for Neovim plugin project.
 
 ## Modules
 
-- [commons.apis](/commons_apis.md): Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](https://neovim.io/doc/user/api.html).
+- [commons.api](/commons_api.md): Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](https://neovim.io/doc/user/api.html).
 - [commons.async](/commons_async.md): Embedded [lewis6991/async.nvim](https://github.com/lewis6991/async.nvim) library.
 - commons.color
   - [commons.color.hl](/commons_color_hl.md): RGB color & nvim syntax highlight utilities.

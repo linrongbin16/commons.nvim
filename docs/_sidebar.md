@@ -5,7 +5,7 @@
 - [Install](/install.md)
 - [Usage](/usage.md)
 - Modules
-  - [commons.apis](commons_apis.md)
+  - [commons.api](commons_api.md)
   - [commons.async](commons_async.md)
   - commons.color
     - [commons.color.hl](commons_color_hl.md)
