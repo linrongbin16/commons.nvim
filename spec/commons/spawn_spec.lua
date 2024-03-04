@@ -14,7 +14,7 @@ describe("commons.spawn", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
-  local fileios = require("commons.fileios")
+  local fileio = require("commons.fileio")
   local spawn = require("commons.spawn")
 
   local dummy = function() end
@@ -26,7 +26,7 @@ describe("commons.spawn", function()
       -- print(string.format("spawn wait-1:%s\n", vim.inspect(sp)))
     end)
     it("test2", function()
-      local lines = fileios.readlines("README.md") --[[@as table]]
+      local lines = fileio.readlines("README.md") --[[@as table]]
 
       local i = 1
       local function process_line(line)
@@ -44,7 +44,7 @@ describe("commons.spawn", function()
       -- lower case: a
       local lower_char = string.char(97 + delimiter_i)
       it(string.format("stdout on %s", lower_char), function()
-        local lines = fileios.readlines("README.md") --[[@as table]]
+        local lines = fileio.readlines("README.md") --[[@as table]]
 
         local i = 1
         local function process_line(line)
@@ -69,7 +69,7 @@ describe("commons.spawn", function()
       -- upper case: A
       local upper_char = string.char(65 + delimiter_i)
       it(string.format("stdout on %s", upper_char), function()
-        local lines = fileios.readlines("README.md") --[[@as table]]
+        local lines = fileio.readlines("README.md") --[[@as table]]
 
         local i = 1
         local function process_line(line)
@@ -122,7 +122,7 @@ describe("commons.spawn", function()
       -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
     end)
     it("consume line", function()
-      local lines = fileios.readlines("README.md") --[[@as table]]
+      local lines = fileio.readlines("README.md") --[[@as table]]
 
       local i = 1
       local function process_line(line)
@@ -139,7 +139,7 @@ describe("commons.spawn", function()
       -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
     end)
     it("stdout on newline", function()
-      local lines = fileios.readlines("README.md") --[[@as table]]
+      local lines = fileio.readlines("README.md") --[[@as table]]
 
       local i = 1
       local function process_line(line)

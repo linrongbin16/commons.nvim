@@ -8,7 +8,7 @@
 
 For example now we have two plugins `A` and `B`, they both depend on the `commons` library, but on different versions, say `v2.1.0` and `v3.4.3`.
 
-The major version means there're some break changes, say `commons.paths.parent` API behavior is different on `v2.x` and `v3.x`. And it just happened both `A` and `B` are using this API.
+The major version means there're some break changes, say `commons.path.parent` API behavior is different on `v2.x` and `v3.x`. And it just happened both `A` and `B` are using this API.
 
 We expect `A` use `commons-v2.1.0` and `B` use `commons-v3.4.3`, but when `A` and `B` use LuaRocks or Neovim plugin managers to depend `commons` library, the package manager cannot guarantee such behavior, e.g. the `commons` library version is uncertain, thus bring potential exceptions in runtime.
 

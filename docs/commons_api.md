@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
 
-# [commons.apis](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/apis.lua)
+# [commons.api](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/api.lua)
 
 Compatible builtin APIs across multiple Neovim versions, a wrapper on [vim.api](https://neovim.io/doc/user/api.html).
 

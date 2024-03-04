@@ -1,6 +1,6 @@
 local cwd = vim.fn.getcwd()
 
-describe("commons.apis", function()
+describe("commons.api", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
   local assert_false = assert.is_false
@@ -12,8 +12,8 @@ describe("commons.apis", function()
     vim.api.nvim_command("colorscheme darkblue")
   end)
 
-  local apis = require("commons.apis")
-  local versions = require("commons.versions")
+  local api = require("commons.api")
+  local version = require("commons.version")
 
   local function partial_eq(a, b)
     for k, v in pairs(a) do
@@ -26,13 +26,13 @@ describe("commons.apis", function()
 
   describe("[get_buf_option/set_buf_option]", function()
     it("get filetype", function()
-      local ft = apis.get_buf_option(0, "filetype")
+      local ft = api.get_buf_option(0, "filetype")
       print(string.format("filetype get buf option:%s\n", vim.inspect(ft)))
       assert_eq(type(ft), "string")
     end)
     it("set filetype", function()
-      apis.set_buf_option(0, "filetype", "lua")
-      local ft = apis.get_buf_option(0, "filetype")
+      api.set_buf_option(0, "filetype", "lua")
+      local ft = api.get_buf_option(0, "filetype")
       print(string.format("filetype set buf option:%s\n", vim.inspect(ft)))
       assert_eq(ft, "lua")
     end)
@@ -40,15 +40,15 @@ describe("commons.apis", function()
 
   describe("[get_win_option/set_win_option]", function()
     it("get spell", function()
-      apis.set_win_option(0, "spell", true)
-      local s = apis.get_win_option(0, "spell")
+      api.set_win_option(0, "spell", true)
+      local s = api.get_win_option(0, "spell")
       print(string.format("spell get win option:%s\n", vim.inspect(s)))
       assert_eq(type(s), "boolean")
       assert_true(s)
     end)
     it("set spell", function()
-      apis.set_win_option(0, "spell", false)
-      local s = apis.get_win_option(0, "spell")
+      api.set_win_option(0, "spell", false)
+      local s = api.get_win_option(0, "spell")
       print(string.format("spell set win option:%s\n", vim.inspect(s)))
       assert_false(s)
     end)
@@ -63,7 +63,7 @@ describe("commons.apis", function()
     "Constant",
     "Boolean",
   }
-  if versions.ge("0.9") then
+  if version.ge("0.9") then
     local HIGHLIGHTS_MAP = vim.api.nvim_get_hl(0, {})
     HIGHLIGHTS = {}
     for hl, _ in pairs(HIGHLIGHTS_MAP) do
@@ -74,7 +74,7 @@ describe("commons.apis", function()
     end)
   end
 
-  if versions.ge("0.9") then
+  if version.ge("0.9") then
     describe("[dump nvim_get_hl/nvim_get_hl_by_name]", function()
       it("nvim_get_hl", function()
         local fp = io.open("nvim_get_hl.log", "w")
@@ -112,7 +112,7 @@ describe("commons.apis", function()
   describe("[get_hl]", function()
     it("test", function()
       for i, hl in ipairs(HIGHLIGHTS) do
-        local hl_values = apis.get_hl(hl)
+        local hl_values = api.get_hl(hl)
         assert_eq(type(hl_values), "table")
         assert_true(
           type(hl_values.fg) == "number"
@@ -132,7 +132,7 @@ describe("commons.apis", function()
             or type(hl_values.underline) == "boolean"
             or hl_values.underline == nil
         )
-        if versions.ge({ 0, 9 }) and versions.lt({ 0, 10 }) then
+        if version.ge({ 0, 9 }) and version.lt({ 0, 10 }) then
           local gui_values = vim.api.nvim_get_hl_by_name(hl, true)
           local cterm_values = vim.api.nvim_get_hl_by_name(hl, false)
           gui_values.fg = gui_values.foreground
@@ -181,8 +181,8 @@ describe("commons.apis", function()
   describe("[get_hl_with_fallback]", function()
     it("test", function()
       local hl_with_fallback = { "NotExistHl", "@comment", "Comment" }
-      local actual1 = apis.get_hl_with_fallback(unpack(hl_with_fallback))
-      local actual2 = apis.get_hl("Comment")
+      local actual1 = api.get_hl_with_fallback(unpack(hl_with_fallback))
+      local actual2 = api.get_hl("Comment")
       assert_true(vim.deep_equal(actual1, actual2))
     end)
   end)

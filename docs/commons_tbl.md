@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.tables](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/tables.lua)
+# [commons.tbl](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/tbl.lua)
 
 Lua table/list utilities, with type check.
 

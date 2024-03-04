@@ -4,5 +4,4 @@ lua/commons/async.lua
 lua/commons/promise/*.lua
 lua/commons/promise/*/*.lua
 lua/commons/micro-async/*.lua
-lua/commons/_MessagePack.lua
-lua/commons/colors/hsl.lua
+lua/commons/color/hsl.lua

@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.colors.hl](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/colors/hl.lua)
+# [commons.color.hl](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/color/hl.lua)
 
 RGB color & nvim syntax highlight utilities.
 
