@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.colors.term](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/colors/term.lua)
+# [commons.color.term](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/color/term.lua)
 
 Terminal ANSI/RGB color rendering utilities.
 

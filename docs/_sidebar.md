@@ -7,10 +7,10 @@
 - Modules
   - [commons.apis](commons_apis.md)
   - [commons.async](commons_async.md)
-  - commons.colors
-    - [commons.colors.hl](commons_colors_hl.md)
-    - [commons.colors.hsl](commons_colors_hsl.md)
-    - [commons.colors.term](commons_colors_term.md)
+  - commons.color
+    - [commons.color.hl](commons_color_hl.md)
+    - [commons.color.hsl](commons_color_hsl.md)
+    - [commons.color.term](commons_color_term.md)
   - [commons.fileios](commons_fileios.md)
   - [commons.json](commons_json.md)
   - [commons.logging](commons_logging.md)
