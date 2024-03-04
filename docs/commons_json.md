@@ -13,13 +13,35 @@ Encode/decode between lua table and json string.
 Encode lua table to json string.
 
 ```lua
-function encode(t:table?):string?
+--- @param t table?
+--- @return string?
+M.encode = function(t)
 ```
+
+Parameters:
+
+- `t`: Lua table.
+
+Returns:
+
+- Returns encoded json string if lua table exists.
+- Returns `nil` if `t` is `nil`.
 
 ### `decode`
 
 Decode json string to lua table.
 
 ```lua
-function decode(j:string?):table?
+--- @param j string?
+--- @return table?
+M.decode = function(j)
 ```
+
+Parameters:
+
+- `j`: JSON string.
+
+Returns:
+
+- Returns decoded lua table if json string exists.
+- Returns `nil` if `j` is `nil`.
