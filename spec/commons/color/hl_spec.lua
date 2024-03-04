@@ -14,7 +14,6 @@ describe("commons.color.hl", function()
 
   local hl_color = require("commons.color.hl")
   local str = require("commons.str")
-  local version = require("commons.version")
 
   describe("[get_color]", function()
     it("test", function()
