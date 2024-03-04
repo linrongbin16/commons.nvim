@@ -14,7 +14,7 @@ describe("commons.color.hl", function()
 
   local hl_color = require("commons.color.hl")
   local str = require("commons.str")
-  local versions = require("commons.versions")
+  local version = require("commons.version")
 
   describe("[get_color]", function()
     it("test", function()
@@ -59,10 +59,10 @@ describe("commons.color.hl", function()
         assert_true(str.startswith(actual3, "#"))
         assert_eq(#actual3, 7)
 
-        local expect3 = versions.ge("0.9")
+        local expect3 = version.ge("0.9")
             and vim.api.nvim_get_hl(0, { name = "Constant", link = false })
           or vim.api.nvim_get_hl_by_name("Constant", true)
-        expect3 = versions.ge("0.9") and expect3.fg or expect3.foreground
+        expect3 = version.ge("0.9") and expect3.fg or expect3.foreground
         assert_eq(string.format("#%06x", expect3), actual3)
       end
 

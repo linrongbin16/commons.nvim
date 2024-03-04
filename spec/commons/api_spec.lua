@@ -13,7 +13,7 @@ describe("commons.api", function()
   end)
 
   local api = require("commons.api")
-  local versions = require("commons.versions")
+  local version = require("commons.version")
 
   local function partial_eq(a, b)
     for k, v in pairs(a) do
@@ -63,7 +63,7 @@ describe("commons.api", function()
     "Constant",
     "Boolean",
   }
-  if versions.ge("0.9") then
+  if version.ge("0.9") then
     local HIGHLIGHTS_MAP = vim.api.nvim_get_hl(0, {})
     HIGHLIGHTS = {}
     for hl, _ in pairs(HIGHLIGHTS_MAP) do
@@ -74,7 +74,7 @@ describe("commons.api", function()
     end)
   end
 
-  if versions.ge("0.9") then
+  if version.ge("0.9") then
     describe("[dump nvim_get_hl/nvim_get_hl_by_name]", function()
       it("nvim_get_hl", function()
         local fp = io.open("nvim_get_hl.log", "w")
@@ -132,7 +132,7 @@ describe("commons.api", function()
             or type(hl_values.underline) == "boolean"
             or hl_values.underline == nil
         )
-        if versions.ge({ 0, 9 }) and versions.lt({ 0, 10 }) then
+        if version.ge({ 0, 9 }) and version.lt({ 0, 10 }) then
           local gui_values = vim.api.nvim_get_hl_by_name(hl, true)
           local cterm_values = vim.api.nvim_get_hl_by_name(hl, false)
           gui_values.fg = gui_values.foreground

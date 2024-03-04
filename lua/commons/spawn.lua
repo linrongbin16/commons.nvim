@@ -1,7 +1,7 @@
 local NVIM_VERSION_0_10 = false
 
 do
-  NVIM_VERSION_0_10 = require("commons.versions").ge({ 0, 10 })
+  NVIM_VERSION_0_10 = require("commons.version").ge({ 0, 10 })
 end
 
 local M = {}
