@@ -71,7 +71,7 @@ jobs:
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/"micro-async/"commons.micro-async/g' {} \;
           sed -i '1 i\---@diagnostic disable: undefined-doc-name' ./lua/commons/micro-async/lsp.lua
-      - name: Add colors.hsl.lua
+      - name: Add color.hsl.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           echo "pwd"
@@ -80,10 +80,10 @@ jobs:
           tar zxf ~/.colors.tar.gz
           echo 'ls -lh'
           ls -lh
-          rm -rf ./lua/commons/colors/hsl.lua
-          cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/colors/hsl.lua
+          rm -rf ./lua/commons/color/hsl.lua
+          cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/color/hsl.lua
           rm -rf ./colors-8.05.26
-          sed -i '1 i\---@diagnostic disable: lowercase-global' ./lua/commons/colors/hsl.lua
+          sed -i '1 i\---@diagnostic disable: lowercase-global' ./lua/commons/color/hsl.lua
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
