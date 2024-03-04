@@ -41,3 +41,39 @@ Parameters:
 Returns:
 
 - Returns version number in lua table.
+
+### `lt`
+
+Whether current Neovim version is less than the specified version.
+
+```lua
+--- @param ver string|integer[]
+--- @return boolean
+M.lt = function(ver)
+```
+
+Parameters:
+
+- `ver`: Specified version to compare with current Neovim, accepts version number in both lua table format or string format.
+
+Returns:
+
+- Returns `true` if current Neovim version &lt; `ver`, returns `false` otherwise.
+
+### `ge`
+
+Whether current Neovim version is greater than or equals to the specified version.
+
+```lua
+--- @param ver string|integer[]
+--- @return boolean
+M.ge = function(ver)
+```
+
+Parameters:
+
+- `ver`: Specified version to compare with current Neovim, accepts version number in both lua table format or string format.
+
+Returns:
+
+- Returns `true` if current Neovim version &ge; `ver`, returns `false` otherwise.
