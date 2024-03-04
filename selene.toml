@@ -6,7 +6,6 @@ exclude = [
   "lua/commons/_system_types.lua",
   "lua/commons/color/hsl.lua",
   "lua/commons/micro-async/*.lua",
-  "lua/commons/_MessagePack.lua",
   "lua/commons/promise/*.lua",
   "lua/commons/promise/*/*.lua",
 ]
