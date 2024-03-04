@@ -1,5 +1,42 @@
 # Changelog
 
+## [11.0.0](https://github.com/linrongbin16/commons.nvim/compare/v10.2.2...v11.0.0) (2024-03-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename 'jsons' to 'json' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'colors' to 'color' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'apis' to 'api' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'fileios' to 'fileio' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'numbers' to 'num' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'paths' to 'path' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'platforms' to 'platform' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'strings' to 'str' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'tables' to 'tbl' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename 'versions' to 'version' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* rename module names! ([#220](https://github.com/linrongbin16/commons.nvim/issues/220))
+* remove duplicated 'msgpack'! ([#219](https://github.com/linrongbin16/commons.nvim/issues/219))
+
+### revert
+
+* remove duplicated 'msgpack'! ([#219](https://github.com/linrongbin16/commons.nvim/issues/219)) ([7d17725](https://github.com/linrongbin16/commons.nvim/commit/7d17725633b577e00ea668ba39a25f765377c2ab))
+
+
+### Miscellaneous
+
+* rename 'apis' to 'api' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'colors' to 'color' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'fileios' to 'fileio' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'jsons' to 'json' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'numbers' to 'num' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'paths' to 'path' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'platforms' to 'platform' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'strings' to 'str' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'tables' to 'tbl' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename 'versions' to 'version' ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+* rename module names! ([#220](https://github.com/linrongbin16/commons.nvim/issues/220)) ([22b0f28](https://github.com/linrongbin16/commons.nvim/commit/22b0f288f3c04d5702767c438e098aed835b67de))
+
 ## [10.2.2](https://github.com/linrongbin16/commons.nvim/compare/v10.2.1...v10.2.2) (2024-03-01)
 
 
