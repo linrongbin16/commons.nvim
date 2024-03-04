@@ -22,7 +22,7 @@
   - [commons.ringbuf](commons_ringbuf.md)
   - [commons.spawn](commons_spawn.md)
   - [commons.str](commons_str.md)
-  - [commons.tables](commons_tables.md)
+  - [commons.tbl](commons_tbl.md)
   - [commons.uv](commons_uv.md)
 - [Changelog](/CHANGELOG.md)
 - [Development](/development.md)
