@@ -1,6 +1,6 @@
 local cwd = vim.fn.getcwd()
 
-describe("commons.io", function()
+describe("commons.fileio", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
   local assert_false = assert.is_false
@@ -13,7 +13,7 @@ describe("commons.io", function()
 
   local str = require("commons.str")
   local fileio = require("commons.fileio")
-  local platforms = require("commons.platforms")
+  local platform = require("commons.platform")
 
   describe("[FileLineReader]", function()
     it("failed to open", function()
@@ -61,7 +61,7 @@ describe("commons.io", function()
     end)
   end)
   describe("[writefile/writelines]", function()
-    if not platforms.IS_WINDOWS then
+    if not platform.IS_WINDOWS then
       it("failed to open", function()
         local ok1, reader1 = pcall(fileio.writefile, "a\\  '' :?!#+_-sdf.md")
         assert_false(ok1)
