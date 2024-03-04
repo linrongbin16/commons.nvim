@@ -20,7 +20,7 @@ function FileLineReader:open(filename, batchsize)
   if type(handler) ~= "number" then
     error(
       string.format(
-        "|commons.fileios - FileLineReader:open| failed to fs_open file: %s",
+        "|commons.fileio - FileLineReader:open| failed to fs_open file: %s",
         vim.inspect(filename)
       )
     )
@@ -30,7 +30,7 @@ function FileLineReader:open(filename, batchsize)
   if type(fstat) ~= "table" then
     error(
       string.format(
-        "|commons.fileios - FileLineReader:open| failed to fs_fstat file: %s",
+        "|commons.fileio - FileLineReader:open| failed to fs_fstat file: %s",
         vim.inspect(filename)
       )
     )
@@ -67,7 +67,7 @@ function FileLineReader:_read_chunk()
   if read_err then
     error(
       string.format(
-        "|commons.fileios - FileLineReader:_read_chunk| failed to fs_read file: %s, read_error:%s, read_name:%s",
+        "|commons.fileio - FileLineReader:_read_chunk| failed to fs_read file: %s, read_error:%s, read_name:%s",
         vim.inspect(self.filename),
         vim.inspect(read_err),
         vim.inspect(read_name)

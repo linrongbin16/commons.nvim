@@ -6,7 +6,7 @@
 
 ```lua
 local strings = require("commons.strings")
-local fileios = require("commons.fileios")
+local fileio = require("commons.fileio")
 local spawn = require("commons.spawn")
 ...
 ```
@@ -15,7 +15,7 @@ local spawn = require("commons.spawn")
 
 ```lua
 local strings = require("your.plugin.commons.strings")
-local fileios = require("your.plugin.commons.fileios")
+local fileio = require("your.plugin.commons.fileio")
 local spawn = require("your.plugin.commons.spawn")
 ...
 ```
