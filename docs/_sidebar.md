@@ -24,6 +24,7 @@
   - [commons.str](commons_str.md)
   - [commons.tbl](commons_tbl.md)
   - [commons.uv](commons_uv.md)
+  - [commons.version](commons_version.md)
 - [Changelog](/CHANGELOG.md)
 - [Development](/development.md)
 - [Contribute](/contribute.md)
