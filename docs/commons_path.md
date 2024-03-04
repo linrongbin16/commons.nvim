@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
 
-# [commons.paths](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/paths.lua)
+# [commons.path](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/path.lua)
 
 File and directory path utilities.
 
