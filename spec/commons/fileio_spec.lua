@@ -11,7 +11,7 @@ describe("commons.io", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
-  local strings = require("commons.strings")
+  local str = require("commons.str")
   local fileio = require("commons.fileio")
   local platforms = require("commons.platforms")
 
@@ -43,7 +43,7 @@ describe("commons.io", function()
       end
       reader:close()
       content = content:gsub("\r\n", "\n")
-      assert_eq(strings.rtrim(buffer --[[@as string]]), content)
+      assert_eq(str.rtrim(buffer --[[@as string]]), content)
     end)
     it("readfile and readlines", function()
       local content = fileio.readfile("README.md", { trim = true })
@@ -57,7 +57,7 @@ describe("commons.io", function()
         buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
       end
       content = content:gsub("\r\n", "\n")
-      assert_eq(strings.rtrim(buffer --[[@as string]]), content)
+      assert_eq(str.rtrim(buffer --[[@as string]]), content)
     end)
   end)
   describe("[writefile/writelines]", function()
@@ -91,7 +91,7 @@ describe("commons.io", function()
         buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
       end
       content = content:gsub("\r\n", "\n")
-      assert_eq(strings.rtrim(buffer --[[@as string]]), content)
+      assert_eq(str.rtrim(buffer --[[@as string]]), content)
       local j1 = vim.fn.jobstart(
         { "rm", t1 },
         { on_stdout = function() end, on_stderr = function() end }

@@ -27,11 +27,11 @@ M.run = function(cmd, opts, on_exit)
   --- @param fn_line_processor commons.SpawnLineProcessor
   --- @return integer
   local function _process(buffer, fn_line_processor)
-    local strings = require("commons.strings")
+    local str = require("commons.str")
 
     local i = 1
     while i <= #buffer do
-      local newline_pos = strings.find(buffer, "\n", i)
+      local newline_pos = str.find(buffer, "\n", i)
       if not newline_pos then
         break
       end

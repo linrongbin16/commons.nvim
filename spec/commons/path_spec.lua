@@ -11,7 +11,7 @@ describe("commons.path", function()
 
   local IS_WINDOWS = vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0
 
-  local strings = require("commons.strings")
+  local str = require("commons.str")
   local path = require("commons.path")
   local uv = require("commons.uv")
 
@@ -82,7 +82,7 @@ describe("commons.path", function()
   describe("[expand]", function()
     local expect1 = "~/github/linrongbin16/fzfx.nvim/lua/tests"
     local actual1 = path.expand(expect1)
-    assert_true(strings.endswith(actual1, string.sub(expect1, 3)))
+    assert_true(str.endswith(actual1, string.sub(expect1, 3)))
   end)
   describe("[resolve]", function()
     local expect11 = "test311.txt"
@@ -90,7 +90,7 @@ describe("commons.path", function()
     create_symlink(expect11, expect12)
     local actual1 = path.resolve(expect12)
     print(string.format("resolve-1:%s\n", vim.inspect(actual1)))
-    assert_true(strings.endswith(actual1, expect11))
+    assert_true(str.endswith(actual1, expect11))
     remove_file(expect11)
     remove_file(expect12)
   end)
@@ -107,8 +107,8 @@ describe("commons.path", function()
       local expect3 = "~/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua"
       local actual3 = path.normalize(expect3, { expand = true })
       print(string.format("normalize-user.home-3:%s\n", vim.inspect(actual3)))
-      assert_true(strings.endswith(actual3, string.sub(expect3, 2)))
-      assert_true(strings.startswith(actual3, path.normalize(uv.os_homedir())))
+      assert_true(str.endswith(actual3, string.sub(expect3, 2)))
+      assert_true(str.startswith(actual3, path.normalize(uv.os_homedir())))
 
       -- if not IS_WINDOWS then
       local expect41 = "~/test141.txt"
@@ -117,7 +117,7 @@ describe("commons.path", function()
       local actual4 = path.normalize(expect42, { expand = true, resolve = true })
       print(string.format("normalize-user.home-4:%s\n", vim.inspect(actual4)))
       -- assert_true(strings.endswith(actual4, string.sub(expect41, 2)))
-      assert_true(strings.startswith(actual4, path.normalize(uv.os_homedir())))
+      assert_true(str.startswith(actual4, path.normalize(uv.os_homedir())))
       -- remove_file(expect41)
       -- remove_file(expect42)
       -- end
@@ -155,7 +155,7 @@ describe("commons.path", function()
       create_symlink(expect51, expect52)
       local actual5 = path.normalize(expect52, { resolve = true })
       print(string.format("normalize-relative-5:%s\n", vim.inspect(actual5)))
-      assert_true(strings.endswith(actual5, expect51))
+      assert_true(str.endswith(actual5, expect51))
       remove_file(expect51)
       remove_file(expect52)
 
@@ -164,7 +164,7 @@ describe("commons.path", function()
       create_symlink(expect61, expect62)
       local actual6 = path.normalize(expect62, { resolve = true })
       print(string.format("normalize-relative-6:%s\n", vim.inspect(actual6)))
-      assert_true(strings.endswith(actual6, string.sub(expect61, 3)))
+      assert_true(str.endswith(actual6, string.sub(expect61, 3)))
       remove_file(expect61)
       remove_file(expect62)
 
@@ -262,7 +262,7 @@ describe("commons.path", function()
       assert_eq(actual3, expect3)
 
       local actual4 = path.parent()
-      assert_true(strings.startswith(cwd, actual4))
+      assert_true(str.startswith(cwd, actual4))
 
       local actual5 = path.parent("/")
       assert_eq(actual5, nil)

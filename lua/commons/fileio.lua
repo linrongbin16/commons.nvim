@@ -91,12 +91,12 @@ end
 function FileLineReader:next()
   --- @return string?
   local function impl()
-    local strings = require("commons.strings")
+    local str = require("commons.str")
     if self.buffer == nil then
       return nil
     end
     self.buffer = self.buffer:gsub("\r\n", "\n")
-    local nextpos = strings.find(self.buffer, "\n")
+    local nextpos = str.find(self.buffer, "\n")
     if nextpos then
       local line = self.buffer:sub(1, nextpos - 1)
       self.buffer = self.buffer:sub(nextpos + 1)
@@ -336,11 +336,11 @@ M.asyncreadlines = function(filename, opts)
         local buffer = nil
 
         local function _process(buf, fn_line_processor)
-          local strings = require("commons.strings")
+          local str = require("commons.str")
 
           local i = 1
           while i <= #buf do
-            local newline_pos = strings.find(buf, "\n", i)
+            local newline_pos = str.find(buf, "\n", i)
             if not newline_pos then
               break
             end

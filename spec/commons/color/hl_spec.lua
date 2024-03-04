@@ -13,7 +13,7 @@ describe("commons.color.hl", function()
   end)
 
   local hl_color = require("commons.color.hl")
-  local strings = require("commons.strings")
+  local str = require("commons.str")
   local versions = require("commons.versions")
 
   describe("[get_color]", function()
@@ -24,17 +24,17 @@ describe("commons.color.hl", function()
       local actual3 = hl_color.get_color("Visual", "bg")
       if actual1 then
         assert_eq(type(actual1), "string")
-        assert_true(strings.startswith(actual1, "#"))
+        assert_true(str.startswith(actual1, "#"))
         assert_eq(#actual1, 7)
       end
       if actual2 then
         assert_eq(type(actual2), "string")
-        assert_true(strings.startswith(actual2, "#"))
+        assert_true(str.startswith(actual2, "#"))
         assert_eq(#actual2, 7)
       end
       if actual3 then
         assert_eq(type(actual3), "string")
-        assert_true(strings.startswith(actual3, "#"))
+        assert_true(str.startswith(actual3, "#"))
         assert_eq(#actual3, 7)
       end
     end)
@@ -56,7 +56,7 @@ describe("commons.color.hl", function()
       local actual3 = hl_color.get_color_with_fallback({ "Constant", "Visual" }, "fg", "#123456")
       if actual3 then
         assert_eq(type(actual3), "string")
-        assert_true(strings.startswith(actual3, "#"))
+        assert_true(str.startswith(actual3, "#"))
         assert_eq(#actual3, 7)
 
         local expect3 = versions.ge("0.9")
@@ -69,7 +69,7 @@ describe("commons.color.hl", function()
       local actual4 = hl_color.get_color_with_fallback("Visual", "bg", "#123456")
       if actual4 then
         assert_eq(type(actual4), "string")
-        assert_true(strings.startswith(actual4, "#"))
+        assert_true(str.startswith(actual4, "#"))
         assert_eq(#actual4, 7)
         assert_true(actual4 ~= "#123456")
       end

@@ -9,10 +9,10 @@ describe("commons.tables", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
+  local str = require("commons.str")
   local tables = require("commons.tables")
   local List = tables.List
   local HashMap = tables.HashMap
-  local strings = require("commons.strings")
 
   describe("strings", function()
     it("tbl_empty/tbl_not_empty", function()
@@ -499,7 +499,7 @@ describe("commons.tables", function()
         k1 = k1 .. k
         v1 = v1 + v
       end)
-      local k2 = strings.tochars(k1)
+      local k2 = str.tochars(k1)
       table.sort(k2)
       assert_eq(table.concat(k2), "abc")
       assert_eq(v1, 6)
@@ -519,7 +519,7 @@ describe("commons.tables", function()
         k1 = k1 .. key
         v1 = v1 + val
       end
-      local k2 = strings.tochars(k1)
+      local k2 = str.tochars(k1)
       table.sort(k2)
       assert_eq(table.concat(k2), "abc")
       assert_eq(v1, 6)
@@ -570,7 +570,7 @@ describe("commons.tables", function()
       local actual2 = hm:reduce(function(accumulator, k, v)
         return accumulator .. k
       end, "")
-      local actual3 = strings.tochars(actual2)
+      local actual3 = str.tochars(actual2)
       table.sort(actual3)
       assert_eq(table.concat(actual3), "abcde")
     end)

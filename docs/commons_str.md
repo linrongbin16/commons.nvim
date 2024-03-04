@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.strings](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/strings.lua)
+# [commons.str](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/str.lua)
 
 Strings utilities, with type check.
 
