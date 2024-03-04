@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD024 -->
 
-# [commons.fileios](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/fileios.lua)
+# [commons.fileio](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/fileio.lua)
 
 File sync/async IO operations.
 

@@ -11,7 +11,7 @@
     - [commons.color.hl](commons_color_hl.md)
     - [commons.color.hsl](commons_color_hsl.md)
     - [commons.color.term](commons_color_term.md)
-  - [commons.fileios](commons_fileios.md)
+  - [commons.fileio](commons_fileio.md)
   - [commons.json](commons_json.md)
   - [commons.logging](commons_logging.md)
   - [commons.micro-async](commons_micro_async.md)
