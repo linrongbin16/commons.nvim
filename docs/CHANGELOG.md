@@ -1,5 +1,12 @@
 # Changelog
 
+## [11.0.1](https://github.com/linrongbin16/commons.nvim/compare/v11.0.0...v11.0.1) (2024-03-06)
+
+
+### Performance
+
+* **logging:** remove optional in 'get' returned types ([#222](https://github.com/linrongbin16/commons.nvim/issues/222)) ([12bd5d4](https://github.com/linrongbin16/commons.nvim/commit/12bd5d49a3516e202c47da04b6dfb2d589846f30))
+
 ## [11.0.0](https://github.com/linrongbin16/commons.nvim/compare/v10.2.2...v11.0.0) (2024-03-04)
 
 
