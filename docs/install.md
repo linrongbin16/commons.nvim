@@ -2,15 +2,15 @@
 
 # Install
 
-!> Embedding source code is the recommend way to install this library, both [LuaRocks](https://luarocks.org/) and Neovim plugin managers cannot guarantee they handle the version confliction issue correctly, which brings potential exceptions in runtime. See below.
+!> Embedding source code is the recommend way to install this library, since both [LuaRocks](https://luarocks.org/) and Neovim plugin managers cannot guarantee they handle the version confliction issue correctly, which brings potential exceptions in runtime. See below.
 
-## The Version Confliction Issue
-
-For example now we have two plugins `A` and `B`, they both depend on the `commons` library, but on different versions, say `v2.1.0` and `v3.4.3`.
-
-The major version means there're some break changes, say `commons.path.parent` API behavior is different on `v2.x` and `v3.x`. And it just happened both `A` and `B` are using this API.
-
-We expect `A` use `commons-v2.1.0` and `B` use `commons-v3.4.3`, but when `A` and `B` use LuaRocks or Neovim plugin managers to depend `commons` library, the package manager cannot guarantee such behavior, e.g. the `commons` library version is uncertain, thus bring potential exceptions in runtime.
+> **Version Conflict Issue**
+>
+> For example now we have two plugins `A` and `B`, they both depend on the `commons` library, but on different versions, say `v2.1.0` and `v3.4.3`.
+>
+> The major version means there're some break changes, say `commons.path.parent` API behavior is different on `v2.x` and `v3.x`. And it just happened both `A` and `B` are using this API.
+>
+> We expect `A` use `commons-v2.1.0` and `B` use `commons-v3.4.3`, but when `A` and `B` use LuaRocks or Neovim plugin managers to depend `commons` library, the package manager cannot guarantee such behavior, e.g. the `commons` library version is uncertain, thus bring potential exceptions in runtime.
 
 ## Embed Source Code
 
@@ -44,7 +44,7 @@ jobs:
           mkdir -p ./lua/your/plugin
           cp -rf ~/.commons.nvim/lua/commons ./lua/your/plugin/
           cp ~/.commons.nvim/version.txt ./lua/your/plugin/commons/version.txt
-          find ./lua/your/plugin/commons -type f -name '*.lua' -exec sed -i 's/"commons./"your.plugin.commons./g' {} \;
+          find ./lua/your/plugin/commons -type f -name '*.lua' -exec sed -i 's/require("commons./require("your.plugin.commons./g' {} \;
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
