@@ -179,6 +179,45 @@ describe("commons.str", function()
         assert_eq(v, expect[i])
       end
     end)
+    it("splits whitespaces", function()
+      local actual =
+        str.split(" '           1               0      ", " ", { plain = true, trimempty = true })
+      local expect = {
+        "'",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "0",
+      }
+      print(string.format("splits whitespaces-4, actual:%s\n", vim.inspect(actual)))
+      print(string.format("splits whitespaces-4, expect:%s\n", vim.inspect(expect)))
+      assert_eq(#actual, #expect)
+      for i, v in ipairs(actual) do
+        assert_eq(v, expect[i])
+      end
+    end)
   end)
   describe("[startswith]", function()
     it("test", function()
