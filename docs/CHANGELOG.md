@@ -1,5 +1,12 @@
 # Changelog
 
+## [11.0.2](https://github.com/linrongbin16/commons.nvim/compare/v11.0.1...v11.0.2) (2024-03-07)
+
+
+### Bug Fixes
+
+* **str:** fix trimempty option in 'split' ([#224](https://github.com/linrongbin16/commons.nvim/issues/224)) ([0a30a4d](https://github.com/linrongbin16/commons.nvim/commit/0a30a4d5f81a3b31a7f10430b5b7694432016e7b))
+
 ## [11.0.1](https://github.com/linrongbin16/commons.nvim/compare/v11.0.0...v11.0.1) (2024-03-06)
 
 
