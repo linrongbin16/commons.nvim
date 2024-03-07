@@ -126,10 +126,14 @@ M.split = function(s, sep, opts)
   assert(type(sep) == "string")
   opts = opts or {
     plain = true,
-    trimempty = true,
+    trimempty = false,
   }
-  opts.plain = type(opts.plain) == "boolean" and opts.plain or true
-  opts.trimempty = type(opts.trimempty) == "boolean" and opts.trimempty or false
+  if type(opts.plain) ~= "boolean" then
+    opts.plain = true
+  end
+  if type(opts.trimempty) ~= "boolean" then
+    opts.plain = false
+  end
   return vim.split(s, sep, opts)
 end
 
