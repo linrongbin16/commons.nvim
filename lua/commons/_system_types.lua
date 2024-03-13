@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-doc-name
+
 -- Fix typecheck for _system.lua
 --- @alias uv.uv_process_t uv_process_t
 --- @alias uv.uv_timer_t uv_timer_t
