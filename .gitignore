@@ -44,3 +44,7 @@ luac.out
 
 # log
 *.log
+
+# txt
+stdout.txt
+stderr.txt
