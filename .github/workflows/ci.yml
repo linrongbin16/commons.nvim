@@ -44,7 +44,7 @@ jobs:
           git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
-          sed -i '1 i\---@diagnostic disable: undefined-field, param-type-mismatch' ./lua/commons/_system.lua
+          sed -i '1 i\---@diagnostic disable: undefined-field, param-type-mismatch, undefined-doc-name' ./lua/commons/_system.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
