@@ -1,5 +1,17 @@
 # Changelog
 
+## [11.0.4](https://github.com/linrongbin16/commons.nvim/compare/v11.0.3...v11.0.4) (2024-03-13)
+
+
+### Miscellaneous
+
+* **gitignore:** remove txt ignore ([#229](https://github.com/linrongbin16/commons.nvim/issues/229)) ([3b6092d](https://github.com/linrongbin16/commons.nvim/commit/3b6092dcbbf63c5a7c4c9748d637e6085bde7ac5))
+
+
+### Continuously Integration
+
+* **lint:** revert to stable typecheck ([#228](https://github.com/linrongbin16/commons.nvim/issues/228)) ([429aeaf](https://github.com/linrongbin16/commons.nvim/commit/429aeaffed9dc5fe4db7e22e42fb46bc107cb648))
+
 ## [11.0.3](https://github.com/linrongbin16/commons.nvim/compare/v11.0.2...v11.0.3) (2024-03-13)
 
 
