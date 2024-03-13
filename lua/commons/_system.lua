@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-field, param-type-mismatch, undefined-doc-name
 local uv = vim.uv or vim.loop
 
 --- @class vim.SystemOpts

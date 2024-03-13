@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-doc-name
+---@diagnostic disable: undefined-doc-name, undefined-field
 ---@mod micro-async.lsp
 
 local wrap = require("commons.micro-async").wrap
