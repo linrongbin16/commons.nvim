@@ -24,11 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: JohnnyMorganz/stylua-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --config-path .stylua.toml ./lua ./spec
       - name: Add _json.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -44,6 +39,7 @@ jobs:
           git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/_system.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -60,7 +56,7 @@ jobs:
           git clone --depth=1 https://github.com/notomo/promise.nvim.git ~/.promise
           rm -rf ./lua/commons/promise
           cp -rf ~/.promise/lua/promise ./lua/commons/
-          sed -i '1 i\---@diagnostic disable: inject-field, undefined-field' ./lua/commons/promise/init.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/promise/init.lua
       - name: Add micro-async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -70,7 +66,9 @@ jobs:
           rm -rf ./lua/commons/micro-async
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/"micro-async/"commons.micro-async/g' {} \;
-          sed -i '1 i\---@diagnostic disable: undefined-doc-name' ./lua/commons/micro-async/lsp.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/micro-async/init.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/micro-async/lsp.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/micro-async/uv.lua
       - name: Add color.hsl.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -83,18 +81,21 @@ jobs:
           rm -rf ./lua/commons/color/hsl.lua
           cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/color/hsl.lua
           rm -rf ./colors-8.05.26
-          sed -i '1 i\---@diagnostic disable: lowercase-global' ./lua/commons/color/hsl.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/color/hsl.lua
+      - uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --config-path .stylua.toml ./lua ./spec
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
           cargo binstall --no-confirm selene
           selene --config selene.toml ./lua
-      - uses: stevearc/nvim-typecheck-action@v1
+      - uses: mrcjkb/lua-typecheck-action@v0
         with:
-          path: lua
-          level: Information
+          directories: lua
           configpath: ".luarc.json"
-          neodev-version: stable
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
