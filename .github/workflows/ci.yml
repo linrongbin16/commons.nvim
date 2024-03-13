@@ -44,7 +44,7 @@ jobs:
           git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
-          sed -i '1 i\---@diagnostic disable: undefined-field, param-type-mismatch, undefined-doc-name' ./lua/commons/_system.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/_system.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -52,7 +52,7 @@ jobs:
           echo $PWD
           git clone --depth=1 https://github.com/lewis6991/async.nvim.git ~/.async
           cp ~/.async/lua/async.lua ./lua/commons/async.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/async.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/async.lua
       - name: Add promise.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -61,7 +61,7 @@ jobs:
           git clone --depth=1 https://github.com/notomo/promise.nvim.git ~/.promise
           rm -rf ./lua/commons/promise
           cp -rf ~/.promise/lua/promise ./lua/commons/
-          sed -i '1 i\---@diagnostic disable: inject-field, undefined-field' ./lua/commons/promise/init.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/promise/init.lua
       - name: Add micro-async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -71,9 +71,9 @@ jobs:
           rm -rf ./lua/commons/micro-async
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/"micro-async/"commons.micro-async/g' {} \;
-          sed -i '1 i\---@diagnostic disable: undefined-doc-name, undefined-field' ./lua/commons/micro-async/init.lua
-          sed -i '1 i\---@diagnostic disable: undefined-doc-name, undefined-field' ./lua/commons/micro-async/lsp.lua
-          sed -i '1 i\---@diagnostic disable: undefined-doc-name, undefined-field' ./lua/commons/micro-async/uv.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/micro-async/init.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/micro-async/lsp.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/micro-async/uv.lua
       - name: Add color.hsl.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -86,7 +86,7 @@ jobs:
           rm -rf ./lua/commons/color/hsl.lua
           cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/color/hsl.lua
           rm -rf ./colors-8.05.26
-          sed -i '1 i\---@diagnostic disable: lowercase-global' ./lua/commons/color/hsl.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/color/hsl.lua
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
