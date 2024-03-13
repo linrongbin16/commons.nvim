@@ -71,7 +71,9 @@ jobs:
           rm -rf ./lua/commons/micro-async
           cp -rf ~/.micro-async/lua/micro-async ./lua/commons/
           find ./lua/commons/micro-async -type f -name '*.lua' -exec sed -i 's/"micro-async/"commons.micro-async/g' {} \;
-          sed -i '1 i\---@diagnostic disable: undefined-doc-name' ./lua/commons/micro-async/lsp.lua
+          sed -i '1 i\---@diagnostic disable: undefined-doc-name, undefined-field' ./lua/commons/micro-async/init.lua
+          sed -i '1 i\---@diagnostic disable: undefined-doc-name, undefined-field' ./lua/commons/micro-async/lsp.lua
+          sed -i '1 i\---@diagnostic disable: undefined-doc-name, undefined-field' ./lua/commons/micro-async/uv.lua
       - name: Add color.hsl.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
