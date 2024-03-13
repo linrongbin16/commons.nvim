@@ -44,6 +44,7 @@ jobs:
           git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
+          sed -i '1 i\---@diagnostic disable: undefined-field' ./lua/commons/_system.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -89,12 +90,10 @@ jobs:
         run: |
           cargo binstall --no-confirm selene
           selene --config selene.toml ./lua
-      - uses: stevearc/nvim-typecheck-action@v1
+      - uses: mrcjkb/lua-typecheck-action@v0
         with:
-          path: lua
-          level: Information
+          directories: lua
           configpath: ".luarc.json"
-          neodev-version: stable
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
