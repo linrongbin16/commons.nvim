@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-doc-name, undefined-field
+---@diagnostic disable
 ---@mod micro-async.uv
 
 local a = require("commons.micro-async")
