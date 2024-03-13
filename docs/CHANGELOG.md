@@ -1,5 +1,17 @@
 # Changelog
 
+## [11.0.3](https://github.com/linrongbin16/commons.nvim/compare/v11.0.2...v11.0.3) (2024-03-13)
+
+
+### Bug Fixes
+
+* **lint:** fix type check ([#226](https://github.com/linrongbin16/commons.nvim/issues/226)) ([e7f33aa](https://github.com/linrongbin16/commons.nvim/commit/e7f33aabc35b6a24488263fd57830131b0cad89d))
+
+
+### Continuously Integration
+
+* **lint:** fix type check by 'mrcjkb/lua-typecheck-action' action ([#226](https://github.com/linrongbin16/commons.nvim/issues/226)) ([e7f33aa](https://github.com/linrongbin16/commons.nvim/commit/e7f33aabc35b6a24488263fd57830131b0cad89d))
+
 ## [11.0.2](https://github.com/linrongbin16/commons.nvim/compare/v11.0.1...v11.0.2) (2024-03-07)
 
 
