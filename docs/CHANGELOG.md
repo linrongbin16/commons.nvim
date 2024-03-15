@@ -1,5 +1,17 @@
 # Changelog
 
+## [11.1.0](https://github.com/linrongbin16/commons.nvim/compare/v11.0.4...v11.1.0) (2024-03-15)
+
+
+### Features
+
+* **uri:** add 'encode'/'decode' apis in 'uri' ([#231](https://github.com/linrongbin16/commons.nvim/issues/231)) ([2cd9876](https://github.com/linrongbin16/commons.nvim/commit/2cd98761eef0dfdb5394d57ebfabde06bef6be60))
+
+
+### Miscellaneous
+
+* **release:** remove auto tag ([#233](https://github.com/linrongbin16/commons.nvim/issues/233)) ([c231cdd](https://github.com/linrongbin16/commons.nvim/commit/c231cddba47f16019fe6d90636fff24dd307cecd))
+
 ## [11.0.4](https://github.com/linrongbin16/commons.nvim/compare/v11.0.3...v11.0.4) (2024-03-13)
 
 
