@@ -37,6 +37,8 @@ describe("commons.uri", function()
         )
         assert_eq(actual, expect)
       end
+
+      assert_eq(uri.encode(nil), nil)
     end)
     it("decode", function()
       for i, u in ipairs(URI) do
@@ -52,6 +54,8 @@ describe("commons.uri", function()
         )
         assert_eq(actual, expect)
       end
+
+      assert_eq(uri.decode(nil), nil)
     end)
   end)
 end)
