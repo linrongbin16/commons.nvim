@@ -8,7 +8,7 @@
 
 ### `encode`
 
-Encode string into URI encoded format, compatible with [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt).
+Encode string into URI encoded format.
 
 ```lua
 --- @param value string?
@@ -27,7 +27,7 @@ Returns:
 
 ### `decode`
 
-Decode URI into plain string, compatible with [RFC 2396](https://www.ietf.org/rfc/rfc2396.txt).
+Decode URI into plain string.
 
 ```lua
 --- @param value string?
