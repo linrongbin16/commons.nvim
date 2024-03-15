@@ -17,9 +17,8 @@ This lua library includes multiple modules:
 
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
-- JSON serializations.
-- Run child-process and handle line-wise output from stdout/stderr.
-- Async/await with lua coroutine.
+- JSON, URI encode/decode.
+- Spawn child-process & coroutine.
 - Logging system with python-logging like features.
 - Colors & syntax highlight utilities, HSL calculation & terminal rendering.
 - Compatible APIs support Neovim versions from v0.6 to nightly.
