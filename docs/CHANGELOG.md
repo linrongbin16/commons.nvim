@@ -1,5 +1,16 @@
 # Changelog
 
+## [12.0.0](https://github.com/linrongbin16/commons.nvim/compare/v11.1.0...v12.0.0) (2024-03-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **uri:** remove 'uri' ([#234](https://github.com/linrongbin16/commons.nvim/issues/234))
+
+### revert
+
+* **uri:** remove 'uri' ([#234](https://github.com/linrongbin16/commons.nvim/issues/234)) ([aae96a5](https://github.com/linrongbin16/commons.nvim/commit/aae96a525ba246d62c4816fdf14b858953a149b7))
+
 ## [11.1.0](https://github.com/linrongbin16/commons.nvim/compare/v11.0.4...v11.1.0) (2024-03-15)
 
 
