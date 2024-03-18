@@ -3,7 +3,7 @@ std = "vim"
 exclude = [
   "lua/commons/_json.lua",
   "lua/commons/_system.lua",
-  "lua/commons/_system_types.lua",
+  "lua/commons/_uri.lua",
   "lua/commons/color/hsl.lua",
   "lua/commons/micro-async/*.lua",
   "lua/commons/promise/*.lua",
