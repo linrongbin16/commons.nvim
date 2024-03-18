@@ -45,7 +45,6 @@ jobs:
         run: |
           echo "pwd"
           echo $PWD
-          git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
           cp ~/.neovim/runtime/lua/vim/uri.lua ./lua/commons/_uri.lua
           sed -i '1 i\---@diagnostic disable' ./lua/commons/_uri.lua
       - name: Add async.lua
