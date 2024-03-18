@@ -1,9 +1,4 @@
 local cwd = vim.fn.getcwd()
--- local IS_WINDOWS = vim.fn.has("win32") > 0 or vim.fn.has("win64") > 0
---
--- if IS_WINDOWS then
---   return
--- end
 
 describe("commons.logging", function()
   local assert_eq = assert.is_equal
