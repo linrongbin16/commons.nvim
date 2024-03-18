@@ -24,6 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --config-path .stylua.toml ./lua ./spec
       - name: Add _json.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -40,6 +45,13 @@ jobs:
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
           sed -i '1 i\---@diagnostic disable' ./lua/commons/_system.lua
+      - name: Add uri.lua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          echo "pwd"
+          echo $PWD
+          cp ~/.neovim/runtime/lua/vim/uri.lua ./lua/commons/_uri.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/_uri.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -82,11 +94,6 @@ jobs:
           cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/color/hsl.lua
           rm -rf ./colors-8.05.26
           sed -i '1 i\---@diagnostic disable' ./lua/commons/color/hsl.lua
-      - uses: JohnnyMorganz/stylua-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --config-path .stylua.toml ./lua ./spec
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
@@ -165,13 +172,11 @@ jobs:
           luaVersion: "luajit-2.1.0-beta3"
       - uses: leafo/gh-actions-luarocks@v4
       - name: Generate Coverage Reports
-        shell: bash
         run: |
           luarocks install luacov
           luarocks install vusted
           vusted --coverage ./spec
       - name: Check Coverage Reports
-        shell: bash
         run: |
           echo "ls ."
           ls -l .

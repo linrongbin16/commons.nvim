@@ -9,6 +9,7 @@ coverage:
 ignore:
   - "lua/commons/_json.lua"
   - "lua/commons/_system.lua"
+  - "lua/commons/_uri.lua"
   - "lua/commons/async.lua"
   - "lua/commons/promise/*.lua"
   - "lua/commons/promise/*/*.lua"
