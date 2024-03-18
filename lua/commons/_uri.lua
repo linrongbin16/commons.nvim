@@ -7,9 +7,9 @@
 local M = {}
 local sbyte = string.byte
 local schar = string.char
-local tohex = require("bit").tohex
-local URI_SCHEME_PATTERN = "^([a-zA-Z]+[a-zA-Z0-9.+-]*):.*"
-local WINDOWS_URI_SCHEME_PATTERN = "^([a-zA-Z]+[a-zA-Z0-9.+-]*):[a-zA-Z]:.*"
+local tohex = require('bit').tohex
+local URI_SCHEME_PATTERN = '^([a-zA-Z]+[a-zA-Z0-9.+-]*):.*'
+local WINDOWS_URI_SCHEME_PATTERN = '^([a-zA-Z]+[a-zA-Z0-9.+-]*):[a-zA-Z]:.*'
 local PATTERNS = {
   -- RFC 2396
   -- https://tools.ietf.org/html/rfc2396#section-2.2
@@ -32,13 +32,13 @@ end
 ---@param char string
 ---@return string
 local function percent_encode_char(char)
-  return "%" .. tohex(sbyte(char), 2)
+  return '%' .. tohex(sbyte(char), 2)
 end
 
 ---@param uri string
 ---@return boolean
 local function is_windows_file_uri(uri)
-  return uri:match("^file:/+[a-zA-Z]:") ~= nil
+  return uri:match('^file:/+[a-zA-Z]:') ~= nil
 end
 
 ---URI-encodes a string using percent escapes.
@@ -47,30 +47,30 @@ end
 ---@return string encoded string
 function M.uri_encode(str, rfc)
   local pattern = PATTERNS[rfc] or PATTERNS.rfc3986
-  return (str:gsub("([" .. pattern .. "])", percent_encode_char)) -- clamped to 1 retval with ()
+  return (str:gsub('([' .. pattern .. '])', percent_encode_char)) -- clamped to 1 retval with ()
 end
 
 ---URI-decodes a string containing percent escapes.
 ---@param str string string to decode
 ---@return string decoded string
 function M.uri_decode(str)
-  return (str:gsub("%%([a-fA-F0-9][a-fA-F0-9])", hex_to_char)) -- clamped to 1 retval with ()
+  return (str:gsub('%%([a-fA-F0-9][a-fA-F0-9])', hex_to_char)) -- clamped to 1 retval with ()
 end
 
 ---Gets a URI from a file path.
 ---@param path string Path to file
 ---@return string URI
 function M.uri_from_fname(path)
-  local volume_path, fname = path:match("^([a-zA-Z]:)(.*)") ---@type string?
+  local volume_path, fname = path:match('^([a-zA-Z]:)(.*)') ---@type string?
   local is_windows = volume_path ~= nil
   if is_windows then
-    path = volume_path .. M.uri_encode(fname:gsub("\\", "/"))
+    path = volume_path .. M.uri_encode(fname:gsub('\\', '/'))
   else
     path = M.uri_encode(path)
   end
-  local uri_parts = { "file://" }
+  local uri_parts = { 'file://' }
   if is_windows then
-    table.insert(uri_parts, "/")
+    table.insert(uri_parts, '/')
   end
   table.insert(uri_parts, path)
   return table.concat(uri_parts)
@@ -81,11 +81,11 @@ end
 ---@return string URI
 function M.uri_from_bufnr(bufnr)
   local fname = vim.api.nvim_buf_get_name(bufnr)
-  local volume_path = fname:match("^([a-zA-Z]:).*")
+  local volume_path = fname:match('^([a-zA-Z]:).*')
   local is_windows = volume_path ~= nil
   local scheme ---@type string?
   if is_windows then
-    fname = fname:gsub("\\", "/")
+    fname = fname:gsub('\\', '/')
     scheme = fname:match(WINDOWS_URI_SCHEME_PATTERN)
   else
     scheme = fname:match(URI_SCHEME_PATTERN)
@@ -101,20 +101,20 @@ end
 ---@param uri string
 ---@return string filename or unchanged URI for non-file URIs
 function M.uri_to_fname(uri)
-  local scheme = assert(uri:match(URI_SCHEME_PATTERN), "URI must contain a scheme: " .. uri)
-  if scheme ~= "file" then
+  local scheme = assert(uri:match(URI_SCHEME_PATTERN), 'URI must contain a scheme: ' .. uri)
+  if scheme ~= 'file' then
     return uri
   end
-  local fragment_index = uri:find("#")
+  local fragment_index = uri:find('#')
   if fragment_index ~= nil then
     uri = uri:sub(1, fragment_index - 1)
   end
   uri = M.uri_decode(uri)
   --TODO improve this.
   if is_windows_file_uri(uri) then
-    uri = uri:gsub("^file:/+", ""):gsub("/", "\\")
+    uri = uri:gsub('^file:/+', ''):gsub('/', '\\')
   else
-    uri = uri:gsub("^file:/+", "/") ---@type string
+    uri = uri:gsub('^file:/+', '/') ---@type string
   end
   return uri
 end
