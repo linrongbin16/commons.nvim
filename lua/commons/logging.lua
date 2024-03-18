@@ -329,6 +329,7 @@ function Logger:_log(dbg, lvl, fmt, ...)
     return
   end
 
+  fmt = fmt:gsub("%%", "%%%%")
   local msg = string.format(fmt, ...)
 
   for _, handler in ipairs(self.handlers) do
