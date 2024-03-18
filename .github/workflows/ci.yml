@@ -40,6 +40,14 @@ jobs:
           cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
           sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
           sed -i '1 i\---@diagnostic disable' ./lua/commons/_system.lua
+      - name: Add uri.lua
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          echo "pwd"
+          echo $PWD
+          git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
+          cp ~/.neovim/runtime/lua/vim/uri.lua ./lua/commons/_uri.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/_uri.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
