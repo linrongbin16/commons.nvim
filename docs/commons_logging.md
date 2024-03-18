@@ -25,8 +25,10 @@ logging.setup({
 -- First get logger by name, then write logs
 logging.get("your_logging"):debug("This is the first debugging message")
 logging.get("your_logging"):info(
-  "This is the first info with global logger: %s",
-  vim.inspect(logging.get("your_logging"))
+  string.format(
+    "This is the first info with global logger: %s",
+    vim.inspect(logging.get("your_logging"))
+  )
 )
 ```
 
@@ -51,8 +53,7 @@ logging.setup({
 -- Directly use logging APIs, without get logger by name
 logging.debug("This is the first debugging message")
 logging.info(
-  "This is the first info with global logger: %s",
-  vim.inspect(logging.get())
+  string.format("This is the first info with global logger: %s", vim.inspect(logging.get()))
 )
 ```
 
@@ -158,8 +159,10 @@ logging.add(logger)
 local logger2 = logging.get("your_plugin") --[[@as commons.logging.Logger]]
 logger2:debug("This is the first debugging message for your plugin")
 logger2:warn(
-  "Warning! This is the first warning message for your plugin with your logger: %s",
-  vim.inspect(logger2)
+  string.format(
+    "Warning! This is the first warning message for your plugin with your logger: %s",
+    vim.inspect(logger2)
+  )
 )
 ```
 
@@ -229,8 +232,8 @@ Initialize global singleton logger instance.
 
 ```lua
 --- @alias commons.LoggingConfigs {name:string,level:(commons.LogLevels|string)?,console_log:boolean?,file_log:boolean?,file_log_name:string?,file_log_dir:string?,file_log_mode:"a"|"w"|nil}
-
-function setup(opts:commons.LoggingConfigs):nil
+--- @param opts commons.LoggingConfigs
+M.setup = function(opts)
 ```
 
 Parameters:
@@ -260,14 +263,15 @@ Parameters:
 Write logs with specified logging level.
 
 ```lua
-function log(level:integer|string, fmt:string, ...:any):nil
+--- @param level integer|string
+--- @param msg string
+M.log = function(level, msg)
 ```
 
 Parameters:
 
 - `level`: Logging level, could be either integer value (`LogLevels`) or string value (`LogLevelNames`).
-- `fmt`: Logging format.
-- `...`: Logging format parameters.
+- `msg`: Message.
 
 ### `debug`/`info`/`warn`/`err`
 
@@ -279,10 +283,17 @@ Write logs with below levels:
 - `LogLevels.ERROR`
 
 ```lua
-function debug(fmt:string, ...:any):nil
-function info(fmt:string, ...:any):nil
-function warn(fmt:string, ...:any):nil
-function err(fmt:string, ...:any):nil
+--- @param msg string
+M.debug = function(msg)
+
+--- @param msg string
+M.info = function(msg)
+
+--- @param msg string
+M.warn = function(msg)
+
+--- @param msg string
+M.err = function(msg)
 ```
 
 ### `throw`
@@ -290,7 +301,8 @@ function err(fmt:string, ...:any):nil
 Write error logs and throw the error.
 
 ```lua
-function throw(fmt:string, ...:any):nil
+--- @param msg string
+M.throw = function(msg)
 ```
 
 ### `ensure`
@@ -300,21 +312,24 @@ Write error logs and throw the error only when condition not met.
 Work in the same way with lua [assert](https://www.lua.org/pil/8.3.html), with logging support.
 
 ```lua
-function ensure(cond:boolean, fmt:string, ...:any):nil
+--- @param cond any
+--- @param msg string
+M.ensure = function(cond, msg)
 ```
 
 Parameters
 
 - `cond`: The condition, error message will only be logged and thrown when `cond` is `false`.
-- `fmt`: Message formatter.
-- `...`: Variadic parameters, working with `fmt`.
+- `msg`: Message.
 
 ### `has`
 
 Whether has logger instance.
 
 ```lua
-function has(name:string):boolean
+--- @param name string
+--- @return boolean
+M.has = function(name)
 ```
 
 Parameters:
@@ -330,7 +345,9 @@ Returns:
 Get logger instance.
 
 ```lua
-function get(name:string):commons.logging.Logger?
+--- @param name string
+--- @return commons.logging.Logger
+M.get = function(name)
 ```
 
 Parameters:
@@ -347,7 +364,8 @@ Returns:
 Register logger into logging system.
 
 ```lua
-function add(logger:commons.logging.Logger):nil
+--- @param logger commons.logging.Logger
+M.add = function(logger)
 ```
 
 Parameters:
@@ -371,7 +389,10 @@ The logger class.
 Create new logger.
 
 ```lua
-function Logger:new(name:string, level:commons.logging.LogLevels):commons.logging.Logger
+--- @param name string
+--- @param level commons.LogLevels
+--- @return commons.logging.Logger
+function Logger:new(name, level)
 ```
 
 Parameters:
@@ -388,7 +409,8 @@ Returns:
 Add logging handler.
 
 ```lua
-function Logger:add_handler(handler: commons.logging.Handler):nil
+--- @param handler commons.logging.Handler
+function Logger:add_handler(handler)
 ```
 
 Parameters:
@@ -426,7 +448,9 @@ The logging handler that write nvim's messages.
 Create new console handler.
 
 ```lua
-function ConsoleHandler:new(formatter: commons.logging.Formatter?):commons.logging.ConsoleHandler
+--- @param formatter commons.logging.Formatter?
+--- @return commons.logging.ConsoleHandler
+function ConsoleHandler:new(formatter)
 ```
 
 Parameters:
@@ -450,7 +474,11 @@ The logging handler that write logs to file.
 Create new file handler.
 
 ```lua
-function FileHandler:new(filepath:string, filemode:"a"|"w"|nil, formatter:commons.logging.Formatter):commons.logging.FileHandler
+--- @param filepath string
+--- @param filemode "a"|"w"|nil
+--- @param formatter commons.logging.Formatter?
+--- @return commons.logging.FileHandler
+function FileHandler:new(filepath, filemode, formatter)
 ```
 
 Parameters:
@@ -478,7 +506,10 @@ The logging formatter that actually render the final logging records.
 Create new logging formatter.
 
 ```lua
-function Formatter:new(fmt:string, opts:{datefmt:string?, msecsfmt:string?}?):commons.logging.Formatter
+--- @param fmt string
+--- @param opts {datefmt:string?,msecsfmt:string?}?
+--- @return commons.logging.Formatter
+function Formatter:new(fmt, opts)
 ```
 
 Parameters:
