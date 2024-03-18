@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.1.0](https://github.com/linrongbin16/commons.nvim/compare/v12.0.0...v12.1.0) (2024-03-18)
+
+
+### Features
+
+* **url:** add 'encode' and 'decode' in 'url' ([#236](https://github.com/linrongbin16/commons.nvim/issues/236)) ([08fc4d5](https://github.com/linrongbin16/commons.nvim/commit/08fc4d59effa03f07588fcfbf3fd11bb46b86e2a))
+
 ## [12.0.0](https://github.com/linrongbin16/commons.nvim/compare/v11.1.0...v12.0.0) (2024-03-15)
 
 
