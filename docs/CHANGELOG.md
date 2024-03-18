@@ -1,5 +1,17 @@
 # Changelog
 
+## [13.0.0](https://github.com/linrongbin16/commons.nvim/compare/v12.1.0...v13.0.0) (2024-03-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **logging:** remove string formatting in 'logging'! ([#239](https://github.com/linrongbin16/commons.nvim/issues/239))
+
+### Miscellaneous
+
+* **logging:** remove string formatting in 'logging'! ([#239](https://github.com/linrongbin16/commons.nvim/issues/239)) ([aa5d00e](https://github.com/linrongbin16/commons.nvim/commit/aa5d00e66bfb29c9fe9bca2772a5141cadbc0081))
+* **test:** only run UT on specific folders ([#242](https://github.com/linrongbin16/commons.nvim/issues/242)) ([87dd499](https://github.com/linrongbin16/commons.nvim/commit/87dd499832fc168357fb21ed8069741d65651bfb))
+
 ## [12.1.0](https://github.com/linrongbin16/commons.nvim/compare/v12.0.0...v12.1.0) (2024-03-18)
 
 
