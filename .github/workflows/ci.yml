@@ -3,9 +3,17 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - lua/**
+      - spec/**
+      - .github/workflows/**
   push:
     branches:
       - main
+    paths:
+      - lua/**
+      - spec/**
+      - .github/workflows/**
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
