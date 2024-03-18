@@ -14,8 +14,14 @@ describe("commons.uri", function()
   local uri = require("commons.uri")
 
   describe("[encode/decode]", function()
-    local DECODED = { "https://github.com/linrongbin16/gitlinker.nvim.git" }
-    local ENCODED = { "https://github.com/linrongbin16/gitlinker.nvim.git" }
+    local DECODED = {
+      "linrongbin16/gitlinker.nvim.git",
+      "linrongbin16/commons.nvim/blob/6441d8cac5ba5b6183d8bb17c60360960e7b4d2a/spec/test cases/this is a path contains whitespaces.txt",
+    }
+    local ENCODED = {
+      "linrongbin16/gitlinker.nvim.git",
+      "linrongbin16/commons.nvim/blob/6441d8cac5ba5b6183d8bb17c60360960e7b4d2a/spec/test%20cases/this%20is%20a%20path%20contains%20whitespaces.txt",
+    }
 
     it("encode", function()
       for i, input in ipairs(DECODED) do
