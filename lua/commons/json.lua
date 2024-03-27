@@ -1,14 +1,16 @@
 local M = {}
 
-local NVIM_09 = require("commons.version").ge("0.9")
-
 --- @param t table?
 --- @return string?
 M.encode = function(t)
   if t == nil then
     return nil
   end
-  return NVIM_09 and vim.json.encode(t) or require("commons._json").encode(t)
+  if vim.json ~= nil and vim.is_callable(vim.json.encode) then
+    return vim.json.encode(t)
+  else
+    return require("commons._json").encode(t)
+  end
 end
 
 --- @param j string?
@@ -17,7 +19,11 @@ M.decode = function(j)
   if j == nil then
     return nil
   end
-  return NVIM_09 and vim.json.decode(j) or require("commons._json").decode(j)
+  if vim.json ~= nil and vim.is_callable(vim.json.decode) then
+    return vim.json.decode(j)
+  else
+    return require("commons._json").decode(j)
+  end
 end
 
 return M
