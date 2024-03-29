@@ -1,5 +1,21 @@
 # Changelog
 
+## [15.0.0](https://github.com/linrongbin16/commons.nvim/compare/v14.0.0...v15.0.0) (2024-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove 'ringbuf' module! ([#247](https://github.com/linrongbin16/commons.nvim/issues/247))
+
+### Performance
+
+* use vim builtin modules ([#247](https://github.com/linrongbin16/commons.nvim/issues/247)) ([a267024](https://github.com/linrongbin16/commons.nvim/commit/a267024131d0ba97698b4e3a90e7c202f15d65a1))
+
+
+### Break Changes
+
+* remove 'ringbuf' module! ([#247](https://github.com/linrongbin16/commons.nvim/issues/247)) ([a267024](https://github.com/linrongbin16/commons.nvim/commit/a267024131d0ba97698b4e3a90e7c202f15d65a1))
+
 ## [14.0.0](https://github.com/linrongbin16/commons.nvim/compare/v13.0.0...v14.0.0) (2024-03-18)
 
 
