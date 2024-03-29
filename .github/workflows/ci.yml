@@ -122,7 +122,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: notomo/action-setup-nvim-lua@v1
-      - uses: rhysd/action-setup-vim@v1
+      - uses: linrongbin16/action-setup-vim@fix-macos-nightly
         id: vim
         with:
           neovim: true
@@ -142,7 +142,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: rhysd/action-setup-vim@v1
+      - uses: linrongbin16/action-setup-vim@fix-macos-nightly
         id: vim
         with:
           neovim: true
@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: rhysd/action-setup-vim@v1
+      - uses: linrongbin16/action-setup-vim@fix-macos-nightly
         id: vim
         with:
           neovim: true
