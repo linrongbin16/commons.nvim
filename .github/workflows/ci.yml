@@ -8,7 +8,7 @@ on:
       - main
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ !contains(github.ref, 'main') && !contains(github.ref, 'master') }}
 jobs:
   commits:
     name: Commits
