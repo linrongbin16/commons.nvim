@@ -135,7 +135,7 @@ jobs:
       - lint
     strategy:
       matrix:
-        nvim_version: [stable, nightly, v0.6.0, v0.7.0]
+        nvim_version: [stable, nightly, v0.8.0]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
