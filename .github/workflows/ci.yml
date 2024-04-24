@@ -99,46 +99,65 @@ jobs:
         run: |
           cargo binstall --no-confirm selene
           selene --config selene.toml ./lua
-      - uses: stevearc/nvim-typecheck-action@v1
+      - uses: mrcjkb/lua-typecheck-action@v0
         with:
-          path: lua
-          level: Warning
+          directories: lua
           configpath: ".luarc.json"
-          neodev-version: stable
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
           commit_message: "chore(pr): auto-commit"
           push_options: "--force"
-  unit_test_win:
-    name: Windows Test
-    needs:
-      - lint
-    strategy:
-      matrix:
-        nvim_version: [stable]
-        os: [windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: notomo/action-setup-nvim-lua@v1
-      - uses: rhysd/action-setup-vim@v1
-        id: vim
-        with:
-          neovim: true
-          version: ${{ matrix.nvim_version }}
-      - name: Run Test Cases
-        run: |
-          luarocks --lua-version=5.1 install vusted
-          vusted ./spec
+  # unit_test_win:
+  #   name: Windows Test
+  #   needs:
+  #     - lint
+  #   strategy:
+  #     matrix:
+  #       nvim_version: [stable, nightly, v0.6.0, v0.7.0]
+  #       os: [windows-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: notomo/action-setup-nvim-lua@v1
+  #     - uses: rhysd/action-setup-vim@v1
+  #       id: vim
+  #       with:
+  #         neovim: true
+  #         version: ${{ matrix.nvim_version }}
+  #     - name: Run Test Cases
+  #       run: |
+  #         luarocks --lua-version=5.1 install vusted
+  #         vusted --shuffle ./spec
   unit_test:
     name: Unxi Test
     needs:
       - lint
     strategy:
       matrix:
-        nvim_version: [stable, nightly, v0.6.0, v0.7.0]
-        os: [ubuntu-latest, macos-latest]
+        include:
+          - nvim_version: stable
+            os: ubuntu-latest
+          - nvim_version: nightly
+            os: ubuntu-latest
+          - nvim_version: v0.6.0
+            os: ubuntu-latest
+          - nvim_version: v0.7.0
+            os: ubuntu-latest
+          - nvim_version: stable
+            os: macos-latest
+          - nvim_version: nightly
+            os: macos-latest
+          - nvim_version: v0.8.0
+            os: macos-latest
+          - nvim_version: stable
+            os: windows-latest
+          - nvim_version: nightly
+            os: windows-latest
+          - nvim_version: v0.6.0
+            os: windows-latest
+          - nvim_version: v0.7.0
+            os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -150,10 +169,14 @@ jobs:
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "luajit-2.1.0-beta3"
+        if: ${{ !startsWith(matrix.os, 'windows') }}
       - uses: leafo/gh-actions-luarocks@v4
+        if: ${{ !startsWith(matrix.os, 'windows') }}
+      - uses: notomo/action-setup-nvim-lua@v1
+        if: ${{ startsWith(matrix.os, 'windows') }}
       - name: Run Test Cases
         run: |
-          luarocks install vusted
+          luarocks --lua-version=5.1 install vusted
           vusted --shuffle ./spec
   coverage:
     name: Code Coverage
@@ -196,7 +219,6 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - unit_test
-      - unit_test_win
       - coverage
     runs-on: ubuntu-latest
     steps:
