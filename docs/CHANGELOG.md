@@ -1,5 +1,12 @@
 # Changelog
 
+## [15.0.1](https://github.com/linrongbin16/commons.nvim/compare/v15.0.0...v15.0.1) (2024-04-24)
+
+
+### Performance Improvements
+
+* **str:** cache namespace ([#251](https://github.com/linrongbin16/commons.nvim/issues/251)) ([8ad7a57](https://github.com/linrongbin16/commons.nvim/commit/8ad7a5722bc8c0878b21e76c4e85f6d6803c4946))
+
 ## [15.0.0](https://github.com/linrongbin16/commons.nvim/compare/v14.0.0...v15.0.0) (2024-03-29)
 
 
