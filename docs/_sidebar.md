@@ -19,6 +19,7 @@
   - [commons.path](commons_path.md)
   - [commons.platform](commons_platform.md)
   - [commons.promise](commons_promise.md)
+  - [commons.ringbuf](commons_ringbuf.md)
   - [commons.spawn](commons_spawn.md)
   - [commons.str](commons_str.md)
   - [commons.tbl](commons_tbl.md)
