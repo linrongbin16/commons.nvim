@@ -108,27 +108,6 @@ jobs:
         with:
           commit_message: "chore(pr): auto-commit"
           push_options: "--force"
-  # unit_test_win:
-  #   name: Windows Test
-  #   needs:
-  #     - lint
-  #   strategy:
-  #     matrix:
-  #       nvim_version: [stable, nightly, v0.6.0, v0.7.0]
-  #       os: [windows-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: notomo/action-setup-nvim-lua@v1
-  #     - uses: rhysd/action-setup-vim@v1
-  #       id: vim
-  #       with:
-  #         neovim: true
-  #         version: ${{ matrix.nvim_version }}
-  #     - name: Run Test Cases
-  #       run: |
-  #         luarocks --lua-version=5.1 install vusted
-  #         vusted --shuffle ./spec
   unit_test:
     name: Unxi Test
     needs:
@@ -222,13 +201,13 @@ jobs:
       - coverage
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: google-github-actions/release-please-action@v3
         id: release
         with:
           release-type: simple
           package-name: commons.nvim
           changelog-path: docs/CHANGELOG.md
-      - uses: actions/checkout@v4
       - uses: nvim-neorocks/luarocks-tag-release@v5
         if: ${{ steps.release.outputs.release_created }}
         env:
