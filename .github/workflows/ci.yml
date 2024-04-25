@@ -103,7 +103,7 @@ jobs:
         with:
           directories: lua
           configpath: ".luarc.json"
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ github.ref != 'refs/heads/main' }}
         with:
           commit_message: "chore(pr): auto-commit"
