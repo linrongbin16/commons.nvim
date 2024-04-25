@@ -1,5 +1,12 @@
 # Changelog
 
+## [15.0.2](https://github.com/linrongbin16/commons.nvim/compare/v15.0.1...v15.0.2) (2024-04-25)
+
+
+### Reverts
+
+* **ringbuf:** revert ringbuf ([#253](https://github.com/linrongbin16/commons.nvim/issues/253)) ([5f1fd55](https://github.com/linrongbin16/commons.nvim/commit/5f1fd55bffccc3b0a1933708809c52db1b9e2a4c))
+
 ## [15.0.1](https://github.com/linrongbin16/commons.nvim/compare/v15.0.0...v15.0.1) (2024-04-24)
 
 
