@@ -1,5 +1,18 @@
 # Changelog
 
+## [16.0.0](https://github.com/linrongbin16/commons.nvim/compare/v15.0.2...v16.0.0) (2024-05-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **promise:** remove 'promise' library! ([#258](https://github.com/linrongbin16/commons.nvim/issues/258))
+* **micro-async:** remove 'micro-async' library! ([#258](https://github.com/linrongbin16/commons.nvim/issues/258))
+
+### Code Refactoring
+
+* **micro-async:** remove 'micro-async' library! ([#258](https://github.com/linrongbin16/commons.nvim/issues/258)) ([f3b798e](https://github.com/linrongbin16/commons.nvim/commit/f3b798e5b5ea0ca09ce7a8be3a76c9e7c272380b))
+* **promise:** remove 'promise' library! ([#258](https://github.com/linrongbin16/commons.nvim/issues/258)) ([f3b798e](https://github.com/linrongbin16/commons.nvim/commit/f3b798e5b5ea0ca09ce7a8be3a76c9e7c272380b))
+
 ## [15.0.2](https://github.com/linrongbin16/commons.nvim/compare/v15.0.1...v15.0.2) (2024-04-25)
 
 
