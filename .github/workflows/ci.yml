@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: JohnnyMorganz/stylua-action@v3
+      - uses: JohnnyMorganz/stylua-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
@@ -145,6 +145,7 @@ jobs:
         with:
           neovim: true
           version: ${{ matrix.nvim_version }}
+      - uses: ilammy/msvc-dev-cmd@v1
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "luajit-2.1.0-beta3"
@@ -155,30 +156,11 @@ jobs:
         if: ${{ startsWith(matrix.os, 'windows') }}
       - name: Run Test Cases
         run: |
-          luarocks --lua-version=5.1 install vusted
-          vusted --shuffle ./spec
-  coverage:
-    name: Code Coverage
-    needs:
-      - lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: rhysd/action-setup-vim@v1
-        id: vim
-        with:
-          neovim: true
-          version: stable
-      - uses: leafo/gh-actions-lua@v10
-        with:
-          luaVersion: "luajit-2.1.0-beta3"
-      - uses: leafo/gh-actions-luarocks@v4
-      - name: Generate Coverage Reports
-        run: |
           luarocks install luacov
-          luarocks install vusted
+          luarocks --lua-version=5.1 install vusted
           vusted --coverage ./spec
       - name: Check Coverage Reports
+        if: ${{ !startsWith(matrix.os, 'windows') }}
         run: |
           echo "ls ."
           ls -l .
@@ -189,6 +171,7 @@ jobs:
           echo "cat ./luacov.report.out"
           cat ./luacov.report.out
       - uses: codecov/codecov-action@v3
+        if: ${{ !startsWith(matrix.os, 'windows') }}
         with:
           files: luacov.report.out
         env:
@@ -198,7 +181,6 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - unit_test
-      - coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
