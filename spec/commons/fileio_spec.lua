@@ -12,6 +12,7 @@ describe("commons.fileio", function()
   end)
 
   local str = require("commons.str")
+  local tbl = require("commons.tbl")
   local fileio = require("commons.fileio")
   local platform = require("commons.platform")
 
@@ -19,6 +20,35 @@ describe("commons.fileio", function()
     it("failed to open", function()
       local ok, reader = pcall(fileio.FileLineReader.open, fileio.FileLineReader, "asdf.md")
       assert_false(ok)
+    end)
+    it("should equal with readfile", function()
+      local function compare_with_readfile(filename)
+        local expect_content = fileio.readfile(filename, { trim = true })
+        assert_true(str.not_empty(expect_content))
+        local expect_lines = str.split(expect_content, "\n", { plain = true, trimempty = false })
+
+        local reader = fileio.FileLineReader:open(filename)
+        local actual_lines = {}
+        while reader:has_next() do
+          table.insert(actual_lines, reader:next())
+        end
+        reader:close()
+
+        assert_eq(type(expect_lines), type(actual_lines))
+        assert_eq(type(actual_lines), "table")
+        assert_true(tbl.list_not_empty(expect_lines))
+        assert_true(tbl.list_not_empty(actual_lines))
+        assert_eq(#expect_lines, #actual_lines)
+        for i, expect in ipairs(expect_lines) do
+          local actual = actual_lines[i]
+          assert_eq(actual, expect)
+        end
+      end
+
+      compare_with_readfile("README.md")
+      compare_with_readfile("docs/README.md")
+      compare_with_readfile("docs/usage.md")
+      compare_with_readfile("docs/CHANGELOG.md")
     end)
   end)
   describe("[readfile/readlines]", function()
