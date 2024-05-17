@@ -1,5 +1,16 @@
 # Changelog
 
+## [17.0.0](https://github.com/linrongbin16/commons.nvim/compare/v16.0.0...v17.0.0) (2024-05-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **0.6:** drop minimal version support for 0.6, use 0.7! ([#260](https://github.com/linrongbin16/commons.nvim/issues/260))
+
+### Miscellaneous Chores
+
+* **0.6:** drop minimal version support for 0.6, use 0.7! ([#260](https://github.com/linrongbin16/commons.nvim/issues/260)) ([daf44be](https://github.com/linrongbin16/commons.nvim/commit/daf44be631fa3b4e66248f46155ce23593a1d938))
+
 ## [16.0.0](https://github.com/linrongbin16/commons.nvim/compare/v15.0.2...v16.0.0) (2024-05-08)
 
 
