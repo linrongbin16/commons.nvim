@@ -1,5 +1,12 @@
 # Changelog
 
+## [17.0.1](https://github.com/linrongbin16/commons.nvim/compare/v17.0.0...v17.0.1) (2024-05-20)
+
+
+### Reverts
+
+* **0.6:** support back 0.6 ([#262](https://github.com/linrongbin16/commons.nvim/issues/262)) ([d0edbd2](https://github.com/linrongbin16/commons.nvim/commit/d0edbd2daec2ec851426203d27a32a075f610732))
+
 ## [17.0.0](https://github.com/linrongbin16/commons.nvim/compare/v16.0.0...v17.0.0) (2024-05-17)
 
 
