@@ -98,9 +98,9 @@ jobs:
             os: ubuntu-latest
           - nvim_version: nightly
             os: ubuntu-latest
-          - nvim_version: v0.7.0
+          - nvim_version: v0.6.0
             os: ubuntu-latest
-          - nvim_version: v0.8.0
+          - nvim_version: v0.7.0
             os: ubuntu-latest
           - nvim_version: stable
             os: macos-latest
@@ -112,9 +112,9 @@ jobs:
             os: windows-latest
           - nvim_version: nightly
             os: windows-latest
-          - nvim_version: v0.7.0
+          - nvim_version: v0.6.0
             os: windows-latest
-          - nvim_version: v0.8.0
+          - nvim_version: v0.7.0
             os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
