@@ -1,5 +1,3 @@
-local api = require("commons.api")
-
 local M = {}
 
 --- @param highlight string
@@ -9,6 +7,7 @@ M.get_color = function(highlight, attr)
   assert(type(highlight) == "string")
   assert(attr == "fg" or attr == "bg" or attr == "sp")
 
+  local api = require("commons.api")
   local hl_value = api.get_hl(highlight)
   if type(hl_value) == "table" and type(hl_value[attr]) == "number" then
     return string.format("#%06x", hl_value[attr])
@@ -23,6 +22,7 @@ end
 M.get_color_with_fallback = function(highlights, attr, fallback_color)
   assert(type(highlights) == "string" or type(highlights) == "table")
   assert(type(attr) == "string")
+  local api = require("commons.api")
   local hls = type(highlights) == "string" and { highlights } or highlights --[[@as table]]
 
   for i, hl in ipairs(hls) do
