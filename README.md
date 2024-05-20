@@ -3,7 +3,7 @@
 # commons.nvim
 
 <p>
-<a href="https://github.com/neovim/neovim/releases/v0.7.0"><img alt="require" src="https://img.shields.io/badge/require-0.7%2B-blue" /></a>
+<a href="https://github.com/neovim/neovim/releases/v0.6.0"><img alt="require" src="https://img.shields.io/badge/require-0.6%2B-blue" /></a>
 <a href="https://luarocks.org/modules/linrongbin16/commons.nvim"><img alt="luarocks" src="https://img.shields.io/luarocks/v/linrongbin16/commons.nvim" /></a>
 <a href="https://github.com/linrongbin16/commons.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/commons.nvim/ci.yml?label=ci" /></a>
 <a href="https://app.codecov.io/github/linrongbin16/commons.nvim"><img alt="codecov" src="https://img.shields.io/codecov/c/github/linrongbin16/commons.nvim/main?label=codecov" /></a>
@@ -21,7 +21,7 @@ This lua library includes multiple modules:
 - Spawn child-process & coroutine.
 - Logging system with python-logging like features.
 - Colors & syntax highlight utilities, HSL calculation & terminal rendering.
-- Compatible APIs support Neovim versions from v0.7 to nightly.
+- Compatible APIs support Neovim versions from v0.6 to nightly.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 

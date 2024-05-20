@@ -2,4 +2,4 @@
 
 # Requirements
 
-- Neovim &ge; 0.7.0.
+- Neovim &ge; 0.6.0.
