@@ -7,7 +7,6 @@ coverage:
       default:
         threshold: 90%
 ignore:
-  - "lua/commons/_json.lua"
   - "lua/commons/_system.lua"
   - "lua/commons/_uri.lua"
   - "lua/commons/async.lua"
