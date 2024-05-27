@@ -17,7 +17,7 @@ This lua library includes multiple modules:
 
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
-- JSON, URL encode/decode.
+- URL encode/decode.
 - Spawn child-process & coroutine.
 - Logging system with python-logging like features.
 - Colors & syntax highlight utilities, HSL calculation & terminal rendering.
@@ -29,7 +29,6 @@ Please check [documentation](https://linrongbin16.github.io/commons.nvim) for mo
 
 ## Embedded Libraries
 
-- [json.lua](https://github.com/actboy168/json.lua): A pure Lua JSON library.
 - [\_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](<https://neovim.io/doc/user/lua.html#vim.system()>) source file.
 - [uri.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/uri.lua): Neovim [vim.uri_encode()](<https://neovim.io/doc/user/lua.html#vim.uri_encode()>) source file.
 - [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
