@@ -1,5 +1,14 @@
 local cwd = vim.fn.getcwd()
 
+local function partial_eq(a, b)
+  for k, v in pairs(a) do
+    if type(k) == "string" and b[k] ~= v then
+      return false
+    end
+  end
+  return true
+end
+
 describe("commons.color.hl", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
@@ -16,6 +25,49 @@ describe("commons.color.hl", function()
   local str = require("commons.str")
   local version = require("commons.version")
 
+  describe("[get_hl]", function()
+    local HIGHLIGHTS = {
+      "Special",
+      "Normal",
+      "LineNr",
+      "TabLine",
+      "StatusLine",
+      "Constant",
+      "Boolean",
+    }
+    it("test", function()
+      for i, hl in ipairs(HIGHLIGHTS) do
+        local hl_values = hl_color.get_hl(hl)
+        assert_eq(type(hl_values), "table")
+        assert_true(
+          type(hl_values.fg) == "number"
+            or hl_values.fg == nil
+            or type(hl_values.bg) == "number"
+            or hl_values.bg == nil
+            or type(hl_values.ctermfg) == "number"
+            or hl_values.ctermfg == nil
+            or type(hl_values.ctermbg) == "number"
+            or hl_values.ctermbg == nil
+        )
+        assert_true(
+          type(hl_values.bold) == "boolean"
+            or hl_values.bold == nil
+            or type(hl_values.italic) == "boolean"
+            or hl_values.italic == nil
+            or type(hl_values.underline) == "boolean"
+            or hl_values.underline == nil
+        )
+      end
+    end)
+  end)
+  describe("[get_hl_with_fallback]", function()
+    it("test", function()
+      local hl_with_fallback = { "NotExistHl", "@comment", "Comment" }
+      local actual1 = hl_color.get_hl_with_fallback(unpack(hl_with_fallback))
+      local actual2 = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
+      assert_true(vim.deep_equal(actual1, actual2))
+    end)
+  end)
   describe("[get_color]", function()
     it("test", function()
       local hl_with_fallback = { "NotExistHl", "@comment", "Comment" }

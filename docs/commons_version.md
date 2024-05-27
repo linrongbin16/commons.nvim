@@ -2,7 +2,7 @@
 
 # [commons.version](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/version.lua)
 
-Compatible APIs to detect Neovim version, a wrapper on [vim.fn.has](<https://neovim.io/doc/user/builtin.html#has()>) (for Neovim &lt; 0.10) or [vim.version](https://neovim.io/doc/user/lua.html#vim.version) (for Neovim &ge; 0.10).
+Compatible APIs to detect Neovim version, a wrapper on [vim.version](https://neovim.io/doc/user/lua.html#vim.version).
 
 ## Functions
 

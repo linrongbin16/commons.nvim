@@ -8,6 +8,60 @@ RGB color & nvim syntax highlight utilities.
 
 ## Functions
 
+### `get_hl`
+
+Get real highlighting value without `link`, a wrapper on [nvim_get_hl()](<https://neovim.io/doc/user/api.html#nvim_get_hl()>) with global namespace and `link=false`.
+
+```lua
+--- @param hl string
+--- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:{fg:integer?,bg:integer?,[string]:any}?}
+M.get_hl = function(hl)
+```
+
+Parameters:
+
+- `hl`: Highlighting group name.
+
+Returns:
+
+- Returns lua table with RGB(gui)/ANSI(cterm) highlight args (see [nvim_set_hl()](<https://neovim.io/doc/user/api.html#nvim_set_hl()>)) if `hl` exists:
+
+  - `fg`, `bg`, `sp`, `bold`, `italic`, `underline`, etc.
+  - `ctermfg`: ANSI(cterm) foreground color code.
+  - `ctermbg`: ANSI(cterm) background color code.
+  - `cterm`: Other ANSI(cterm) highlight args such as `sp`, `bold`, `italic`, `underline`, etc.
+
+- Returns `vim.empty_dict()` if `hl` not found.
+
+?> Use `string.format("#%06x", fg)` to convert integer RGB color code into CSS color format such as `"#581720"`.
+
+### `get_hl_with_fallback`
+
+A wrapper on [`get_hl`](#get_hl), it accepts multiple highlight groups, returns the first existing one.
+
+```lua
+--- @param ... string?
+--- @return {fg:integer?,bg:integer?,[string]:any,ctermfg:integer?,ctermbg:integer?,cterm:{fg:integer?,bg:integer?,[string]:any}?}, integer, string?
+M.get_hl_with_fallback = function(...)
+```
+
+Parameters:
+
+- `...`: Multiple highlight groups.
+
+Returns:
+
+- Returns 3 values for the first found highlight:
+
+  1. The highlight value (lua table) of the hl.
+  2. The index (in the parameter list) of the hl.
+  3. The name of the hl.
+
+- Returns 3 values if all highlight groups not found:
+  1. `vim.empty_dict()`.
+  2. `-1`.
+  3. `nil`.
+
 ### `get_color`
 
 Get RGB color code from nvim syntax highlight.

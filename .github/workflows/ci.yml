@@ -29,13 +29,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./spec
-      - name: Add _json.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          echo "pwd"
-          echo $PWD
-          git clone --depth=1 https://github.com/actboy168/json.lua.git ~/.json.lua
-          cp ~/.json.lua/json.lua ./lua/commons/_json.lua
       - name: Add _system.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -98,23 +91,19 @@ jobs:
             os: ubuntu-latest
           - nvim_version: nightly
             os: ubuntu-latest
-          - nvim_version: v0.6.0
-            os: ubuntu-latest
-          - nvim_version: v0.7.0
+          - nvim_version: v0.9.0
             os: ubuntu-latest
           - nvim_version: stable
             os: macos-latest
           - nvim_version: nightly
             os: macos-latest
-          - nvim_version: v0.8.0
+          - nvim_version: v0.9.0
             os: macos-latest
           - nvim_version: stable
             os: windows-latest
           - nvim_version: nightly
             os: windows-latest
-          - nvim_version: v0.6.0
-            os: windows-latest
-          - nvim_version: v0.7.0
+          - nvim_version: v0.9.0
             os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
