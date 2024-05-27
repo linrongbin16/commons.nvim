@@ -16,6 +16,14 @@ describe("commons.color.hl", function()
   local str = require("commons.str")
   local version = require("commons.version")
 
+  describe("[get_hl_with_fallback]", function()
+    it("test", function()
+      local hl_with_fallback = { "NotExistHl", "@comment", "Comment" }
+      local actual1 = hl_color.get_hl_with_fallback(unpack(hl_with_fallback))
+      local actual2 = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
+      assert_true(vim.deep_equal(actual1, actual2))
+    end)
+  end)
   describe("[get_color]", function()
     it("test", function()
       local hl_with_fallback = { "NotExistHl", "@comment", "Comment" }
