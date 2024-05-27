@@ -1,5 +1,22 @@
 # Changelog
 
+## [18.0.0](https://github.com/linrongbin16/commons.nvim/compare/v17.0.1...v18.0.0) (2024-05-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** move hl apis to 'colors.hl' module, remove 'api' module! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264))
+* **json:** remove 'json' module! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264))
+* **version:** drop support for previous versions, use 0.9+ 'vim.verison' implementation! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264))
+* **legacy:** only support last legacy version, drop previous legacy versions! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264))
+
+### Code Refactoring
+
+* **api:** move hl apis to 'colors.hl' module, remove 'api' module! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264)) ([f0e348b](https://github.com/linrongbin16/commons.nvim/commit/f0e348bda81e27561e3c7edf68c0fd3cd7690073))
+* **json:** remove 'json' module! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264)) ([f0e348b](https://github.com/linrongbin16/commons.nvim/commit/f0e348bda81e27561e3c7edf68c0fd3cd7690073))
+* **legacy:** only support last legacy version, drop previous legacy versions! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264)) ([f0e348b](https://github.com/linrongbin16/commons.nvim/commit/f0e348bda81e27561e3c7edf68c0fd3cd7690073))
+* **version:** drop support for previous versions, use 0.9+ 'vim.verison' implementation! ([#264](https://github.com/linrongbin16/commons.nvim/issues/264)) ([f0e348b](https://github.com/linrongbin16/commons.nvim/commit/f0e348bda81e27561e3c7edf68c0fd3cd7690073))
+
 ## [17.0.1](https://github.com/linrongbin16/commons.nvim/compare/v17.0.0...v17.0.1) (2024-05-20)
 
 
