@@ -31,4 +31,4 @@ The commons lua library for Neovim plugin project.
 - [commons.tbl](/commons_tbl.md): Lua table/list utilities, with type check.
 - [commons.uri](/commons_uri.md): A wrapper on [vim.uri_encode](<https://neovim.io/doc/user/lua.html#vim.uri_encode()>) and [vim.uri_decode](<https://neovim.io/doc/user/lua.html#vim.uri_decode()>).
 - [commons.uv](/commons_uv.md): A wrapper on [vim.loop](https://github.com/neovim/neovim/blob/36552adb39edff2d909743f16c1f061bc74b5c4e/runtime/doc/deprecated.txt?plain=1#L166) (for Neovim &lt; 0.10) or [vim.uv](https://neovim.io/doc/user/lua.html#vim.uv) (for Neovim &ge; 0.10).
-- [commons.version](/commons_version.md): Compatible APIs to detect Neovim version, a wrapper on [vim.fn.has](<https://neovim.io/doc/user/builtin.html#has()>) (for Neovim &lt; 0.10) or [vim.version](https://neovim.io/doc/user/lua.html#vim.version) (for Neovim &ge; 0.10).
+- [commons.version](/commons_version.md): Compatible APIs to detect Neovim version, a wrapper on [vim.version](https://neovim.io/doc/user/lua.html#vim.version).
