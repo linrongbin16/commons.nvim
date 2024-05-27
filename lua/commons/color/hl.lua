@@ -42,11 +42,10 @@ end
 M.get_color_with_fallback = function(highlights, attr, fallback_color)
   assert(type(highlights) == "string" or type(highlights) == "table")
   assert(type(attr) == "string")
-  local api = require("commons.api")
   local hls = type(highlights) == "string" and { highlights } or highlights --[[@as table]]
 
   for i, hl in ipairs(hls) do
-    local hl_value = api.get_hl(hl)
+    local hl_value = M.get_hl(hl)
     if type(hl_value) == "table" and type(hl_value[attr]) == "number" then
       return string.format("#%06x", hl_value[attr]), i, hl
     end
