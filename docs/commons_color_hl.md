@@ -37,7 +37,7 @@ Returns:
 
 ### `get_hl_with_fallback`
 
-A wrapper on [`get_hl`](#get_hl), it accepts multiple highlight groups, returns the first existed one.
+A wrapper on [`get_hl`](#get_hl), it accepts multiple highlight groups, returns the first existing one.
 
 ```lua
 --- @param ... string?
