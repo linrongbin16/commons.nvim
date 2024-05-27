@@ -25,17 +25,16 @@ describe("commons.color.hl", function()
   local str = require("commons.str")
   local version = require("commons.version")
 
-  local HIGHLIGHTS = {
-    "Special",
-    "Normal",
-    "LineNr",
-    "TabLine",
-    "StatusLine",
-    "Constant",
-    "Boolean",
-  }
-
   describe("[get_hl]", function()
+    local HIGHLIGHTS = {
+      "Special",
+      "Normal",
+      "LineNr",
+      "TabLine",
+      "StatusLine",
+      "Constant",
+      "Boolean",
+    }
     it("test", function()
       for i, hl in ipairs(HIGHLIGHTS) do
         local hl_values = hl_color.get_hl(hl)
