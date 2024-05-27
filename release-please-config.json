@@ -1,0 +1,9 @@
+{
+  "last-release-sha": "b079f11c54c5f22b0ee066f99a4511a1e84d27c3",
+  "release-type": "simple",
+  "packages": {
+    ".": {
+      "changelog-path": "docs/CHANGELOG.md"
+    }
+  }
+}
