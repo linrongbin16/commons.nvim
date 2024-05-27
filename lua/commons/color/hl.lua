@@ -23,7 +23,7 @@ M.get_color = function(highlight, attr)
   assert(attr == "fg" or attr == "bg" or attr == "sp")
 
   local api = require("commons.api")
-  local hl_value = api.get_hl(highlight)
+  local hl_value = vim.api.nvim_get_hl(0, { name = highlight, link = false })
   if type(hl_value) == "table" and type(hl_value[attr]) == "number" then
     return string.format("#%06x", hl_value[attr])
   end
