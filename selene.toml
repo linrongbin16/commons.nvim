@@ -5,11 +5,6 @@ exclude = [
   "lua/commons/_uri.lua",
   "lua/commons/async.lua",
   "lua/commons/color/hsl.lua",
-  "lua/commons/xml2lua.lua",
-  "lua/commons/XmlParser.lua",
-  "lua/commons/xmlhandler/dom.lua",
-  "lua/commons/xmlhandler/tree.lua",
-  "lua/commons/xmlhandler/print.lua",
 ]
 
 [lints]
