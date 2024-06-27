@@ -14,8 +14,7 @@ describe("commons.version", function()
   local xml2lua = require("commons.xml2lua")
 
   describe("[xml2lua]", function()
-    it("parse", function()
-      local payload = [[
+    local PAYLOAD = [[
 <people>
   <person type="natural">
     <name>Manoel</name>
@@ -27,9 +26,16 @@ describe("commons.version", function()
   </person>
 </people>
 ]]
+    local DATA_TABLE = {
+      person = {
+        { name = "Manoel", city = "Palmas-TO", _attr = { type = "natural" } },
+        { name = "Breno", city = "Palmas-TO", _attr = { type = "legal" } },
+      },
+    }
+    it("parse", function()
       local handler = require("commons.xmlhandler.tree")
       local parser = xml2lua.parser(handler)
-      parser:parse(payload)
+      parser:parse(PAYLOAD)
       print(string.format("parser, handler:%s\n", vim.inspect(handler)))
       assert_eq(type(handler.root.people.person), "table")
       for i, p in pairs(handler.root.people.person) do
@@ -37,6 +43,13 @@ describe("commons.version", function()
         assert_eq(type(p.name), "string")
         assert_eq(type(p.city), "string")
       end
+    end)
+    it("toXml", function()
+      local actual1 = xml2lua.printable(DATA_TABLE)
+      print("toXml printable:%s\n", vim.inspect(actual1))
+      local actual2 = xml2lua.toXml(DATA_TABLE, "people")
+      print("toXml:%s\n", vim.inspect(actual2))
+      assert_eq(type(actual2), "string")
     end)
   end)
 end)
