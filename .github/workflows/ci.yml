@@ -86,6 +86,9 @@ jobs:
           sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/xmlhandler/print.lua
           sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/xml2lua.lua
           sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/XmlParser.lua
+          sed -i 's/require("XmlParser/require("commons.XmlParser/g' ./lua/commons/xml2lua.lua
+          sed -i 's/require("xmlhandler/require("commons.xmlhandler/g' ./lua/commons/xml2lua.lua
+          sed -i 's/require("xmlhandler/require("commons.xmlhandler/g' ./lua/commons/XmlParser.lua
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
