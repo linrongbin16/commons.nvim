@@ -22,5 +22,6 @@
   - [commons.uri](commons_uri.md)
   - [commons.uv](commons_uv.md)
   - [commons.version](commons_version.md)
+  - [commons.xml2lua](commons_xml2lua.md)
 - [Development](/development.md)
 - [Contribute](/contribute.md)
