@@ -12,10 +12,9 @@ describe("commons.version", function()
   end)
 
   local xml2lua = require("commons.xml2lua")
-  local xmlhandler_tree = require("commons.xmlhandler.tree")
 
   describe("[xml2lua]", function()
-    it("parse-1", function()
+    it("parse", function()
       local payload = [[
 <people>
   <person type="natural">
@@ -28,8 +27,16 @@ describe("commons.version", function()
   </person>
 </people>
 ]]
-
-      local parser = xml2lua.parser(xmlhandler_tree)
+      local handler = require("commons.xmlhandler.tree")
+      local parser = xml2lua.parser(handler)
+      parser:parse(payload)
+      print(string.format("parser, handler:%s\n", vim.inspect(handler)))
+      assert_eq(type(handler.root.people.person), "table")
+      for i, p in pairs(handler.root.people.person) do
+        print(string.format("parser-%d:%s\n", i, vim.inspect(p)))
+        assert_eq(type(p.name), "string")
+        assert_eq(type(p.city), "string")
+      end
     end)
   end)
 end)
