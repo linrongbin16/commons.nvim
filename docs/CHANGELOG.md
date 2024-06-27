@@ -1,5 +1,12 @@
 # Changelog
 
+## [18.0.1](https://github.com/linrongbin16/commons.nvim/compare/v18.0.0...v18.0.1) (2024-06-27)
+
+
+### Bug Fixes
+
+* **tbl:** returns `t` if no variadic parameters provided ([#270](https://github.com/linrongbin16/commons.nvim/issues/270)) ([ad23c98](https://github.com/linrongbin16/commons.nvim/commit/ad23c983d307a883a5fd754ba2974c8cf61980cc))
+
 ## [18.0.0](https://github.com/linrongbin16/commons.nvim/compare/v17.0.1...v18.0.0) (2024-05-27)
 
 
