@@ -36,6 +36,8 @@ describe("commons.tbl", function()
       assert_eq(tbl.tbl_get({ c = { 1, 2, 3 } }, "c", 4), nil)
       assert_eq(tbl.tbl_get(nil, "c"), nil)
       assert_eq(tbl.tbl_get({}, "c"), nil)
+      local input1 = { 1, 2, 3, a = 1, b = 2, c = 3 }
+      assert_true(vim.deep_equal(tbl.tbl_get(input1), input1))
     end)
     it("tbl_contains", function()
       assert_true(tbl.tbl_contains({ a = 1, b = 2, c = 3, d = 4 }, 1))
