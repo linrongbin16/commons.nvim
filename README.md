@@ -24,7 +24,9 @@ This lua library includes multiple modules:
 - Colors & syntax highlight utilities, HSL calculation & terminal rendering.
 - Compatible APIs support Neovim versions from last legacy to nightly.
 
-  > Previous versions before the last legacy version are dropped for maintenance reason, i.e. the stable version is 0.10 (at the time of writing this, 2024-05-27), the last legacy version is 0.9, and nightly version is 0.11.
+> [!NOTE]
+>
+> This library keeps up with the latest Neovim stable version, support until the last legacy version, and earlier versions are dropped for maintenance reason, i.e. (at the time of writing, 2024-05-27), stable is 0.10, last legacy is 0.9, nightly is 0.11, thus this plugin supports 0.9+.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
