@@ -15,6 +15,21 @@ describe("commons.version", function()
   local xmlhandler_tree = require("commons.xmlhandler.tree")
 
   describe("[xml2lua]", function()
-    it("parse-1", function() end)
+    it("parse-1", function()
+      local payload = [[
+<people>
+  <person type="natural">
+    <name>Manoel</name>
+    <city>Palmas-TO</city>
+  </person>
+  <person type="legal">
+    <name>University of Brasília</name>
+    <city>Brasília-DF</city>
+  </person>
+</people>
+]]
+
+      local parser = xml2lua.parser(xmlhandler_tree)
+    end)
   end)
 end)
