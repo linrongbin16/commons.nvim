@@ -78,9 +78,9 @@ jobs:
           ls -lh
           rm -rf ./lua/commons/xmlhandler
           mkdir -p ./lua/commons/xmlhandler
-          cp -f ./.xml2lua/xmlhandler/dom.lua ./lua/commons/xmlhandler/dom.lua
-          cp -f ./.xml2lua/xmlhandler/tree.lua ./lua/commons/xmlhandler/tree.lua
-          cp -f ./.xml2lua/xmlhandler/print.lua ./lua/commons/xmlhandler/print.lua
+          cp -f ~/.xml2lua/xmlhandler/dom.lua ./lua/commons/xmlhandler/dom.lua
+          cp -f ~/.xml2lua/xmlhandler/tree.lua ./lua/commons/xmlhandler/tree.lua
+          cp -f ~/.xml2lua/xmlhandler/print.lua ./lua/commons/xmlhandler/print.lua
           sed -i '1 i\---@diagnostic disable' ./lua/commons/xmlhandler/dom.lua
           sed -i '1 i\---@diagnostic disable' ./lua/commons/xmlhandler/tree.lua
           sed -i '1 i\---@diagnostic disable' ./lua/commons/xmlhandler/print.lua
