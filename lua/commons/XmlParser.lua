@@ -1,5 +1,4 @@
 ---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global
----@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global
 --- @module Class providing the actual XML parser.
 --  Available options are:
 --      * stripWS   
