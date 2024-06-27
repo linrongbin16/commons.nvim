@@ -15,7 +15,6 @@ describe("commons.version", function()
   local xmlhandler_tree = require("commons.xmlhandler.tree")
 
   describe("[xml2lua]", function()
-    it("parse-1", function()
-    end)
+    it("parse-1", function() end)
   end)
 end)

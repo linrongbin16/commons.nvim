@@ -51,7 +51,7 @@
 --@author Paul Chakravarti (paulc@passtheaardvark.com)
 --@author Manoel Campos da Silva Filho
 local xml2lua = { _VERSION = "1.6-1" }
-local XmlParser = require("XmlParser")
+local XmlParser = require("commons.XmlParser")
 
 ---Recursivelly prints a table in an easy-to-ready format
 --@param tb The table to be printed
@@ -77,7 +77,7 @@ end
 --@param handler Handler module to be used to convert the XML string
 --to another formats. See the available handlers at the handler directory.
 -- Usually you get an instance to a handler module using, for instance:
--- local handler = require("xmlhandler/tree").
+-- local handler = require("commons.xmlhandler/tree").
 --@return a XmlParser object used to parse the XML
 --@see XmlParser
 function xml2lua.parser(handler)
