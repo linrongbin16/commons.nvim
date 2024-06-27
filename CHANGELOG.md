@@ -1,5 +1,12 @@
 # Changelog
 
+## [18.1.0](https://github.com/linrongbin16/commons.nvim/compare/v18.0.1...v18.1.0) (2024-06-27)
+
+
+### Features
+
+* **xml:** add 'xml2lua' and 'XmlParser' module ([#274](https://github.com/linrongbin16/commons.nvim/issues/274)) ([a47c4b2](https://github.com/linrongbin16/commons.nvim/commit/a47c4b26c1b553377a36035bd9ec504feea8994d))
+
 ## [18.0.1](https://github.com/linrongbin16/commons.nvim/compare/v18.0.0...v18.0.1) (2024-06-27)
 
 
