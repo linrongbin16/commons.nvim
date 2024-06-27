@@ -18,18 +18,22 @@ This lua library includes multiple modules:
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
 - URL encode/decode.
+- XML parser/renderer.
 - Spawn child-process & coroutine.
 - Logging system with python-logging like features.
 - Colors & syntax highlight utilities, HSL calculation & terminal rendering.
 - Compatible APIs support Neovim versions from last legacy to nightly.
 
-  > Previous versions before the last legacy version are dropped for maintenance reason, i.e. the stable version is 0.10 (at the time of writing this, 2024-05-27), the last legacy version is 0.9, and nightly version is 0.11.
+> [!NOTE]
+>
+> This library keeps up with the latest Neovim stable version, support until the last legacy version, earlier versions are dropped for maintenance reason, i.e. (at the time of writing, 2024-05-27), stable is 0.10, last legacy is 0.9, nightly is 0.11, thus this plugin supports 0.9+.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
 ## Embedded Libraries
 
 - [\_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](<https://neovim.io/doc/user/lua.html#vim.system()>) source file.
+- [xml2lua](https://github.com/manoelcampos/xml2lua): XML Parser written entirely in Lua that works for Lua 5.1+. Convert XML to and from Lua Tables.
 - [uri.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/uri.lua): Neovim [vim.uri_encode()](<https://neovim.io/doc/user/lua.html#vim.uri_encode()>) source file.
 - [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
 - [colors.lua](http://sputnik.freewisdom.org/lib/colors/): HSL Color Theory Computation in Lua.
