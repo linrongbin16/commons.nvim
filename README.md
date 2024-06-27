@@ -26,7 +26,7 @@ This lua library includes multiple modules:
 
 > [!NOTE]
 >
-> This library keeps up with the latest Neovim stable version, support until the last legacy version, and earlier versions are dropped for maintenance reason, i.e. (at the time of writing, 2024-05-27), stable is 0.10, last legacy is 0.9, nightly is 0.11, thus this plugin supports 0.9+.
+> This library keeps up with the latest Neovim stable version, support until the last legacy version, earlier versions are dropped for maintenance reason, i.e. (at the time of writing, 2024-05-27), stable is 0.10, last legacy is 0.9, nightly is 0.11, thus this plugin supports 0.9+.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
