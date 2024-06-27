@@ -81,12 +81,12 @@ jobs:
           cp -f ~/.xml2lua/xmlhandler/dom.lua ./lua/commons/xmlhandler/dom.lua
           cp -f ~/.xml2lua/xmlhandler/tree.lua ./lua/commons/xmlhandler/tree.lua
           cp -f ~/.xml2lua/xmlhandler/print.lua ./lua/commons/xmlhandler/print.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/xmlhandler/dom.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/xmlhandler/tree.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/xmlhandler/print.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/xml2lua.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/XmlParser.lua
-          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, undefined-doc-name' ./lua/commons/XmlParser.lua
+          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/xmlhandler/dom.lua
+          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/xmlhandler/tree.lua
+          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/xmlhandler/print.lua
+          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/xml2lua.lua
+          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/XmlParser.lua
+          sed -i '1 i\---@diagnostic disable: luadoc-miss-module-name, param-type-mismatch, discard-returns, undefined-global' ./lua/commons/XmlParser.lua
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
