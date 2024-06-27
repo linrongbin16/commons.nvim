@@ -1,5 +1,12 @@
 # Changelog
 
+## [18.1.1](https://github.com/linrongbin16/commons.nvim/compare/v18.1.0...v18.1.1) (2024-06-27)
+
+
+### Reverts
+
+* **xml:** remove 'xml2lua' ([#277](https://github.com/linrongbin16/commons.nvim/issues/277)) ([70dbb12](https://github.com/linrongbin16/commons.nvim/commit/70dbb121915a8a1c38d4fe8e5e8e205fd9d21577))
+
 ## [18.1.0](https://github.com/linrongbin16/commons.nvim/compare/v18.0.1...v18.1.0) (2024-06-27)
 
 
