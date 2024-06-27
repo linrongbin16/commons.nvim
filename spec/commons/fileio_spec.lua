@@ -46,9 +46,9 @@ describe("commons.fileio", function()
       end
 
       compare_with_readfile("README.md")
-      compare_with_readfile("docs/README.md")
-      compare_with_readfile("docs/usage.md")
-      compare_with_readfile("docs/CHANGELOG.md")
+      compare_with_readfile("LICENSE")
+      compare_with_readfile("version.txt")
+      compare_with_readfile(".github/workflows/ci.yml")
     end)
   end)
   describe("[readfile/readlines]", function()
