@@ -1,5 +1,12 @@
 # Changelog
 
+## [18.2.0](https://github.com/linrongbin16/commons.nvim/compare/v18.1.1...v18.2.0) (2024-07-04)
+
+
+### Features
+
+* **fileio:** add 'on_open_complete_err' handler for 'asyncreadfile' ([#279](https://github.com/linrongbin16/commons.nvim/issues/279)) ([0177e01](https://github.com/linrongbin16/commons.nvim/commit/0177e01d5fb82e109a68f439a7813aafcf2c4460))
+
 ## [18.1.1](https://github.com/linrongbin16/commons.nvim/compare/v18.1.0...v18.1.1) (2024-06-27)
 
 
