@@ -151,7 +151,7 @@ Async read file, invoke callback function on read complete.
 ```lua
 --- @param filename string
 --- @param on_complete fun(data:string?):any
---- @param opts {trim:boolean?}?
+--- @param opts {trim:boolean?,on_open_complete_err:fun(err:string?,filename:string?,fd:any?)?}?
 M.asyncreadfile = function(filename, on_complete, opts)
 ```
 
@@ -168,7 +168,18 @@ Parameters:
     - `data`: File content.
 
 - `opts`: Options.
+
   - `trim`: Whether to trim whitespaces around file content, by default `false`.
+  - `on_open_complete_err`: Callback function that will be invoked after an error on open file, by default it throws via `error` API. The signature is:
+
+    ```lua
+    function on_open_complete_err(err:string?,filename:string?,fd:any?):nil
+    ```
+
+    - Parameters:
+      - `err`: Error message.
+      - `filename`: File name.
+      - `fd`: File descriptor.
 
 ### `readlines`
 
