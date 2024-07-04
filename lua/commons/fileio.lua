@@ -196,7 +196,7 @@ M.readfile = function(filename, opts)
   return opts.trim and vim.trim(content) or content
 end
 
---- @alias commons.AsyncReadFileOnOpenCompleteErr fun(open_complete_err:string?,filename:string?,fd:any?):nil
+--- @alias commons.AsyncReadFileOnOpenCompleteErr fun(err:string?,filename:string?,fd:any?):nil
 --- @param filename string
 --- @param on_complete fun(data:string?):any
 --- @param opts {trim:boolean?,on_open_complete_err:commons.AsyncReadFileOnOpenCompleteErr?}?
@@ -205,13 +205,13 @@ M.asyncreadfile = function(filename, on_complete, opts)
   opts.trim = type(opts.trim) == "boolean" and opts.trim or false
 
   if type(opts.on_open_complete_err) ~= "function" then
-    opts.on_open_complete_err = function(open_complete_err1, filename1, fd1)
+    opts.on_open_complete_err = function(err1, filename1, fd1)
       error(
         string.format(
           "failed to complete open(r) file %s(%s): %s",
           vim.inspect(filename1),
           vim.inspect(fd1),
-          vim.inspect(open_complete_err1)
+          vim.inspect(err1)
         )
       )
     end
