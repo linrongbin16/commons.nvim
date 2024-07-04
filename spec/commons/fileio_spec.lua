@@ -166,6 +166,51 @@ describe("commons.fileio", function()
         return done
       end)
     end)
+    it("with on_open_complete_err handler 1", function()
+      local t = "THE_NON_EXIST_README.md"
+      local done = false
+      fileio.asyncreadfile(t, function(content)
+        assert_true(string.len(content) > 0)
+        done = true
+      end, {
+        on_open_complete_err = function(open_complete_err, filename, fd)
+          print(
+            string.format(
+              "failed to open file %s(%s): %s",
+              vim.inspect(filename),
+              vim.inspect(fd),
+              vim.inspect(open_complete_err)
+            )
+          )
+          assert_true(true)
+        end,
+      })
+      vim.wait(1000, function()
+        return done
+      end)
+    end)
+    it("with on_open_complete_err handler 2", function()
+      local t = "README.md"
+      local done = false
+      fileio.asyncreadfile(t, function(content)
+        assert_true(string.len(content) > 0)
+        done = true
+      end, {
+        on_open_complete_err = function(open_complete_err, filename, fd)
+          print(
+            string.format(
+              "failed to open file %s(%s): %s",
+              vim.inspect(filename),
+              vim.inspect(fd),
+              vim.inspect(open_complete_err)
+            )
+          )
+        end,
+      })
+      vim.wait(1000, function()
+        return done
+      end)
+    end)
   end)
   describe("[asyncreadlines]", function()
     it("test", function()
