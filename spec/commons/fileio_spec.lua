@@ -155,7 +155,7 @@ describe("commons.fileio", function()
     end)
   end)
   describe("[asyncreadfile]", function()
-    it("test", function()
+    it("read without on_error", function()
       local t = "README.md"
       local done = false
       fileio.asyncreadfile(t, function(content)
@@ -166,9 +166,25 @@ describe("commons.fileio", function()
         return done
       end)
     end)
-    it("with on_error handler 1", function()
+    it("read with on_error", function()
+      local t = "README.md"
+      local done = false
+      fileio.asyncreadfile(t, function(content)
+        assert_true(string.len(content) > 0)
+        done = true
+      end, {
+        on_error = function(msg, err)
+          assert_true(false)
+        end,
+      })
+      vim.wait(1000, function()
+        return done
+      end)
+    end)
+    it("read non-exist file", function()
       local t = "THE_NON_EXIST_README.md"
       local done = false
+      local failed = false
       fileio.asyncreadfile(t, function(content)
         assert_true(string.len(content) > 0)
         done = true
@@ -176,30 +192,34 @@ describe("commons.fileio", function()
         on_error = function(msg, err)
           print(string.format("failed to open file(%s): %s", vim.inspect(msg), vim.inspect(err)))
           assert_true(true)
+          failed = true
         end,
       })
       vim.wait(1000, function()
-        return done
+        return done or failed
       end)
     end)
-    it("with on_error handler 2", function()
-      local t = "README.md"
+    it("read directory", function()
+      local t = "lua"
       local done = false
+      local failed = false
       fileio.asyncreadfile(t, function(content)
         assert_true(string.len(content) > 0)
         done = true
       end, {
         on_error = function(msg, err)
           print(string.format("failed to open file(%s): %s", vim.inspect(msg), vim.inspect(err)))
+          assert_true(true)
+          failed = true
         end,
       })
       vim.wait(1000, function()
-        return done
+        return done or failed
       end)
     end)
   end)
   describe("[asyncreadlines]", function()
-    it("test", function()
+    it("read without on_error", function()
       local t = "README.md"
       local done = false
       local actual = {}
@@ -226,6 +246,36 @@ describe("commons.fileio", function()
         return done
       end)
     end)
+    it("read with on_error", function()
+      local t = "README.md"
+      local done = false
+      local actual = {}
+      fileio.asyncreadlines(t, {
+        on_line = function(line)
+          assert_eq(type(line), "string")
+          assert_true(string.len(line) >= 0)
+          table.insert(actual, line)
+        end,
+        on_complete = function(bytes)
+          assert_true(bytes > 0)
+          local expect = fileio.readlines(t)
+          assert_eq(#actual, #expect)
+          for i = 1, #actual do
+            local la = actual[i]
+            local le = expect[i]
+            assert_eq(la, le)
+            print(string.format("asyncreadlines-%s: %s\n", vim.inspect(i), vim.inspect(la)))
+          end
+          done = true
+        end,
+        on_error = function(msg, err)
+          assert_true(false)
+        end,
+      })
+      vim.wait(1000, function()
+        return done
+      end)
+    end)
     it("failed", function()
       local t = "asyncreadlines_not_exists.txt"
       local done = false
@@ -240,7 +290,7 @@ describe("commons.fileio", function()
         end,
       })
       vim.wait(1000, function()
-        return failed and done
+        return failed or done
       end)
     end)
   end)
