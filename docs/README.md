@@ -33,5 +33,6 @@ The commons lua library for Neovim plugin project.
 
 ## Contribute
 
-- [Contribute](development.md)
+- [Contribute](contribute.md)
 - [Development](development.md)
+- [Sponsor](sponsor.md)
