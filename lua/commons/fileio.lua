@@ -308,7 +308,7 @@ M.asyncreadlines = function(filename, opts)
           return
         end
         if stat == nil then
-          opts.on_error("fs_stat returns nil", fstat_complete_err)
+          opts.on_error("fs_fstat returns nil", fstat_complete_err)
           return
         end
 
