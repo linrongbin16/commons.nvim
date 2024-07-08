@@ -1,5 +1,3 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
-
 # [commons.num](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/num.lua)
 
 Numbers utilities, with type check and approximate float compare.

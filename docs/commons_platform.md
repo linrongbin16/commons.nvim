@@ -1,5 +1,3 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 -->
-
 # [commons.platform](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/platform.lua)
 
 OS and platform utilities.

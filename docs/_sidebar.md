@@ -1,9 +1,7 @@
-<!-- markdownlint-disable MD001 MD013 MD034 MD033 MD051 MD041 -->
-
 - [Home](/)
-- [Requirements](/requirements.md)
-- [Install](/install.md)
-- [Usage](/usage.md)
+- Get Started
+  - [Install](install.md)
+  - [Usage](usage.md)
 - Modules
   - [commons.async](commons_async.md)
   - commons.color
@@ -22,5 +20,6 @@
   - [commons.uri](commons_uri.md)
   - [commons.uv](commons_uv.md)
   - [commons.version](commons_version.md)
-- [Development](/development.md)
-- [Contribute](/contribute.md)
+- [Contribute](contribute.md)
+  - [Development](development.md)
+  - [Sponsor](sponsor.md)
