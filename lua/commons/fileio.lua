@@ -197,7 +197,7 @@ M.readfile = function(filename, opts)
 end
 
 --- @alias commons.AsyncReadFileOnComplete fun(data:string?):any
---- @alias commons.AsyncReadFileOnError fun(msg,string,err:string?):any
+--- @alias commons.AsyncReadFileOnError fun(step:string?,err:string?):any
 --- @param filename string
 --- @param on_complete commons.AsyncReadFileOnComplete
 --- @param opts {trim:boolean?,on_error:commons.AsyncReadFileOnError?}?
@@ -206,11 +206,11 @@ M.asyncreadfile = function(filename, on_complete, opts)
   opts.trim = type(opts.trim) == "boolean" and opts.trim or false
 
   if type(opts.on_error) ~= "function" then
-    opts.on_error = function(msg1, err1)
+    opts.on_error = function(step1, err1)
       error(
         string.format(
           "failed to read file(%s), filename:%s, error:%s",
-          vim.inspect(msg1),
+          vim.inspect(step1),
           vim.inspect(filename),
           vim.inspect(err1)
         )
@@ -274,7 +274,7 @@ end
 
 --- @alias commons.AsyncReadLinesOnLine fun(line:string):any
 --- @alias commons.AsyncReadLinesOnComplete fun(bytes:integer):any
---- @alias commons.AsyncReadLinesOnError fun(msg:string?,err:string?):any
+--- @alias commons.AsyncReadLinesOnError fun(step:string?,err:string?):any
 --- @param filename string
 --- @param opts {on_line:commons.AsyncReadLinesOnLine,on_complete:commons.AsyncReadLinesOnComplete,on_error:commons.AsyncReadLinesOnError?,batchsize:integer?}
 M.asyncreadlines = function(filename, opts)
@@ -283,11 +283,11 @@ M.asyncreadlines = function(filename, opts)
   local batchsize = opts.batchsize or 4096
 
   if type(opts.on_error) ~= "function" then
-    opts.on_error = function(msg1, err1)
+    opts.on_error = function(step1, err1)
       error(
         string.format(
           "failed to async read file by lines(%s), filename:%s, error:%s",
-          vim.inspect(msg1),
+          vim.inspect(step1),
           vim.inspect(filename),
           vim.inspect(err1)
         )
