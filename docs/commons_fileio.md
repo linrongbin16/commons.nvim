@@ -149,9 +149,11 @@ Returns:
 Async read file, invoke callback function on read complete.
 
 ```lua
+--- @alias commons.AsyncReadFileOnComplete fun(data:string?):any
+--- @alias commons.AsyncReadFileOnError fun(step:string,err:string?):any
 --- @param filename string
---- @param on_complete fun(data:string?):any
---- @param opts {trim:boolean?,on_open_complete_err:fun(err:string?,filename:string?,fd:any?)?}?
+--- @param on_complete commons.AsyncReadFileOnComplete
+--- @param opts {trim:boolean?,on_error:commons.AsyncReadFileOnError?}?
 M.asyncreadfile = function(filename, on_complete, opts)
 ```
 
@@ -170,16 +172,15 @@ Parameters:
 - `opts`: Options.
 
   - `trim`: Whether to trim whitespaces around file content, by default `false`.
-  - `on_open_complete_err`: Callback function that will be invoked after an error on open file, by default it throws via `error` API. The signature is:
+  - `on_error`: Callback function that will be invoked after an error on read file, by default it throws via `error` API. The signature is:
 
     ```lua
-    function on_open_complete_err(err:string?,filename:string?,fd:any?):nil
+    function on_error(step:string?,err:string?):nil
     ```
 
     - Parameters:
+      - `step`: Which step that the error throws.
       - `err`: Error message.
-      - `filename`: File name.
-      - `fd`: File descriptor.
 
 ### `readlines`
 
@@ -202,8 +203,11 @@ Returns:
 Async read file by lines, invoke callback functions on each line and after complete.
 
 ```lua
+--- @alias commons.AsyncReadLinesOnLine fun(line:string):any
+--- @alias commons.AsyncReadLinesOnComplete fun(bytes:integer):any
+--- @alias commons.AsyncReadLinesOnError fun(step:string?,err:string?):any
 --- @param filename string
---- @param opts {on_line:fun(line:string):any,on_complete:fun(bytes:integer):any,on_error:fun(err:string?):any,batchsize:integer?}
+--- @param opts {on_line:commons.AsyncReadLinesOnLine,on_complete:commons.AsyncReadLinesOnComplete,on_error:commons.AsyncReadLinesOnError?,batchsize:integer?}
 M.asyncreadlines = function(filename, opts)
 ```
 
@@ -234,10 +238,11 @@ Parameters:
   - `on_error`: Callback function that will be invoked on error, with signature:
 
     ```lua
-    function on_error(err:string?):any
+    function on_error(step:string?,err:string?):any
     ```
 
     - Parameters:
+      - `step`: Which step that the error throws.
       - `err`: Error message.
 
   - `batchsize`: Internal chunk size on each disk read operation, by default is `4096`.
