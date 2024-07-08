@@ -274,7 +274,7 @@ end
 
 --- @alias commons.AsyncReadLinesOnLine fun(line:string):any
 --- @alias commons.AsyncReadLinesOnComplete fun(bytes:integer):any
---- @alias commons.AsyncReadLinesOnError fun(msg,string,err:string?):any
+--- @alias commons.AsyncReadLinesOnError fun(msg:string?,err:string?):any
 --- @param filename string
 --- @param opts {on_line:commons.AsyncReadLinesOnLine,on_complete:commons.AsyncReadLinesOnComplete,on_error:commons.AsyncReadLinesOnError?,batchsize:integer?}
 M.asyncreadlines = function(filename, opts)
