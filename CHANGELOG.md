@@ -1,5 +1,16 @@
 # Changelog
 
+## [19.0.0](https://github.com/linrongbin16/commons.nvim/compare/v18.2.0...v19.0.0) (2024-07-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **fileio:** change 'on_open_complete_err' to 'on_error' for 'asyncreadfile'! ([#281](https://github.com/linrongbin16/commons.nvim/issues/281))
+
+### Features
+
+* **fileio:** change 'on_open_complete_err' to 'on_error' for 'asyncreadfile'! ([#281](https://github.com/linrongbin16/commons.nvim/issues/281)) ([e38a871](https://github.com/linrongbin16/commons.nvim/commit/e38a871368f7726569a476a2f73008bd24e8f6de))
+
 ## [18.2.0](https://github.com/linrongbin16/commons.nvim/compare/v18.1.1...v18.2.0) (2024-07-04)
 
 
