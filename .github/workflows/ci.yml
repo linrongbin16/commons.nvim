@@ -125,6 +125,7 @@ jobs:
       - name: Run Test Cases
         run: |
           luarocks install luacov
+          luarocks install luacov-reporter-lcov
           luarocks --lua-version=5.1 install vusted
           vusted --coverage ./spec
       - name: Check Coverage Reports
@@ -133,11 +134,11 @@ jobs:
           echo "ls ."
           ls -l .
           echo "run luacov"
-          luacov
+          luacov -r lcov
           echo "ls ."
           ls -l .
-          echo "cat ./luacov.report.out"
-          cat ./luacov.report.out
+          echo "tail ./luacov.report.out"
+          tail -n 50 ./luacov.report.out
       - uses: codecov/codecov-action@v4
         if: ${{ !startsWith(matrix.os, 'windows') }}
         with:
