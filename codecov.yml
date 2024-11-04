@@ -2,10 +2,10 @@ coverage:
   status:
     project:
       default:
-        threshold: 90%
+        threshold: 80%
     patch:
       default:
-        threshold: 90%
+        threshold: 80%
 ignore:
   - "lua/commons/_system.lua"
   - "lua/commons/_uri.lua"
