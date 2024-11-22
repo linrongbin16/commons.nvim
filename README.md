@@ -23,7 +23,7 @@ This lua library includes multiple modules:
 
 > [!NOTE]
 >
-> This library only supports latest stable and nightly version, since there are too many API level break changes that are too hard too handle in lua side.
+> This library only supports latest stable and nightly version, since there are many API level break changes and limitations that are hard to handle in lua side.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
