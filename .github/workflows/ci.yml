@@ -75,19 +75,13 @@ jobs:
             os: ubuntu-latest
           - nvim_version: nightly
             os: ubuntu-latest
-          - nvim_version: v0.9.0
-            os: ubuntu-latest
           - nvim_version: stable
             os: macos-latest
           - nvim_version: nightly
             os: macos-latest
-          - nvim_version: v0.9.0
-            os: macos-latest
           - nvim_version: stable
             os: windows-latest
           - nvim_version: nightly
-            os: windows-latest
-          - nvim_version: v0.9.0
             os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
