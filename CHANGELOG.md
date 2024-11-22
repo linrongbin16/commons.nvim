@@ -1,5 +1,16 @@
 # Changelog
 
+## [20.0.0](https://github.com/linrongbin16/commons.nvim/compare/v19.0.0...v20.0.0) (2024-11-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* only maintain latest stable version ([#285](https://github.com/linrongbin16/commons.nvim/issues/285))
+
+### Code Refactoring
+
+* only maintain latest stable version ([#285](https://github.com/linrongbin16/commons.nvim/issues/285)) ([17b8d84](https://github.com/linrongbin16/commons.nvim/commit/17b8d84628a3f5b7aa808e1e29c99c7dca66e1dd))
+
 ## [19.0.0](https://github.com/linrongbin16/commons.nvim/compare/v18.2.0...v19.0.0) (2024-07-08)
 
 
