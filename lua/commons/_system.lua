@@ -231,8 +231,6 @@ local function default_handler(stream, text, bucket)
   end
 end
 
-local is_win = vim.fn.has('win32') == 1
-
 local M = {}
 
 --- @param cmd string
@@ -241,13 +239,6 @@ local M = {}
 --- @param on_error fun()
 --- @return uv.uv_process_t, integer
 local function spawn(cmd, opts, on_exit, on_error)
-  if is_win then
-    local cmd1 = vim.fn.exepath(cmd)
-    if cmd1 ~= '' then
-      cmd = cmd1
-    end
-  end
-
   local handle, pid_or_err = uv.spawn(cmd, opts, on_exit)
   if not handle then
     on_error()
@@ -319,9 +310,9 @@ end
 --- @param on_exit? fun(out: vim.SystemCompleted)
 --- @return vim.SystemObj
 function M.run(cmd, opts, on_exit)
-  vim.validate('cmd', cmd, 'table')
-  vim.validate('opts', opts, 'table', true)
-  vim.validate('on_exit', on_exit, 'function', true)
+  assert(type(cmd) == "table")
+  assert(type(opts) == "table")
+  assert(type(on_exit) == "function")
 
   opts = opts or {}
 
