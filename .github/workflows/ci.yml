@@ -29,22 +29,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./spec
-      - name: Add _system.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          echo "pwd"
-          echo $PWD
-          git clone --depth=1 https://github.com/neovim/neovim.git ~/.neovim
-          cp ~/.neovim/runtime/lua/vim/_system.lua ./lua/commons/_system.lua
-          sed -i 's/vim.uv/vim.uv or vim.loop/g' ./lua/commons/_system.lua
-          sed -i '1 i\---@diagnostic disable' ./lua/commons/_system.lua
-      - name: Add uri.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          echo "pwd"
-          echo $PWD
-          cp ~/.neovim/runtime/lua/vim/uri.lua ./lua/commons/_uri.lua
-          sed -i '1 i\---@diagnostic disable' ./lua/commons/_uri.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -91,19 +75,13 @@ jobs:
             os: ubuntu-latest
           - nvim_version: nightly
             os: ubuntu-latest
-          - nvim_version: v0.9.0
-            os: ubuntu-latest
           - nvim_version: stable
             os: macos-latest
           - nvim_version: nightly
             os: macos-latest
-          - nvim_version: v0.9.0
-            os: macos-latest
           - nvim_version: stable
             os: windows-latest
           - nvim_version: nightly
-            os: windows-latest
-          - nvim_version: v0.9.0
             os: windows-latest
     runs-on: ${{ matrix.os }}
     steps:
@@ -116,7 +94,7 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
       - uses: leafo/gh-actions-lua@v10
         with:
-          luaVersion: "luajit-2.1.0-beta3"
+          luaVersion: "luajit-openresty"
         if: ${{ !startsWith(matrix.os, 'windows') }}
       - uses: leafo/gh-actions-luarocks@v4
         if: ${{ !startsWith(matrix.os, 'windows') }}
@@ -124,26 +102,31 @@ jobs:
         if: ${{ startsWith(matrix.os, 'windows') }}
       - name: Run Test Cases
         run: |
-          luarocks install luacov
           luarocks --lua-version=5.1 install vusted
-          vusted --coverage ./spec
-      - name: Check Coverage Reports
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-        run: |
-          echo "ls ."
-          ls -l .
-          echo "run luacov"
-          luacov
-          echo "ls ."
-          ls -l .
-          echo "cat ./luacov.report.out"
-          cat ./luacov.report.out
-      - uses: codecov/codecov-action@v4
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-        with:
-          files: luacov.report.out
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          vusted ./spec
+      # - name: Run Test Cases
+      #   run: |
+      #     luarocks install luacov
+      #     luarocks install luacov-reporter-lcov
+      #     luarocks --lua-version=5.1 install vusted
+      #     vusted --coverage ./spec
+      #     echo "ls -l ."
+      #     ls -l .
+      # - name: Check Coverage Reports
+      #   if: ${{ !startsWith(matrix.os, 'windows') }}
+      #   run: |
+      #     echo "luacov -r lcov"
+      #     luacov -r lcov
+      #     echo "ls -la ."
+      #     ls -la .
+      #     echo "tail ./luacov.report.out"
+      #     tail -n 50 ./luacov.report.out
+      # - uses: codecov/codecov-action@v4
+      #   if: ${{ !startsWith(matrix.os, 'windows') }}
+      #   with:
+      #     files: luacov.report.out
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
