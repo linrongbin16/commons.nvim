@@ -29,7 +29,6 @@ Please check [documentation](https://linrongbin16.github.io/commons.nvim) for mo
 
 ## Embedded Libraries
 
-- [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
 - [colors.lua](http://sputnik.freewisdom.org/lib/colors/): HSL Color Theory Computation in Lua.
 
 ## Contribute
