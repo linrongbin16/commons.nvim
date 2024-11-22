@@ -108,6 +108,8 @@ jobs:
       - name: Check Coverage Reports
         if: ${{ !startsWith(matrix.os, 'windows') }}
         run: |
+          # echo "luacov -r lcov"
+          # luacov -r lcov
           echo "luacov"
           luacov
           echo "ls -la"
