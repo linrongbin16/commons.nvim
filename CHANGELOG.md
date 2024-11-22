@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.0.1](https://github.com/linrongbin16/commons.nvim/compare/v21.0.0...v21.0.1) (2024-11-22)
+
+
+### Bug Fixes
+
+* **spawn:** disable diagnostics ([#289](https://github.com/linrongbin16/commons.nvim/issues/289)) ([50466f1](https://github.com/linrongbin16/commons.nvim/commit/50466f13a4c75408b9e20ad027544fc267b792c3))
+
 ## [21.0.0](https://github.com/linrongbin16/commons.nvim/compare/v20.0.0...v21.0.0) (2024-11-22)
 
 
