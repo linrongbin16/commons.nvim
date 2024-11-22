@@ -1,6 +1,7 @@
 # commons.nvim
 
 <p>
+<a href="https://github.com/neovim/neovim/releases/v0.10.0"><img alt="require" src="https://img.shields.io/badge/require-0.10%2B-blue" /></a>
 <a href="https://luarocks.org/modules/linrongbin16/commons.nvim"><img alt="luarocks" src="https://img.shields.io/luarocks/v/linrongbin16/commons.nvim" /></a>
 <a href="https://github.com/linrongbin16/commons.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/commons.nvim/ci.yml?label=ci" /></a>
 <a href="https://app.codecov.io/github/linrongbin16/commons.nvim"><img alt="codecov" src="https://img.shields.io/codecov/c/github/linrongbin16/commons.nvim/main?label=codecov" /></a>
@@ -22,7 +23,7 @@ This lua library includes multiple modules:
 
 > [!NOTE]
 >
-> Different modules of this library relies on different Neovim APIs and versions, please checkout documentation for the minimal required version.
+> This library only supports latest stable and nightly version, since there are too many API level break changes that are too hard too handle in lua side.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
