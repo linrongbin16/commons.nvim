@@ -1,7 +1,6 @@
 # commons.nvim
 
 <p>
-<a href="https://github.com/neovim/neovim/releases/v0.9.0"><img alt="require" src="https://img.shields.io/badge/require-0.9%2B-blue" /></a>
 <a href="https://luarocks.org/modules/linrongbin16/commons.nvim"><img alt="luarocks" src="https://img.shields.io/luarocks/v/linrongbin16/commons.nvim" /></a>
 <a href="https://github.com/linrongbin16/commons.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/commons.nvim/ci.yml?label=ci" /></a>
 <a href="https://app.codecov.io/github/linrongbin16/commons.nvim"><img alt="codecov" src="https://img.shields.io/codecov/c/github/linrongbin16/commons.nvim/main?label=codecov" /></a>
@@ -23,14 +22,12 @@ This lua library includes multiple modules:
 
 > [!NOTE]
 >
-> This library keeps up with the latest Neovim stable version, support until the last legacy version, earlier versions are dropped for maintenance reason, i.e. (at the time of writing, 2024-05-27), stable is 0.10, last legacy is 0.9, nightly is 0.11, thus this plugin supports 0.9+.
+> Different modules of this library relies on different Neovim APIs and versions, please checkout documentation for the minimal required version.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
 ## Embedded Libraries
 
-- [\_system.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/_system.lua): Neovim [vim.system()](<https://neovim.io/doc/user/lua.html#vim.system()>) source file.
-- [uri.lua](https://github.com/neovim/neovim/blob/master/runtime/lua/vim/uri.lua): Neovim [vim.uri_encode()](<https://neovim.io/doc/user/lua.html#vim.uri_encode()>) source file.
 - [async.lua](https://github.com/lewis6991/async.nvim): Small aync library for Neovim plugins.
 - [colors.lua](http://sputnik.freewisdom.org/lib/colors/): HSL Color Theory Computation in Lua.
 
