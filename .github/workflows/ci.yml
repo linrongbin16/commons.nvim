@@ -29,13 +29,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./spec
-      - name: Add uri.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          echo "pwd"
-          echo $PWD
-          cp ~/.neovim/runtime/lua/vim/uri.lua ./lua/commons/_uri.lua
-          sed -i '1 i\---@diagnostic disable' ./lua/commons/_uri.lua
       - name: Add async.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
