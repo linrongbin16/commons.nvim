@@ -310,7 +310,7 @@ end
 --- @param on_exit? fun(out: vim.SystemCompleted)
 --- @return vim.SystemObj
 function M.run(cmd, opts, on_exit)
-  -- vim.validate('cmd', cmd, 'table')
+  vim.validate('cmd', cmd, 'table')
   vim.validate('opts', opts, 'table', true)
   vim.validate('on_exit', on_exit, 'function', true)
 
