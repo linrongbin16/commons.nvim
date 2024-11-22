@@ -91,7 +91,6 @@ jobs:
         with:
           neovim: true
           version: ${{ matrix.nvim_version }}
-      - uses: ilammy/msvc-dev-cmd@v1
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "luajit-openresty"
