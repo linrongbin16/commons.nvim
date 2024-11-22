@@ -112,8 +112,8 @@ jobs:
           # luacov -r lcov
           echo "luacov"
           luacov
-          echo "ls -la"
-          ls -la
+          echo "ls -la ."
+          ls -la .
           echo "tail ./luacov.report.out"
           tail -n 50 ./luacov.report.out
       - uses: codecov/codecov-action@v4
