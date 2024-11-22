@@ -1,5 +1,16 @@
 # Changelog
 
+## [21.0.0](https://github.com/linrongbin16/commons.nvim/compare/v20.0.0...v21.0.0) (2024-11-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove 'async' library ([#287](https://github.com/linrongbin16/commons.nvim/issues/287))
+
+### Code Refactoring
+
+* remove 'async' library ([#287](https://github.com/linrongbin16/commons.nvim/issues/287)) ([2be0479](https://github.com/linrongbin16/commons.nvim/commit/2be0479265d4c6628193e51a3649b16417380b78))
+
 ## [20.0.0](https://github.com/linrongbin16/commons.nvim/compare/v19.0.0...v20.0.0) (2024-11-22)
 
 
