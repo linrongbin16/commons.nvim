@@ -3,6 +3,7 @@
   - [Install](install.md)
   - [Usage](usage.md)
 - Modules
+  - [commons.async](commons_async.md)
   - commons.color
     - [commons.color.hl](commons_color_hl.md)
     - [commons.color.hsl](commons_color_hsl.md)

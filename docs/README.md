@@ -13,6 +13,7 @@ The commons lua library for Neovim plugin project.
 
 ## Modules
 
+- [commons.async](/commons_async.md): Embedded [lewis6991/async.nvim](https://github.com/lewis6991/async.nvim) library.
 - commons.color
   - [commons.color.hl](/commons_color_hl.md): RGB color & nvim syntax highlight utilities.
   - [commons.color.hsl](/commons_color_hsl.md): Embedded [sputnik's colors](http://sputnik.freewisdom.org/lib/colors/) library.
