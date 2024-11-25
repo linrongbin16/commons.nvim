@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.1.0](https://github.com/linrongbin16/commons.nvim/compare/v21.0.1...v21.1.0) (2024-11-25)
+
+
+### Features
+
+* **async:** add "async.lua" library back ([#293](https://github.com/linrongbin16/commons.nvim/issues/293)) ([95f6c93](https://github.com/linrongbin16/commons.nvim/commit/95f6c93f9d2807f5e19d73de525530ca3fd4496b))
+
 ## [21.0.1](https://github.com/linrongbin16/commons.nvim/compare/v21.0.0...v21.0.1) (2024-11-22)
 
 
