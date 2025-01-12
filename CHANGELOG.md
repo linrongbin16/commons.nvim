@@ -1,5 +1,18 @@
 # Changelog
 
+## [22.0.0](https://github.com/linrongbin16/commons.nvim/compare/v21.1.0...v22.0.0) (2025-01-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **fileio:** rename 'fileio' module to 'fio' ([#298](https://github.com/linrongbin16/commons.nvim/issues/298))
+* **fileio:** refactor 'asyncreadfile' API, move 'on_complete' into opts, remove 'trim' ([#296](https://github.com/linrongbin16/commons.nvim/issues/296))
+
+### Code Refactoring
+
+* **fileio:** refactor 'asyncreadfile' API, move 'on_complete' into opts, remove 'trim' ([#296](https://github.com/linrongbin16/commons.nvim/issues/296)) ([0dce06a](https://github.com/linrongbin16/commons.nvim/commit/0dce06a2489cfd26a078ebb33e4a0b91a881fd23))
+* **fileio:** rename 'fileio' module to 'fio' ([#298](https://github.com/linrongbin16/commons.nvim/issues/298)) ([fa600d0](https://github.com/linrongbin16/commons.nvim/commit/fa600d0bdf93f72f541ffc4c9d393ca977736999))
+
 ## [21.1.0](https://github.com/linrongbin16/commons.nvim/compare/v21.0.1...v21.1.0) (2024-11-25)
 
 
