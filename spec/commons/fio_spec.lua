@@ -1,6 +1,6 @@
 local cwd = vim.fn.getcwd()
 
-describe("commons.fileio", function()
+describe("commons.fio", function()
   local assert_eq = assert.is_equal
   local assert_true = assert.is_true
   local assert_false = assert.is_false
@@ -13,21 +13,21 @@ describe("commons.fileio", function()
 
   local str = require("commons.str")
   local tbl = require("commons.tbl")
-  local fileio = require("commons.fileio")
+  local fio = require("commons.fio")
   local platform = require("commons.platform")
 
   describe("[FileLineReader]", function()
     it("failed to open", function()
-      local ok, reader = pcall(fileio.FileLineReader.open, fileio.FileLineReader, "asdf.md")
+      local ok, reader = pcall(fio.FileLineReader.open, fio.FileLineReader, "asdf.md")
       assert_false(ok)
     end)
     it("should equal with readfile", function()
       local function compare_with_readfile(filename)
-        local expect_content = fileio.readfile(filename, { trim = true })
+        local expect_content = fio.readfile(filename, { trim = true })
         assert_true(str.not_empty(expect_content))
         local expect_lines = str.split(expect_content, "\n", { plain = true, trimempty = false })
 
-        local reader = fileio.FileLineReader:open(filename)
+        local reader = fio.FileLineReader:open(filename)
         local actual_lines = {}
         while reader:has_next() do
           table.insert(actual_lines, reader:next())
@@ -53,16 +53,16 @@ describe("commons.fileio", function()
   end)
   describe("[readfile/readlines]", function()
     it("failed to open", function()
-      local ok1, reader1 = pcall(fileio.readfile, "asdf.md")
+      local ok1, reader1 = pcall(fio.readfile, "asdf.md")
       assert_eq(reader1, nil)
       assert_true(ok1)
-      local ok2, reader2 = pcall(fileio.readlines, "asdf.md")
+      local ok2, reader2 = pcall(fio.readlines, "asdf.md")
       assert_eq(reader2, nil)
       assert_true(ok2)
     end)
     it("readfile and FileLineReader", function()
-      local content = fileio.readfile("README.md", { trim = true })
-      local reader = fileio.FileLineReader:open("README.md") --[[@as commons.FileLineReader]]
+      local content = fio.readfile("README.md", { trim = true })
+      local reader = fio.FileLineReader:open("README.md") --[[@as commons.FileLineReader]]
       local buffer = nil
       assert_eq(type(reader), "table")
       while reader:has_next() do
@@ -76,8 +76,8 @@ describe("commons.fileio", function()
       assert_eq(str.rtrim(buffer --[[@as string]]), content)
     end)
     it("readfile and readlines", function()
-      local content = fileio.readfile("README.md", { trim = true })
-      local lines = fileio.readlines("README.md")
+      local content = fio.readfile("README.md", { trim = true })
+      local lines = fio.readlines("README.md")
       local buffer = nil
       for _, line in
         ipairs(lines --[[@as table]])
@@ -93,24 +93,24 @@ describe("commons.fileio", function()
   describe("[writefile/writelines]", function()
     if not platform.IS_WINDOWS then
       it("failed to open", function()
-        local ok1, reader1 = pcall(fileio.writefile, "a\\  '' :?!#+_-sdf.md")
+        local ok1, reader1 = pcall(fio.writefile, "a\\  '' :?!#+_-sdf.md")
         assert_false(ok1)
-        local ok2, reader2 = pcall(fileio.writelines, "a\\  '' :?!#+_-sdf.md")
+        local ok2, reader2 = pcall(fio.writelines, "a\\  '' :?!#+_-sdf.md")
         assert_false(ok2)
       end)
     end
 
     it("writefile and writelines", function()
-      local content = fileio.readfile("README.md") --[[@as string]]
-      local lines = fileio.readlines("README.md") --[[@as table]]
+      local content = fio.readfile("README.md") --[[@as string]]
+      local lines = fio.readlines("README.md") --[[@as table]]
 
       local t1 = "writefile-test1-README.md"
       local t2 = "writefile-test2-README.md"
-      fileio.writefile(t1, content)
-      fileio.writelines(t2, lines)
+      fio.writefile(t1, content)
+      fio.writelines(t2, lines)
 
-      content = fileio.readfile(t1, { trim = true }) --[[@as string]]
-      lines = fileio.readlines(t2) --[[@as table]]
+      content = fio.readfile(t1, { trim = true }) --[[@as string]]
+      lines = fio.readlines(t2) --[[@as table]]
 
       local buffer = nil
       for _, line in
@@ -138,7 +138,7 @@ describe("commons.fileio", function()
       local t = "asyncwritefile-test.txt"
       local content = "hello world, goodbye world!"
       local done = false
-      fileio.asyncwritefile(t, content, function(bytes)
+      fio.asyncwritefile(t, content, function(bytes)
         assert_eq(bytes, #content)
         vim.schedule(function()
           local j = vim.fn.jobstart(
@@ -158,7 +158,7 @@ describe("commons.fileio", function()
     it("read without on_error", function()
       local t = "README.md"
       local done = false
-      fileio.asyncreadfile(t, {
+      fio.asyncreadfile(t, {
         on_complete = function(content)
           assert_true(string.len(content) > 0)
           done = true
@@ -171,7 +171,7 @@ describe("commons.fileio", function()
     it("read with on_error", function()
       local t = "README.md"
       local done = false
-      fileio.asyncreadfile(t, {
+      fio.asyncreadfile(t, {
         on_complete = function(content)
           assert_true(string.len(content) > 0)
           done = true
@@ -188,7 +188,7 @@ describe("commons.fileio", function()
       local t = "THE_NON_EXIST_README.md"
       local done = false
       local failed = false
-      fileio.asyncreadfile(t, {
+      fio.asyncreadfile(t, {
         on_complete = function(content)
           assert_true(string.len(content) > 0)
           done = true
@@ -207,7 +207,7 @@ describe("commons.fileio", function()
       local t = "lua"
       local done = false
       local failed = false
-      fileio.asyncreadfile(t, {
+      fio.asyncreadfile(t, {
         on_complete = function(content)
           assert_true(string.len(content) > 0)
           done = true
@@ -228,7 +228,7 @@ describe("commons.fileio", function()
       local t = "README.md"
       local done = false
       local actual = {}
-      fileio.asyncreadlines(t, {
+      fio.asyncreadlines(t, {
         on_line = function(line)
           assert_eq(type(line), "string")
           assert_true(string.len(line) >= 0)
@@ -236,7 +236,7 @@ describe("commons.fileio", function()
         end,
         on_complete = function(bytes)
           assert_true(bytes > 0)
-          local expect = fileio.readlines(t)
+          local expect = fio.readlines(t)
           assert_eq(#actual, #expect)
           for i = 1, #actual do
             local la = actual[i]
@@ -255,7 +255,7 @@ describe("commons.fileio", function()
       local t = "README.md"
       local done = false
       local actual = {}
-      fileio.asyncreadlines(t, {
+      fio.asyncreadlines(t, {
         on_line = function(line)
           assert_eq(type(line), "string")
           assert_true(string.len(line) >= 0)
@@ -263,7 +263,7 @@ describe("commons.fileio", function()
         end,
         on_complete = function(bytes)
           assert_true(bytes > 0)
-          local expect = fileio.readlines(t)
+          local expect = fio.readlines(t)
           assert_eq(#actual, #expect)
           for i = 1, #actual do
             local la = actual[i]
@@ -285,7 +285,7 @@ describe("commons.fileio", function()
       local t = "asyncreadlines_not_exists.txt"
       local done = false
       local failed = false
-      fileio.asyncreadlines(t, {
+      fio.asyncreadlines(t, {
         on_line = function(line) end,
         on_complete = function(bytes)
           done = true
@@ -301,25 +301,25 @@ describe("commons.fileio", function()
   end)
   describe("[CachedFileReader]", function()
     it("test", function()
-      local reader = fileio.CachedFileReader:open("README.md")
+      local reader = fio.CachedFileReader:open("README.md")
       assert_true(reader.cache == nil)
-      assert_eq(fileio.readfile("README.md"), reader:read())
+      assert_eq(fio.readfile("README.md"), reader:read())
       assert_true(reader.cache ~= nil)
-      assert_eq(fileio.readfile("README.md"), reader:read())
+      assert_eq(fio.readfile("README.md"), reader:read())
       assert_true(reader.cache ~= nil)
-      assert_eq(fileio.readfile("README.md"), reader:read())
+      assert_eq(fio.readfile("README.md"), reader:read())
       assert_true(reader.cache ~= nil)
-      assert_eq(fileio.readfile("README.md"), reader:read())
+      assert_eq(fio.readfile("README.md"), reader:read())
       assert_true(reader.cache ~= nil)
       reader:reset()
       assert_true(reader.cache == nil)
-      assert_eq(fileio.readfile("README.md"), reader:read())
+      assert_eq(fio.readfile("README.md"), reader:read())
       assert_true(reader.cache ~= nil)
-      assert_eq(fileio.readfile("README.md"), reader:read())
+      assert_eq(fio.readfile("README.md"), reader:read())
       assert_true(reader.cache ~= nil)
     end)
     it("failed to read", function()
-      local reader = fileio.CachedFileReader:open("asdf.md")
+      local reader = fio.CachedFileReader:open("asdf.md")
       assert_true(reader.cache == nil)
       assert_eq(reader:read(), nil)
       assert_true(reader.cache == nil)

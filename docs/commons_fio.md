@@ -1,4 +1,4 @@
-# [commons.fileio](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/fileio.lua)
+# [commons.fio](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/fio.lua)
 
 File sync/async IO operations.
 
