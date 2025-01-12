@@ -8,7 +8,7 @@
     - [commons.color.hl](commons_color_hl.md)
     - [commons.color.hsl](commons_color_hsl.md)
     - [commons.color.term](commons_color_term.md)
-  - [commons.fileio](commons_fileio.md)
+  - [commons.fio](commons_fio.md)
   - [commons.logging](commons_logging.md)
   - [commons.num](commons_num.md)
   - [commons.path](commons_path.md)
