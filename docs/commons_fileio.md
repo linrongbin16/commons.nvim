@@ -148,28 +148,26 @@ Async read file, invoke callback function on read complete.
 
 ```lua
 --- @alias commons.AsyncReadFileOnComplete fun(data:string?):any
---- @alias commons.AsyncReadFileOnError fun(step:string,err:string?):any
+--- @alias commons.AsyncReadFileOnError fun(step:string?,err:string?):any
 --- @param filename string
---- @param on_complete commons.AsyncReadFileOnComplete
---- @param opts {trim:boolean?,on_error:commons.AsyncReadFileOnError?}?
-M.asyncreadfile = function(filename, on_complete, opts)
+--- @param opts {on_complete:commons.AsyncReadFileOnComplete,on_error:commons.AsyncReadFileOnError?,trim:boolean?}
+M.asyncreadfile = function(filename, opts)
 ```
 
 Parameters:
 
 - `filename`: File name.
-- `on_complete`: Callback function that will be invoked after read complete, with signature:
-
-  ```lua
-  function on_complete(data:string?):any
-  ```
-
-  - Parameters:
-    - `data`: File content.
-
 - `opts`: Options.
 
-  - `trim`: Whether to trim whitespaces around file content, by default `false`.
+  - `on_complete`: Callback function that will be invoked after read complete, with signature:
+
+    ```lua
+    function on_complete(data:string?):any
+    ```
+
+    - Parameters:
+      - `data`: File content.
+
   - `on_error`: Callback function that will be invoked after an error on read file, by default it throws via `error` API. The signature is:
 
     ```lua
@@ -179,6 +177,8 @@ Parameters:
     - Parameters:
       - `step`: Which step that the error throws.
       - `err`: Error message.
+
+  - `trim`: Whether to trim whitespaces around file content, by default is `false`.
 
 ### `readlines`
 

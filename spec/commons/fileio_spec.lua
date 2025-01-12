@@ -158,10 +158,12 @@ describe("commons.fileio", function()
     it("read without on_error", function()
       local t = "README.md"
       local done = false
-      fileio.asyncreadfile(t, function(content)
-        assert_true(string.len(content) > 0)
-        done = true
-      end)
+      fileio.asyncreadfile(t, {
+        on_complete = function(content)
+          assert_true(string.len(content) > 0)
+          done = true
+        end,
+      })
       vim.wait(1000, function()
         return done
       end)
@@ -169,10 +171,11 @@ describe("commons.fileio", function()
     it("read with on_error", function()
       local t = "README.md"
       local done = false
-      fileio.asyncreadfile(t, function(content)
-        assert_true(string.len(content) > 0)
-        done = true
-      end, {
+      fileio.asyncreadfile(t, {
+        on_complete = function(content)
+          assert_true(string.len(content) > 0)
+          done = true
+        end,
         on_error = function(msg, err)
           assert_true(false)
         end,
@@ -185,10 +188,11 @@ describe("commons.fileio", function()
       local t = "THE_NON_EXIST_README.md"
       local done = false
       local failed = false
-      fileio.asyncreadfile(t, function(content)
-        assert_true(string.len(content) > 0)
-        done = true
-      end, {
+      fileio.asyncreadfile(t, {
+        on_complete = function(content)
+          assert_true(string.len(content) > 0)
+          done = true
+        end,
         on_error = function(msg, err)
           print(string.format("failed to open file(%s): %s", vim.inspect(msg), vim.inspect(err)))
           assert_true(true)
@@ -203,10 +207,11 @@ describe("commons.fileio", function()
       local t = "lua"
       local done = false
       local failed = false
-      fileio.asyncreadfile(t, function(content)
-        assert_true(string.len(content) > 0)
-        done = true
-      end, {
+      fileio.asyncreadfile(t, {
+        on_complete = function(content)
+          assert_true(string.len(content) > 0)
+          done = true
+        end,
         on_error = function(msg, err)
           print(string.format("failed to open file(%s): %s", vim.inspect(msg), vim.inspect(err)))
           assert_true(true)
