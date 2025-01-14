@@ -19,9 +19,9 @@ describe("commons.spawn", function()
 
   local dummy = function() end
 
-  describe("[blocking]", function()
+  describe("[wait linewise]", function()
     it("test1", function()
-      local sp = spawn.run({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
+      local sp = spawn.linewise({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
       sp:wait()
       -- print(string.format("spawn wait-1:%s\n", vim.inspect(sp)))
     end)
@@ -35,7 +35,10 @@ describe("commons.spawn", function()
         assert_eq(line, lines[i])
         i = i + 1
       end
-      local sp = spawn.run({ "cat", "README.md" }, { on_stdout = process_line, on_stderr = dummy })
+      local sp = spawn.linewise(
+        { "cat", "README.md" },
+        { on_stdout = process_line, on_stderr = dummy }
+      )
       sp:wait()
       -- print(string.format("spawn wait-2:%s\n", vim.inspect(sp)))
     end)
@@ -53,7 +56,7 @@ describe("commons.spawn", function()
           assert_eq(line, lines[i])
           i = i + 1
         end
-        local sp = spawn.run(
+        local sp = spawn.linewise(
           { "cat", "README.md" },
           { on_stdout = process_line, on_stderr = dummy }
         )
@@ -78,7 +81,7 @@ describe("commons.spawn", function()
           assert_eq(line, lines[i])
           i = i + 1
         end
-        local sp = spawn.run(
+        local sp = spawn.linewise(
           { "cat", "README.md" },
           { on_stdout = process_line, on_stderr = dummy }
         )
@@ -94,7 +97,7 @@ describe("commons.spawn", function()
       delimiter_i = delimiter_i + math.random(1, 5)
     end
     it("stderr", function()
-      local sp = spawn.run({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
+      local sp = spawn.linewise({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
       sp:wait()
       -- print(string.format("spawn wait-3:%s\n", vim.inspect(sp)))
     end)
@@ -103,20 +106,19 @@ describe("commons.spawn", function()
       local function process_line(line)
         -- print(string.format("process[%d]:%s\n", i, line))
       end
-      local sp = spawn.run(
+      local sp = spawn.linewise(
         { "cat", "non_exists.txt" },
-        { on_stdout = process_line, on_stderr = process_line, blocking = true }
+        { on_stdout = process_line, on_stderr = process_line }
       )
       sp:wait()
       -- print(string.format("spawn wait-4:%s\n", vim.inspect(sp)))
     end)
   end)
-  describe("[nonblocking]", function()
+  describe("[no-wait linewise]", function()
     it("open", function()
-      local sp = spawn.run(
+      local sp = spawn.linewise(
         { "cat", "README.md" },
-        { on_stdout = dummy, on_stderr = dummy },
-        function(completed) end
+        { on_stdout = dummy, on_stderr = dummy, on_exit = function(completed) end }
       )
       sp:kill(9)
       -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
@@ -131,10 +133,9 @@ describe("commons.spawn", function()
         assert_eq(line, lines[i])
         i = i + 1
       end
-      local sp = spawn.run(
+      local sp = spawn.linewise(
         { "cat", "README.md" },
-        { on_stdout = process_line, on_stderr = dummy },
-        function(completed) end
+        { on_stdout = process_line, on_stderr = dummy, on_exit = function(completed) end }
       )
       -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
     end)
@@ -148,11 +149,107 @@ describe("commons.spawn", function()
         assert_eq(line, lines[i])
         i = i + 1
       end
-      local sp = spawn.run(
+      local sp = spawn.linewise(
         { "cat", "README.md" },
-        { on_stdout = process_line, on_stderr = dummy },
-        function(completed) end
+        { on_stdout = process_line, on_stderr = dummy, on_exit = function(completed) end }
       )
+      -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
+    end)
+  end)
+
+  describe("[wait complete]", function()
+    it("test1", function()
+      local sp = spawn.complete({ "cat", "README.md" })
+      local completed = sp:wait()
+      print(string.format("spawn wait-1:%s\n", vim.inspect(completed)))
+    end)
+    it("test2", function()
+      local lines = fio.readlines("README.md") --[[@as table]]
+
+      local sp = spawn.complete({ "cat", "README.md" }, {})
+      local completed = sp:wait()
+      print(string.format("spawn wait-2:%s\n", vim.inspect(completed)))
+    end)
+    local delimiter_i = 0
+    while delimiter_i <= 25 do
+      -- lower case: a
+      local lower_char = string.char(97 + delimiter_i)
+      it(string.format("stdout on %s", lower_char), function()
+        local lines = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function process_line(line)
+          -- print(string.format("[%d]%s\n", i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, lines[i])
+          i = i + 1
+        end
+        local sp = spawn.complete({ "cat", "README.md" })
+        local completed
+        sp:wait()
+        print(
+          string.format(
+            "spawn wait-delimiter-%d:%s\n",
+            vim.inspect(delimiter_i),
+            vim.inspect(completed)
+          )
+        )
+      end)
+      -- upper case: A
+      local upper_char = string.char(65 + delimiter_i)
+      it(string.format("stdout on %s", upper_char), function()
+        local lines = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function process_line(line)
+          -- print(string.format("[%d]%s\n", i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, lines[i])
+          i = i + 1
+        end
+        local sp = spawn.complete({ "cat", "README.md" }, {})
+        local completed = sp:wait()
+        print(
+          string.format(
+            "spawn wait-uppercase-%d:%s\n",
+            vim.inspect(delimiter_i),
+            vim.inspect(completed)
+          )
+        )
+      end)
+      delimiter_i = delimiter_i + math.random(1, 5)
+    end
+  end)
+  describe("[no-wait complete]", function()
+    it("open", function()
+      local sp = spawn.complete({ "cat", "README.md" }, { on_exit = function(completed) end })
+      sp:kill(9)
+      -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
+    end)
+    it("consume line", function()
+      local lines = fio.readlines("README.md") --[[@as table]]
+
+      local i = 1
+      local function process_line(line)
+        -- print(string.format("[%d]%s", i, line))
+        assert_eq(type(line), "string")
+        assert_eq(line, lines[i])
+        i = i + 1
+      end
+      local sp = spawn.complete({ "cat", "README.md" }, { on_exit = function(completed) end })
+      -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
+    end)
+    it("stdout on newline", function()
+      local lines = fio.readlines("README.md") --[[@as table]]
+
+      local i = 1
+      local function process_line(line)
+        -- print(string.format("[%d]%s\n", i, line))
+        assert_eq(type(line), "string")
+        assert_eq(line, lines[i])
+        i = i + 1
+      end
+      local sp = spawn.complete({ "cat", "README.md" }, { on_exit = function(completed) end })
       -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
     end)
   end)
