@@ -8,13 +8,10 @@ Run child-process with both line-wise/until-complete callbacks to handle stdout/
 
 ### `complete`
 
-Run command line in child-process, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only differences are:
+Run command line in child-process and collect all the output. The difference with `vim.system` API is:
 
-- It has two modes: async or sync.
-  - When user provides the `on_exit` callback function, it runs in async mode. Note: in async mode, never call `wait` method on the returned `vim.SystemObj`.
-  - When user doesn't provide the `on_exit` callback function, it runs in sync mode. Note: in sync mode, call `wait` method to wait for the process complete.
-- It collects all the output of child-process, i.e. stdout/stderr, and return them when process exit.
-- By default `text = true` in `opts`.
+- It pass the `on_exit` method in `opts`.
+- It is by default `text = true` in `opts`.
 
 ```lua
 --- @alias commons.SpawnOnExit fun(completed:vim.SystemCompleted):nil
@@ -43,7 +40,7 @@ Returns:
 
 - Returns the `vim.SystemObj` object.
 
-Examples:
+Note:
 
 If you want to run this API in async mode, pass the `on_exit` function in `opts`, and DO NOT invoke the `wait` method. For example:
 
@@ -76,13 +73,10 @@ print(string.format("process stderr:%d", vim.inspect(completed.stderr)))
 
 ### `linewise`
 
-Run command line in child-process, this is just a wrapper for [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>). The only differences are:
+Run command line in child-process and process each line of output while running. The difference with `vim.system` API is:
 
-- It has two modes: async or sync.
-  - When user provides the `on_exit` callback function, it runs in async mode. Note: in async mode, never call `wait` method on the returned `vim.SystemObj`.
-  - When user doesn't provide the `on_exit` callback function, it runs in sync mode. Note: in sync mode, call `wait` method to wait for the process complete.
-- It process the output of child-process line-wise while the process is running.
-- By default `text = true` in `opts`.
+- It process each line in the output of child-process while the process is running.
+- It is by default `text = true` in `opts`.
 
 ```lua
 --- @alias commons.SpawnLineWiseProcessor fun(line:string):any
@@ -129,7 +123,7 @@ Returns:
 
 - Returns the `vim.SystemObj` object.
 
-Examples:
+Note:
 
 If you want to run this API in async mode, pass the `on_exit` function in `opts`, and DO NOT invoke the `wait` method. For example:
 
