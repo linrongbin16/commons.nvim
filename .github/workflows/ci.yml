@@ -75,19 +75,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - nvim_version: 0.10.0
+          - nvim_version: v0.10.0
             os: ubuntu-latest
           - nvim_version: stable
             os: ubuntu-latest
           - nvim_version: nightly
             os: ubuntu-latest
-          - nvim_version: 0.10.0
+          - nvim_version: v0.10.0
             os: macos-latest
           - nvim_version: stable
             os: macos-latest
           - nvim_version: nightly
             os: macos-latest
-          - nvim_version: 0.10.0
+          - nvim_version: v0.10.0
             os: windows-latest
           - nvim_version: stable
             os: windows-latest
