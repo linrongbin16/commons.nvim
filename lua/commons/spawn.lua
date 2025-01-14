@@ -9,16 +9,57 @@ M.complete = function(cmd, opts)
   opts = opts or {}
   opts.text = type(opts.text) == "boolean" and opts.text or true
 
-  assert(type(opts.on_exit) == "function")
+  local stdout_buffer = nil
+
+  --- @param err string?
+  --- @param data string?
+  local function _handle_stdout(err, data)
+    if err then
+      error(
+        string.format(
+          "failed to read stdout on cmd:%s, error:%s",
+          vim.inspect(cmd),
+          vim.inspect(err)
+        )
+      )
+      return
+    end
+
+    if data then
+      -- append data to buffer
+      stdout_buffer = stdout_buffer and (stdout_buffer .. data) or data
+    end
+  end
+
+  local stderr_buffer = nil
+
+  --- @param err string?
+  --- @param data string?
+  local function _handle_stderr(err, data)
+    if err then
+      error(
+        string.format(
+          "failed to read stderr on cmd:%s, error:%s",
+          vim.inspect(cmd),
+          vim.inspect(err)
+        )
+      )
+      return
+    end
+
+    if data then
+      -- append data to buffer
+      stderr_buffer = stderr_buffer and (stderr_buffer .. data) or data
+    end
+  end
 
   return vim.system(cmd, {
     cwd = opts.cwd,
     env = opts.env,
     clear_env = opts.clear_env,
-    ---@diagnostic disable-next-line: assign-type-mismatch
     stdin = opts.stdin,
-    stdout = true,
-    stderr = true,
+    stdout = _handle_stdout,
+    stderr = _handle_stderr,
     text = opts.text,
     timeout = opts.timeout,
     detach = opts.detach,
