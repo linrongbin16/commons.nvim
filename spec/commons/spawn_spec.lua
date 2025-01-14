@@ -157,16 +157,16 @@ describe("commons.spawn", function()
     end)
   end)
 
-  describe("[wait complete]", function()
+  describe("[wait blockwise]", function()
     it("test1", function()
-      local sp = spawn.complete({ "cat", "README.md" })
+      local sp = spawn.blockwise({ "cat", "README.md" })
       local completed = sp:wait()
       print(string.format("spawn wait-1:%s\n", vim.inspect(completed)))
     end)
     it("test2", function()
       local lines = fio.readlines("README.md") --[[@as table]]
 
-      local sp = spawn.complete({ "cat", "README.md" }, {})
+      local sp = spawn.blockwise({ "cat", "README.md" }, {})
       local completed = sp:wait()
       print(string.format("spawn wait-2:%s\n", vim.inspect(completed)))
     end)
@@ -184,7 +184,7 @@ describe("commons.spawn", function()
           assert_eq(line, lines[i])
           i = i + 1
         end
-        local sp = spawn.complete({ "cat", "README.md" })
+        local sp = spawn.blockwise({ "cat", "README.md" })
         local completed
         sp:wait()
         print(
@@ -207,7 +207,7 @@ describe("commons.spawn", function()
           assert_eq(line, lines[i])
           i = i + 1
         end
-        local sp = spawn.complete({ "cat", "README.md" }, {})
+        local sp = spawn.blockwise({ "cat", "README.md" }, {})
         local completed = sp:wait()
         print(
           string.format(
@@ -220,9 +220,9 @@ describe("commons.spawn", function()
       delimiter_i = delimiter_i + math.random(1, 5)
     end
   end)
-  describe("[no-wait complete]", function()
+  describe("[no-wait blockwise]", function()
     it("open", function()
-      local sp = spawn.complete({ "cat", "README.md" }, { on_exit = function(completed) end })
+      local sp = spawn.blockwise({ "cat", "README.md" }, { on_exit = function(completed) end })
       sp:kill(9)
       -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
     end)
@@ -236,7 +236,7 @@ describe("commons.spawn", function()
         assert_eq(line, lines[i])
         i = i + 1
       end
-      local sp = spawn.complete({ "cat", "README.md" }, { on_exit = function(completed) end })
+      local sp = spawn.blockwise({ "cat", "README.md" }, { on_exit = function(completed) end })
       -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
     end)
     it("stdout on newline", function()
@@ -249,7 +249,7 @@ describe("commons.spawn", function()
         assert_eq(line, lines[i])
         i = i + 1
       end
-      local sp = spawn.complete({ "cat", "README.md" }, { on_exit = function(completed) end })
+      local sp = spawn.blockwise({ "cat", "README.md" }, { on_exit = function(completed) end })
       -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
     end)
   end)

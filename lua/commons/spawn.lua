@@ -5,7 +5,7 @@ local M = {}
 --- @param cmd string[]
 --- @param opts commons.SpawnCompleteOpts?
 --- @return vim.SystemObj
-M.complete = function(cmd, opts)
+M.blockwise = function(cmd, opts)
   opts = opts or {}
   opts.text = type(opts.text) == "boolean" and opts.text or true
 

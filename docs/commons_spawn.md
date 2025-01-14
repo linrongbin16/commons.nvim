@@ -6,7 +6,7 @@ Run child-process with both line-wise/until-complete callbacks to handle stdout/
 
 ## Functions
 
-### `complete`
+### `blockwise`
 
 Run command line in child-process and collect all the output. The difference with `vim.system` API is:
 
@@ -19,7 +19,7 @@ Run command line in child-process and collect all the output. The difference wit
 --- @param cmd string[]
 --- @param opts commons.SpawnCompleteOpts?
 --- @return vim.SystemObj
-M.complete = function(cmd, opts)
+M.blockwise = function(cmd, opts)
 ```
 
 Parameters:
