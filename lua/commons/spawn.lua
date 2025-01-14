@@ -1,9 +1,9 @@
 local M = {}
 
 --- @alias commons.SpawnOnExit fun(completed:vim.SystemCompleted):nil
---- @alias commons.SpawnCompleteOpts {on_exit:commons.SpawnOnExit?,[string]:any}
+--- @alias commons.SpawnBlockWiseOpts {on_exit:commons.SpawnOnExit?,[string]:any}
 --- @param cmd string[]
---- @param opts commons.SpawnCompleteOpts?
+--- @param opts commons.SpawnBlockWiseOpts?
 --- @return vim.SystemObj
 M.blockwise = function(cmd, opts)
   opts = opts or {}
