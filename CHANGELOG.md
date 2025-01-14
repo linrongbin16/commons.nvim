@@ -1,5 +1,17 @@
 # Changelog
 
+## [23.0.0](https://github.com/linrongbin16/commons.nvim/compare/v22.0.0...v23.0.0) (2025-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **spawn:** rename "run" to "linewise" for line-wise stdout/stderr processing ([#299](https://github.com/linrongbin16/commons.nvim/issues/299))
+
+### Features
+
+* **spawn:** add "complete" for all collected stdout/stderr from child-process ([#299](https://github.com/linrongbin16/commons.nvim/issues/299)) ([7d1f0ed](https://github.com/linrongbin16/commons.nvim/commit/7d1f0edc1e428f723e80c489c8fb4e1e5b09c8bc))
+* **spawn:** rename "run" to "linewise" for line-wise stdout/stderr processing ([#299](https://github.com/linrongbin16/commons.nvim/issues/299)) ([7d1f0ed](https://github.com/linrongbin16/commons.nvim/commit/7d1f0edc1e428f723e80c489c8fb4e1e5b09c8bc))
+
 ## [22.0.0](https://github.com/linrongbin16/commons.nvim/compare/v21.1.0...v22.0.0) (2025-01-12)
 
 
