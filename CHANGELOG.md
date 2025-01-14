@@ -1,5 +1,16 @@
 # Changelog
 
+## [24.0.0](https://github.com/linrongbin16/commons.nvim/compare/v23.0.0...v24.0.0) (2025-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **spawn:** rename "complete" to "blockwise"! ([#301](https://github.com/linrongbin16/commons.nvim/issues/301))
+
+### Code Refactoring
+
+* **spawn:** rename "complete" to "blockwise"! ([#301](https://github.com/linrongbin16/commons.nvim/issues/301)) ([41e541d](https://github.com/linrongbin16/commons.nvim/commit/41e541d44b60a5419dbbae8451be74adac4a77af))
+
 ## [23.0.0](https://github.com/linrongbin16/commons.nvim/compare/v22.0.0...v23.0.0) (2025-01-14)
 
 
