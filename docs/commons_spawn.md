@@ -57,7 +57,7 @@ local job = require("commons.spawn").complete({"cat", "README.md"}, {
   end,
 })
 
--- Ignored the returned `job`, don't wait for it, thus this job will run in async.
+-- Ignore the returned `job`, don't wait for it, thus this job will run in async.
 ```
 
 If you want to run this API in sync mode, don't the pass `on_exit` function in `opts`, and invoke the `wait` method on the returned job. For example:
@@ -147,7 +147,7 @@ local job = require("commons.spawn").complete({"cat", "README.md"}, {
   end,
 })
 
--- Ignored the returned `job`, don't wait for it, thus this job will run in async.
+-- Ignore the returned `job`, don't wait for it, thus this job will run in async.
 ```
 
 If you want to run this API in sync mode, don't the pass `on_exit` function in `opts`, and invoke the `wait` method on the returned job. For example:
