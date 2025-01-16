@@ -16,11 +16,12 @@ Run command line in child-process and collect all the output. The difference wit
 - It is by default `text = true` in `opts`.
 
 ```lua
+--- @alias commons.SpawnJob {obj:vim.SystemObj,opts:commons.SpawnBlockWiseOpts|commons.SpawnLineWiseOpts}
 --- @alias commons.SpawnOnExit fun(completed:vim.SystemCompleted):nil
 --- @alias commons.SpawnBlockWiseOpts {on_exit:commons.SpawnOnExit?,[string]:any}
 --- @param cmd string[]
 --- @param opts commons.SpawnBlockWiseOpts?
---- @return vim.SystemObj
+--- @return commons.SpawnJob
 M.blockwise = function(cmd, opts)
 ```
 
@@ -40,14 +41,15 @@ M.blockwise = function(cmd, opts)
 
 #### Returns
 
-- Returns the `vim.SystemObj` object.
+- Returns the `commons.SpawnJob` object.
 
 #### Note
 
 If you want to run this API in async mode, pass the `on_exit` function in `opts`, and DO NOT invoke the `wait` method. For example:
 
 ```lua
-local job = require("commons.spawn").complete({"cat", "README.md"}, {
+local spawn = require("commons.spawn")
+local job = spawn.blockwise({"cat", "README.md"}, {
   on_exit = function(completed)
     print(string.format("exit code:%d", completed.code))
     print(string.format("signal:%d", completed.signal))
@@ -62,10 +64,11 @@ local job = require("commons.spawn").complete({"cat", "README.md"}, {
 If you want to run this API in sync mode, don't the pass `on_exit` function in `opts`, and invoke the `wait` method on the returned job. For example:
 
 ```lua
-local job = require("commons.spawn").complete({"cat", "README.md"})
+local spawn = require("commons.spawn")
+local job = spawn.blockwise({"cat", "README.md"})
 
 -- Wait for the job done, this is sync.
-local completed = job:wait()
+local completed = spawn.wait(job)
 
 print(string.format("exit code:%d", completed.code))
 print(string.format("signal:%d", completed.signal))
@@ -85,7 +88,7 @@ Run command line in child-process and process each line of output while running.
 --- @alias commons.SpawnLineWiseOpts {on_stdout:commons.SpawnLineWiseProcessor,on_stderr:commons.SpawnLineWiseProcessor?,on_exit:commons.SpawnOnExit?,[string]:any}
 --- @param cmd string[]
 --- @param opts commons.SpawnLineWiseOpts?
---- @return vim.SystemObj
+--- @return commons.SpawnJob
 M.linewise = function(cmd, opts)
 ```
 
@@ -123,14 +126,15 @@ M.linewise = function(cmd, opts)
 
 #### Returns
 
-- Returns the `vim.SystemObj` object.
+- Returns the `commons.SpawnJob` object.
 
 #### Note
 
 If you want to run this API in async mode, pass the `on_exit` function in `opts`, and DO NOT invoke the `wait` method. For example:
 
 ```lua
-local job = require("commons.spawn").complete({"cat", "README.md"}, {
+local spawn = require("commons.spawn")
+local job = spawn.linewise({"cat", "README.md"}, {
   on_stdout = function(line)
     print(string.format("processed stdout:%d", vim.inspect(line)))
   end,
@@ -149,7 +153,8 @@ local job = require("commons.spawn").complete({"cat", "README.md"}, {
 If you want to run this API in sync mode, don't the pass `on_exit` function in `opts`, and invoke the `wait` method on the returned job. For example:
 
 ```lua
-local job = require("commons.spawn").complete({"cat", "README.md"}, {
+local spawn = require("commons.spawn")
+local job = spawn.linewise({"cat", "README.md"}, {
   on_stdout = function(line)
     print(string.format("processed line:%d", vim.inspect(line)))
   end,
@@ -159,7 +164,7 @@ local job = require("commons.spawn").complete({"cat", "README.md"}, {
 })
 
 -- Wait for the job done, this is sync.
-local completed = job:wait()
+local completed = spawn.wait(job)
 
 print(string.format("exit code:%d", completed.code))
 print(string.format("signal:%d", completed.signal))

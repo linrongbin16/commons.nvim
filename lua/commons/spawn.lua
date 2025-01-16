@@ -1,15 +1,20 @@
 local M = {}
 
+--- @alias commons.SpawnJob {obj:vim.SystemObj,opts:commons.SpawnBlockWiseOpts|commons.SpawnLineWiseOpts}
 --- @alias commons.SpawnOnExit fun(completed:vim.SystemCompleted):nil
 --- @alias commons.SpawnBlockWiseOpts {on_exit:commons.SpawnOnExit?,[string]:any}
 --- @param cmd string[]
 --- @param opts commons.SpawnBlockWiseOpts?
---- @return vim.SystemObj
+--- @return commons.SpawnJob
 M.blockwise = function(cmd, opts)
   opts = opts or {}
   opts.text = type(opts.text) == "boolean" and opts.text or true
 
-  return vim.system(cmd, {
+  assert(opts.on_stdout == nil, "Block-wise spawn job doesn't allow 'on_stdout' hook function")
+  assert(opts.on_stderr == nil, "Block-wise spawn job doesn't allow 'on_stderr' hook function")
+  assert(type(opts.on_exit) == "function" or opts.on_exit == nil)
+
+  local obj = vim.system(cmd, {
     cwd = opts.cwd,
     env = opts.env,
     clear_env = opts.clear_env,
@@ -18,27 +23,32 @@ M.blockwise = function(cmd, opts)
     timeout = opts.timeout,
     detach = opts.detach,
   }, opts.on_exit)
+
+  return { obj = obj, opts = opts }
 end
 
 --- @alias commons.SpawnLineWiseProcessor fun(line:string):any
 --- @alias commons.SpawnLineWiseOpts {on_stdout:commons.SpawnLineWiseProcessor,on_stderr:commons.SpawnLineWiseProcessor?,on_exit:commons.SpawnOnExit?,[string]:any}
 --- @param cmd string[]
 --- @param opts commons.SpawnLineWiseOpts?
---- @return vim.SystemObj
+--- @return commons.SpawnJob
 M.linewise = function(cmd, opts)
   opts = opts or {}
   opts.text = type(opts.text) == "boolean" and opts.text or true
 
-  if type(opts.on_exit) ~= "function" then
-    opts.on_exit = function() end
-  end
   if type(opts.on_stderr) ~= "function" then
     opts.on_stderr = function() end
   end
 
-  assert(type(opts.on_stdout) == "function")
-  assert(type(opts.on_stderr) == "function")
-  assert(type(opts.on_exit) == "function")
+  assert(
+    type(opts.on_stdout) == "function",
+    "Line-wise spawn job must have 'on_stdout' hook function"
+  )
+  assert(
+    type(opts.on_stderr) == "function",
+    "Line-wise spawn job must have 'on_stderr' hook function"
+  )
+  assert(type(opts.on_exit) == "function" or opts.on_exit == nil)
 
   --- @param buffer string
   --- @param fn_line_processor commons.SpawnLineWiseProcessor
@@ -123,7 +133,7 @@ M.linewise = function(cmd, opts)
     end
   end
 
-  return vim.system(cmd, {
+  local obj = vim.system(cmd, {
     cwd = opts.cwd,
     env = opts.env,
     clear_env = opts.clear_env,
@@ -135,6 +145,24 @@ M.linewise = function(cmd, opts)
     timeout = opts.timeout,
     detach = opts.detach,
   }, opts.on_exit)
+
+  return { obj = obj, opts = opts }
+end
+
+--- @param job commons.SpawnJob
+--- @param timeout integer?
+--- @return vim.SystemCompleted
+M.wait = function(job, timeout)
+  assert(type(job) == "table", "Job must be a 'commons.SpawnJob' object")
+  assert(job.obj ~= nil, "Job must be a 'commons.SpawnJob' object")
+  assert(type(job.opts) == "table", "Job must be a 'commons.SpawnJob' object")
+  assert(
+    job.opts.on_exit == nil,
+    "Async job cannot 'wait' for complete, it already use 'on_exit' hook function"
+  )
+  assert(type(timeout) == "number" or timeout == nil, "Timeout must be either integer or nil")
+
+  return job.obj:wait(timeout)
 end
 
 return M
