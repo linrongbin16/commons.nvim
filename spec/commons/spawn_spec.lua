@@ -121,7 +121,7 @@ describe("commons.spawn", function()
         { "cat", "README.md" },
         { on_stdout = dummy, on_stderr = dummy, on_exit = dummy }
       )
-      print(string.format("no-wait-linewise-1, job:%s\n", vim.inspect(job)))
+      -- print(string.format("no-wait-linewise-1, job:%s\n", vim.inspect(job)))
     end)
     it("test2", function()
       local expect = fio.readlines("README.md") --[[@as table]]
@@ -140,7 +140,7 @@ describe("commons.spawn", function()
           print(string.format("no-wait-linewise-2, completed:%s\n", vim.inspect(completed)))
         end,
       })
-      print(string.format("no-wait-linewise-2, job:%s\n", vim.inspect(job)))
+      -- print(string.format("no-wait-linewise-2, job:%s\n", vim.inspect(job)))
     end)
     it("test3", function()
       local expect = fio.readlines("README.md") --[[@as table]]
@@ -159,7 +159,7 @@ describe("commons.spawn", function()
           print(string.format("no-wait-linewise-3, completed:%s\n", vim.inspect(completed)))
         end,
       })
-      print(string.format("no-wait-linewise-3, job:%s\n", vim.inspect(job)))
+      -- print(string.format("no-wait-linewise-3, job:%s\n", vim.inspect(job)))
     end)
     it("test4", function()
       local expect = fio.readlines("README.md") --[[@as table]]
@@ -180,7 +180,7 @@ describe("commons.spawn", function()
       })
       local ok, err = pcall(spawn.wait, job)
       assert(not ok)
-      print(string.format("no-wait-linewise-4, job:%s\n", vim.inspect(job)))
+      -- print(string.format("no-wait-linewise-4, job:%s\n", vim.inspect(job)))
       print(string.format("no-wait-linewise-4, err:%s\n", vim.inspect(err)))
     end)
   end)
@@ -259,7 +259,7 @@ describe("commons.spawn", function()
           print(string.format("no-wait-blockwise-1, completed:%s\n", vim.inspect(completed)))
         end,
       })
-      print(string.format("no-wait-blockwise-1, job:%s\n", vim.inspect(job)))
+      -- print(string.format("no-wait-blockwise-1, job:%s\n", vim.inspect(job)))
     end)
     it("test2", function()
       local expect = fio.readlines("README.md") --[[@as table]]
@@ -275,7 +275,7 @@ describe("commons.spawn", function()
           end
         end,
       })
-      print(string.format("no-wait-blockwise-2, job:%s\n", vim.inspect(job)))
+      -- print(string.format("no-wait-blockwise-2, job:%s\n", vim.inspect(job)))
     end)
     it("test3", function()
       local job = spawn.blockwise({ "cat", "non-exists.txt" }, {
@@ -286,7 +286,7 @@ describe("commons.spawn", function()
           assert(string.len(completed.stderr) > 0)
         end,
       })
-      print(string.format("no-wait-blockwise-3, job:%s\n", vim.inspect(job)))
+      -- print(string.format("no-wait-blockwise-3, job:%s\n", vim.inspect(job)))
     end)
     it("test4", function()
       local job = spawn.blockwise({ "cat", "CHANGELOG.md" }, {
