@@ -12,32 +12,35 @@ Run shell command and handles argument string escaping.
 
 Escape command line argument string, works for both `sh` (for POSIX compatible OS) and `cmd.exe` (for Windows/DOS).
 
-- It pass the `on_exit` method in `opts`.
-- It is by default `text = true` in `opts`.
-
 ```lua
---- @alias commons.SpawnOnExit fun(completed:vim.SystemCompleted):nil
---- @alias commons.SpawnBlockWiseOpts {on_exit:commons.SpawnOnExit?,[string]:any}
---- @param cmd string[]
---- @param opts commons.SpawnBlockWiseOpts?
---- @return vim.SystemObj
-M.blockwise = function(cmd, opts)
+--- @param s string
+--- @return string
+M.escape = function(s)
 ```
 
 Parameters:
 
-- `cmd`: Command line in string list, exactly the same passing to `vim.system`.
-- `opts`: Almost the same passing to `vim.system`, except:
-
-  - `on_exit`: Callback function that will be invoked when child process exit, with signature:
-
-    ```lua
-    function on_exit(completed:vim.SystemCompleted):any
-    ```
-
-    - Parameters:
-      - `completed`: The `vim.SystemCompleted` object.
+- `s`: Command line argument string.
 
 Returns:
 
-- Returns the `vim.SystemObj` object.
+- Returns the escaped argument string.
+
+### `blockwise`
+
+Run command line in child-process and collect all the output. This is just a wrapper on [jobstart](<https://neovim.io/doc/user/builtin.html#jobstart()>) API. The difference is:
+
+- It handles the `vim.o.shell` options for Windows platform.
+
+```lua
+--- @alias commons.ShellJobOnExit fun(exitcode:integer?):nil
+--- @alias commons.ShellJobBlockWiseOnStdout fun(lines:string[]?):any
+--- @alias commons.ShellJobBlockWiseOnStderr fun(lines:string[]?):any
+--- @alias commons.ShellJobBlockWiseOpts {on_stdout:commons.ShellJobBlockWiseOnStdout,on_stderr:commons.ShellJobBlockWiseOnStderr?,on_exit:commons.ShellJobOnExit?,[string]:any}
+--- @param cmd string
+--- @param opts commons.ShellJobBlockWiseOpts?
+--- @return integer
+M.blockwise = function(cmd, opts)
+```
+
+### `linewise`

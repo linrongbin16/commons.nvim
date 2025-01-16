@@ -4,6 +4,8 @@
 
 Run child-process with both line-wise/until-complete callbacks to handle stdout/stderr output, a wrapper on [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>).
 
+!> The `blockwise` and `linewise` methods only works for multiple strings list command. For single string command, please refer to [commons.shell](commons_shell.md).
+
 ## Functions
 
 ### `blockwise`
