@@ -8,7 +8,6 @@ local M = {}
 --- @return commons.SpawnJob
 M.blockwise = function(cmd, opts)
   opts = opts or {}
-  opts.text = type(opts.text) == "boolean" and opts.text or true
 
   assert(opts.on_stdout == nil, "Block-wise spawn job doesn't allow 'on_stdout' hook function")
   assert(opts.on_stderr == nil, "Block-wise spawn job doesn't allow 'on_stderr' hook function")
@@ -19,7 +18,7 @@ M.blockwise = function(cmd, opts)
     env = opts.env,
     clear_env = opts.clear_env,
     stdin = opts.stdin,
-    text = opts.text,
+    text = true,
     timeout = opts.timeout,
     detach = opts.detach,
   }, opts.on_exit)
@@ -34,7 +33,6 @@ end
 --- @return commons.SpawnJob
 M.linewise = function(cmd, opts)
   opts = opts or {}
-  opts.text = type(opts.text) == "boolean" and opts.text or true
 
   if type(opts.on_stderr) ~= "function" then
     opts.on_stderr = function() end
@@ -141,7 +139,7 @@ M.linewise = function(cmd, opts)
     stdin = opts.stdin,
     stdout = _handle_stdout,
     stderr = _handle_stderr,
-    text = opts.text,
+    text = true,
     timeout = opts.timeout,
     detach = opts.detach,
   }, opts.on_exit)
