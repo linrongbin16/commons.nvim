@@ -234,9 +234,11 @@ M.linewise = function(cmd, opts)
   return jobid
 end
 
---- @param jobid integer|integer[]
+--- @param jobid integer[]
 --- @param timeout integer?
 M.wait = function(jobid, timeout)
+  assert(type(jobid) == "table")
+  assert(#jobid > 0)
   vim.fn.jobwait(jobid, timeout)
 end
 

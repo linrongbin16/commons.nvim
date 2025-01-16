@@ -137,12 +137,12 @@ M.linewise = function(cmd, opts)
 This method is to wait for the job(s) done, by the job ID(s). This is just a wrapper on [jobwait](<https://neovim.io/doc/user/builtin.html#jobwait()>) API.
 
 ```lua
---- @param jobid integer|integer[]
+--- @param jobid integer[]
 --- @param timeout integer?
 M.wait = function(jobid, timeout)
 ```
 
 #### Parameters
 
-- `jobid`: One job ID or multiple job IDs list.
+- `jobid`: Job IDs list.
 - `timeout`: Wait timeout in milliseconds. By default it is `nil`, i.e. wait forever.

@@ -19,7 +19,7 @@ describe("commons.shell", function()
   describe("[wait linewise]", function()
     it("test1", function()
       local job = shell.linewise("cat README.md", { on_stdout = dummy, on_stderr = dummy })
-      shell.wait(job)
+      shell.wait({ job })
       -- print(string.format("shell wait-1:%s\n", vim.inspect(sp)))
     end)
     it("test2", function()
@@ -33,7 +33,7 @@ describe("commons.shell", function()
         i = i + 1
       end
       local job = shell.linewise("echo README.md", { on_stdout = process_line, on_stderr = dummy })
-      shell.wait(job)
+      shell.wait({ job })
       -- print(string.format("shell wait-2:%s\n", vim.inspect(sp)))
     end)
     local delimiter_i = 0
@@ -51,7 +51,7 @@ describe("commons.shell", function()
           i = i + 1
         end
         local job = shell.linewise("cat README.md", { on_stdout = process_line, on_stderr = dummy })
-        shell.wait(job)
+        shell.wait({ job })
         -- print(
         --   string.format(
         --     "shell wait-delimiter-%d:%s\n",
@@ -73,7 +73,7 @@ describe("commons.shell", function()
           i = i + 1
         end
         local job = shell.linewise("cat README.md", { on_stdout = process_line, on_stderr = dummy })
-        shell.wait(job)
+        shell.wait({ job })
         -- print(
         --   string.format(
         --     "shell wait-uppercase-%d:%s\n",
@@ -86,7 +86,7 @@ describe("commons.shell", function()
     end
     it("stderr", function()
       local job = shell.linewise("cat README.md", { on_stdout = dummy, on_stderr = dummy })
-      shell.wait(job)
+      shell.wait({ job })
       -- print(string.format("shell wait-3:%s\n", vim.inspect(sp)))
     end)
     it("stderr2", function()
@@ -96,7 +96,7 @@ describe("commons.shell", function()
       end
       local job =
         shell.linewise("cat non_exists.txt", { on_stdout = process_line, on_stderr = process_line })
-      shell.wait(job)
+      shell.wait({ job })
       -- print(string.format("shell wait-4:%s\n", vim.inspect(sp)))
     end)
   end)
@@ -145,13 +145,13 @@ describe("commons.shell", function()
   describe("[wait blockwise]", function()
     it("test1", function()
       local job = shell.blockwise("cat README.md", { on_stdout = dummy })
-      shell.wait(job)
+      shell.wait({ job })
     end)
     it("test2", function()
       local lines = fio.readlines("README.md") --[[@as table]]
 
       local job = shell.blockwise("cat README.md", { on_stdout = dummy })
-      shell.wait(job)
+      shell.wait({ job })
     end)
     local delimiter_i = 0
     while delimiter_i <= 25 do
@@ -173,7 +173,7 @@ describe("commons.shell", function()
             stdout_data = stdout_data1
           end,
         })
-        shell.wait(job)
+        shell.wait({ job })
         print(
           string.format(
             "shell wait-delimiter-%d:%s\n",
