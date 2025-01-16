@@ -95,14 +95,14 @@ describe("commons.spawn", function()
       print(string.format("wait-linewise-3:%s\n", vim.inspect(result)))
     end)
     it("test4", function()
-      local i = 1
-      local function eachline(line)
-        -- print(string.format("process[%d]:%s\n", i, line))
-      end
-      local job = spawn.linewise(
-        { "cat", "non_exists.txt" },
-        { on_stdout = eachline, on_stderr = eachline }
-      )
+      local job = spawn.linewise({ "cat", "non_exists.txt" }, {
+        on_stdout = function(line)
+          print(string.format("wait-linewise-4, stdout line:%s\n", vim.inspect(line)))
+        end,
+        on_stderr = function(line)
+          print(string.format("wait-linewise-4, stderr line:%s\n", vim.inspect(line)))
+        end,
+      })
       local result = spawn.wait(job)
       print(string.format("wait-linewise-4:%s\n", vim.inspect(result)))
     end)
@@ -125,10 +125,13 @@ describe("commons.spawn", function()
         assert_eq(line, expect[i])
         i = i + 1
       end
-      local job = spawn.linewise(
-        { "cat", "README.md" },
-        { on_stdout = eachline, on_stderr = dummy, on_exit = function(completed) end }
-      )
+      local job = spawn.linewise({ "cat", "README.md" }, {
+        on_stdout = eachline,
+        on_stderr = dummy,
+        on_exit = function(completed)
+          print(string.format("no-wait-linewise-2, completed:%s\n", vim.inspect(completed)))
+        end,
+      })
       print(string.format("no-wait-linewise-2:%s\n", vim.inspect(job)))
     end)
     it("test3", function()
@@ -141,10 +144,13 @@ describe("commons.spawn", function()
         assert_eq(line, expect[i])
         i = i + 1
       end
-      local job = spawn.linewise(
-        { "cat", "CHANGELOG.md" },
-        { on_stdout = eachline, on_stderr = dummy, on_exit = function(completed) end }
-      )
+      local job = spawn.linewise({ "cat", "CHANGELOG.md" }, {
+        on_stdout = eachline,
+        on_stderr = dummy,
+        on_exit = function(completed)
+          print(string.format("no-wait-linewise-3, completed:%s\n", vim.inspect(completed)))
+        end,
+      })
       print(string.format("no-wait-linewise-3:%s\n", vim.inspect(job)))
     end)
     it("test4", function()
@@ -157,10 +163,13 @@ describe("commons.spawn", function()
         assert_eq(line, expect[i])
         i = i + 1
       end
-      local job = spawn.linewise(
-        { "cat", "CHANGELOG.md" },
-        { on_stdout = eachline, on_stderr = dummy, on_exit = function(completed) end }
-      )
+      local job = spawn.linewise({ "cat", "CHANGELOG.md" }, {
+        on_stdout = eachline,
+        on_stderr = dummy,
+        on_exit = function(completed)
+          print(string.format("no-wait-linewise-4, completed:%s\n", vim.inspect(completed)))
+        end,
+      })
       local ok, err = pcall(spawn.wait, job)
       assert(not ok)
       print(string.format("no-wait-linewise-4:%s\n", vim.inspect(job)))
@@ -237,7 +246,11 @@ describe("commons.spawn", function()
   end)
   describe("[no-wait blockwise]", function()
     it("test1", function()
-      local job = spawn.blockwise({ "cat", "README.md" }, { on_exit = function(completed) end })
+      local job = spawn.blockwise({ "cat", "README.md" }, {
+        on_exit = function(completed)
+          print(string.format("no-wait-blockwise-1, completed:%s\n", vim.inspect(completed)))
+        end,
+      })
       print(string.format("no-wait-blockwise-1:%s\n", vim.inspect(job)))
     end)
     it("test2", function()
@@ -245,6 +258,7 @@ describe("commons.spawn", function()
 
       local job = spawn.blockwise({ "cat", "README.md" }, {
         on_exit = function(completed)
+          print(string.format("no-wait-blockwise-2, completed:%s\n", vim.inspect(completed)))
           local actual = str.split(completed.stdout, "\n", { plain = true, trimempty = false })
           assert_eq(#expect, #actual)
           local n = #expect
@@ -268,7 +282,9 @@ describe("commons.spawn", function()
     end)
     it("test4", function()
       local job = spawn.blockwise({ "cat", "CHANGELOG.md" }, {
-        on_exit = function(completed) end,
+        on_exit = function(completed)
+          print(string.format("no-wait-blockwise-4, completed:%s\n", vim.inspect(completed)))
+        end,
       })
       local ok, err = pcall(spawn.wait, job)
       assert(not ok)
