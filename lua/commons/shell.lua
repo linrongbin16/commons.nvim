@@ -231,7 +231,7 @@ M.linewise = function(cmd, opts)
   return jobid
 end
 
---- @param jobid integer
+--- @param jobid integer|integer[]
 --- @param timeout integer?
 M.wait = function(jobid, timeout)
   vim.fn.jobwait(jobid, timeout)

@@ -18,11 +18,11 @@ Escape command line argument string, works for both `sh` (for POSIX compatible O
 M.escape = function(s)
 ```
 
-Parameters:
+#### Parameters
 
 - `s`: Command line argument string.
 
-Returns:
+#### Returns
 
 - Returns the escaped argument string.
 
@@ -43,4 +43,106 @@ Run command line in child-process and collect all the output. This is just a wra
 M.blockwise = function(cmd, opts)
 ```
 
+#### Parameters
+
+- `cmd`: Single-line command line string.
+- `opts`: Almost the same with `jobstart` options, except:
+
+  - `on_stdout`: Callback function that will be invoked with all the lines from `stdout` when child process complete, with function signature:
+
+    ```lua
+    function on_stdout(lines:string[]):any
+    ```
+
+    - Parameters:
+      - `lines`: All the lines from the process output `stdout`.
+
+  - `on_stderr`: Callback function that will be invoked with all the lines from `stderr` when child process complete, with function signature:
+
+    ```lua
+    function on_stderr(lines:string[]?):any
+    ```
+
+    - Parameters:
+      - `lines`: All the lines from the process `stderr`.
+
+  - `on_exit`: Callback function that will be invoked when child process exit, with function signature:
+
+    ```lua
+    function on_exit(exitcode:integer?):nil
+    ```
+
+    - Parameters:
+      - `exitcode`: The exit code.
+
+#### Returns
+
+- Returns the job ID.
+
 ### `linewise`
+
+Run command line in child-process and process each line of output while running. This is just a wrapper on [jobstart](<https://neovim.io/doc/user/builtin.html#jobstart()>) API. The difference is:
+
+- It handles the `vim.o.shell` options for Windows platform.
+- It process each line in the output of child-process while the process is running.
+
+```lua
+--- @alias commons.ShellJobLineWiseOnStdout fun(line:string?):any
+--- @alias commons.ShellJobLineWiseOnStderr fun(line:string?):any
+--- @alias commons.ShellJobLineWiseOpts {on_stdout:commons.ShellJobLineWiseOnStdout,on_stderr:commons.ShellJobLineWiseOnStderr?,on_exit:commons.ShellJobOnExit?,[string]:any}
+--- @param cmd string
+--- @param opts commons.ShellJobLineWiseOpts?
+--- @return integer
+M.linewise = function(cmd, opts)
+```
+
+#### Parameters
+
+- `cmd`: Single-line command line string.
+- `opts`: Almost the same with `jobstart` options, except:
+
+  - `on_stdout`: Callback function that will be invoked on each line of the `stdout` while child process is running, with function signature:
+
+    ```lua
+    function on_stderr(line:string?):any
+    ```
+
+    - Parameters:
+      - `line`: Each line of the process output `stdout`.
+
+  - `on_stderr`: Callback function that will be invoked on each line of the `stderr` while child process is running, with function signature:
+
+    ```lua
+    function on_stderr(line:string?):any
+    ```
+
+    - Parameters:
+      - `line`: Each line of the process output `stderr`.
+
+  - `on_exit`: Callback function that will be invoked when child process exit, with signature:
+
+    ```lua
+    function on_exit(exitcode:integer?):nil
+    ```
+
+    - Parameters:
+      - `exitcode`: The exit code.
+
+#### Returns
+
+- Returns the job ID.
+
+### `wait`
+
+This method is to wait for the job(s) done, by the job ID(s). This is just a wrapper on [jobwait](<https://neovim.io/doc/user/builtin.html#jobwait()>) API.
+
+```lua
+--- @param jobid integer|integer[]
+--- @param timeout integer?
+M.wait = function(jobid, timeout)
+```
+
+#### Parameters
+
+- `jobid`: One job ID or multiple job IDs list.
+- `timeout`: Wait timeout in milliseconds. By default it is `nil`, i.e. wait forever.

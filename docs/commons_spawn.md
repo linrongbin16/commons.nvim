@@ -24,7 +24,7 @@ Run command line in child-process and collect all the output. The difference wit
 M.blockwise = function(cmd, opts)
 ```
 
-Parameters:
+#### Parameters
 
 - `cmd`: Command line in string list, exactly the same passing to `vim.system`.
 - `opts`: Almost the same passing to `vim.system`, except:
@@ -38,11 +38,11 @@ Parameters:
     - Parameters:
       - `completed`: The `vim.SystemCompleted` object.
 
-Returns:
+#### Returns
 
 - Returns the `vim.SystemObj` object.
 
-Note:
+#### Note
 
 If you want to run this API in async mode, pass the `on_exit` function in `opts`, and DO NOT invoke the `wait` method. For example:
 
@@ -89,7 +89,7 @@ Run command line in child-process and process each line of output while running.
 M.linewise = function(cmd, opts)
 ```
 
-Parameters:
+#### Parameters
 
 - `cmd`: Command line in string list, exactly the same passing to `vim.system`.
 - `opts`: Almost the same passing to `vim.system`, except:
@@ -121,11 +121,11 @@ Parameters:
     - Parameters:
       - `completed`: The `vim.SystemCompleted` object.
 
-Returns:
+#### Returns
 
 - Returns the `vim.SystemObj` object.
 
-Note:
+#### Note
 
 If you want to run this API in async mode, pass the `on_exit` function in `opts`, and DO NOT invoke the `wait` method. For example:
 
