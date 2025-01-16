@@ -44,15 +44,18 @@ local ShellContext = {}
 function ShellContext:save()
   local is_win = require("commons.platform").IS_WINDOWS
 
-  local o = is_win
-      and {
-        shell = vim.o.shell,
-        shellslash = vim.o.shellslash,
-        shellcmdflag = vim.o.shellcmdflag,
-      }
-    or {
+  local o
+  if is_win then
+    o = {
+      shell = vim.o.shell,
+      shellslash = vim.o.shellslash,
+      shellcmdflag = vim.o.shellcmdflag,
+    }
+  else
+    o = {
       shell = vim.o.shell,
     }
+  end
 
   setmetatable(o, self)
   self.__index = self
@@ -236,3 +239,5 @@ end
 M.wait = function(jobid, timeout)
   vim.fn.jobwait(jobid, timeout)
 end
+
+return M
