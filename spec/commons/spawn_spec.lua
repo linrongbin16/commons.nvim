@@ -178,5 +178,61 @@ describe("commons.spawn", function()
       -- print(string.format("detached-4, job:%s\n", vim.inspect(job)))
       print(string.format("detached-4, err:%s\n", vim.inspect(err)))
     end)
+    local case_i = 0
+    while case_i <= 25 do
+      -- lower case: a
+      local lower_char = string.char(97 + case_i)
+      it(string.format("stdout on %s", lower_char), function()
+        local expect = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function on_line(line)
+          -- print(string.format("detached-lowercase-%d [%d]:%s", case_i, i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, expect[i])
+          i = i + 1
+        end
+        local job = spawn.detached(
+          { "cat", "README.md" },
+          { on_stdout = on_line, on_stderr = dummy },
+          function(result)
+            print(
+              string.format(
+                "waitable-lowercase-%d, result:%s\n",
+                vim.inspect(case_i),
+                vim.inspect(result)
+              )
+            )
+          end
+        )
+      end)
+      -- upper case: A
+      local upper_char = string.char(65 + case_i)
+      it(string.format("stdout on %s", upper_char), function()
+        local expect = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function on_line(line)
+          -- print(string.format("detached-uppercase-%d [%d]:%s", case_i, i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, expect[i])
+          i = i + 1
+        end
+        local job = spawn.detached(
+          { "cat", "README.md" },
+          { on_stdout = on_line, on_stderr = dummy },
+          function(result)
+            print(
+              string.format(
+                "waitable-uppercase-%d, result:%s\n",
+                vim.inspect(case_i),
+                vim.inspect(result)
+              )
+            )
+          end
+        )
+      end)
+      case_i = case_i + 1
+    end
   end)
 end)
