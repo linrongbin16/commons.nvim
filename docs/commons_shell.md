@@ -128,6 +128,8 @@ M.waitable = function(cmd, opts)
 
 ### `wait`
 
+!> This API is failed in unit testing! Use it at your own risk!
+
 Wait for the spawn job complete, only works for the job created by `waitable` API. This is just a wrapper on [jobwait](<https://neovim.io/doc/user/builtin.html#jobwait()>) API.
 
 ```lua
