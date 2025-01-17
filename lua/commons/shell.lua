@@ -240,11 +240,11 @@ M.wait = function(job, timeout)
     "Detached shell job cannot 'wait' for its exit, it already has 'on_exit' in 3rd parameter for its exit"
   )
 
-  if type(timeout) == "number" and timeout >= 0 then
-    vim.fn.jobwait({ job.jobid }, timeout)
-  else
-    vim.fn.jobwait({ job.jobid })
+  if type(timeout) ~= "number" or timeout < 0 then
+    timeout = 2147483647
   end
+
+  vim.fn.jobwait({ job.jobid }, timeout)
 end
 
 return M
