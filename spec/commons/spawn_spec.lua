@@ -15,242 +15,224 @@ describe("commons.spawn", function()
   end)
 
   local fio = require("commons.fio")
+  local str = require("commons.str")
   local spawn = require("commons.spawn")
 
   local dummy = function() end
 
-  describe("[wait linewise]", function()
+  describe("[waitable]", function()
     it("test1", function()
-      local sp = spawn.linewise({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
-      sp:wait()
-      -- print(string.format("spawn wait-1:%s\n", vim.inspect(sp)))
+      local job = spawn.waitable({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
+      local result = spawn.wait(job)
+      print(string.format("waitable-1, result:%s\n", vim.inspect(result)))
     end)
     it("test2", function()
-      local lines = fio.readlines("README.md") --[[@as table]]
+      local expect = fio.readlines("README.md") --[[@as table]]
 
       local i = 1
-      local function process_line(line)
-        -- print(string.format("[%d]%s", i, line))
+      local function on_line(line)
+        -- print(string.format("waitable-2 [%d]:%s", i, line))
         assert_eq(type(line), "string")
-        assert_eq(line, lines[i])
+        assert_eq(line, expect[i])
         i = i + 1
       end
-      local sp = spawn.linewise(
-        { "cat", "README.md" },
-        { on_stdout = process_line, on_stderr = dummy }
-      )
-      sp:wait()
-      -- print(string.format("spawn wait-2:%s\n", vim.inspect(sp)))
+
+      local job = spawn.waitable({ "cat", "README.md" }, { on_stdout = on_line, on_stderr = dummy })
+      local result = spawn.wait(job)
+      print(string.format("waitable-2, result:%s\n", vim.inspect(result)))
     end)
-    local delimiter_i = 0
-    while delimiter_i <= 25 do
+    it("test3", function()
+      local job = spawn.waitable({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
+      -- print(string.format("waitable-3, job:%s\n", vim.inspect(job)))
+    end)
+    it("test4", function()
+      local job = spawn.waitable({ "cat", "non_exists.txt" }, {
+        on_stdout = function(line)
+          print(string.format("waitable-4, stdout line:%s\n", vim.inspect(line)))
+        end,
+        on_stderr = function(line)
+          print(string.format("waitable-4, stderr line:%s\n", vim.inspect(line)))
+        end,
+      })
+      local result = spawn.wait(job)
+      print(string.format("waitable-4, result:%s\n", vim.inspect(result)))
+    end)
+    local case_i = 0
+    while case_i <= 25 do
       -- lower case: a
-      local lower_char = string.char(97 + delimiter_i)
+      local lower_char = string.char(97 + case_i)
       it(string.format("stdout on %s", lower_char), function()
-        local lines = fio.readlines("README.md") --[[@as table]]
+        local expect = fio.readlines("README.md") --[[@as table]]
 
         local i = 1
-        local function process_line(line)
-          -- print(string.format("[%d]%s\n", i, line))
+        local function on_line(line)
+          -- print(string.format("waitable-lowercase-%d [%d]:%s", case_i, i, line))
           assert_eq(type(line), "string")
-          assert_eq(line, lines[i])
+          assert_eq(line, expect[i])
           i = i + 1
         end
-        local sp = spawn.linewise(
+        local job = spawn.waitable(
           { "cat", "README.md" },
-          { on_stdout = process_line, on_stderr = dummy }
+          { on_stdout = on_line, on_stderr = dummy }
         )
-        sp:wait()
-        -- print(
-        --   string.format(
-        --     "spawn wait-delimiter-%d:%s\n",
-        --     vim.inspect(delimiter_i),
-        --     vim.inspect(sp)
-        --   )
-        -- )
-      end)
-      -- upper case: A
-      local upper_char = string.char(65 + delimiter_i)
-      it(string.format("stdout on %s", upper_char), function()
-        local lines = fio.readlines("README.md") --[[@as table]]
-
-        local i = 1
-        local function process_line(line)
-          -- print(string.format("[%d]%s\n", i, line))
-          assert_eq(type(line), "string")
-          assert_eq(line, lines[i])
-          i = i + 1
-        end
-        local sp = spawn.linewise(
-          { "cat", "README.md" },
-          { on_stdout = process_line, on_stderr = dummy }
-        )
-        sp:wait()
-        -- print(
-        --   string.format(
-        --     "spawn wait-uppercase-%d:%s\n",
-        --     vim.inspect(delimiter_i),
-        --     vim.inspect(sp)
-        --   )
-        -- )
-      end)
-      delimiter_i = delimiter_i + math.random(1, 5)
-    end
-    it("stderr", function()
-      local sp = spawn.linewise({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
-      sp:wait()
-      -- print(string.format("spawn wait-3:%s\n", vim.inspect(sp)))
-    end)
-    it("stderr2", function()
-      local i = 1
-      local function process_line(line)
-        -- print(string.format("process[%d]:%s\n", i, line))
-      end
-      local sp = spawn.linewise(
-        { "cat", "non_exists.txt" },
-        { on_stdout = process_line, on_stderr = process_line }
-      )
-      sp:wait()
-      -- print(string.format("spawn wait-4:%s\n", vim.inspect(sp)))
-    end)
-  end)
-  describe("[no-wait linewise]", function()
-    it("open", function()
-      local sp = spawn.linewise(
-        { "cat", "README.md" },
-        { on_stdout = dummy, on_stderr = dummy, on_exit = function(completed) end }
-      )
-      sp:kill(9)
-      -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
-    end)
-    it("consume line", function()
-      local lines = fio.readlines("README.md") --[[@as table]]
-
-      local i = 1
-      local function process_line(line)
-        -- print(string.format("[%d]%s", i, line))
-        assert_eq(type(line), "string")
-        assert_eq(line, lines[i])
-        i = i + 1
-      end
-      local sp = spawn.linewise(
-        { "cat", "README.md" },
-        { on_stdout = process_line, on_stderr = dummy, on_exit = function(completed) end }
-      )
-      -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
-    end)
-    it("stdout on newline", function()
-      local lines = fio.readlines("README.md") --[[@as table]]
-
-      local i = 1
-      local function process_line(line)
-        -- print(string.format("[%d]%s\n", i, line))
-        assert_eq(type(line), "string")
-        assert_eq(line, lines[i])
-        i = i + 1
-      end
-      local sp = spawn.linewise(
-        { "cat", "README.md" },
-        { on_stdout = process_line, on_stderr = dummy, on_exit = function(completed) end }
-      )
-      -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
-    end)
-  end)
-
-  describe("[wait blockwise]", function()
-    it("test1", function()
-      local sp = spawn.blockwise({ "cat", "README.md" })
-      local completed = sp:wait()
-      print(string.format("spawn wait-1:%s\n", vim.inspect(completed)))
-    end)
-    it("test2", function()
-      local lines = fio.readlines("README.md") --[[@as table]]
-
-      local sp = spawn.blockwise({ "cat", "README.md" }, {})
-      local completed = sp:wait()
-      print(string.format("spawn wait-2:%s\n", vim.inspect(completed)))
-    end)
-    local delimiter_i = 0
-    while delimiter_i <= 25 do
-      -- lower case: a
-      local lower_char = string.char(97 + delimiter_i)
-      it(string.format("stdout on %s", lower_char), function()
-        local lines = fio.readlines("README.md") --[[@as table]]
-
-        local i = 1
-        local function process_line(line)
-          -- print(string.format("[%d]%s\n", i, line))
-          assert_eq(type(line), "string")
-          assert_eq(line, lines[i])
-          i = i + 1
-        end
-        local sp = spawn.blockwise({ "cat", "README.md" })
-        local completed
-        sp:wait()
+        local result = spawn.wait(job)
         print(
           string.format(
-            "spawn wait-delimiter-%d:%s\n",
-            vim.inspect(delimiter_i),
-            vim.inspect(completed)
+            "waitable-lowercase-%d, result:%s\n",
+            vim.inspect(case_i),
+            vim.inspect(result)
           )
         )
       end)
       -- upper case: A
-      local upper_char = string.char(65 + delimiter_i)
+      local upper_char = string.char(65 + case_i)
       it(string.format("stdout on %s", upper_char), function()
-        local lines = fio.readlines("README.md") --[[@as table]]
+        local expect = fio.readlines("README.md") --[[@as table]]
 
         local i = 1
-        local function process_line(line)
-          -- print(string.format("[%d]%s\n", i, line))
+        local function on_line(line)
+          -- print(string.format("waitable-uppercase-%d [%d]:%s", case_i, i, line))
           assert_eq(type(line), "string")
-          assert_eq(line, lines[i])
+          assert_eq(line, expect[i])
           i = i + 1
         end
-        local sp = spawn.blockwise({ "cat", "README.md" }, {})
-        local completed = sp:wait()
+        local job = spawn.waitable(
+          { "cat", "README.md" },
+          { on_stdout = on_line, on_stderr = dummy }
+        )
+        local result = spawn.wait(job)
         print(
           string.format(
-            "spawn wait-uppercase-%d:%s\n",
-            vim.inspect(delimiter_i),
-            vim.inspect(completed)
+            "waitable-uppercase-%d, result:%s\n",
+            vim.inspect(case_i),
+            vim.inspect(result)
           )
         )
       end)
-      delimiter_i = delimiter_i + math.random(1, 5)
+      case_i = case_i + 1
     end
   end)
-  describe("[no-wait blockwise]", function()
-    it("open", function()
-      local sp = spawn.blockwise({ "cat", "README.md" }, { on_exit = function(completed) end })
-      sp:kill(9)
-      -- print(string.format("spawn nonblocking-1:%s\n", vim.inspect(sp)))
+  describe("[detached]", function()
+    it("test1", function()
+      local job = spawn.detached(
+        { "cat", "README.md" },
+        { on_stdout = dummy, on_stderr = dummy },
+        dummy
+      )
+      -- print(string.format("detached-1, job:%s\n", vim.inspect(job)))
     end)
-    it("consume line", function()
-      local lines = fio.readlines("README.md") --[[@as table]]
+    it("test2", function()
+      local expect = fio.readlines("README.md") --[[@as table]]
 
       local i = 1
-      local function process_line(line)
-        -- print(string.format("[%d]%s", i, line))
+      local function on_line(line)
+        -- print(string.format("detached-2 [%d]:%s", i, line))
         assert_eq(type(line), "string")
-        assert_eq(line, lines[i])
+        assert_eq(line, expect[i])
         i = i + 1
       end
-      local sp = spawn.blockwise({ "cat", "README.md" }, { on_exit = function(completed) end })
-      -- print(string.format("spawn nonblocking-2:%s\n", vim.inspect(sp)))
+      local job = spawn.detached({ "cat", "README.md" }, {
+        on_stdout = on_line,
+        on_stderr = dummy,
+      }, function(result)
+        print(string.format("detached-2, result:%s\n", vim.inspect(result)))
+      end)
+      -- print(string.format("detached-2, job:%s\n", vim.inspect(job)))
     end)
-    it("stdout on newline", function()
-      local lines = fio.readlines("README.md") --[[@as table]]
+    it("test3", function()
+      local expect = fio.readlines("README.md") --[[@as table]]
 
       local i = 1
-      local function process_line(line)
+      local function on_line(line)
+        -- print(string.format("detached-3 [%d]:%s", i, line))
+        assert_eq(type(line), "string")
+        assert_eq(line, expect[i])
+        i = i + 1
+      end
+      local job = spawn.detached({ "cat", "CHANGELOG.md" }, {
+        on_stdout = on_line,
+        on_stderr = dummy,
+      }, function(result)
+        print(string.format("detached-3, result:%s\n", vim.inspect(result)))
+      end)
+      -- print(string.format("detached-3, job:%s\n", vim.inspect(job)))
+    end)
+    it("test4", function()
+      local expect = fio.readlines("README.md") --[[@as table]]
+
+      local i = 1
+      local function eachline(line)
         -- print(string.format("[%d]%s\n", i, line))
         assert_eq(type(line), "string")
-        assert_eq(line, lines[i])
+        assert_eq(line, expect[i])
         i = i + 1
       end
-      local sp = spawn.blockwise({ "cat", "README.md" }, { on_exit = function(completed) end })
-      -- print(string.format("spawn nonblocking-3:%s\n", vim.inspect(sp)))
+      local job = spawn.detached({ "cat", "CHANGELOG.md" }, {
+        on_stdout = eachline,
+        on_stderr = dummy,
+      }, function(result)
+        print(string.format("detached-4, result:%s\n", vim.inspect(result)))
+      end)
+      local ok, err = pcall(spawn.wait, job)
+      assert(not ok)
+      -- print(string.format("detached-4, job:%s\n", vim.inspect(job)))
+      print(string.format("detached-4, err:%s\n", vim.inspect(err)))
     end)
+    local case_i = 0
+    while case_i <= 25 do
+      -- lower case: a
+      local lower_char = string.char(97 + case_i)
+      it(string.format("stdout on %s", lower_char), function()
+        local expect = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function on_line(line)
+          -- print(string.format("detached-lowercase-%d [%d]:%s", case_i, i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, expect[i])
+          i = i + 1
+        end
+        local job = spawn.detached(
+          { "cat", "README.md" },
+          { on_stdout = on_line, on_stderr = dummy },
+          function(result)
+            print(
+              string.format(
+                "waitable-lowercase-%d, result:%s\n",
+                vim.inspect(case_i),
+                vim.inspect(result)
+              )
+            )
+          end
+        )
+      end)
+      -- upper case: A
+      local upper_char = string.char(65 + case_i)
+      it(string.format("stdout on %s", upper_char), function()
+        local expect = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function on_line(line)
+          -- print(string.format("detached-uppercase-%d [%d]:%s", case_i, i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, expect[i])
+          i = i + 1
+        end
+        local job = spawn.detached(
+          { "cat", "README.md" },
+          { on_stdout = on_line, on_stderr = dummy },
+          function(result)
+            print(
+              string.format(
+                "waitable-uppercase-%d, result:%s\n",
+                vim.inspect(case_i),
+                vim.inspect(result)
+              )
+            )
+          end
+        )
+      end)
+      case_i = case_i + 1
+    end
   end)
 end)
