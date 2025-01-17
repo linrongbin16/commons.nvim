@@ -12,7 +12,7 @@ local M = {}
 M._escape_windows = function(s)
   local shellslash = vim.o.shellslash
   vim.o.shellslash = false
-  local result = vim.fn.escape(s)
+  local result = vim.fn.shellescape(s)
   vim.o.shellslash = shellslash
   return result
 end
@@ -21,7 +21,7 @@ end
 --- @param s string
 --- @return string
 M._escape_posix = function(s)
-  return vim.fn.escape(s)
+  return vim.fn.shellescape(s)
 end
 
 --- @param s string
