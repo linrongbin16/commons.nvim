@@ -23,7 +23,7 @@ describe("commons.spawn", function()
   describe("[waitable]", function()
     it("test1", function()
       local job = spawn.waitable({ "cat", "README.md" }, { on_stdout = dummy, on_stderr = dummy })
-      local result = spawn.waitable(job)
+      local result = spawn.wait(job)
       print(string.format("waitable-1, result:%s\n", vim.inspect(result)))
     end)
     it("test2", function()
@@ -38,7 +38,7 @@ describe("commons.spawn", function()
       end
 
       local job = spawn.waitable({ "cat", "README.md" }, { on_stdout = on_line, on_stderr = dummy })
-      local result = spawn.waitable(job)
+      local result = spawn.wait(job)
       print(string.format("waitable-2, result:%s\n", vim.inspect(result)))
     end)
     it("test3", function()
@@ -54,7 +54,7 @@ describe("commons.spawn", function()
           print(string.format("waitable-4, stderr line:%s\n", vim.inspect(line)))
         end,
       })
-      local result = spawn.waitable(job)
+      local result = spawn.wait(job)
       print(string.format("waitable-4, result:%s\n", vim.inspect(result)))
     end)
     local case_i = 0
@@ -75,7 +75,7 @@ describe("commons.spawn", function()
           { "cat", "README.md" },
           { on_stdout = on_line, on_stderr = dummy }
         )
-        local result = spawn.waitable(job)
+        local result = spawn.wait(job)
         print(
           string.format(
             "waitable-lowercase-%d, result:%s\n",
@@ -100,7 +100,7 @@ describe("commons.spawn", function()
           { "cat", "README.md" },
           { on_stdout = on_line, on_stderr = dummy }
         )
-        local result = spawn.waitable(job)
+        local result = spawn.wait(job)
         print(
           string.format(
             "waitable-uppercase-%d, result:%s\n",
@@ -173,7 +173,7 @@ describe("commons.spawn", function()
       }, function(result)
         print(string.format("detached-4, result:%s\n", vim.inspect(result)))
       end)
-      local ok, err = pcall(spawn.waitable, job)
+      local ok, err = pcall(spawn.wait, job)
       assert(not ok)
       -- print(string.format("detached-4, job:%s\n", vim.inspect(job)))
       print(string.format("detached-4, err:%s\n", vim.inspect(err)))
