@@ -1,5 +1,21 @@
 # Changelog
 
+## [25.0.0](https://github.com/linrongbin16/commons.nvim/compare/v24.0.0...v25.0.0) (2025-01-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **spawn:** remove "blockwise" APIs, split "linewise" API into two modes: no-wait and waitable! ([#303](https://github.com/linrongbin16/commons.nvim/issues/303))
+
+### Features
+
+* **shell:** add "shell" module ([#303](https://github.com/linrongbin16/commons.nvim/issues/303)) ([174ef15](https://github.com/linrongbin16/commons.nvim/commit/174ef15f490a9f501b32956f3e29c4828b72df65))
+
+
+### Bug Fixes
+
+* **spawn:** remove "blockwise" APIs, split "linewise" API into two modes: no-wait and waitable! ([#303](https://github.com/linrongbin16/commons.nvim/issues/303)) ([174ef15](https://github.com/linrongbin16/commons.nvim/commit/174ef15f490a9f501b32956f3e29c4828b72df65))
+
 ## [24.0.0](https://github.com/linrongbin16/commons.nvim/compare/v23.0.0...v24.0.0) (2025-01-14)
 
 
