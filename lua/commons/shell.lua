@@ -239,9 +239,12 @@ M.wait = function(job, timeout)
     job.on_exit == nil,
     "Detached shell job cannot 'wait' for its exit, it already has 'on_exit' in 3rd parameter for its exit"
   )
-  assert(type(timeout) == "number" or timeout == nil, "Timeout must be either integer or nil")
 
-  vim.fn.jobwait({ job.jobid }, timeout)
+  if type(timeout) == "number" and timeout >= 0 then
+    vim.fn.jobwait({ job.jobid }, timeout)
+  else
+    vim.fn.jobwait({ job.jobid })
+  end
 end
 
 return M

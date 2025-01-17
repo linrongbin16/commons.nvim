@@ -190,9 +190,13 @@ M.wait = function(job, timeout)
     job.on_exit == nil,
     "Detached spawn job cannot 'wait' for its exit, it already has 'on_exit' in 3rd parameter for its exit"
   )
-  assert(type(timeout) == "number" or timeout == nil, "Timeout must be either integer or nil")
 
-  local completed = job.obj:wait(timeout) --[[@as vim.SystemCompleted]]
+  local completed
+  if type(timeout) == "number" and timeout >= 0 then
+    completed = job.obj:wait(timeout) --[[@as vim.SystemCompleted]]
+  else
+    completed = job.obj:wait() --[[@as vim.SystemCompleted]]
+  end
   return { exitcode = completed.code, signal = completed.signal }
 end
 

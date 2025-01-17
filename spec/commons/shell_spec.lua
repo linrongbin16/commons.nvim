@@ -157,8 +157,23 @@ describe("commons.shell", function()
           print(string.format("detached-4, stderr line:%s\n", vim.inspect(line)))
         end,
       }, function(result)
-        print(string.format("detached-3, result:%s\n", vim.inspect(result)))
+        print(string.format("detached-4, result:%s\n", vim.inspect(result)))
       end)
+    end)
+    it("test5", function()
+      local job = shell.detached("cat CHANGELOG.md", {
+        on_stdout = function(line)
+          print(string.format("detached-5, stdout line:%s\n", vim.inspect(line)))
+        end,
+        on_stderr = function(line)
+          print(string.format("detached-5, stderr line:%s\n", vim.inspect(line)))
+        end,
+      }, function(result)
+        print(string.format("detached-5, result:%s\n", vim.inspect(result)))
+      end)
+      local ok, err = pcall(shell.wait, job)
+      assert(not ok)
+      print(string.format("detached-5 wait err:%s\n", vim.inspect(err)))
     end)
     local case_i = 0
     while case_i <= 25 do
