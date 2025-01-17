@@ -84,83 +84,24 @@ function ShellContext:restore()
 end
 
 --- @alias commons.ShellJobOnExit fun(exitcode:integer?):nil
---- @alias commons.ShellJobBlockWiseOnStdout fun(lines:string[]?):any
---- @alias commons.ShellJobBlockWiseOnStderr fun(lines:string[]?):any
---- @alias commons.ShellJobBlockWiseOpts {on_stdout:commons.ShellJobBlockWiseOnStdout,on_stderr:commons.ShellJobBlockWiseOnStderr?,on_exit:commons.ShellJobOnExit?,[string]:any}
+--- @alias commons.ShellJobOnLine fun(line:string?):any
+--- @alias commons.ShellJobOpts {on_stdout:commons.ShellJobOnLine,on_stderr:commons.ShellJobOnLine?,[string]:any}
+--- @alias commons.ShellJob {jobid:integer,opts:commons.ShellJobOpts,on_exit:commons.ShellJobOnExit?}
+
 --- @param cmd string
---- @param opts commons.ShellJobBlockWiseOpts?
---- @return integer
-M.blockwise = function(cmd, opts)
+--- @param opts commons.ShellJobOpts?
+--- @param on_exit commons.ShellJobOnExit?
+--- @return commons.ShellJob
+local function _impl(cmd, opts, on_exit)
   opts = opts or {}
 
   if type(opts.on_stderr) ~= "function" then
     opts.on_stderr = function() end
   end
-  if type(opts.on_exit) ~= "function" then
-    opts.on_exit = function() end
-  end
 
-  assert(type(opts.on_stdout) == "function")
-  assert(type(opts.on_stderr) == "function")
-  assert(type(opts.on_exit) == "function")
-
-  local saved_ctx = ShellContext:save()
-
-  local function _handle_stdout(chanid, data, name)
-    opts.on_stdout(data)
-  end
-
-  local function _handle_stderr(chanid, data, name)
-    opts.on_stderr(data)
-  end
-
-  local function _handle_exit(jobid1, exitcode, event)
-    opts.on_exit(exitcode)
-  end
-
-  local jobid = vim.fn.jobstart(cmd, {
-    clear_env = opts.clear_env,
-    cwd = opts.cwd,
-    detach = opts.detach,
-    env = opts.env,
-    overlapped = opts.overlapped,
-    rpc = opts.rpc,
-    stdin = opts.stdin,
-    term = opts.term,
-    height = opts.height,
-    width = opts.width,
-    pty = opts.pty,
-    on_stdout = _handle_stdout,
-    on_stderr = _handle_stderr,
-    stdout_buffered = true,
-    stderr_buffered = true,
-    on_exit = _handle_exit,
-  })
-
-  saved_ctx:restore()
-
-  return jobid
-end
-
---- @alias commons.ShellJobLineWiseOnStdout fun(line:string?):any
---- @alias commons.ShellJobLineWiseOnStderr fun(line:string?):any
---- @alias commons.ShellJobLineWiseOpts {on_stdout:commons.ShellJobLineWiseOnStdout,on_stderr:commons.ShellJobLineWiseOnStderr?,on_exit:commons.ShellJobOnExit?,[string]:any}
---- @param cmd string
---- @param opts commons.ShellJobLineWiseOpts?
---- @return integer
-M.linewise = function(cmd, opts)
-  opts = opts or {}
-
-  if type(opts.on_stderr) ~= "function" then
-    opts.on_stderr = function() end
-  end
-  if type(opts.on_exit) ~= "function" then
-    opts.on_exit = function() end
-  end
-
-  assert(type(opts.on_stdout) == "function")
-  assert(type(opts.on_stderr) == "function")
-  assert(type(opts.on_exit) == "function")
+  assert(type(opts.on_stdout) == "function", "Shell job must have 'on_stdout' function in 'opts'")
+  assert(type(opts.on_stderr) == "function", "Shell job must have 'on_stderr' function in 'opts'")
+  assert(type(on_exit) == "function" or on_exit == nil)
 
   local saved_ctx = ShellContext:save()
 
@@ -212,34 +153,95 @@ M.linewise = function(cmd, opts)
     opts.on_exit(exitcode)
   end
 
-  local jobid = vim.fn.jobstart(cmd, {
-    clear_env = opts.clear_env,
-    cwd = opts.cwd,
-    detach = opts.detach,
-    env = opts.env,
-    overlapped = opts.overlapped,
-    rpc = opts.rpc,
-    stdin = opts.stdin,
-    term = opts.term,
-    height = opts.height,
-    width = opts.width,
-    pty = opts.pty,
-    on_stdout = _handle_stdout,
-    on_stderr = _handle_stderr,
-    on_exit = _handle_exit,
-  })
+  local jobid
+  if type(on_exit) == "function" then
+    jobid = vim.fn.jobstart(cmd, {
+      clear_env = opts.clear_env,
+      cwd = opts.cwd,
+      detach = opts.detach,
+      env = opts.env,
+      overlapped = opts.overlapped,
+      rpc = opts.rpc,
+      stdin = opts.stdin,
+      term = opts.term,
+      height = opts.height,
+      width = opts.width,
+      pty = opts.pty,
+      on_stdout = _handle_stdout,
+      on_stderr = _handle_stderr,
+      on_exit = _handle_exit,
+    })
+  else
+    jobid = vim.fn.jobstart(cmd, {
+      clear_env = opts.clear_env,
+      cwd = opts.cwd,
+      detach = opts.detach,
+      env = opts.env,
+      overlapped = opts.overlapped,
+      rpc = opts.rpc,
+      stdin = opts.stdin,
+      term = opts.term,
+      height = opts.height,
+      width = opts.width,
+      pty = opts.pty,
+      on_stdout = _handle_stdout,
+      on_stderr = _handle_stderr,
+    })
+  end
 
   saved_ctx:restore()
 
-  return jobid
+  return { jobid = jobid, opts = opts, on_exit = on_exit }
 end
 
---- @param jobid integer[]
+--- @param cmd string
+--- @param opts commons.ShellJobOpts?
+--- @param on_exit commons.ShellJobOnExit
+--- @return commons.ShellJob
+M.detached = function(cmd, opts, on_exit)
+  opts = opts or {}
+
+  assert(
+    type(opts.on_stdout) == "function",
+    "Detached shell job must have 'on_stdout' function in 'opts'"
+  )
+  assert(opts.on_exit == nil, "Detached shell job cannot have 'on_exit' function in 'opts'")
+  assert(
+    type(on_exit) == "function",
+    "Detached shell job must have 'on_exit' function in 3rd parameter"
+  )
+
+  return _impl(cmd, opts, on_exit)
+end
+
+--- @param cmd string
+--- @param opts commons.ShellJobOpts?
+--- @return commons.ShellJob
+M.waitable = function(cmd, opts)
+  opts = opts or {}
+
+  assert(
+    type(opts.on_stdout) == "function",
+    "Waitable shell job must have 'on_stdout' function in 'opts'"
+  )
+  assert(opts.on_exit == nil, "Waitable shell job cannot have 'on_exit' function in 'opts'")
+
+  return _impl(cmd, opts)
+end
+
+--- @param job commons.ShellJob
 --- @param timeout integer?
-M.wait = function(jobid, timeout)
-  assert(type(jobid) == "table")
-  assert(#jobid > 0)
-  vim.fn.jobwait(jobid, timeout)
+M.wait = function(job, timeout)
+  assert(type(job) == "table", "Shell job must be a 'commons.ShellJob' object")
+  assert(type(job.jobid) == "number", "Shell job must has a job ID")
+  assert(type(job.opts) == "table", "Shell job must has a job opts")
+  assert(
+    job.on_exit == nil,
+    "Detached shell job cannot 'wait' for its exit, it already has 'on_exit' in 3rd parameter for its exit"
+  )
+  assert(type(timeout) == "number" or timeout == nil, "Timeout must be either integer or nil")
+
+  vim.fn.jobwait({ job.jobid }, timeout)
 end
 
 return M
