@@ -13,8 +13,20 @@ describe("commons.shell", function()
 
   local shell = require("commons.shell")
   local fio = require("commons.fio")
+  local str = require("commons.str")
 
   local dummy = function() end
+
+  describe("[escape]", function()
+    it("test1", function()
+      local actual = shell.escape("Hello World")
+      assert(str.find(actual, "Hello World") > 0)
+    end)
+    it("test2", function()
+      local actual = shell.escape("'Hello World'")
+      assert(str.find(actual, "Hello World") > 0)
+    end)
+  end)
 
   describe("[waitable]", function()
     it("test1", function()
