@@ -31,7 +31,7 @@ M.detached = function(cmd, opts, on_exit)
 
 #### Parameters
 
-- `cmd`: Command line in strings list, exactly the same passing to `vim.system`.
+- `cmd`: Command line in multiple strings list, exactly the same passing to `vim.system`.
 - `opts`: Almost the same passing to `vim.system`, except:
 
   - `on_stdout`: Callback function that will be invoked on each line of child process `stdout`, with signature:

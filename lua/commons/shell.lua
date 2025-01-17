@@ -214,37 +214,37 @@ M.detached = function(cmd, opts, on_exit)
   return _impl(cmd, opts, on_exit)
 end
 
--- --- @param cmd string
--- --- @param opts commons.ShellJobOpts?
--- --- @return commons.ShellJob
--- M.waitable = function(cmd, opts)
---   opts = opts or {}
---
---   assert(
---     type(opts.on_stdout) == "function",
---     "Waitable shell job must have 'on_stdout' function in 'opts'"
---   )
---   assert(opts.on_exit == nil, "Waitable shell job cannot have 'on_exit' function in 'opts'")
---
---   return _impl(cmd, opts)
--- end
---
--- --- @param job commons.ShellJob
--- --- @param timeout integer?
--- M.wait = function(job, timeout)
---   assert(type(job) == "table", "Shell job must be a 'commons.ShellJob' object")
---   assert(type(job.jobid) == "number", "Shell job must has a job ID")
---   assert(type(job.opts) == "table", "Shell job must has a job opts")
---   assert(
---     job.on_exit == nil,
---     "Detached shell job cannot 'wait' for its exit, it already has 'on_exit' in 3rd parameter for its exit"
---   )
---
---   if type(timeout) == "number" and timeout >= 0 then
---     vim.fn.jobwait({ job.jobid }, timeout)
---   else
---     vim.fn.jobwait({ job.jobid })
---   end
--- end
+--- @param cmd string
+--- @param opts commons.ShellJobOpts?
+--- @return commons.ShellJob
+M.waitable = function(cmd, opts)
+  opts = opts or {}
+
+  assert(
+    type(opts.on_stdout) == "function",
+    "Waitable shell job must have 'on_stdout' function in 'opts'"
+  )
+  assert(opts.on_exit == nil, "Waitable shell job cannot have 'on_exit' function in 'opts'")
+
+  return _impl(cmd, opts)
+end
+
+--- @param job commons.ShellJob
+--- @param timeout integer?
+M.wait = function(job, timeout)
+  assert(type(job) == "table", "Shell job must be a 'commons.ShellJob' object")
+  assert(type(job.jobid) == "number", "Shell job must has a job ID")
+  assert(type(job.opts) == "table", "Shell job must has a job opts")
+  assert(
+    job.on_exit == nil,
+    "Detached shell job cannot 'wait' for its exit, it already has 'on_exit' in 3rd parameter for its exit"
+  )
+
+  if type(timeout) == "number" and timeout >= 0 then
+    vim.fn.jobwait({ job.jobid }, timeout)
+  else
+    vim.fn.jobwait({ job.jobid })
+  end
+end
 
 return M
