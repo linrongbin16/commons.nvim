@@ -34,14 +34,14 @@ M.escape = function(s)
   end
 end
 
---- @class commons.ShellContext
+--- @class commons._ShellContext
 --- @field shell string?
 --- @field shellslash string?
 --- @field shellcmdflag string?
-local ShellContext = {}
+local _ShellContext = {}
 
---- @return commons.ShellContext
-function ShellContext:save()
+--- @return commons._ShellContext
+function _ShellContext:save()
   local is_win = require("commons.platform").IS_WINDOWS
 
   local o
@@ -71,7 +71,7 @@ function ShellContext:save()
   return o
 end
 
-function ShellContext:restore()
+function _ShellContext:restore()
   local is_win = require("commons.platform").IS_WINDOWS
 
   if is_win then
@@ -103,7 +103,7 @@ local function _impl(cmd, opts, on_exit)
   assert(type(opts.on_stderr) == "function", "Shell job must have 'on_stderr' function in 'opts'")
   assert(type(on_exit) == "function" or on_exit == nil)
 
-  local saved_ctx = ShellContext:save()
+  local saved_ctx = _ShellContext:save()
 
   local stdout_buffer = { "" }
 
