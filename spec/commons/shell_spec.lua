@@ -16,92 +16,92 @@ describe("commons.shell", function()
 
   local dummy = function() end
 
-  -- describe("[waitable]", function()
-  --   it("test1", function()
-  --     local job = shell.waitable("cat README.md", { on_stdout = dummy, on_stderr = dummy })
-  --     shell.wait(job)
-  --     -- print(string.format("waitable-1:%s\n", vim.inspect(sp)))
-  --   end)
-  --   it("test2", function()
-  --     local expect = fio.readlines("README.md") --[[@as table]]
-  --
-  --     local i = 1
-  --     local function on_line(line)
-  --       -- print(string.format("waitable-1 [%d]:%s", i, line))
-  --       assert_eq(type(line), "string")
-  --       assert_eq(line, expect[i])
-  --       i = i + 1
-  --     end
-  --     local job = shell.waitable("echo README.md", { on_stdout = on_line, on_stderr = dummy })
-  --     shell.wait(job)
-  --     -- print(string.format("waitable-2:%s\n", vim.inspect(sp)))
-  --   end)
-  --   it("test3", function()
-  --     local job = shell.waitable("cat README.md", { on_stdout = dummy, on_stderr = dummy })
-  --     shell.wait(job)
-  --     -- print(string.format("shell waitable-3:%s\n", vim.inspect(sp)))
-  --   end)
-  --   it("test4", function()
-  --     local job = shell.waitable("cat non_exists.txt", {
-  --       on_stdout = function(line)
-  --         print(string.format("waitable-4, stdout line:%s", vim.inspect(line)))
-  --       end,
-  --       on_stderr = function(line)
-  --         print(string.format("waitable-4, stderr line:%s", vim.inspect(line)))
-  --       end,
-  --     })
-  --     shell.wait(job)
-  --     -- print(string.format("shell waitable-4:%s\n", vim.inspect(sp)))
-  --   end)
-  --   local case_i = 0
-  --   while case_i <= 25 do
-  --     -- lower case: a
-  --     local lower_char = string.char(97 + case_i)
-  --     it(string.format("stdout on %s", lower_char), function()
-  --       local expect = fio.readlines("README.md") --[[@as table]]
-  --
-  --       local i = 1
-  --       local function on_line(line)
-  --         -- print(string.format("waitable-lowercase-%d [%d]:%s\n", case_i, i, line))
-  --         assert_eq(type(line), "string")
-  --         assert_eq(line, expect[i])
-  --         i = i + 1
-  --       end
-  --       local job = shell.waitable("cat README.md", { on_stdout = on_line, on_stderr = dummy })
-  --       shell.wait(job)
-  --       -- print(
-  --       --   string.format(
-  --       --     "waitable-lowercase-%d, job:%s\n",
-  --       --     vim.inspect(case_i),
-  --       --     vim.inspect(job)
-  --       --   )
-  --       -- )
-  --     end)
-  --     -- upper case: A
-  --     local upper_char = string.char(65 + case_i)
-  --     it(string.format("stdout on %s", upper_char), function()
-  --       local expect = fio.readlines("README.md") --[[@as table]]
-  --
-  --       local i = 1
-  --       local function on_line(line)
-  --         -- print(string.format("waitable-uppercase-%d [%d]:%s\n", case_i, i, line))
-  --         assert_eq(type(line), "string")
-  --         assert_eq(line, expect[i])
-  --         i = i + 1
-  --       end
-  --       local job = shell.waitable("cat README.md", { on_stdout = on_line, on_stderr = dummy })
-  --       shell.wait(job)
-  --       -- print(
-  --       --   string.format(
-  --       --     "shell waitable-uppercase-%d:%s\n",
-  --       --     vim.inspect(delimiter_i),
-  --       --     vim.inspect(sp)
-  --       --   )
-  --       -- )
-  --     end)
-  --     case_i = case_i + 1
-  --   end
-  -- end)
+  describe("[waitable]", function()
+    it("test1", function()
+      local job = shell.waitable("cat README.md", { on_stdout = dummy, on_stderr = dummy })
+      -- shell.wait(job)
+      -- print(string.format("waitable-1:%s\n", vim.inspect(sp)))
+    end)
+    it("test2", function()
+      local expect = fio.readlines("README.md") --[[@as table]]
+
+      local i = 1
+      local function on_line(line)
+        -- print(string.format("waitable-1 [%d]:%s", i, line))
+        assert_eq(type(line), "string")
+        assert_eq(line, expect[i])
+        i = i + 1
+      end
+      local job = shell.waitable("echo README.md", { on_stdout = on_line, on_stderr = dummy })
+      -- shell.wait(job)
+      -- print(string.format("waitable-2:%s\n", vim.inspect(sp)))
+    end)
+    it("test3", function()
+      local job = shell.waitable("cat README.md", { on_stdout = dummy, on_stderr = dummy })
+      -- shell.wait(job)
+      -- print(string.format("shell waitable-3:%s\n", vim.inspect(sp)))
+    end)
+    it("test4", function()
+      local job = shell.waitable("cat non_exists.txt", {
+        on_stdout = function(line)
+          print(string.format("waitable-4, stdout line:%s", vim.inspect(line)))
+        end,
+        on_stderr = function(line)
+          print(string.format("waitable-4, stderr line:%s", vim.inspect(line)))
+        end,
+      })
+      -- shell.wait(job)
+      -- print(string.format("shell waitable-4:%s\n", vim.inspect(sp)))
+    end)
+    local case_i = 0
+    while case_i <= 25 do
+      -- lower case: a
+      local lower_char = string.char(97 + case_i)
+      it(string.format("stdout on %s", lower_char), function()
+        local expect = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function on_line(line)
+          -- print(string.format("waitable-lowercase-%d [%d]:%s\n", case_i, i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, expect[i])
+          i = i + 1
+        end
+        local job = shell.waitable("cat README.md", { on_stdout = on_line, on_stderr = dummy })
+        -- shell.wait(job)
+        -- print(
+        --   string.format(
+        --     "waitable-lowercase-%d, job:%s\n",
+        --     vim.inspect(case_i),
+        --     vim.inspect(job)
+        --   )
+        -- )
+      end)
+      -- upper case: A
+      local upper_char = string.char(65 + case_i)
+      it(string.format("stdout on %s", upper_char), function()
+        local expect = fio.readlines("README.md") --[[@as table]]
+
+        local i = 1
+        local function on_line(line)
+          -- print(string.format("waitable-uppercase-%d [%d]:%s\n", case_i, i, line))
+          assert_eq(type(line), "string")
+          assert_eq(line, expect[i])
+          i = i + 1
+        end
+        local job = shell.waitable("cat README.md", { on_stdout = on_line, on_stderr = dummy })
+        -- shell.wait(job)
+        -- print(
+        --   string.format(
+        --     "shell waitable-uppercase-%d:%s\n",
+        --     vim.inspect(delimiter_i),
+        --     vim.inspect(sp)
+        --   )
+        -- )
+      end)
+      case_i = case_i + 1
+    end
+  end)
   describe("[detached]", function()
     it("test1", function()
       local job = shell.detached(
