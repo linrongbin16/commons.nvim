@@ -1,5 +1,12 @@
 # Changelog
 
+## [25.0.1](https://github.com/linrongbin16/commons.nvim/compare/v25.0.0...v25.0.1) (2025-01-17)
+
+
+### Bug Fixes
+
+* **shell:** fix "escape" API ([#305](https://github.com/linrongbin16/commons.nvim/issues/305)) ([6a20679](https://github.com/linrongbin16/commons.nvim/commit/6a206794032348863476bd866ecf262da0bf3f44))
+
 ## [25.0.0](https://github.com/linrongbin16/commons.nvim/compare/v24.0.0...v25.0.0) (2025-01-17)
 
 
