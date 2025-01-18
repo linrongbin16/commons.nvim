@@ -23,7 +23,6 @@ The commons lua library for Neovim plugin project.
 - [commons.num](/commons_num.md): Numbers utilities, with type check and approximate float compare.
 - [commons.path](/commons_path.md): File and directory path utilities.
 - [commons.platform](/commons_platform.md): OS and platform utilities.
-- [commons.shell](/commons_shell.md): Run shell command and handles argument string escaping.
 - [commons.spawn](/commons_spawn.md): Run child-process with friendly line-wise callbacks to handle stdout/stderr output, a wrapper on [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>).
 - [commons.str](/commons_str.md): Strings utilities, with type check.
 - [commons.tbl](/commons_tbl.md): Lua table/list utilities, with type check.
