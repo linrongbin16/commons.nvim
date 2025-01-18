@@ -16,7 +16,6 @@ This lua library includes multiple modules:
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
 - Spawn child-process & coroutine.
-- Shell command & argument string escaping.
 - Logging system with python-logging like features.
 - Colors & syntax highlight utilities, HSL calculation & terminal rendering.
 - Compatible APIs support Neovim versions from last legacy to nightly.
