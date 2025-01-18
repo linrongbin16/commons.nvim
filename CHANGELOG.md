@@ -1,5 +1,22 @@
 # Changelog
 
+## [26.0.0](https://github.com/linrongbin16/commons.nvim/compare/v25.0.1...v26.0.0) (2025-01-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **shell:** remove 'shell' module docs! ([#308](https://github.com/linrongbin16/commons.nvim/issues/308))
+* **shell:** revert 'shell' module! ([#307](https://github.com/linrongbin16/commons.nvim/issues/307))
+
+### Reverts
+
+* **shell:** revert 'shell' module! ([#307](https://github.com/linrongbin16/commons.nvim/issues/307)) ([86c7951](https://github.com/linrongbin16/commons.nvim/commit/86c79519ffc569202772f2667f310956888d8b31))
+
+
+### Documentation
+
+* **shell:** remove 'shell' module docs! ([#308](https://github.com/linrongbin16/commons.nvim/issues/308)) ([a2d2417](https://github.com/linrongbin16/commons.nvim/commit/a2d2417361e9f0a91fa6f2e53c92b04fdbfb4c29))
+
 ## [25.0.1](https://github.com/linrongbin16/commons.nvim/compare/v25.0.0...v25.0.1) (2025-01-17)
 
 
