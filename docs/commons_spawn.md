@@ -4,8 +4,6 @@
 
 Run child-process with line-wise callback functions to handle stdout/stderr output, a wrapper on [vim.system](<https://neovim.io/doc/user/lua.html#vim.system()>).
 
-!> These methods only works for multiple strings list command. For single string command, please refer to [commons.shell](commons_shell.md).
-
 ## Functions
 
 ### `detached`
