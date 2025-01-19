@@ -24,19 +24,19 @@ function M.running()
   end 
 end
 
+---@param handle commons.AsyncHandle?
 ---@return boolean
 local function is_Async_T(handle)
-  if
-    handle
-    and type(handle) == "table"
+  return type(handle) == "table"
+    and type(handle._current) == "table"
     and vim.is_callable(handle.cancel)
     and vim.is_callable(handle.is_cancelled)
-  then
-    return true
-  end
 end 
 
-local Async_T = {}
+---@class commons.AsyncHandle
+---@field _current table
+local Async_T = {} 
+
 -- Analogous to uv.close
 function Async_T:cancel(cb)
   -- Cancel anything running on the event loop
