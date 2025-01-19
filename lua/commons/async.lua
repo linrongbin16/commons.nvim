@@ -55,6 +55,7 @@ function Async_T.new(co)
 end 
 
 -- Analogous to uv.is_closing
+---@return boolean
 function Async_T:is_cancelled()
   return self._current and self._current:is_cancelled()
 end 
