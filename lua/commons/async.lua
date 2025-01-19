@@ -131,9 +131,9 @@ end
 
 -- Wait on a callback style function
 --
---- @param argc integer? The number of arguments of func.
---- @param func fun(...):any func callback style function to execute
---- @param ... any Arguments for func
+-- First argument is: 'argc' integer?. The number of arguments of func.
+-- Second argument is: 'func' fun(...):any. Callback style function to execute
+--- @param ... any Arguments
 function M.wait(...)
   if type(select(1, ...)) == "number" then
     return wait(...)
