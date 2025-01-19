@@ -43,21 +43,26 @@ function Async_T:cancel(cb)
   if self._current and not self._current:is_cancelled() then
     self._current:cancel(cb)
   end
-end
+end 
+
+---@param co any 
+---@return commons.AsyncHandle
 function Async_T.new(co)
   local handle = setmetatable({}, { __index = Async_T })
   handles[co] = handle
   return handle
-end
+end 
+
 -- Analogous to uv.is_closing
 function Async_T:is_cancelled()
   return self._current and self._current:is_cancelled()
-end
---- Run a function in an async context.
---- @tparam function func
---- @tparam function callback
---- @tparam any ... Arguments for func
---- @treturn async_t Handle
+end 
+
+-- Run a function in an async context.
+---@param func fun(...):any
+---@param callback fun(...):any
+---@param ... any
+---@return commons.AsyncHandle
 function M.run(func, callback, ...)
   vim.validate({
     func = { func, "function" },
@@ -91,7 +96,11 @@ function M.run(func, callback, ...)
   end
   step(...)
   return handle
-end
+end 
+
+---@param argc integer 
+---@param func fun(...):any 
+---@param ... any
 local function wait(argc, func, ...)
   vim.validate({
     argc = { argc, "number" },
