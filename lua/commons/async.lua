@@ -61,8 +61,8 @@ function Async_T:is_cancelled()
 end 
 
 -- Run a function in an async context.
----@param func fun(...):any
----@param callback fun(...):any
+---@param func function
+---@param callback function?
 ---@param ... any
 ---@return commons.AsyncHandle
 function M.run(func, callback, ...)
