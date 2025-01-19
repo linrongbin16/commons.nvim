@@ -14,13 +14,16 @@ local M = {}
 -- We need to handle both.
 --- Returns whether the current execution context is async.
 ---
---- @treturn boolean?
+---- @return boolean
 function M.running()
   local current = coroutine.running()
   if current and handles[current] then
-    return true
-  end
+    return true 
+  else 
+    return false
+  end 
 end
+
 local function is_Async_T(handle)
   if
     handle
