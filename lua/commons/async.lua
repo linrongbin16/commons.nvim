@@ -101,7 +101,7 @@ function M.run(func, callback, ...)
 end 
 
 ---@param argc integer 
----@param func fun(...):any 
+---@param func function
 ---@param ... any
 local function wait(argc, func, ...)
   vim.validate({
@@ -132,7 +132,7 @@ end
 -- Wait on a callback style function
 --
 -- First argument is: 'argc' integer?. The number of arguments of func.
--- Second argument is: 'func' fun(...):any. Callback style function to execute
+-- Second argument is: 'func' function. Callback style function to execute
 --- @param ... any Arguments
 function M.wait(...)
   if type(select(1, ...)) == "number" then
@@ -146,7 +146,7 @@ end
 -- called from a non-async context. Inherently this cannot return anything
 -- since it is non-blocking 
 --
---- @param func fun(...):any
+--- @param func function
 --- @param argc integer The number of arguments of func. Defaults to 0
 --- @param strict boolean Error when called in non-async context
 --- @return fun(...):commons.AsyncHandle
@@ -171,7 +171,7 @@ end
 -- Create a function which executes in an async context but
 -- called from a non-async context.
 --
---- @param func fun(...):any
+--- @param func function
 --- @param strict boolean Error when called in non-async context
 function M.void(func, strict)
   vim.validate({ func = { func, "function" } })
@@ -188,7 +188,7 @@ end
 
 -- Creates an async function with a callback style function.
 --
---- @param func fun(...):any A callback style function to be converted. The last argument must be the callback.
+--- @param func function A callback style function to be converted. The last argument must be the callback.
 --- @param argc integer The number of arguments of func. Must be included.
 --- @param strict boolean Error when called in non-async context
 --- @return fun(...):any Returns an async function
@@ -210,9 +210,9 @@ end
 -- Run a collection of async functions (`thunks`) concurrently and return when
 -- all have finished.
 --
---- @param thunks any[]
+--- @param thunks function[]
 --- @param n integer Max number of thunks to run concurrently
---- @param interrupt_check fun():any Function to abort thunks between calls
+--- @param interrupt_check function Function to abort thunks between calls
 function M.join(thunks, n, interrupt_check)
   local function run(finish)
     if #thunks == 0 then
@@ -245,7 +245,7 @@ end
 
 --- Partially applying arguments to an async function 
 --
---- @param fn fun(...):any
+--- @param fn function
 --- @param ... any arguments to apply to `fn`
 function M.curry(fn, ...)
   local args = { ... }
@@ -262,7 +262,7 @@ end
 -- An async function that when called will yield to the Neovim scheduler to be
 -- able to call the neovim API.
 --
---- @type fun():nil
+--- @type fun():any
 M.scheduler = M.wrap(vim.schedule, 1, false) 
 
 return M
