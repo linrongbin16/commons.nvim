@@ -1,10 +1,9 @@
----@diagnostic disable: luadoc-miss-module-name, undefined-doc-name
---- Small async library for Neovim plugins
---- @module async
 -- Store all the async threads in a weak table so we don't prevent them from
 -- being garbage collected
 local handles = setmetatable({}, { __mode = "k" })
+
 local M = {}
+
 -- Note: coroutine.running() was changed between Lua 5.1 and 5.2:
 -- - 5.1: Returns the running coroutine, or nil when called by the main thread.
 -- - 5.2: Returns the running coroutine plus a boolean, true when the running
