@@ -12,9 +12,9 @@ local M = {}
 -- For LuaJIT, 5.2 behaviour is enabled with LUAJIT_ENABLE_LUA52COMPAT
 --
 -- We need to handle both.
---- Returns whether the current execution context is async.
----
----- @return boolean
+-- Returns whether the current execution context is async.
+--
+---@return boolean
 function M.running()
   local current = coroutine.running()
   if current and handles[current] then
@@ -24,6 +24,7 @@ function M.running()
   end 
 end
 
+---@return boolean
 local function is_Async_T(handle)
   if
     handle
@@ -33,7 +34,8 @@ local function is_Async_T(handle)
   then
     return true
   end
-end
+end 
+
 local Async_T = {}
 -- Analogous to uv.close
 function Async_T:cancel(cb)
