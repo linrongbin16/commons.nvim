@@ -1,5 +1,6 @@
 -- Store all the async threads in a weak table so we don't prevent them from
--- being garbage collected
+-- being garbage collected.
+---@type table<any, commons.AsyncHandle>
 local handles = setmetatable({}, { __mode = "k" })
 
 local M = {}
@@ -48,9 +49,9 @@ end
 ---@param co any 
 ---@return commons.AsyncHandle
 function Async_T.new(co)
-  local handle = setmetatable({}, { __index = Async_T })
-  handles[co] = handle
-  return handle
+  local h = setmetatable({}, { __index = Async_T })
+  handles[co] = h
+  return h
 end 
 
 -- Analogous to uv.is_closing
