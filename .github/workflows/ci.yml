@@ -58,8 +58,6 @@ jobs:
           push_options: "--force"
   unit_test:
     name: Unxi Test
-    needs:
-      - lint
     strategy:
       matrix:
         include:
