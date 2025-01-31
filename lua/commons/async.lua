@@ -54,7 +54,7 @@ local function execute(async_fn, ...)
          return
       end
 
-      assert(type(err_or_fn) == "function", "type error :: expected func")
+      assert(type(err_or_fn) == "function", "The 1st parameter must be a lua function")
 
       local ret_fn = err_or_fn
       local args = { select(4, unpack(ret)) }
