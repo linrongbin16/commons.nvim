@@ -36,6 +36,8 @@ function async_thread.finished(x)
    return false
 end
 
+--- @param async_fn function
+--- @param ... any
 local function execute(async_fn, ...)
    local thread = async_thread.create(async_fn)
 
@@ -57,7 +59,7 @@ local function execute(async_fn, ...)
       local ret_fn = err_or_fn
       local args = { select(4, unpack(ret)) }
       args[nargs] = step
-      ret_fn(unpack(args, 1, nargs))
+      ret_fn(unpack(args, 1, nargs --[[@as integer]]))
    end
 
    step(...)
@@ -65,7 +67,10 @@ end
 
 local M = {}
 
-function M.wrap(func, argc)
+--- @param func function
+--- @param argc integer
+--- @return function
+M.wrap = function(func, argc)
    return function(...)
       if not async_thread.running() then
          return func(...)
@@ -74,7 +79,9 @@ function M.wrap(func, argc)
    end
 end
 
-function M.void(func)
+--- @param func function
+--- @return function
+M.void = function(func)
    return function(...)
       if async_thread.running() then
          return func(...)
