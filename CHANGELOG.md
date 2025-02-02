@@ -1,5 +1,16 @@
 # Changelog
 
+## [27.0.0](https://github.com/linrongbin16/commons.nvim/compare/v26.0.0...v27.0.0) (2025-02-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **async:** migrate to a new simplier/easier async module! ([#311](https://github.com/linrongbin16/commons.nvim/issues/311))
+
+### Features
+
+* **async:** migrate to a new simplier/easier async module! ([#311](https://github.com/linrongbin16/commons.nvim/issues/311)) ([592432b](https://github.com/linrongbin16/commons.nvim/commit/592432b8dcdc5f8e8571c62e688ab3ec1338e3df))
+
 ## [26.0.0](https://github.com/linrongbin16/commons.nvim/compare/v25.0.1...v26.0.0) (2025-01-18)
 
 
