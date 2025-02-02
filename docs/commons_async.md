@@ -1,6 +1,6 @@
 # [commons.async](https://github.com/linrongbin16/commons.nvim/blob/main/lua/commons/async.lua)
 
-Very simple and rough wrap to turn callback-style functions into async-style functions, with the help of lua's `coroutine`, thus getting out of the callback hell.
+Very simple wrapper to turn callback-style functions into async-style functions, with the help of lua's `coroutine`, thus getting out of the callback hell.
 
 > It is quite simple and rough, but correctly works. Big and complete coroutine library requires a lot of maintain effort (and I am not a master of lua coroutine), simple and easy is good enough.
 
