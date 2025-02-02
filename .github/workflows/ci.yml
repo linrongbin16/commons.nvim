@@ -29,18 +29,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./spec
-      - name: Add async.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          echo "pwd"
-          echo $PWD
-          git clone --depth=1 https://github.com/lewis6991/async.nvim.git ~/.async.nvim
-          echo 'ls -lh'
-          ls -lh
-          rm -rf ./lua/commons/async.lua
-          cp -rf ~/.async.nvim/lua/async.lua ./lua/commons/async.lua
-          rm -rf ~/.async.nvim
-          sed -i '1 i\---@diagnostic disable' ./lua/commons/async.lua
       - name: Add color.hsl.lua
         if: ${{ github.ref != 'refs/heads/main' }}
         run: |
@@ -70,8 +58,6 @@ jobs:
           push_options: "--force"
   unit_test:
     name: Unxi Test
-    needs:
-      - lint
     strategy:
       matrix:
         include:
