@@ -207,7 +207,7 @@ end
 M.isspace = function(c)
   assert(type(c) == "string")
   assert(string_len(c) == 1)
-  return c:match("%s") ~= nil
+  return string.match(c, "%s") ~= nil
 end
 
 --- @param c string
@@ -215,7 +215,7 @@ end
 M.isalnum = function(c)
   assert(type(c) == "string")
   assert(string_len(c) == 1)
-  return c:match("%w") ~= nil
+  return string.match(c, "%w") ~= nil
 end
 
 --- @param c string
@@ -223,7 +223,7 @@ end
 M.isdigit = function(c)
   assert(type(c) == "string")
   assert(string_len(c) == 1)
-  return c:match("%d") ~= nil
+  return string.match(c, "%d") ~= nil
 end
 
 --- @param c string
@@ -231,7 +231,7 @@ end
 M.isxdigit = function(c)
   assert(type(c) == "string")
   assert(string_len(c) == 1)
-  return c:match("%x") ~= nil
+  return string.match(c, "%x") ~= nil
 end
 
 --- @param c string
@@ -239,7 +239,7 @@ end
 M.isalpha = function(c)
   assert(type(c) == "string")
   assert(string_len(c) == 1)
-  return c:match("%a") ~= nil
+  return string.match(c, "%a") ~= nil
 end
 
 --- @param c string
@@ -247,7 +247,7 @@ end
 M.islower = function(c)
   assert(type(c) == "string")
   assert(string_len(c) == 1)
-  return c:match("%l") ~= nil
+  return string.match(c, "%l") ~= nil
 end
 
 --- @param c string
@@ -255,7 +255,7 @@ end
 M.isupper = function(c)
   assert(type(c) == "string")
   assert(string_len(c) == 1)
-  return c:match("%u") ~= nil
+  return string.match(c, "%u") ~= nil
 end
 
 --- @param s string

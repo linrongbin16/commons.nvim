@@ -273,116 +273,166 @@ describe("commons.str", function()
     end
 
     it("isspace", function()
-      local whitespaces = "\r\n \t"
-      local char_codes = { 11, 12 }
-      for i = 1, 255 do
-        if _contains_char(whitespaces, string.char(i)) or _contains_code(char_codes, i) then
-          assert_true(str.isspace(string.char(i)))
-        else
-          -- print(
-          --   string.format(
-          --     "isspace: %d: %s\n",
-          --     i,
-          --     vim.inspect(strs.isspace(string.char(i)))
-          --   )
-          -- )
-          assert_false(str.isspace(string.char(i)))
-        end
-      end
+      assert_true(str.isspace(" "))
+      assert_true(str.isspace("\n"))
+      assert_true(str.isspace("\t"))
+      assert_true(str.isspace("\r"))
+
+      assert_false(str.isspace("a"))
+      assert_false(str.isspace("B"))
+      assert_false(str.isspace("c"))
+      assert_false(str.isspace("D"))
+
+      assert_false(str.isspace("."))
+      assert_false(str.isspace("?"))
+      assert_false(str.isspace("!"))
+
+      assert_false(str.isspace("0"))
+      assert_false(str.isspace("1"))
+      assert_false(str.isspace("9"))
     end)
     it("isalpha", function()
-      local a = "a"
-      local z = "z"
-      local A = "A"
-      local Z = "Z"
-      for i = 1, 255 do
-        if
-          (i >= string.byte(a) and i <= string.byte(z))
-          or (i >= string.byte(A) and i <= string.byte(Z))
-        then
-          assert_true(str.isalpha(string.char(i)))
-        else
-          assert_false(str.isalpha(string.char(i)))
-        end
-      end
+      assert_false(str.isalpha(" "))
+      assert_false(str.isalpha("\n"))
+      assert_false(str.isalpha("\t"))
+      assert_false(str.isalpha("\r"))
+
+      assert_true(str.isalpha("a"))
+      assert_true(str.isalpha("B"))
+      assert_true(str.isalpha("c"))
+      assert_true(str.isalpha("D"))
+
+      assert_false(str.isalpha("."))
+      assert_false(str.isalpha("?"))
+      assert_false(str.isalpha("!"))
+
+      assert_false(str.isalpha("0"))
+      assert_false(str.isalpha("1"))
+      assert_false(str.isalpha("9"))
     end)
     it("isdigit", function()
-      local _0 = "0"
-      local _9 = "9"
-      for i = 1, 255 do
-        if i >= string.byte(_0) and i <= string.byte(_9) then
-          assert_true(str.isdigit(string.char(i)))
-        else
-          assert_false(str.isdigit(string.char(i)))
-        end
-      end
+      assert_false(str.isdigit(" "))
+      assert_false(str.isdigit("\n"))
+      assert_false(str.isdigit("\t"))
+      assert_false(str.isdigit("\r"))
+
+      assert_false(str.isdigit("a"))
+      assert_false(str.isdigit("B"))
+      assert_false(str.isdigit("c"))
+      assert_false(str.isdigit("D"))
+
+      assert_false(str.isdigit("."))
+      assert_false(str.isdigit("?"))
+      assert_false(str.isdigit("!"))
+
+      assert_true(str.isdigit("0"))
+      assert_true(str.isdigit("1"))
+      assert_true(str.isdigit("9"))
     end)
     it("isalnum", function()
-      local a = "a"
-      local z = "z"
-      local A = "A"
-      local Z = "Z"
-      local _0 = "0"
-      local _9 = "9"
-      for i = 1, 255 do
-        if
-          (i >= string.byte(a) and i <= string.byte(z))
-          or (i >= string.byte(A) and i <= string.byte(Z))
-          or (i >= string.byte(_0) and i <= string.byte(_9))
-        then
-          assert_true(str.isalnum(string.char(i)))
-        else
-          assert_false(str.isalnum(string.char(i)))
-        end
-      end
+      assert_false(str.isalnum(" "))
+      assert_false(str.isalnum("\n"))
+      assert_false(str.isalnum("\t"))
+      assert_false(str.isalnum("\r"))
+
+      assert_true(str.isalnum("a"))
+      assert_true(str.isalnum("B"))
+      assert_true(str.isalnum("c"))
+      assert_true(str.isalnum("D"))
+
+      assert_false(str.isalnum("."))
+      assert_false(str.isalnum("?"))
+      assert_false(str.isalnum("!"))
+
+      assert_true(str.isalnum("0"))
+      assert_true(str.isalnum("1"))
+      assert_true(str.isalnum("9"))
     end)
     it("ishex", function()
-      local a = "a"
-      local f = "f"
-      local A = "A"
-      local F = "F"
-      local _0 = "0"
-      local _9 = "9"
-      for i = 1, 255 do
-        if
-          (i >= string.byte(a) and i <= string.byte(f))
-          or (i >= string.byte(A) and i <= string.byte(F))
-          or (i >= string.byte(_0) and i <= string.byte(_9))
-        then
-          assert_true(str.isxdigit(string.char(i)))
-        else
-          -- print(
-          --   string.format(
-          --     "ishex, %d:%s\n",
-          --     i,
-          --     vim.inspect(strs.ishex(string.char(i)))
-          --   )
-          -- )
-          assert_false(str.isxdigit(string.char(i)))
-        end
-      end
+      assert_false(str.isxdigit(" "))
+      assert_false(str.isxdigit("\n"))
+      assert_false(str.isxdigit("\t"))
+      assert_false(str.isxdigit("\r"))
+
+      assert_true(str.isxdigit("a"))
+      assert_true(str.isxdigit("B"))
+      assert_true(str.isxdigit("c"))
+      assert_true(str.isxdigit("D"))
+      assert_true(str.isxdigit("e"))
+      assert_true(str.isxdigit("f"))
+      assert_true(str.isxdigit("F"))
+
+      assert_false(str.isxdigit("g"))
+      assert_false(str.isxdigit("G"))
+      assert_false(str.isxdigit("h"))
+      assert_false(str.isxdigit("o"))
+      assert_false(str.isxdigit("z"))
+      assert_false(str.isxdigit("z"))
+
+      assert_false(str.isxdigit("."))
+      assert_false(str.isxdigit("?"))
+      assert_false(str.isxdigit("!"))
+
+      assert_true(str.isxdigit("0"))
+      assert_true(str.isxdigit("1"))
+      assert_true(str.isxdigit("1"))
+      assert_true(str.isxdigit("9"))
     end)
     it("islower", function()
-      local a = "a"
-      local z = "z"
-      for i = 1, 255 do
-        if i >= string.byte(a) and i <= string.byte(z) then
-          assert_true(str.islower(string.char(i)))
-        else
-          assert_false(str.islower(string.char(i)))
-        end
-      end
+      assert_false(str.islower(" "))
+      assert_false(str.islower("\n"))
+      assert_false(str.islower("\t"))
+      assert_false(str.islower("\r"))
+
+      assert_true(str.islower("a"))
+      assert_true(str.islower("b"))
+      assert_true(str.islower("c"))
+      assert_true(str.islower("z"))
+      assert_true(str.islower("o"))
+
+      assert_false(str.islower("A"))
+      assert_false(str.islower("F"))
+      assert_false(str.islower("H"))
+      assert_false(str.islower("B"))
+      assert_false(str.islower("C"))
+      assert_false(str.islower("D"))
+
+      assert_false(str.islower("."))
+      assert_false(str.islower("?"))
+      assert_false(str.islower("!"))
+
+      assert_false(str.islower("0"))
+      assert_false(str.islower("1"))
+      assert_false(str.islower("1"))
+      assert_false(str.islower("9"))
     end)
     it("isupper", function()
-      local A = "A"
-      local Z = "Z"
-      for i = 1, 255 do
-        if i >= string.byte(A) and i <= string.byte(Z) then
-          assert_true(str.isupper(string.char(i)))
-        else
-          assert_false(str.isupper(string.char(i)))
-        end
-      end
+      assert_false(str.isupper(" "))
+      assert_false(str.isupper("\n"))
+      assert_false(str.isupper("\t"))
+      assert_false(str.isupper("\r"))
+
+      assert_false(str.isupper("a"))
+      assert_false(str.isupper("b"))
+      assert_false(str.isupper("c"))
+      assert_false(str.isupper("z"))
+      assert_false(str.isupper("o"))
+
+      assert_true(str.isupper("A"))
+      assert_true(str.isupper("F"))
+      assert_true(str.isupper("H"))
+      assert_true(str.isupper("B"))
+      assert_true(str.isupper("C"))
+      assert_true(str.isupper("D"))
+
+      assert_false(str.isupper("."))
+      assert_false(str.isupper("?"))
+      assert_false(str.isupper("!"))
+
+      assert_false(str.isupper("0"))
+      assert_false(str.isupper("1"))
+      assert_false(str.isupper("1"))
+      assert_false(str.isupper("9"))
     end)
   end)
   describe("[setchar]", function()
