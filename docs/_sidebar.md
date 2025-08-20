@@ -20,4 +20,3 @@
   - [commons.version](commons_version.md)
 - [Contribute](contribute.md)
   - [Development](development.md)
-  - [Sponsor](sponsor.md)
