@@ -18,5 +18,5 @@
   - [commons.tbl](commons_tbl.md)
   - [commons.uv](commons_uv.md)
   - [commons.version](commons_version.md)
-- [Contribute](contribute.md)
+- Contribute
   - [Development](development.md)
