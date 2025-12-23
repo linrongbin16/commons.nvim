@@ -179,23 +179,19 @@ describe("commons.path", function()
       local expect1 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests]]
       assert_eq(actual1, expect1)
 
-      local actual2 = path.normalize(
-        [[C:\Users\linrongbin\github\linrongbin16\fzfx.nvim\lua\tests]],
-        { double_backslash = true }
-      )
+      local actual2 =
+        path.normalize([[C:\Users\linrongbin\github\linrongbin16\fzfx.nvim\lua\tests]])
       local expect2 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests]]
       assert_eq(actual2, expect2)
 
       local actual3 = path.normalize(
-        [[C:\\Users\\linrongbin\\github\\linrongbin16\\fzfx.nvim\\lua\\tests\test_path.lua]],
-        { double_backslash = true }
+        [[C:\\Users\\linrongbin\\github\\linrongbin16\\fzfx.nvim\\lua\\tests\test_path.lua]]
       )
       local expect3 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua]]
       assert_eq(actual3, expect3)
 
       local actual4 = path.normalize(
-        [[C:\\Users\\linrongbin\\github\\linrongbin16\\fzfx.nvim\\lua\\tests\\test_path.lua]],
-        { double_backslash = true }
+        [[C:\\Users\\linrongbin\\github\\linrongbin16\\fzfx.nvim\\lua\\tests\\test_path.lua]]
       )
       local expect4 = [[C:/Users/linrongbin/github/linrongbin16/fzfx.nvim/lua/tests/test_path.lua]]
       assert_eq(actual4, expect4)
