@@ -42,22 +42,22 @@ M.asyncreadfile = function(filename, opts)
     end
     uv.fs_fstat(fd --[[@as integer]], function(on_fstat_err, stat)
       if on_fstat_err then
-        opts.on_error("fs_fstat complete", on_fstat_err)
+        opts.on_error("fs_fstat", on_fstat_err)
         return
       end
       if not stat then
-        opts.on_error("fs_fstat returns nil", on_fstat_err)
+        opts.on_error("fs_fstat", "fs_fstat returns nil")
         return
       end
       uv.fs_read(fd --[[@as integer]], stat.size, 0, function(on_read_err, data)
         if on_read_err then
-          opts.on_error("fs_read complete", on_read_err)
+          opts.on_error("fs_read", on_read_err)
           return
         end
         uv.fs_close(fd --[[@as integer]], function(on_close_err)
           opts.on_complete(data)
           if on_close_err then
-            opts.on_error("fs_close complete", on_close_err)
+            opts.on_error("fs_close", on_close_err)
           end
         end)
       end)
