@@ -10,19 +10,19 @@ describe("commons.log", function()
   end)
 
   local log = require("commons.log")
-  describe("[log]", function()
-    log.setup({
-      name = "root",
-      level = vim.log.levels.DEBUG,
-      use_console = true,
-      use_file = true,
-      file_name = "logging.txt",
-    })
+  log.setup({
+    name = "root",
+    level = vim.log.levels.DEBUG,
+    use_console = true,
+    use_file = true,
+    file_name = "logging.txt",
+  })
 
+  describe("[log]", function()
     it("log", function()
       log.log(vim.log.levels.DEBUG, "debug without parameters")
-      log.log("INFO", "info with 1 parameters: %s")
-      log.log("WARN", "warn with 2 parameters: %s, %d")
+      log.log(vim.log.levels.INFO, "info with 1 parameters: %s")
+      log.log(vim.log.levels.WARN, "warn with 2 parameters: %s, %d")
       log.log(vim.log.levels.ERROR, "error with 3 parameters: %s, %d, %f")
       local ok, err = pcall(log.log, "ERROR", "error message with pcall")
       assert_true(ok)

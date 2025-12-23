@@ -31,14 +31,10 @@ local LogConfigs = {
   file_name = nil,
 }
 
---- @param opts {name: string, level: integer|string|nil, use_console: boolean?, use_file: boolean?, file_name: string?}?
+--- @param opts {name: string, level: integer?, use_console: boolean?, use_file: boolean?, file_name: string?}?
 local function setup(opts)
   opts = opts or {}
-  local level
-  if type(opts.level) == "string" then
-    opts.level = LogLevels[opts.level]
-  end
-  level = opts.level or LogLevels.INFO
+  local level = opts.level or LogLevels.INFO
   local use_console
   if type(opts.use_console) == "boolean" then
     use_console = opts.use_console
@@ -59,13 +55,18 @@ local function setup(opts)
   LogConfigs.file_name = string.format("%s%s%s", vim.fn.stdpath("data"), PATH_SEPARATOR, file_name)
 end
 
---- @param level integer|string
+--- @param level integer
 --- @param msg string
 local function log(level, msg)
-  print(string.format(""))
-  if type(level) == "string" then
-    level = LogLevels[level]
-  end
+  print(
+    string.format(
+      "level(%s):%s,conf(%s):%s",
+      vim.inspect(type(level)),
+      vim.inspect(level),
+      vim.inspect(type(LogConfigs.level)),
+      vim.inspect(LogConfigs.level)
+    )
+  )
   if level < LogConfigs.level then
     return
   end
