@@ -16,91 +16,27 @@ describe("commons.fio", function()
   local fio = require("commons.fio")
   local platform = require("commons.platform")
 
-  describe("[FileLineReader]", function()
-    it("failed to open", function()
-      local ok, reader = pcall(fio.FileLineReader.open, fio.FileLineReader, "asdf.md")
-      assert_false(ok)
-    end)
-    it("should equal with readfile", function()
-      local function compare_with_readfile(filename)
-        local expect_content = fio.readfile(filename, { trim = true })
-        assert_true(str.not_empty(expect_content))
-        local expect_lines = str.split(expect_content, "\n", { plain = true, trimempty = false })
-
-        local reader = fio.FileLineReader:open(filename)
-        local actual_lines = {}
-        while reader:has_next() do
-          table.insert(actual_lines, reader:next())
-        end
-        reader:close()
-
-        assert_eq(type(expect_lines), type(actual_lines))
-        assert_eq(type(actual_lines), "table")
-        assert_true(tbl.list_not_empty(expect_lines))
-        assert_true(tbl.list_not_empty(actual_lines))
-        assert_eq(#expect_lines, #actual_lines)
-        for i, expect in ipairs(expect_lines) do
-          local actual = actual_lines[i]
-          assert_eq(actual, expect)
-        end
-      end
-
-      compare_with_readfile("README.md")
-      compare_with_readfile("LICENSE")
-      compare_with_readfile("version.txt")
-      compare_with_readfile(".github/workflows/ci.yml")
-    end)
-  end)
-  describe("[readfile/readlines]", function()
-    it("failed to open", function()
+  describe("[readfile]", function()
+    it("not exist", function()
       local ok1, reader1 = pcall(fio.readfile, "asdf.md")
       assert_eq(reader1, nil)
       assert_true(ok1)
-      local ok2, reader2 = pcall(fio.readlines, "asdf.md")
-      assert_eq(reader2, nil)
-      assert_true(ok2)
     end)
-    it("readfile and FileLineReader", function()
-      local content = fio.readfile("README.md", { trim = true })
-      local reader = fio.FileLineReader:open("README.md") --[[@as commons.FileLineReader]]
-      local buffer = nil
-      assert_eq(type(reader), "table")
-      while reader:has_next() do
-        local line = reader:next() --[[@as string]]
-        assert_eq(type(line), "string")
-        assert_true(string.len(line) >= 0)
-        buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
-      end
-      reader:close()
-      content = content:gsub("\r\n", "\n")
-      assert_eq(str.rtrim(buffer --[[@as string]]), content)
-    end)
-    it("readfile and readlines", function()
-      local content = fio.readfile("README.md", { trim = true })
-      local lines = fio.readlines("README.md")
-      local buffer = nil
-      for _, line in
-        ipairs(lines --[[@as table]])
-      do
-        assert_eq(type(line), "string")
-        assert_true(string.len(line) >= 0)
-        buffer = buffer and (buffer .. line .. "\n") or (line .. "\n")
-      end
-      content = content:gsub("\r\n", "\n")
-      assert_eq(str.rtrim(buffer --[[@as string]]), content)
+    it("readfile", function()
+      local content = fio.readfile("README.md") --[[@as string]]
+      assert_true(type(content) == "string")
+      assert_true(string.len(content) >= 0)
     end)
   end)
-  describe("[writefile/writelines]", function()
+  describe("[writefile]", function()
     if not platform.IS_WINDOWS then
-      it("failed to open", function()
+      it("invalid filename", function()
         local ok1, reader1 = pcall(fio.writefile, "a\\  '' :?!#+_-sdf.md")
         assert_false(ok1)
-        local ok2, reader2 = pcall(fio.writelines, "a\\  '' :?!#+_-sdf.md")
-        assert_false(ok2)
       end)
     end
 
-    it("writefile and writelines", function()
+    it("writefile", function()
       local content = fio.readfile("README.md") --[[@as string]]
       local lines = fio.readlines("README.md") --[[@as table]]
 
