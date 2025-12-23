@@ -35,7 +35,7 @@ M.asyncreadfile = function(filename, opts)
     end
   end
 
-  local open_result, open_err = uv.fs_open(filename, "r", 438, function(on_open_err, fd)
+  uv.fs_open(filename, "r", 438, function(on_open_err, fd)
     if on_open_err then
       opts.on_error("fs_open complete", on_open_err)
       return
@@ -49,23 +49,20 @@ M.asyncreadfile = function(filename, opts)
         opts.on_error("fs_fstat returns nil", on_fstat_err)
         return
       end
-      uv.fs_read(fd --[[@as integer]], stat.size, 0, function(read_complete_err, data)
-        if read_complete_err then
-          opts.on_error("fs_read complete", read_complete_err)
+      uv.fs_read(fd --[[@as integer]], stat.size, 0, function(on_read_err, data)
+        if on_read_err then
+          opts.on_error("fs_read complete", on_read_err)
           return
         end
-        uv.fs_close(fd --[[@as integer]], function(close_complete_err)
+        uv.fs_close(fd --[[@as integer]], function(on_close_err)
           opts.on_complete(data)
-          if close_complete_err then
-            opts.on_error("fs_close complete", close_complete_err)
+          if on_close_err then
+            opts.on_error("fs_close complete", on_close_err)
           end
         end)
       end)
     end)
   end)
-  if open_result == nil then
-    opts.on_error("fs_open", open_err)
-  end
 end
 
 --- @param filename string
