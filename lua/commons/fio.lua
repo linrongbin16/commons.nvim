@@ -17,12 +17,11 @@ end
 --- @alias commons.AsyncReadFileOnComplete fun(data:string?):any
 --- @alias commons.AsyncReadFileOnError fun(step:string?,err:string?):any
 --- @param filename string
---- @param opts {on_complete:commons.AsyncReadFileOnComplete,on_error:commons.AsyncReadFileOnError?,trim:boolean?}
+--- @param opts {on_complete:commons.AsyncReadFileOnComplete,on_error:commons.AsyncReadFileOnError?}
 M.asyncreadfile = function(filename, opts)
   assert(type(opts) == "table")
   assert(type(opts.on_complete) == "function")
 
-  opts.trim = type(opts.trim) == "boolean" and opts.trim or false
   if type(opts.on_error) ~= "function" then
     opts.on_error = function(step1, err1)
       error(
@@ -56,12 +55,7 @@ M.asyncreadfile = function(filename, opts)
           return
         end
         uv.fs_close(fd --[[@as integer]], function(close_complete_err)
-          if opts.trim and type(data) == "string" then
-            local trimmed_data = vim.trim(data)
-            opts.on_complete(trimmed_data)
-          else
-            opts.on_complete(data)
-          end
+          opts.on_complete(data)
           if close_complete_err then
             opts.on_error("fs_close complete", close_complete_err)
           end
