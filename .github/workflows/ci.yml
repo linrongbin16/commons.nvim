@@ -36,7 +36,6 @@ jobs:
           selene --config selene.toml ./lua
       - uses: stevearc/nvim-typecheck-action@v2
         with:
-          nvim-version: v0.10.3
           path: lua
           configpath: ".luarc.json"
   unit_test:
