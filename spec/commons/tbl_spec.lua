@@ -9,10 +9,7 @@ describe("commons.tbl", function()
     vim.api.nvim_command("cd " .. cwd)
   end)
 
-  local str = require("commons.str")
   local tbl = require("commons.tbl")
-  local List = tbl.List
-  local HashMap = tbl.HashMap
 
   describe("strings", function()
     it("tbl_empty/tbl_not_empty", function()

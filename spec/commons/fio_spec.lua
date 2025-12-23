@@ -49,9 +49,11 @@ describe("commons.fio", function()
       local t = "test2.txt"
       local content = "hello world, goodbye world!"
       local done = false
-      fio.asyncwritefile(t, content, function(bytes)
-        assert_eq(bytes, #content)
-      end)
+      fio.asyncwritefile(t, content, {
+        on_complete = function(bytes)
+          assert_eq(bytes, #content)
+        end,
+      })
       vim.wait(1000, function()
         return done
       end)

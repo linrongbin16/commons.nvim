@@ -23,3 +23,5 @@ end
 M.list_not_empty = function(l)
   return type(l) == "table" and #l > 0
 end
+
+return M
