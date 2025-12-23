@@ -2,33 +2,16 @@
 
 <p>
 <a href="https://github.com/neovim/neovim/releases/"><img alt="require" src="https://img.shields.io/badge/require-stable-blue" /></a>
-<a href="https://luarocks.org/modules/linrongbin16/commons.nvim"><img alt="luarocks" src="https://img.shields.io/luarocks/v/linrongbin16/commons.nvim" /></a>
 <a href="https://github.com/linrongbin16/commons.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/commons.nvim/ci.yml?label=ci" /></a>
-<a href="https://app.codecov.io/github/linrongbin16/commons.nvim"><img alt="codecov" src="https://img.shields.io/codecov/c/github/linrongbin16/commons.nvim/main?label=codecov" /></a>
 </p>
 
 <p align="center"><i>
-The commons lua library for Neovim plugin project.
+The common lua utilities library for Neovim plugins.
 </i></p>
-
-This lua library includes multiple modules:
-
-- Utilities for lua tables, strings, numbers and other data structures.
-- File IO & path operations.
-- Spawn child-process & coroutine.
-- Logging system with python-logging like features.
-- Colors & syntax highlight utilities, HSL calculation & terminal rendering.
-- Compatible APIs support Neovim versions from last legacy to nightly.
 
 > [!NOTE]
 >
 > This library only supports latest stable and nightly version, since there are many API level break changes and limitations that are hard to keep compatible behavior in old Neovim versions in lua side.
-
-Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
-
-## Embedded Libraries
-
-- [colors.lua](http://sputnik.freewisdom.org/lib/colors/): HSL Color Theory Computation in Lua.
 
 ## Contribute
 
