@@ -10,17 +10,9 @@
 The common lua utilities library for Neovim plugins.
 </i></p>
 
-This lua library includes multiple modules:
-
-- Utilities for lua tables, strings.
-- File IO & path operations.
-- Logging for both messages (stdout/stderr) and files.
-
 > [!NOTE]
 >
 > This library only supports latest stable and nightly version, since there are many API level break changes and limitations that are hard to keep compatible behavior in old Neovim versions in lua side.
-
-Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
 
 ## Contribute
 
