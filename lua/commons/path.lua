@@ -59,13 +59,9 @@ M.islink = function(p)
 end
 
 --- @param p string
---- @param opts {double_backslash:boolean?}?
 --- @return string
 M._normalize_slash = function(p, opts)
   assert(type(p) == "string")
-  opts = opts or { double_backslash = false }
-  opts.double_backslash = type(opts.double_backslash) == "boolean" and opts.double_backslash
-    or false
 
   -- '\\\\' => '\\'
   local function _double_backslash(s)
@@ -84,9 +80,7 @@ M._normalize_slash = function(p, opts)
   end
   local result = vim.trim(p)
 
-  if opts.double_backslash then
-    result = _double_backslash(result)
-  end
+  result = _double_backslash(result)
   result = _single_backslash(result)
   return result
 end
@@ -121,13 +115,11 @@ M.resolve = function(p)
 end
 
 --- @param p string
---- @param opts {double_backslash:boolean?,expand:boolean?,resolve:boolean?}?
+--- @param opts {expand:boolean?,resolve:boolean?}?
 --- @return string
 M.normalize = function(p, opts)
   assert(type(p) == "string")
-  opts = opts or { double_backslash = false, expand = false, resolve = false }
-  opts.double_backslash = type(opts.double_backslash) == "boolean" and opts.double_backslash
-    or false
+  opts = opts or { expand = false, resolve = false }
   opts.expand = type(opts.expand) == "boolean" and opts.expand or false
   opts.resolve = type(opts.resolve) == "boolean" and opts.resolve or false
 
