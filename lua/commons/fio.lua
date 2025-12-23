@@ -123,21 +123,4 @@ M.asyncwritefile = function(filename, content, opts)
   end)
 end
 
---- @param filename string  file name.
---- @param lines string[]   content lines.
---- @return integer         returns `0` if success, returns `-1` if failed.
-M.writelines = function(filename, lines)
-  local f = io.open(filename, "w")
-  if not f then
-    return -1
-  end
-  assert(type(lines) == "table")
-  for _, line in ipairs(lines) do
-    assert(type(line) == "string")
-    f:write(line .. "\n")
-  end
-  f:close()
-  return 0
-end
-
 return M
