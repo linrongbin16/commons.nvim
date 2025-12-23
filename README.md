@@ -4,7 +4,6 @@
 <a href="https://github.com/neovim/neovim/releases/"><img alt="require" src="https://img.shields.io/badge/require-stable-blue" /></a>
 <a href="https://luarocks.org/modules/linrongbin16/commons.nvim"><img alt="luarocks" src="https://img.shields.io/luarocks/v/linrongbin16/commons.nvim" /></a>
 <a href="https://github.com/linrongbin16/commons.nvim/actions/workflows/ci.yml"><img alt="ci.yml" src="https://img.shields.io/github/actions/workflow/status/linrongbin16/commons.nvim/ci.yml?label=ci" /></a>
-<a href="https://app.codecov.io/github/linrongbin16/commons.nvim"><img alt="codecov" src="https://img.shields.io/codecov/c/github/linrongbin16/commons.nvim/main?label=codecov" /></a>
 </p>
 
 <p align="center"><i>
