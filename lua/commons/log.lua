@@ -62,6 +62,7 @@ end
 --- @param level integer|string
 --- @param msg string
 local function log(level, msg)
+  print(string.format(""))
   if type(level) == "string" then
     level = LogLevels[level]
   end
@@ -100,43 +101,37 @@ local function log(level, msg)
   end
 end
 
---- @param fmt string
---- @param ... any
-local function debug(fmt, ...)
-  log(LogLevels.DEBUG, string.format(fmt, ...))
+--- @param s string
+local function debug(s)
+  log(LogLevels.DEBUG, s)
 end
 
---- @param fmt string
---- @param ... any
-local function info(fmt, ...)
-  log(LogLevels.INFO, string.format(fmt, ...))
+--- @param s string
+local function info(s)
+  log(LogLevels.INFO, s)
 end
 
---- @param fmt string
---- @param ... any
-local function warn(fmt, ...)
-  log(LogLevels.WARN, string.format(fmt, ...))
+--- @param s string
+local function warn(s)
+  log(LogLevels.WARN, s)
 end
 
---- @param fmt string
---- @param ... any
-local function err(fmt, ...)
-  log(LogLevels.ERROR, string.format(fmt, ...))
+--- @param s string
+local function err(s)
+  log(LogLevels.ERROR, s)
 end
 
---- @param fmt string
---- @param ... any
-local function throw(fmt, ...)
-  log(LogLevels.ERROR, string.format(fmt, ...))
-  error(string.format(fmt, ...))
+--- @param s string
+local function throw(s)
+  log(LogLevels.ERROR, s)
+  error(s)
 end
 
 --- @param cond boolean
---- @param fmt string
---- @param ... any
-local function ensure(cond, fmt, ...)
+--- @param s string
+local function ensure(cond, s)
   if not cond then
-    throw(fmt, ...)
+    throw(s)
   end
 end
 
