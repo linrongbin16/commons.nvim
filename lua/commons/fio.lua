@@ -3,19 +3,15 @@ local uv = vim.uv or vim.loop
 local M = {}
 
 --- @param filename string
---- @param opts {trim:boolean?}?
 --- @return string?
-M.readfile = function(filename, opts)
-  opts = opts or { trim = false }
-  opts.trim = type(opts.trim) == "boolean" and opts.trim or false
-
+M.readfile = function(filename)
   local f = io.open(filename, "r")
   if f == nil then
     return nil
   end
   local content = f:read("*a")
   f:close()
-  return opts.trim and vim.trim(content) or content
+  return content
 end
 
 --- @alias commons.AsyncReadFileOnComplete fun(data:string?):any
