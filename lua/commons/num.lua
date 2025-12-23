@@ -111,4 +111,25 @@ M.min = function(f, a, ...)
   return minimal_item, minimal_index
 end
 
+--- @param f fun(v:any):number
+--- @param a any
+--- @param ... any
+--- @return integer, integer
+M.max = function(f, a, ...)
+  assert(
+    type(f) == "function",
+    string.format("first param 'f' must be unary-function returns number value:%s", vim.inspect(f))
+  )
+  local maximal_item = a
+  local maximal_value = f(a)
+  local maximal_index = 1
+  for i, o in ipairs({ ... }) do
+    if f(o) > maximal_value then
+      maximal_item = o
+      maximal_index = i
+    end
+  end
+  return maximal_item, maximal_index
+end
+
 return M
