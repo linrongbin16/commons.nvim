@@ -111,110 +111,100 @@ M.asyncreadlines = function(filename, opts)
     end
   end
 
-  local open_result, open_err = uv.fs_open(filename, "r", 438, function(open_complete_err, fd)
-    if open_complete_err then
-      opts.on_error("fs_open complete", open_complete_err)
+  uv.fs_open(filename, "r", 438, function(on_open_err, fd)
+    if on_open_err then
+      opts.on_error("fs_open", on_open_err)
       return
     end
-    local fstat_result, fstat_err = uv.fs_fstat(
-      fd --[[@as integer]],
-      function(fstat_complete_err, stat)
-        if fstat_complete_err then
-          opts.on_error("fs_fstat complete", fstat_complete_err)
-          return
-        end
-        if stat == nil then
-          opts.on_error("fs_fstat returns nil", fstat_complete_err)
-          return
-        end
-
-        local fsize = stat.size
-        local offset = 0
-        local buffer = nil
-
-        local function _process(buf, fn_line_processor)
-          local str = require("commons.str")
-
-          local i = 1
-          while i <= #buf do
-            local newline_pos = str.find(buf, "\n", i)
-            if not newline_pos then
-              break
-            end
-            local line = buf:sub(i, newline_pos - 1)
-            fn_line_processor(line)
-            i = newline_pos + 1
-          end
-          return i
-        end
-
-        local function _chunk_read()
-          local read_result, read_err = uv.fs_read(
-            fd --[[@as integer]],
-            batchsize,
-            offset,
-            function(read_complete_err, data)
-              if read_complete_err then
-                opts.on_error("fs_read complete", read_complete_err)
-                return
-              end
-
-              if data then
-                offset = offset + #data
-
-                buffer = buffer and (buffer .. data) or data --[[@as string]]
-                buffer = buffer:gsub("\r\n", "\n")
-                local pos = _process(buffer, opts.on_line)
-                -- truncate the processed lines if still exists any
-                buffer = pos <= #buffer and buffer:sub(pos, #buffer) or nil
-              else
-                -- no more data
-
-                -- if buffer still has not been processed
-                if buffer then
-                  local pos = _process(buffer, opts.on_line)
-                  buffer = pos <= #buffer and buffer:sub(pos, #buffer) or nil
-
-                  -- process all the left buffer till the end of file
-                  if buffer then
-                    opts.on_line(buffer)
-                  end
-                end
-
-                -- close file
-                local close_result, close_err = uv.fs_close(
-                  fd --[[@as integer]],
-                  function(close_complete_err)
-                    if close_complete_err then
-                      opts.on_error("fs_close complete", close_complete_err)
-                    end
-                    if type(opts.on_complete) == "function" then
-                      opts.on_complete(fsize)
-                    end
-                  end
-                )
-                if close_result == nil then
-                  opts.on_error("fs_close", close_err)
-                end
-              end
-            end
-          )
-          if read_result == nil then
-            opts.on_error("fs_read", read_err)
-          end
-        end
-
-        _chunk_read()
+    uv.fs_fstat(fd --[[@as integer]], function(fstat_complete_err, stat)
+      if fstat_complete_err then
+        opts.on_error("fs_fstat complete", fstat_complete_err)
+        return
       end
-    )
+      if stat == nil then
+        opts.on_error("fs_fstat returns nil", fstat_complete_err)
+        return
+      end
 
-    if fstat_result == nil then
-      opts.on_error("fs_fstat", fstat_err)
-    end
+      local fsize = stat.size
+      local offset = 0
+      local buffer = nil
+
+      local function _process(buf, fn_line_processor)
+        local str = require("commons.str")
+
+        local i = 1
+        while i <= #buf do
+          local newline_pos = str.find(buf, "\n", i)
+          if not newline_pos then
+            break
+          end
+          local line = buf:sub(i, newline_pos - 1)
+          fn_line_processor(line)
+          i = newline_pos + 1
+        end
+        return i
+      end
+
+      local function _chunk_read()
+        local read_result, read_err = uv.fs_read(
+          fd --[[@as integer]],
+          batchsize,
+          offset,
+          function(read_complete_err, data)
+            if read_complete_err then
+              opts.on_error("fs_read complete", read_complete_err)
+              return
+            end
+
+            if data then
+              offset = offset + #data
+
+              buffer = buffer and (buffer .. data) or data --[[@as string]]
+              buffer = buffer:gsub("\r\n", "\n")
+              local pos = _process(buffer, opts.on_line)
+              -- truncate the processed lines if still exists any
+              buffer = pos <= #buffer and buffer:sub(pos, #buffer) or nil
+            else
+              -- no more data
+
+              -- if buffer still has not been processed
+              if buffer then
+                local pos = _process(buffer, opts.on_line)
+                buffer = pos <= #buffer and buffer:sub(pos, #buffer) or nil
+
+                -- process all the left buffer till the end of file
+                if buffer then
+                  opts.on_line(buffer)
+                end
+              end
+
+              -- close file
+              local close_result, close_err = uv.fs_close(
+                fd --[[@as integer]],
+                function(close_complete_err)
+                  if close_complete_err then
+                    opts.on_error("fs_close complete", close_complete_err)
+                  end
+                  if type(opts.on_complete) == "function" then
+                    opts.on_complete(fsize)
+                  end
+                end
+              )
+              if close_result == nil then
+                opts.on_error("fs_close", close_err)
+              end
+            end
+          end
+        )
+        if read_result == nil then
+          opts.on_error("fs_read", read_err)
+        end
+      end
+
+      _chunk_read()
+    end)
   end)
-  if open_result == nil then
-    opts.on_error("fs_open", open_err)
-  end
 end
 
 -- AsyncFileLineReader }
