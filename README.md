@@ -8,7 +8,7 @@
 </p>
 
 <p align="center"><i>
-The commons lua library for Neovim plugin project.
+The common lua utilities library for Neovim plugins.
 </i></p>
 
 This lua library includes multiple modules:
@@ -16,19 +16,13 @@ This lua library includes multiple modules:
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
 - Spawn child-process & coroutine.
-- Logging system with python-logging like features.
-- Colors & syntax highlight utilities, HSL calculation & terminal rendering.
-- Compatible APIs support Neovim versions from last legacy to nightly.
+- Logging for both messages (stdout/stderr) & files.
 
 > [!NOTE]
 >
 > This library only supports latest stable and nightly version, since there are many API level break changes and limitations that are hard to keep compatible behavior in old Neovim versions in lua side.
 
 Please check [documentation](https://linrongbin16.github.io/commons.nvim) for more details.
-
-## Embedded Libraries
-
-- [colors.lua](http://sputnik.freewisdom.org/lib/colors/): HSL Color Theory Computation in Lua.
 
 ## Contribute
 
