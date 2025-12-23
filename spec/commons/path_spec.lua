@@ -13,7 +13,7 @@ describe("commons.path", function()
 
   local str = require("commons.str")
   local path = require("commons.path")
-  local uv = require("commons.uv")
+  local uv = vim.uv or vim.loop
 
   local function create_symlink(p1, p2)
     if IS_WINDOWS then
