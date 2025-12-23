@@ -116,13 +116,13 @@ M.asyncreadlines = function(filename, opts)
       opts.on_error("fs_open", on_open_err)
       return
     end
-    uv.fs_fstat(fd --[[@as integer]], function(fstat_complete_err, stat)
-      if fstat_complete_err then
-        opts.on_error("fs_fstat complete", fstat_complete_err)
+    uv.fs_fstat(fd --[[@as integer]], function(on_fstat_err, stat)
+      if on_fstat_err then
+        opts.on_error("fs_fstat", on_fstat_err)
         return
       end
       if stat == nil then
-        opts.on_error("fs_fstat returns nil", fstat_complete_err)
+        opts.on_error("fs_fstat", "fs_fstat returns nil")
         return
       end
 
