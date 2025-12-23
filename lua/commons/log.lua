@@ -35,7 +35,7 @@ local LogConfigs = {
 local function setup(opts)
   opts = opts or {}
   local level
-  if type(opts.level) == "number" then
+  if type(opts.level) == "string" then
     opts.level = LogLevels[opts.level]
   end
   level = opts.level or LogLevels.INFO
@@ -59,9 +59,12 @@ local function setup(opts)
   LogConfigs.file_name = string.format("%s%s%s", vim.fn.stdpath("data"), PATH_SEPARATOR, file_name)
 end
 
---- @param level integer
+--- @param level integer|string
 --- @param msg string
 local function log(level, msg)
+  if type(level) == "string" then
+    level = LogLevels[level]
+  end
   if level < LogConfigs.level then
     return
   end

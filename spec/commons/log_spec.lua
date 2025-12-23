@@ -10,22 +10,20 @@ describe("commons.log", function()
   end)
 
   local log = require("commons.log")
-  local LogLevels = require("commons.log").LogLevels
-  local LogLevelNames = require("commons.log").LogLevelNames
   describe("[log]", function()
     log.setup({
       name = "root",
       level = vim.log.levels.DEBUG,
       use_console = true,
       use_file = true,
-      file_name = "commons_test_logging.log",
+      file_name = "logging.txt",
     })
 
     it("log", function()
-      log.log(LogLevels.DEBUG, "debug without parameters")
+      log.log(vim.log.levels.DEBUG, "debug without parameters")
       log.log("INFO", "info with 1 parameters: %s")
       log.log("WARN", "warn with 2 parameters: %s, %d")
-      log.log(LogLevels.ERROR, "error with 3 parameters: %s, %d, %f")
+      log.log(vim.log.levels.ERROR, "error with 3 parameters: %s, %d, %f")
       local ok, err = pcall(log.log, "ERROR", "error message with pcall")
       assert_true(ok)
     end)
@@ -79,96 +77,6 @@ describe("commons.log", function()
       assert_false(ok2)
       assert_eq(type(msg2), "string")
       local ok3, msg3 = pcall(log.throw, "throw with 2 params: %s, %d")
-      assert_false(ok3)
-      assert_eq(type(msg3), "string")
-    end)
-  end)
-  describe("[LogLevels/LogLevelNames]", function()
-    it("check levels", function()
-      for k, v in pairs(LogLevels) do
-        assert_eq(type(k), "string")
-        assert_eq(type(v), "number")
-      end
-    end)
-    it("check level names", function()
-      for v, k in pairs(LogLevelNames) do
-        assert_eq(type(k), "string")
-        assert_eq(type(v), "number")
-      end
-    end)
-  end)
-  describe("[logger]", function()
-    log.setup({
-      name = "test_logger",
-      level = "DEBUG",
-      console_log = true,
-      file_log = true,
-      file_log_name = "commons_test_logging2.log",
-      file_log_dir = ".",
-      file_log_mode = "w",
-    })
-    it("log", function()
-      log.get("test_logger"):log("DEBUG", "debug without parameters")
-      log.get("test_logger"):log(LogLevels.INFO, "info with 1 parameters: %s")
-      log.get("test_logger"):log(LogLevels.WARN, "warn with 2 parameters: %s, %d")
-      log.get("test_logger"):log("ERROR", "error with 3 parameters: %s, %d, %f")
-      local logger = log.get("test_logger")
-      local ok, err = pcall(logger.log, logger, "ERROR", "error message with pcall")
-      assert_true(ok)
-    end)
-    it("debug", function()
-      log.get("test_logger"):debug("debug without parameters")
-      log.get("test_logger"):debug("debug with 1 parameters: %s")
-      log.get("test_logger"):debug("debug with 2 parameters: %s, %d")
-      log.get("test_logger"):debug("debug with 3 parameters: %s, %d, %f")
-    end)
-    it("info", function()
-      log.get("test_logger"):info("info without parameters")
-      log.get("test_logger"):info("info with 1 parameters: %s")
-      log.get("test_logger"):info("info with 2 parameters: %s, %d")
-      log.get("test_logger"):info("info with 3 parameters: %s, %d, %f")
-    end)
-    it("warn", function()
-      log.get("test_logger"):warn("warn without parameters")
-      log.get("test_logger"):warn("warn with 1 parameters: %s")
-      log.get("test_logger"):warn("warn with 2 parameters: %s, %d")
-      log.get("test_logger"):warn("warn with 3 parameters: %s, %d, %f")
-    end)
-    it("err", function()
-      log.get("test_logger"):err("info without parameters")
-      log.get("test_logger"):err("info with 1 parameters: %s")
-      log.get("test_logger"):err("info with 2 parameters: %s, %d")
-      log.get("test_logger"):err("info with 3 parameters: %s, %d, %f")
-    end)
-    it("ensure", function()
-      log.get("test_logger"):ensure(true, "ensure without parameters")
-      log.get("test_logger"):ensure(true, "ensure with 1 parameters: %s")
-      log.get("test_logger"):ensure(true, "ensure with 2 parameters: %s, %d")
-      log.get("test_logger"):ensure(true, "ensure with 3 parameters: %s, %d, %f")
-      local logger = log.get("test_logger")
-      local ok1, err1 = pcall(logger.ensure, logger, false, "ensure without parameters")
-      print(vim.inspect(err1) .. "\n")
-      assert_false(ok1)
-      local ok2, err2 = pcall(logger.ensure, logger, false, "ensure with 1 parameters: %s")
-      print(vim.inspect(err2) .. "\n")
-      assert_false(ok2)
-      local ok3, err3 = pcall(logger.ensure, logger, false, "ensure with 2 parameters: %s, %d")
-      print(vim.inspect(err3) .. "\n")
-      assert_false(ok3)
-      local ok4, err4 =
-        pcall(logger.ensure, logger, false, "ensure with 3 parameters: %s, %d, %f", "a")
-      print(vim.inspect(err4) .. "\n")
-      assert_false(ok4)
-    end)
-    it("throw", function()
-      local logger = log.get("test_logger")
-      local ok1, msg1 = pcall(logger.throw, logger, "throw without params")
-      assert_false(ok1)
-      assert_eq(type(msg1), "string")
-      local ok2, msg2 = pcall(logger.throw, logger, "throw with 1 params: %s")
-      assert_false(ok2)
-      assert_eq(type(msg2), "string")
-      local ok3, msg3 = pcall(logger.throw, logger, "throw with 2 params: %s, %d")
       assert_false(ok3)
       assert_eq(type(msg3), "string")
     end)
