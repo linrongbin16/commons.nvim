@@ -37,7 +37,7 @@ M.asyncreadfile = function(filename, opts)
 
   uv.fs_open(filename, "r", 438, function(on_open_err, fd)
     if on_open_err then
-      opts.on_error("fs_open complete", on_open_err)
+      opts.on_error("fs_open", on_open_err)
       return
     end
     uv.fs_fstat(fd --[[@as integer]], function(on_fstat_err, stat)
