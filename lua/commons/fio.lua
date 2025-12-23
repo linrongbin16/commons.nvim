@@ -68,15 +68,23 @@ end
 --- @param filename string
 --- @return string[]|nil
 M.readlines = function(filename)
-  local ok, reader = pcall(M.FileLineReader.open, M.FileLineReader, filename) --[[@as commons.FileLineReader]]
-  if not ok or reader == nil then
+  local payload = M.readfile(filename)
+  if payload == nil then
     return nil
   end
+
+  local str = require("commons.str")
+
+  payload = payload:gsub("\r\n", "\n")
   local results = {}
-  while reader:has_next() do
-    table.insert(results, reader:next())
+  local pos = str.find(payload, "\n")
+  if pos then
+    table.insert(results, payload:sub(1, pos - 1))
+    payload = payload:sub(pos + 1)
+  else
+    table.insert(results, payload)
   end
-  reader:close()
+
   return results
 end
 
