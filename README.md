@@ -16,7 +16,7 @@ This lua library includes multiple modules:
 - Utilities for lua tables, strings, numbers and other data structures.
 - File IO & path operations.
 - Spawn child-process & coroutine.
-- Logging for both messages (stdout/stderr) & files.
+- Logging for both messages (stdout/stderr) and files.
 
 > [!NOTE]
 >
