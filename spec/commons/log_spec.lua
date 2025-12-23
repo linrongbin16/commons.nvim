@@ -15,7 +15,7 @@ describe("commons.log", function()
   describe("[log]", function()
     log.setup({
       name = "root",
-      level = "DEBUG",
+      level = vim.log.levels.DEBUG,
       use_console = true,
       use_file = true,
       file_name = "commons_test_logging.log",
