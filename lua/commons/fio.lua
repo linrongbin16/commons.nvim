@@ -35,18 +35,18 @@ M.asyncreadfile = function(filename, opts)
     end
   end
 
-  local open_result, open_err = uv.fs_open(filename, "r", 438, function(on_open_complete_err, fd)
-    if on_open_complete_err then
-      opts.on_error("fs_open complete", on_open_complete_err)
+  local open_result, open_err = uv.fs_open(filename, "r", 438, function(on_open_err, fd)
+    if on_open_err then
+      opts.on_error("fs_open complete", on_open_err)
       return
     end
-    uv.fs_fstat(fd --[[@as integer]], function(fstat_complete_err, stat)
-      if fstat_complete_err then
-        opts.on_error("fs_fstat complete", fstat_complete_err)
+    uv.fs_fstat(fd --[[@as integer]], function(on_fstat_err, stat)
+      if on_fstat_err then
+        opts.on_error("fs_fstat complete", on_fstat_err)
         return
       end
       if not stat then
-        opts.on_error("fs_fstat returns nil", fstat_complete_err)
+        opts.on_error("fs_fstat returns nil", on_fstat_err)
         return
       end
       uv.fs_read(fd --[[@as integer]], stat.size, 0, function(read_complete_err, data)
