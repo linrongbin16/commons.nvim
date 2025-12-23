@@ -3,13 +3,8 @@
   - [Install](install.md)
   - [Usage](usage.md)
 - Modules
-  - [commons.async](commons_async.md)
-  - commons.color
-    - [commons.color.hl](commons_color_hl.md)
-    - [commons.color.hsl](commons_color_hsl.md)
-    - [commons.color.term](commons_color_term.md)
   - [commons.fio](commons_fio.md)
-  - [commons.logging](commons_logging.md)
+  - [commons.log](commons_log.md)
   - [commons.num](commons_num.md)
   - [commons.path](commons_path.md)
   - [commons.platform](commons_platform.md)
