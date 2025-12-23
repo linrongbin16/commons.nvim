@@ -138,6 +138,7 @@ end
 local M = {
   setup = setup,
   debug = debug,
+  log = log,
   info = info,
   warn = warn,
   err = err,
