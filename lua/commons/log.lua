@@ -46,7 +46,7 @@ local function setup(opts)
   local file_name = opts.file_name
 
   LogConfigs.name = name
-  LogConfigs.level = LogLevels[level]
+  LogConfigs.level = level
   LogConfigs.use_console = use_console
   LogConfigs.use_file = use_file
 
@@ -58,15 +58,6 @@ end
 --- @param level integer
 --- @param msg string
 local function log(level, msg)
-  print(
-    string.format(
-      "level(%s):%s,conf(%s):%s",
-      vim.inspect(type(level)),
-      vim.inspect(level),
-      vim.inspect(type(LogConfigs.level)),
-      vim.inspect(LogConfigs.level)
-    )
-  )
   if level < LogConfigs.level then
     return
   end
