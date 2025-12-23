@@ -65,155 +65,6 @@ M.asyncreadfile = function(filename, opts)
   end)
 end
 
---- @param payload string?
---- @returns string[]|nil
-local function tolines(payload) end
-
---- @param filename string
---- @return string[]|nil
-M.readlines = function(filename)
-  local payload = M.readfile(filename)
-  if payload == nil then
-    return nil
-  end
-
-  local str = require("commons.str")
-
-  payload = payload:gsub("\r\n", "\n")
-  local results = {}
-  local pos = str.find(payload, "\n")
-  if pos then
-    table.insert(results, payload:sub(1, pos - 1))
-    payload = payload:sub(pos + 1)
-  else
-    table.insert(results, payload)
-  end
-
-  return results
-end
-
---- @alias commons.AsyncReadLinesOnComplete fun(data:string[]|nil):any
---- @alias commons.AsyncReadLinesOnError fun(step:string?,err:string?):any
---- @param filename string
---- @param opts {on_complete:commons.AsyncReadLinesOnComplete,on_error:commons.AsyncReadLinesOnError?}
-M.asyncreadlines = function(filename, opts)
-  assert(type(opts) == "table")
-  assert(type(opts.on_complete) == "function")
-
-  if type(opts.on_error) ~= "function" then
-    opts.on_error = function(step, err)
-      error(
-        string.format(
-          "failed to async read file by lines(%s), filename:%s, error:%s",
-          vim.inspect(step),
-          vim.inspect(filename),
-          vim.inspect(err)
-        )
-      )
-    end
-  end
-
-  local on_user_complete = opts.on_complete
-  opts.on_complete = function(data) end
-
-  uv.fs_open(filename, "r", 438, function(on_open_err, fd)
-    if on_open_err then
-      opts.on_error("fs_open", on_open_err)
-      return
-    end
-    uv.fs_fstat(fd --[[@as integer]], function(on_fstat_err, stat)
-      if on_fstat_err then
-        opts.on_error("fs_fstat", on_fstat_err)
-        return
-      end
-      if stat == nil then
-        opts.on_error("fs_fstat", "fs_fstat returns nil")
-        return
-      end
-
-      local fsize = stat.size
-      local offset = 0
-      local buffer = nil
-
-      local function _process(buf, fn_line_processor)
-        local str = require("commons.str")
-
-        local i = 1
-        while i <= #buf do
-          local newline_pos = str.find(buf, "\n", i)
-          if not newline_pos then
-            break
-          end
-          local line = buf:sub(i, newline_pos - 1)
-          fn_line_processor(line)
-          i = newline_pos + 1
-        end
-        return i
-      end
-
-      local function _chunk_read()
-        local read_result, read_err = uv.fs_read(
-          fd --[[@as integer]],
-          batchsize,
-          offset,
-          function(read_complete_err, data)
-            if read_complete_err then
-              opts.on_error("fs_read complete", read_complete_err)
-              return
-            end
-
-            if data then
-              offset = offset + #data
-
-              buffer = buffer and (buffer .. data) or data --[[@as string]]
-              buffer = buffer:gsub("\r\n", "\n")
-              local pos = _process(buffer, opts.on_line)
-              -- truncate the processed lines if still exists any
-              buffer = pos <= #buffer and buffer:sub(pos, #buffer) or nil
-            else
-              -- no more data
-
-              -- if buffer still has not been processed
-              if buffer then
-                local pos = _process(buffer, opts.on_line)
-                buffer = pos <= #buffer and buffer:sub(pos, #buffer) or nil
-
-                -- process all the left buffer till the end of file
-                if buffer then
-                  opts.on_line(buffer)
-                end
-              end
-
-              -- close file
-              local close_result, close_err = uv.fs_close(
-                fd --[[@as integer]],
-                function(close_complete_err)
-                  if close_complete_err then
-                    opts.on_error("fs_close complete", close_complete_err)
-                  end
-                  if type(opts.on_complete) == "function" then
-                    opts.on_complete(fsize)
-                  end
-                end
-              )
-              if close_result == nil then
-                opts.on_error("fs_close", close_err)
-              end
-            end
-          end
-        )
-        if read_result == nil then
-          opts.on_error("fs_read", read_err)
-        end
-      end
-
-      _chunk_read()
-    end)
-  end)
-end
-
--- AsyncFileLineReader }
-
 --- @param filename string  file name.
 --- @param content string   file content.
 --- @return integer         returns `0` if success, returns `-1` if failed.
@@ -227,45 +78,46 @@ M.writefile = function(filename, content)
   return 0
 end
 
+--- @alias commons.AsyncWriteFileOnComplete fun(bytes:integer?):any
+--- @alias commons.AsyncWriteFileOnError fun(step:string?,err:string?):any
 --- @param filename string                      file name.
 --- @param content string                       file content.
---- @param on_complete fun(bytes:integer?):any  callback on write complete.
----                                               1. `bytes`: written data bytes.
-M.asyncwritefile = function(filename, content, on_complete)
-  uv.fs_open(filename, "w", 438, function(open_err, fd)
-    if open_err then
+--- @param opts {on_complete:commons.AsyncWriteFileOnComplete,on_error:commons.AsyncWriteFileOnError?}
+M.asyncwritefile = function(filename, content, opts)
+  assert(type(opts) == "table")
+  assert(type(opts.on_complete) == "function")
+
+  if type(opts.on_error) ~= "function" then
+    opts.on_error = function(step, err)
       error(
-        string.format("failed to open(w) file %s: %s", vim.inspect(filename), vim.inspect(open_err))
+        string.format(
+          "failed to write file(%s), filename:%s, error:%s",
+          vim.inspect(step),
+          vim.inspect(filename),
+          vim.inspect(err)
+        )
       )
+    end
+  end
+
+  uv.fs_open(filename, "w", 438, function(on_open_err, fd)
+    if on_open_err then
+      opts.on_error("fs_open", on_open_err)
       return
     end
     ---@diagnostic disable-next-line: param-type-mismatch
-    uv.fs_write(fd, content, nil, function(write_err, bytes)
-      if write_err then
-        error(
-          string.format(
-            "failed to write file %s: %s",
-            vim.inspect(filename),
-            vim.inspect(write_err)
-          )
-        )
+    uv.fs_write(fd, content, nil, function(on_write_err, bytes)
+      if on_write_err then
+        opts.on_error("fs_write", on_write_err)
         return
       end
       ---@diagnostic disable-next-line: param-type-mismatch
-      uv.fs_close(fd, function(close_err)
-        if close_err then
-          error(
-            string.format(
-              "failed to close(w) file %s: %s",
-              vim.inspect(filename),
-              vim.inspect(close_err)
-            )
-          )
+      uv.fs_close(fd, function(on_close_err)
+        if on_close_err then
+          opts.on_error("fs_close", on_close_err)
           return
         end
-        if type(on_complete) == "function" then
-          on_complete(bytes)
-        end
+        opts.on_complete(bytes)
       end)
     end)
   end)
