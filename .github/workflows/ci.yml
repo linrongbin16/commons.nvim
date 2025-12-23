@@ -29,31 +29,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --config-path .stylua.toml ./lua ./spec
-      # - name: Add async.lua
-      #   if: ${{ github.ref != 'refs/heads/main' }}
-      #   run: |
-      #     echo "pwd"
-      #     echo $PWD
-      #     git clone --depth=1 https://github.com/lewis6991/async.nvim.git ~/.async.nvim
-      #     echo 'ls -lh'
-      #     ls -lh
-      #     rm -rf ./lua/commons/async.lua
-      #     cp -rf ~/.async.nvim/lua/async.lua ./lua/commons/async.lua
-      #     rm -rf ~/.async.nvim
-      #     sed -i '1 i\---@diagnostic disable' ./lua/commons/async.lua
-      - name: Add color.hsl.lua
-        if: ${{ github.ref != 'refs/heads/main' }}
-        run: |
-          echo "pwd"
-          echo $PWD
-          curl -k -L http://sputnik.freewisdom.org/files/colors-8.05.26.tar.gz -o ~/.colors.tar.gz
-          tar zxf ~/.colors.tar.gz
-          echo 'ls -lh'
-          ls -lh
-          rm -rf ./lua/commons/color/hsl.lua
-          cp -rf ./colors-8.05.26/lua/colors.lua ./lua/commons/color/hsl.lua
-          rm -rf ./colors-8.05.26
-          sed -i '1 i\---@diagnostic disable' ./lua/commons/color/hsl.lua
       - uses: cargo-bins/cargo-binstall@main
       - name: Selene
         run: |
@@ -64,80 +39,22 @@ jobs:
           nvim-version: v0.10.3
           path: lua
           configpath: ".luarc.json"
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        if: ${{ github.ref != 'refs/heads/main' }}
-        with:
-          commit_message: "chore(pr): auto-commit"
-          push_options: "--force"
   unit_test:
-    name: Unxi Test
+    name: Unit Test
+    needs:
+      - lint
     strategy:
       matrix:
-        include:
-          - nvim_version: v0.10.0
-            os: ubuntu-latest
-          - nvim_version: stable
-            os: ubuntu-latest
-          - nvim_version: nightly
-            os: ubuntu-latest
-          - nvim_version: v0.10.0
-            os: macos-latest
-          - nvim_version: stable
-            os: macos-latest
-          - nvim_version: nightly
-            os: macos-latest
-          - nvim_version: v0.10.0
-            os: macos-13
-          - nvim_version: stable
-            os: macos-13
-          - nvim_version: nightly
-            os: macos-13
-          - nvim_version: v0.10.0
-            os: windows-latest
-          - nvim_version: stable
-            os: windows-latest
-          - nvim_version: nightly
-            os: windows-latest
-    runs-on: ${{ matrix.os }}
+        nvim_version: [v0.10.0, stable, nightly]
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: rhysd/action-setup-vim@v1
-        id: vim
         with:
           neovim: true
           version: ${{ matrix.nvim_version }}
-      - uses: ilammy/msvc-dev-cmd@v1
-      - uses: leafo/gh-actions-lua@v10
-        with:
-          luaVersion: "luajit-openresty"
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-      - uses: leafo/gh-actions-luarocks@v4
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-      - uses: notomo/action-setup-nvim-lua@v1
-        if: ${{ startsWith(matrix.os, 'windows') }}
       - name: Run Test Cases
-        run: |
-          luarocks install luacov
-          luarocks install luacov-reporter-lcov
-          luarocks --lua-version=5.1 install vusted
-          vusted --coverage ./spec
-          echo "ls -l ."
-          ls -l .
-      - name: Check Coverage Reports
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-        run: |
-          echo "luacov -r lcov"
-          luacov -r lcov
-          echo "ls -la ."
-          ls -la .
-          echo "tail ./luacov.report.out"
-          tail -n 50 ./luacov.report.out
-      - uses: codecov/codecov-action@v4
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-        with:
-          files: luacov.report.out
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: make test
   release:
     name: Release
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -147,13 +64,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: googleapis/release-please-action@v4
-        id: release
-      - uses: nvim-neorocks/luarocks-tag-release@v5
-        if: ${{ steps.release.outputs.release_created }}
-        env:
-          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
-        with:
-          version: ${{ steps.release.outputs.tag_name }}
-          labels: |
-            neovim
-            vim
