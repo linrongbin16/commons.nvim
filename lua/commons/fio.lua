@@ -23,13 +23,13 @@ M.asyncreadfile = function(filename, opts)
   assert(type(opts.on_complete) == "function")
 
   if type(opts.on_error) ~= "function" then
-    opts.on_error = function(step1, err1)
+    opts.on_error = function(step, err)
       error(
         string.format(
           "failed to read file(%s), filename:%s, error:%s",
-          vim.inspect(step1),
+          vim.inspect(step),
           vim.inspect(filename),
-          vim.inspect(err1)
+          vim.inspect(err)
         )
       )
     end
@@ -65,6 +65,10 @@ M.asyncreadfile = function(filename, opts)
   end)
 end
 
+--- @param payload string?
+--- @returns string[]|nil
+local function tolines(payload) end
+
 --- @param filename string
 --- @return string[]|nil
 M.readlines = function(filename)
@@ -88,28 +92,29 @@ M.readlines = function(filename)
   return results
 end
 
---- @alias commons.AsyncReadLinesOnLine fun(line:string):any
---- @alias commons.AsyncReadLinesOnComplete fun(bytes:integer):any
+--- @alias commons.AsyncReadLinesOnComplete fun(data:string[]|nil):any
 --- @alias commons.AsyncReadLinesOnError fun(step:string?,err:string?):any
 --- @param filename string
---- @param opts {on_line:commons.AsyncReadLinesOnLine,on_complete:commons.AsyncReadLinesOnComplete,on_error:commons.AsyncReadLinesOnError?,batchsize:integer?}
+--- @param opts {on_complete:commons.AsyncReadLinesOnComplete,on_error:commons.AsyncReadLinesOnError?}
 M.asyncreadlines = function(filename, opts)
   assert(type(opts) == "table")
-  assert(type(opts.on_line) == "function")
-  local batchsize = opts.batchsize or 4096
+  assert(type(opts.on_complete) == "function")
 
   if type(opts.on_error) ~= "function" then
-    opts.on_error = function(step1, err1)
+    opts.on_error = function(step, err)
       error(
         string.format(
           "failed to async read file by lines(%s), filename:%s, error:%s",
-          vim.inspect(step1),
+          vim.inspect(step),
           vim.inspect(filename),
-          vim.inspect(err1)
+          vim.inspect(err)
         )
       )
     end
   end
+
+  local on_user_complete = opts.on_complete
+  opts.on_complete = function(data) end
 
   uv.fs_open(filename, "r", 438, function(on_open_err, fd)
     if on_open_err then
