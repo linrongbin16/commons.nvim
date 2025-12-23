@@ -40,8 +40,6 @@ jobs:
           configpath: ".luarc.json"
   unit_test:
     name: Unit Test
-    needs:
-      - lint
     strategy:
       matrix:
         nvim_version: [v0.10.0, stable, nightly]
@@ -54,12 +52,3 @@ jobs:
           version: ${{ matrix.nvim_version }}
       - name: Run Test Cases
         run: make test
-  release:
-    name: Release
-    if: ${{ github.ref == 'refs/heads/main' }}
-    needs:
-      - unit_test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: googleapis/release-please-action@v4
