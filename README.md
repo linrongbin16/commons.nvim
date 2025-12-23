@@ -12,9 +12,8 @@ The common lua utilities library for Neovim plugins.
 
 This lua library includes multiple modules:
 
-- Utilities for lua tables, strings, numbers and other data structures.
+- Utilities for lua tables, strings.
 - File IO & path operations.
-- Spawn child-process & coroutine.
 - Logging for both messages (stdout/stderr) and files.
 
 > [!NOTE]
