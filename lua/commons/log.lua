@@ -24,13 +24,14 @@ local LogHighlights = {
 }
 
 local LogConfigs = {
+  name = nil,
   level = LogLevels.INFO,
   use_console = true,
   use_file = false,
   file_name = nil,
 }
 
---- @param opts {level: integer?, use_console: boolean?, use_file: boolean?, file_name: string?}?
+--- @param opts {name: string, level: integer?, use_console: boolean?, use_file: boolean?, file_name: string?}?
 local function setup(opts)
   opts = opts or {}
   local level = opts.level or LogLevels.INFO
@@ -41,8 +42,10 @@ local function setup(opts)
     use_console = true
   end
   local use_file = type(opts.use_file) == "boolean" and opts.use_file or false
+  local name = opts.name
   local file_name = opts.file_name
 
+  LogConfigs.name = name
   LogConfigs.level = LogLevels[level]
   LogConfigs.use_console = use_console
   LogConfigs.use_file = use_file
@@ -64,7 +67,7 @@ local function log(level, msg)
     local msg_chunks = {}
     for _, line in ipairs(msg_lines) do
       table.insert(msg_chunks, {
-        string.format("[lsp-progress] %s\n", line),
+        string.format("[%s] %s\n", LogConfigs.name, line),
         LogHighlights[level],
       })
     end
