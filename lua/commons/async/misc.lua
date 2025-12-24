@@ -1,3 +1,4 @@
+---@diagnostic disable
 local async = require('commons.async')
 
 -- Examples of functions built on top of async.lua
