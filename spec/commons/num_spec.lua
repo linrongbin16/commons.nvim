@@ -115,5 +115,28 @@ describe("commons.num", function()
       assert_false(ok)
       assert_eq(num.min(string.len, "a"), "a")
     end)
+    it("mod", function()
+      assert_eq(num.mod(2, 7), 2)
+      assert_eq(num.mod(10, 7), 3)
+      assert_eq(num.mod(10, 1), 0)
+      assert_eq(num.mod(7, 6), 1)
+    end)
+    it("random", function()
+      for i = 1, 50 do
+        local actual1 = num.random()
+        print(string.format("random-1(%s):%s\n", vim.inspect(type(actual1)), vim.inspect(actual1)))
+        assert_true(actual1 >= 0 and actual1 < 1)
+      end
+      for i = 1, 50 do
+        local actual2 = num.random(10)
+        print(string.format("random-2(%s):%s\n", vim.inspect(type(actual2)), vim.inspect(actual2)))
+        assert_true(actual2 >= 1 and actual2 <= 10)
+      end
+      for i = 1, 50 do
+        local actual3 = num.random(10, 100)
+        print(string.format("random-3(%s):%s\n", vim.inspect(type(actual3)), vim.inspect(actual3)))
+        assert_true(actual3 >= 10 and actual3 <= 100)
+      end
+    end)
   end)
 end)
