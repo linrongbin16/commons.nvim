@@ -1,0 +1,30 @@
+name: Install async.nvim
+on:
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+jobs:
+  install:
+    name: Install async.nvim
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install async.nvim
+        if: ${{ github.ref != 'refs/heads/master' }}
+        shell: bash
+        run: |
+          echo "pwd"
+          echo $PWD
+          git clone --depth=1 https://github.com/lewis6991/async.nvim ~/.async.nvim
+          rm -rf ./lua/commons/async
+          rm -rf ./lua/commons/async.lua
+          cp -rf ~/.async.nvim/lua/async ./lua/commons
+          cp -rf ~/.async.nvim/lua/async.lua ./lua/commons
+          cd ./lua/commons
+          find . -type f -name '*.lua' -exec sed -i 's/require("async/require("commons.async/g' {} \;
+          find . -type f -name '*.lua' -exec sed -i "s/require('async/require('commons.async/g" {} \;
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        if: ${{ github.ref != 'refs/heads/master' }}
+        with:
+          commit_message: "chore(pr): auto-commit"
