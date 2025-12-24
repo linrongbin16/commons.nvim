@@ -24,6 +24,8 @@ jobs:
           cd ./lua/commons
           find . -type f -name '*.lua' -exec sed -i 's/require("async/require("commons.async/g' {} \;
           find . -type f -name '*.lua' -exec sed -i "s/require('async/require('commons.async/g" {} \;
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/async.lua
+          sed -i '1 i\---@diagnostic disable' ./lua/commons/async/*.lua
       - uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ github.ref != 'refs/heads/master' }}
         with:
