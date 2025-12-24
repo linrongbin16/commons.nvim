@@ -1,5 +1,7 @@
 std = "vim"
 
+exclude = ["lua/commons/async.lua", "lua/commons/async/*.lua"]
+
 [lints]
 mixed_table = "allow"
 unused_variable = "allow"
