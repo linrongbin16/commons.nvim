@@ -17,11 +17,6 @@ function M.unpack_len(t, first)
   end
 end
 
---- @return_cast obj function
-function M.is_callable(obj)
-  return vim.is_callable(obj)
-end
-
 --- Create a function that runs a function when it is garbage collected.
 --- @generic F : function
 --- @param f F
