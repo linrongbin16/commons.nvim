@@ -72,7 +72,7 @@ local function log(level, msg)
           LogHighlights[level],
         })
         vim.schedule(function()
-          vim.api.nvim_echo(msg_chunks, false, {})
+          vim.api.nvim_echo(msg_chunks, true, {})
         end)
       end
     end
